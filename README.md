@@ -1,4 +1,4 @@
-# tickets-user
+# Tickets Admin
 Tickets Admin React App
 # Getting Started with Create React App
 
