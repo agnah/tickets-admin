@@ -1,0 +1,41 @@
+.btn-open,
+.btn-progress,
+.btn-pending,
+.btn-asigned {
+    color: white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #444;
+    margin: 0 1rem 0 0;
+    vertical-align: middle;
+}
+
+.btn-badge:focus {
+    border: 3px solid transparent !important;
+    outline: none;
+    border-radius: 10px !important;
+}
+
+.btn-open {
+    background-color: #50B8B1;
+}
+
+.btn-progress {
+    background-color: #F7941E;
+}
+
+.btn-pending {
+    background-color: #EF5350;
+}
+
+.btn-asigned {
+    background-color: #EE3D8F;
+}
+
+.badge {
+    border-radius: 50%;
+    color: #333;
+    background-color: #fff;
+    margin: 0 .5rem;
+    padding: 10px 12px ;
+    font-size: 14px;
+}

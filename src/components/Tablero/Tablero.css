@@ -1,0 +1,15 @@
+.tablero {
+    border-radius: 10px;
+    background: #fff;
+    padding: 20px 30px;
+    margin: 0 1rem 1rem;
+    box-shadow: 1px 1px 3px #999;
+}
+
+.tablero h3 {
+    margin: 0;
+}
+
+.tablero hr {
+    margin: 1rem 0;
+}
