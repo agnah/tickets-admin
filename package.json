@@ -15,9 +15,13 @@
     "eslint-config-standard": "^17.0.0",
     "jquery": "3.5.1",
     "react": "^18.2.0",
+    "react-content-loader": "^6.2.1",
+    "react-data-table-component": "^7.5.3",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
-    "react-router-dom": "^6.11.2"
+    "react-router-dom": "^6.11.2",
+    "styled-components": "^5.3.11",
+    "swr": "^2.1.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

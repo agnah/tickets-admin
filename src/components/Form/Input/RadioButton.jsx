@@ -11,7 +11,7 @@ const RadioButton = (props) => {
       <label htmlFor="">{label}</label>
       <div className={classes}>
         {optionList.map((option) => (
-          <label key={option.value} htmlFor={name} className="radio-inline">
+          <label htmlFor={name} className="radio-inline" key={option.value}>
             <input
               type="radio"
               name={name}
