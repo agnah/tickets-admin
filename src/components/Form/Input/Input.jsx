@@ -1,9 +1,9 @@
 const Input = (props) => {
-  const { label, name, register, options, errors, ...attributes } = props
+  const { label, name, register, options, errors, value, ...attributes } = props
 
   const classes = errors[name]?.message
-    ? 'col-md-10 form-group item-form has-error'
-    : 'col-md-10 form-group item-form'
+    ? 'col-md-10 w-100 form-group item-form has-error'
+    : 'col-md-10 w-100 form-group item-form'
 
   return (
     <div className={classes}>
@@ -13,6 +13,7 @@ const Input = (props) => {
         {...attributes}
         {...register(name, options)}
         className="form-control"
+        value={value}
         formNoValidate
       />
       {errors[name]?.message && (

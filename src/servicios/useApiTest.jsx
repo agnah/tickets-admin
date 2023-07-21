@@ -1,8 +1,9 @@
-import useSWR from "swr";
+import useSWR from 'swr'
+import useSWRMutation from 'swr/mutation'
 
-function fetcher(path) {
-  const url = `https://dummyjson.com/${path}`;
-  return fetch(url).then((res) => res.json());
+function fetcher (path) {
+  const url = `https://dummyjson.com/${path}?limit=100`
+  return fetch(url).then((res) => res.json())
 }
 
 // const fetcher = (path, param = "") => {
@@ -11,21 +12,21 @@ function fetcher(path) {
 //   return fetch(url).then((res) => res.json());
 // }
 
-
-function getStatus({ data, error }) {
-  if (error && !data) return "error";
-  if (!data) return "loading";
-  return "success";
+function getStatus ({ data, error }) {
+  if (error && !data) return 'error'
+  if (!data) return 'loading'
+  return 'success'
 }
 
-function useApiTest(path) {
-  const { data, error, isValidating } = useSWR(path, fetcher, { refreshInterval: 300000 });
+function useApiTest (path) {
+  const { data, error, isValidating, mutate } = useSWR(path, fetcher, { refreshInterval: 300000 })
   // useSWR([path, qParam], ([url, param]) => fetch(url, param))
-  const status = getStatus({ data, error });
-  const isLoading = status === "loading";
-  const isError = status === "error";
-  const isSuccess = status === "success";
-  return { isLoading, isValidating, isError, isSuccess, data, error };
+  const { trigger } = useSWRMutation(path, fetcher)
+  const status = getStatus({ data, error })
+  const isLoading = status === 'loading'
+  const isError = status === 'error'
+  const isSuccess = status === 'success'
+  return { isLoading, isValidating, isError, isSuccess, data, error, mutate, trigger }
 }
 
-export default useApiTest;
+export default useApiTest

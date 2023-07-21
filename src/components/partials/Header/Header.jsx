@@ -1,11 +1,6 @@
-import React from 'react'
-import NavDashboard from '../Nav/NavDashboard'
-import { AuthProvider } from '../Nav/useAuth'
-
 const Header = () => {
   return (
-    <header>
-
+    <header className="header">
       <nav
         className="navbar navbar-top navbar-default bg-celeste-argentina"
         role="navigation"
@@ -20,7 +15,7 @@ const Header = () => {
               >
                 <img
                   alt="Argentina.gob.ar"
-                  src="/public/img/argentinagob-2.svg"
+                  src="/img/argentinagob-2.svg"
                   width={236}
                   height={50}
                 />
@@ -29,9 +24,6 @@ const Header = () => {
           </div>
         </div>
       </nav>
-      <AuthProvider>
-        <NavDashboard />
-      </AuthProvider>
     </header>
   )
 }

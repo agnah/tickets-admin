@@ -1,84 +1,142 @@
-import DataTable from 'react-data-table-component';
-import useApiTest from '../../servicios/useApiTest';
+import DataTable from 'react-data-table-component'
+import useApiTest from '../../servicios/useApiTest'
 import SkeletonTabla from './skeletonTabla'
+import { useCallback, useMemo, useContext } from 'react'
+import Button from '../partials/Button/Button'
+import filtroTabla from './filtroTabla'
+import CheckPrioridad from './checkPrioridad'
+import CheckEstado from './checkEstado'
+import { FiltrosContext } from './contextTabla'
 
-const columns = [
-    {
-        name: 'Nro.',
-        selector: row => row.firstName,
-        sortable: true,
-    },
-    {
-        name: 'Fecha',
-        selector: row => row.lastName,
-        sortable: true,
-    },
-    {
-        name: 'Area',
-        selector: row => row.email,
-        sortable: true,
-    },
-    {
-        name: 'Solicitante',
-        selector: row => row.company.department,
-        sortable: true,
-    },
-    {
-        name: 'Departamento Asignado',
-        selector: row => row.company.department,
-        sortable: true,
-    },
-    {
-        name: 'Tecnico',
-        cell: () => (<>
-            ver
-        </>),
-    },
-    {
-        name: 'Acciones',
-        // selector: row => row.id,
-        cell: row => (<>
-            <button>A</button>
-            <button>{row.id}</button>
-        </>),
-    },
-];
+// const InfoExtra = (data) => {
+//   const info = data.data
+//   return (
+//     <small>
+//       id: {info.id} - compania: {info.company.name} - direccion:{' '}
+//       {info.address.address} - ciudad: {info.address.city}
+//     </small>
+//   )
+// }
 
-const InfoExtra = (data) => {
-    const info = data.data
+// const ExpandedComponent = ({ data }) => <InfoExtra data={data} />
+
+function Tabla () {
+  const path = 'users'
+  const {
+    isLoading,
+    isValidating,
+    isError,
+    isSuccess,
+    data: datos,
+    error,
+    // mutate,
+    trigger
+  } = useApiTest(path)
+  //   console.log('render tabla')
+  const {
+    prioridad,
+    handlePrioridadChange,
+    seleccionados,
+    handleSeleccionadosChange
+  } = useContext(FiltrosContext)
+
+  // Botones tabla
+  const handleEdit = useCallback((id) => {
+    alert(`Editar ${id}`)
+  }, [])
+  const handlePrint = useCallback((id) => {
+    alert(`Imprimir ${id}`)
+  }, [])
+  const handleCancel = useCallback((id) => {
+    alert(`Cancelar ${id}`)
+  }, [])
+
+  // columnas tabla
+  const columns = useMemo(() => [
+    {
+      name: 'Nro.',
+      selector: (row) => row.firstName,
+      sortable: true
+    },
+    {
+      name: 'Fecha',
+      selector: (row) => row.lastName,
+      sortable: true
+    },
+    {
+      name: 'Area',
+      selector: (row) => row.email,
+      sortable: true
+    },
+    {
+      name: 'Solicitante',
+      selector: (row) => row.eyeColor,
+      sortable: true
+    },
+    {
+      name: 'Departamento Asignado',
+      selector: (row) => row.company.department,
+      sortable: true
+    },
+    {
+      name: 'Tecnico',
+      cell: () => <>ver</>
+    },
+    {
+      name: 'Acciones',
+      // selector: row => row.id,
+      cell: (row) => (
+        <>
+          <i className="fa fa-edit" onClick={() => handleEdit(row.id)}></i>
+          <i className="fa fa-print" onClick={() => handlePrint(row.id)}></i>
+          <i className="fa fa-trash" onClick={() => handleCancel(row.id)}></i>
+        </>
+      )
+    }
+  ])
+
+  // filtros
+  const data = filtroTabla(datos, seleccionados, prioridad)
+  console.log(`selecionados: ${seleccionados} prioridad: ${prioridad}`)
+
+  if (isError) {
+    return <p>Algo fallo: {error.message}</p>
+  }
+  if (isLoading) {
+    return <SkeletonTabla />
+  }
+  if (isSuccess) {
     return (
-        <small>id: {info.id} - compania: {info.company.name} - direccion: {info.address.address} - ciudad: {info.address.city}</small>
+      <>
+        <Button
+          classIcon="fa fa-refresh"
+          texto={isValidating ? 'Validando' : ''}
+          type="button"
+          onClick={() => trigger()}
+        />
+        <CheckPrioridad
+          prioridad={prioridad}
+          onChange={handlePrioridadChange}
+        />
+        <CheckEstado
+          seleccionados={seleccionados}
+          onChange={handleSeleccionadosChange}
+        />
+        <DataTable
+          columns={columns}
+          data={data}
+          highlightOnHover
+          pagination
+          responsive
+          striped
+        //   ! Variables para expandir.
+        //   expandableRows
+        //   expandableRowsComponent={ExpandedComponent}
+          noDataComponent="No exiten registros para esos parametros"
+        />
+      </>
     )
+  }
 }
 
-const ExpandedComponent = ({ data }) => (<InfoExtra data={data} />)
-
-function Tabla() {
-    const path = "users"
-    const { isLoading, isValidating, isError, isSuccess, data, error } = useApiTest(path);
-    console.log(isValidating)
-    if (isError) {
-        return <p>Algo falló: {error.message}</p>;
-    }
-    if (isLoading) {
-        return <SkeletonTabla />
-    }
-    if (isSuccess)
-        return (
-            <>
-            {isValidating ? <p>Tabla test - Re-cargando</p>:<p>Tabla test </p>}
-                <DataTable
-                    columns={columns}
-                    data={data?.users}
-                    highlightOnHover
-                    pagination
-                    responsive
-                    striped
-                    expandableRows
-                    expandableRowsComponent={ExpandedComponent}
-
-                />
-            </>)
-}
-
-export default Tabla;
+export default Tabla
