@@ -36,7 +36,7 @@ const LoginForm = () => {
           placeholder="Ingrese su correo..."
           register={register}
           errors={errors}
-          value="pp@mindes.com"
+          // value="pp@mindes.com"
           options={{
             required: 'Campo obligatorio',
             pattern: {

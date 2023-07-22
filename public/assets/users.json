@@ -23,4 +23,10 @@
     "email": "rgo@mindes.com",
     "password": "Prueba@123",
     "perfil": ["cid"]
+},
+{
+    "username": "Roberto Admin",
+    "email": "admin@mindes.com",
+    "password": "Prueba@123",
+    "perfil": ["admin"]
 }]

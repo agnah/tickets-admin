@@ -6,7 +6,7 @@ import { lazy, Suspense } from 'react'
 import SideBar from '../SideBar/SideBar'
 import Tickets from '../../../pages/Tickets/Tickets'
 
-function NavDashboard () {
+function NavDashboard() {
   // const { user, logout } = useAuth()
   const { user } = useAuth()
   console.log(user)
@@ -28,18 +28,15 @@ function NavDashboard () {
       <SideBar>
         <Suspense fallback={<div>Cargando...</div>}>
           <Routes>
-            <Route index element={<h1>carga de requerimiento + lista</h1>} />
+            <Route index element={<Home />} />
             <Route path="/404" element={<div>404</div>} />
             <Route path="*" element={<h1>carga de requerimiento + lista</h1>} />
-            <Route
-              path="/requerimientos"
-              element={<h1>carga de requerimiento + lista</h1>}
-            />
-            '
-            <Route element={<ProtectedRoutes isAllowed={user.isLogged} />}>
+            <Route path="/tickets" element={<Tickets />}/>
+            <Route path="/dashboard" element={<Home />} />
+            {/* <Route element={<ProtectedRoutes isAllowed={user.isLogged} />}>
               <Route path="/dashboard" element={<Home />} />
               <Route path="/tickets" element={<Tickets />} />
-            </Route>
+            </Route> */}
             <Route
               element={
                 <ProtectedRoutes

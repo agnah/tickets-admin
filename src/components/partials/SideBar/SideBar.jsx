@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import Header from '../Header/Header'
 import './SideBar.css'
+import { useAuth } from '../../../components/partials/Nav/useAuth'
 
 const SideBar = ({ children }) => {
+  const { user } = useAuth()
   // ! TRAER LOGICA DE NAVEGACION
   return (
     <div className="sidebar">
@@ -135,27 +137,29 @@ const SideBar = ({ children }) => {
             <span style={{ color: '#eee', fontSize: '12px' }}>
               Areas y Sectores
             </span>
-          </li>
-          <li className="item mb-4">
-            <div className="item-nav mb-2">
-              <a
-                href="#"
-                className="circle-item "
-                aria-current="page"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                data-bs-original-title="Home"
-              >
-                <i
-                  className="fa-solid fa-chart-column fa-lg"
-                  style={{ color: '#ffffff' }}
-                ></i>
-              </a>
-            </div>
-            <span style={{ color: '#eee', fontSize: '12px' }}>
-              Estadisticas
-            </span>
-          </li> */}
+          </li>*/}
+          {user.role.includes('admin') && (
+            <li className="item mb-4">
+              <div className="item-nav mb-2">
+                <Link
+                  to="/estadisticas"
+                  className="circle-item "
+                  aria-current="page"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  data-bs-original-title="Home"
+                >
+                  <i
+                    className="fa-solid fa-chart-column fa-lg"
+                    style={{ color: '#ffffff' }}
+                  ></i>
+                </Link>
+              </div>
+              <span style={{ color: '#eee', fontSize: '12px' }}>
+                Estadisticas
+              </span>
+            </li>
+          )}
         </ul>
       </div>
       <main className="main">
