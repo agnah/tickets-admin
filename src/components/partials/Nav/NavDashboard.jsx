@@ -5,6 +5,7 @@ import { useAuth } from './useAuth'
 import { lazy, Suspense } from 'react'
 import SideBar from '../SideBar/SideBar'
 import Tickets from '../../../pages/Tickets/Tickets'
+import TicketCreate from '../../../pages/Tickets/TicketCreate'
 
 function NavDashboard () {
   // const { user, logout } = useAuth()
@@ -28,18 +29,16 @@ function NavDashboard () {
       <SideBar>
         <Suspense fallback={<div>Cargando...</div>}>
           <Routes>
-            <Route index element={<h1>carga de requerimiento + lista</h1>} />
-            <Route path="/404" element={<div>404</div>} />
-            <Route path="*" element={<h1>carga de requerimiento + lista</h1>} />
-            <Route
-              path="/requerimientos"
-              element={<h1>carga de requerimiento + lista</h1>}
-            />
-            '
             <Route element={<ProtectedRoutes isAllowed={user.isLogged} />}>
               <Route path="/dashboard" element={<Home />} />
               <Route path="/tickets" element={<Tickets />} />
             </Route>
+            <Route path="/404" element={<div>404</div>} />
+            {/* <Route path="/" element={<h1>carga de requerimiento + lista</h1>} /> */}
+            {/* <Route
+              path="/requerimientos"
+              element={<h1>carga de requerimiento + lista</h1>}
+            /> */}
             <Route
               element={
                 <ProtectedRoutes
@@ -49,7 +48,7 @@ function NavDashboard () {
                 />
               }
             >
-              <Route path="/tickets/create" element={<h1>Create Item</h1>} />
+              <Route path="/tickets/create" element={<TicketCreate />} />
             </Route>
             <Route
               element={

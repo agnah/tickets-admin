@@ -9,7 +9,7 @@ const REGEX_PASSWORD =
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
 const LoginForm = () => {
-  const { login } = useAuth()
+  const { user, login } = useAuth()
   const {
     register,
     handleSubmit,
@@ -18,11 +18,12 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     const result = await login(data)
-    console.log(result)
+
     if (result?.error) {
       alert(result.error)
-    } else if (result?.user) {
-      return <Navigate to="/dashboard"/>
+    } else {
+      console.log(user)
+      return <Navigate to="/tickets"/>
     }
   }
 

@@ -5,13 +5,13 @@ import { FiltrosProvider } from '../components/tabla/contextTabla'
 
 const Router = () => {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <FiltrosProvider>
           <NavDashboard />
         </FiltrosProvider>
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
 
