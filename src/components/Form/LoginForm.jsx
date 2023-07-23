@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import Input from './Input/Input'
+import InputForm from './Input/InputForm'
 import Button from './Button/Button'
 import { useAuth } from '../partials/Nav/useAuth'
 import { Navigate } from 'react-router-dom'
@@ -9,7 +9,7 @@ const REGEX_PASSWORD =
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
 const LoginForm = () => {
-  const { login } = useAuth()
+  const { user, login } = useAuth()
   const {
     register,
     handleSubmit,
@@ -18,25 +18,27 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     const result = await login(data)
-    console.log(result)
+
     if (result?.error) {
       alert(result.error)
-    } else if (result?.user) {
-      return <Navigate to="/dashboard"/>
+    } else {
+      console.log(user)
+      return <Navigate to="/tickets"/>
     }
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
       <div className="row">
-        <Input
+        <InputForm
           label="Email"
           type="email"
           name="email"
           placeholder="Ingrese su correo..."
           register={register}
           errors={errors}
-          // value="pp@mindes.com"
+          value="pp@mindes.com"
+          classCol="col-md-10 w-100 form-group item-form"
           options={{
             required: 'Campo obligatorio',
             pattern: {
@@ -44,16 +46,18 @@ const LoginForm = () => {
               message: 'El e-mail tiene que ser valido'
             }
           }}
+          display={false}
         />
       </div>
       <div className="row">
-        <Input
+        <InputForm
           label="Password"
           type="password"
           name="password"
           placeholder="Ingrese su contraseña..."
           register={register}
           errors={errors}
+          classCol="col-md-10 w-100 form-group item-form"
           value="Prueba@123"
           options={{
             required: 'Campo obligatorio',
@@ -62,6 +66,7 @@ const LoginForm = () => {
               message: 'La contraseña no cumple con el formato requerido'
             }
           }}
+          display={false}
         />
       </div>
       <div className="row">

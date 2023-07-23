@@ -5,8 +5,9 @@ import { useAuth } from './useAuth'
 import { lazy, Suspense } from 'react'
 import SideBar from '../SideBar/SideBar'
 import Tickets from '../../../pages/Tickets/Tickets'
+import TicketCreate from '../../../pages/Tickets/TicketCreate'
 
-function NavDashboard() {
+function NavDashboard () {
   // const { user, logout } = useAuth()
   const { user } = useAuth()
   console.log(user)
@@ -46,7 +47,7 @@ function NavDashboard() {
                 />
               }
             >
-              <Route path="/tickets/create" element={<h1>Create Item</h1>} />
+              <Route path="/tickets/create" element={<TicketCreate />} />
             </Route>
             <Route
               element={

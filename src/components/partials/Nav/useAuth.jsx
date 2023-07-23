@@ -10,8 +10,6 @@ export function useAuth () {
 
 export function AuthProvider ({ children }) {
   const [user, setUser] = useState({})
-  // const [users, setusers] = useState(usuarios)
-  // console.log(users)
 
   const login = async ({ email, password }) => {
     const response = await fetch('./assets/users.json')

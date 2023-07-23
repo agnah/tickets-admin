@@ -4,7 +4,7 @@ import Tabla from '../../components/tabla/tabla'
 
 const Tickets = () => {
   return (
-    <Tablero title="TICKETS">
+    <Tablero title="Lista de Tickets" page="Inicio / Tickets">
         <Tabla />
     </Tablero>
   )
