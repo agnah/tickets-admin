@@ -7,7 +7,9 @@ function CheckEstado ({ onChange, seleccionados }) {
       if (value === '') {
         onChange([])
       } else {
-        onChange([...seleccionados, value])
+        // onChange([...seleccionados, value])
+        onChange(seleccionados.concat(value))
+        
       }
     } else {
       onChange(seleccionados.filter((filtro) => filtro !== value))

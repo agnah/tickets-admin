@@ -62,26 +62,28 @@ const SideBar = ({ children }) => {
             </div>
             <span style={{ color: '#eee', fontSize: '12px' }}>Tickets</span>
           </li>
-          <li className="item mb-4">
-            <div className="item-nav mb-2">
-              <Link
-                to="/tickets/create"
-                className="circle-item "
-                aria-current="page"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                data-bs-original-title="Home"
-              >
-                <i
-                  className="fa-solid fa-plus fa-lg"
-                  style={{ color: '#ffffff' }}
-                ></i>
-              </Link>
-            </div>
-            <span style={{ color: '#eee', fontSize: '12px' }}>
-              Crear Ticket
-            </span>
-          </li>
+          {(user.role.includes('mesa_entrada') || user.role.includes('sadmin')) && (
+            <li className="item mb-4">
+              <div className="item-nav mb-2">
+                <Link
+                  to="/tickets/create"
+                  className="circle-item "
+                  aria-current="page"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  data-bs-original-title="Home"
+                >
+                  <i
+                    className="fa-solid fa-plus fa-lg"
+                    style={{ color: '#ffffff' }}
+                  ></i>
+                </Link>
+              </div>
+              <span style={{ color: '#eee', fontSize: '12px' }}>
+                Crear Ticket
+              </span>
+            </li>
+          )}
           {/* <li className="item mb-4">
             <div className="item-nav mb-2">
               <a
@@ -117,28 +119,30 @@ const SideBar = ({ children }) => {
               </a>
             </div>
             <span style={{ color: '#eee', fontSize: '12px' }}>Equipos</span>
-          </li>
-          <li className="item mb-4">
-            <div className="item-nav mb-2">
-              <a
-                href="#"
-                className="circle-item "
-                aria-current="page"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                data-bs-original-title="Home"
-              >
-                <i
-                  className="fa-solid fa-network-wired fa-lg"
-                  style={{ color: '#ffffff' }}
-                ></i>
-              </a>
-            </div>
-            <span style={{ color: '#eee', fontSize: '12px' }}>
-              Areas y Sectores
-            </span>
-          </li>*/}
+          </li> */}
           {user.role.includes('admin') && (
+            <li className="item mb-4">
+              <div className="item-nav mb-2">
+                <Link
+                  to="/usuarios"
+                  className="circle-item "
+                  aria-current="page"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  data-bs-original-title="Home"
+                >
+                  <i
+                    className="fa-solid fa-network-wired fa-lg"
+                    style={{ color: '#ffffff' }}
+                  ></i>
+                </Link>
+              </div>
+              <span style={{ color: '#eee', fontSize: '12px' }}>
+                Usuarios
+              </span>
+            </li>
+          )}
+          {user.role.includes('sadmin') && (
             <li className="item mb-4">
               <div className="item-nav mb-2">
                 <Link

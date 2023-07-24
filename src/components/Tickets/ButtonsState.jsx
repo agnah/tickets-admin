@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom'
 import { FiltrosContext } from '../tabla/contextTabla'
 
 const ButtonsState = () => {
-  const { handleSeleccionadosChange } = useContext(FiltrosContext);
-  const cambiarSeleccionado = (e) => handleSeleccionadosChange(e.target.value)
+  const { handleSeleccionadosChange, handlePrioridadChange } = useContext(FiltrosContext);
+  const cambiarSeleccionado = (e) => {
+    handleSeleccionadosChange(e.target.value)
+    handlePrioridadChange("")
+  }
   return (
     <div>
       <Link
@@ -14,7 +17,7 @@ const ButtonsState = () => {
           type=""
           classBoton="btn btn-badge btn-open"
           classIcon=""
-          texto="Tickets Abiertos"
+          texto="Tickets Nuevos"
           classBadge="badge"
           cantidad="15"
           value="marketing"
@@ -27,10 +30,10 @@ const ButtonsState = () => {
           type=""
           classBoton="btn btn-badge btn-progress"
           classIcon=""
-          texto="Tickets en Progreso"
+          texto="Tickets Asignados"
           classBadge="badge"
           cantidad="6"
-          value="support"
+          value="services"
           onClick={cambiarSeleccionado}
         />
       </Link>
@@ -40,10 +43,10 @@ const ButtonsState = () => {
           type=""
           classBoton="btn btn-badge btn-pending"
           classIcon=""
-          texto="Tickets Pendientes"
+          texto="Tickets en Curso"
           classBadge="badge"
           cantidad="4"
-          value="services"
+          value="support"
           onClick={cambiarSeleccionado}
         />
       </Link>
@@ -53,10 +56,10 @@ const ButtonsState = () => {
           type=""
           classBoton="btn btn-badge btn-asigned"
           classIcon=""
-          texto="Tickets Asignados"
+          texto="Tickets Totales"
           classBadge="badge"
           cantidad="11"
-          value="accounting"
+          value=""
           onClick={cambiarSeleccionado}
         />
       </Link>
