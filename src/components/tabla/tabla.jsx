@@ -7,6 +7,8 @@ import filtroTabla from './filtroTabla'
 import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
+import { useAuth } from '../partials/Nav/useAuth'
+
 
 // const InfoExtra = (data) => {
 //   const info = data.data
@@ -21,6 +23,7 @@ import { FiltrosContext } from './contextTabla'
 // const ExpandedComponent = ({ data }) => <InfoExtra data={data} />
 
 function Tabla () {
+  const { user } = useAuth()
   const path = 'users'
   const {
     isLoading,
@@ -49,6 +52,9 @@ function Tabla () {
   }, [])
   const handleCancel = useCallback((id) => {
     alert(`Cancelar ${id}`)
+  }, [])
+  const handleRechazo = useCallback((id) => {
+    alert(`Rechazar  ${id}`)
   }, [])
 
   // columnas tabla
@@ -90,6 +96,9 @@ function Tabla () {
           <i className="fa fa-edit" onClick={() => handleEdit(row.id)}></i>
           <i className="fa fa-print" onClick={() => handlePrint(row.id)}></i>
           <i className="fa fa-trash" onClick={() => handleCancel(row.id)}></i>
+          {user.role.includes('admin') && (
+          <i className="fa-solid fa-rectangle-xmark" onClick={() => handleRechazo(row.id)}></i>
+          )}
         </>
       )
     }

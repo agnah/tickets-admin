@@ -4,14 +4,15 @@ import ProtectedRoutes from '../../../router/ProtectedRoutes'
 import { useAuth } from './useAuth'
 import { lazy, Suspense } from 'react'
 import SideBar from '../SideBar/SideBar'
-import Tickets from '../../../pages/Tickets/Tickets'
-import TicketCreate from '../../../pages/Tickets/TicketCreate'
 
-function NavDashboard () {
+
+function NavDashboard() {
   // const { user, logout } = useAuth()
   const { user } = useAuth()
   console.log(user)
   const Home = lazy(() => import('../../../pages/Home/Home'))
+  const Tickets = lazy(() => import('../../../pages/Tickets/Tickets'))
+  const TicketCreate = lazy(() => import('../../../pages/Tickets/TicketCreate')) 
 
   if (!user.isLogged) {
     return (
@@ -32,7 +33,7 @@ function NavDashboard () {
             <Route index element={<Home />} />
             <Route path="/404" element={<div>404</div>} />
             <Route path="*" element={<h1>carga de requerimiento + lista</h1>} />
-            <Route path="/tickets" element={<Tickets />}/>
+            <Route path="/tickets" element={<Tickets />} />
             <Route path="/dashboard" element={<Home />} />
             {/* <Route element={<ProtectedRoutes isAllowed={user.isLogged} />}>
               <Route path="/dashboard" element={<Home />} />
@@ -42,7 +43,8 @@ function NavDashboard () {
               element={
                 <ProtectedRoutes
                   isAllowed={
-                    user.isLogged && user.role.includes('mesa_entrada')
+                    user.isLogged && (user.role.includes('mesa_entrada') ||
+                      user.role.includes('sadmin'))
                   }
                 />
               }
@@ -52,7 +54,18 @@ function NavDashboard () {
             <Route
               element={
                 <ProtectedRoutes
-                  isAllowed={user.isLogged && user.role.includes('admin')}
+                  isAllowed={
+                    user.isLogged && user.role.includes('admin')
+                  }
+                />
+              }
+            >
+              <Route path="/usuarios" element={<h1>Usuarios</h1>} />
+            </Route>
+            <Route
+              element={
+                <ProtectedRoutes
+                  isAllowed={user.isLogged && user.role.includes('sadmin')}
                 />
               }
             >
