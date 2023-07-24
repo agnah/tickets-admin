@@ -1,0 +1,87 @@
+[
+    {
+        "username": "Pedro Picapiedra",
+        "email": "pp@mindes.com",
+        "password": "Prueba@123",
+        "perfil": [
+            "mesa_entrada"
+        ]
+    },
+    {
+        "username": "Carlos Alberto Solari",
+        "email": "cas@mindes.com",
+        "password": "Prueba@123",
+        "perfil": [
+            "telefonia"
+        ]
+    },
+    {
+        "username": "Enrique Ortiz de Landázuri Izarduy",
+        "email": "eoli@mindes.com",
+        "password": "Prueba@123",
+        "perfil": [
+            "area_tecnica"
+        ]
+    },
+    {
+        "username": "Roberto Gañán Ojea",
+        "email": "rgo@mindes.com",
+        "password": "Prueba@123",
+        "perfil": [
+            "cid"
+        ]
+    },
+    {
+        "username": "Roberto Super Admin",
+        "email": "sadmin@mindes.com",
+        "password": "Prueba@123",
+        "perfil": [
+            "sadmin",
+            "admin"
+        ]
+    },
+    {
+        "username": "Roberto data center",
+        "email": "datacenter@mindes.com",
+        "password": "Prueba@123",
+        "perfil": [
+            "data_center"
+        ]
+    },
+    {
+        "username": "Pep Admin Data Center",
+        "email": "adatacenter@mindes.com",
+        "password": "Prueba@123",
+        "perfil": [
+            "data_center",
+            "admin"
+        ]
+    },
+    {
+        "username": "juan telefonia Admin",
+        "email": "atelefonia@mindes.com",
+        "password": "Prueba@123",
+        "perfil": [
+            "telefonia",
+            "admin"
+        ]
+    },
+    {
+        "username": "tito area tecnica Admin",
+        "email": "aareatecnica@mindes.com",
+        "password": "Prueba@123",
+        "perfil": [
+            "area_tecnica",
+            "admin"
+        ]
+    },
+    {
+        "username": "juan Cid Admin",
+        "email": "acid@mindes.com",
+        "password": "Prueba@123",
+        "perfil": [
+            "cid",
+            "admin"
+        ]
+    }
+]

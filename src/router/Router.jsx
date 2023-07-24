@@ -1,13 +1,16 @@
 import { BrowserRouter } from 'react-router-dom'
-import Header from '../components/partials/Header/Header'
-import Footer from '../components/partials/Footer/Footer'
+import NavDashboard from '../components/partials/Nav/NavDashboard'
+import { AuthProvider } from '../components/partials/Nav/useAuth'
+import { FiltrosProvider } from '../components/tabla/contextTabla'
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Header />
-
-      <Footer />
+      <AuthProvider>
+        <FiltrosProvider>
+          <NavDashboard />
+        </FiltrosProvider>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

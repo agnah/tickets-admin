@@ -4,14 +4,23 @@ import TicketsTable from '../../components/Tickets/TicketsTable'
 
 const Home = () => {
   return (
-    <section className="main-container">
-      <Tablero title="Tablero de Tickets">
+    <>
+      <Tablero title="Tablero de Tickets" page="Inicio">
         <ButtonsState />
       </Tablero>
-      <Tablero title="Lista de Tickets">
-        <TicketsTable />
-      </Tablero>
-    </section>
+      <div className="row">
+        <div className="col-sm-12 col-md-6">
+          <Tablero title="Lista de Tickets">
+            <TicketsTable />
+          </Tablero>
+        </div>
+        <div className="col-sm-12 col-md-6">
+          <Tablero title="Lista de Tickets">
+            <TicketsTable />
+          </Tablero>
+        </div>
+      </div>
+    </>
   )
 }
 

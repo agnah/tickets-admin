@@ -1,9 +1,13 @@
 import './Tablero.css'
 
-const Tablero = ({ children, title }) => {
+const Tablero = ({ children, title, classTitle = '', page = '' }) => {
+  classTitle += ' m-0'
   return (
-    <article className="tablero">
-      <h3 className="m-0">{title}</h3>
+    <article className="tablero mx-0">
+      <div className='d-flex justify-content-between'>
+        <h3 className={classTitle}>{title}</h3>
+        {page && <span>Estás aquí: {page}</span>}
+      </div>
       <hr />
       {children}
     </article>

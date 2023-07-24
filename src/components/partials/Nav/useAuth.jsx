@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react'
-
+// ! Usuarios hardcodeados
+// import usuarios from '../../../assets/users.json'
 const authContext = createContext()
 
 export function useAuth () {
@@ -10,28 +11,23 @@ export function useAuth () {
 export function AuthProvider ({ children }) {
   const [user, setUser] = useState({})
 
-  const login = () => {
-    setUser({
-      user: 'tito - usuario',
-      role: ['usuario'],
-      isLogged: true
+  const login = async ({ email, password }) => {
+    const response = await fetch('./assets/users.json')
+    const users = await response.json()
+    await users.forEach(user => {
+      if (user.email === email) {
+        if (user.password === password) {
+          setUser({
+            user: user.username,
+            role: user.perfil,
+            email: user.email,
+            isLogged: true
+          })
+        }
+      }
     })
-  }
-
-  const loginOperador = () => {
-    setUser({
-      user: 'cacho - operador',
-      role: ['operador'],
-      isLogged: true
-    })
-  }
-
-  const loginAdmin = () => {
-    setUser({
-      user: 'pepe - Admin',
-      role: ['admin', 'usuario', 'operador'],
-      isLogged: true
-    })
+    // if (!user?.email) return { error: 'El email o password proporcionados son incorrectos.' }
+    return { success: 'Login correcto', user }
   }
 
   const logout = () => {
@@ -39,7 +35,7 @@ export function AuthProvider ({ children }) {
   }
 
   return (
-        <authContext.Provider value={{ user, login, loginAdmin, loginOperador, logout }}>
+        <authContext.Provider value={{ user, login, logout }}>
             {children}
         </authContext.Provider>
   )

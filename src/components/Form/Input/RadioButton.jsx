@@ -1,5 +1,5 @@
 const RadioButton = (props) => {
-  const { label, name, register, options, errors, optionList, ...attributes } =
+  const { label, name, classCol, register, options, errors, optionList, ...attributes } =
     props
 
   const classes = errors[name]?.message
@@ -7,11 +7,11 @@ const RadioButton = (props) => {
     : 'form-group item-form'
 
   return (
-    <div className='col-md-10 form-group item-form'>
+    <div className={classCol}>
       <label htmlFor="">{label}</label>
       <div className={classes}>
         {optionList.map((option) => (
-          <label key={option.value} htmlFor={name} className="radio-inline">
+          <label htmlFor={name} className="radio-inline" key={option.value}>
             <input
               type="radio"
               name={name}

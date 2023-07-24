@@ -1,0 +1,32 @@
+.sidebar{
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.item {
+    align-self: center;
+}
+
+.circle-item{
+    border-radius: 50%;
+    background-color: #37BBED;
+    padding: 13px !important;
+}
+
+.circle-item:hover {
+    box-shadow: 0px 0px 10px white;
+    background-color: #37BBED !important;
+}
+
+.circle-item_active {
+    box-shadow: 0px 0px 10px white;
+    background-color: #37BBED !important;
+}
+

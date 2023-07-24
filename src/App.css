@@ -1,10 +1,12 @@
 #root {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     min-height: 100vh;
     background: #F5F5F5;
+    box-sizing: border-box;
 }
 
 .main-container {
     flex: 1;
+    padding: 1.5rem 2rem; 
 }
