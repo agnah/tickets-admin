@@ -1,19 +1,22 @@
-import './dragAndDropFiles.css'
-import { useState, useRef } from 'react'
+import './dragAndDropFiles.css';
+import { useState, useRef } from 'react';
 
 function DragAndDrop() {
-  const [imagenes, setImagenes] = useState([])
+  const [imagenes, setImagenes] = useState([]);
   const [dragActive, setDragActive] = useState(false);
+
   const inputRef = useRef(null);
 
   const handleDrag = function (e) {
     e.preventDefault();
     e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
-    }
+    setDragActive(e.type === "dragenter" || e.type === "dragover");
+  };
+
+  const handleDragLeave = function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
   };
 
   const handleDrop = function (e) {
@@ -27,58 +30,66 @@ function DragAndDrop() {
 
   const handleChange = function (e) {
     e.preventDefault();
-    if (e.target.files && e.target.files.length > 0) {
-      handleFiles(e.target.files);
-    }
+    handleFiles(e.target.files);
   };
 
-  const handleFiles = function (files) {
-    const fileArray = [];
+  const handleFiles = async function (files) {
+    const validFiles = [];
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.split('/')[0] !== 'image') {
         alert('Solo se permiten archivos de imagen');
         continue;
       }
-      if (files.length > 3) {
-        alert('Solo se permiten 3 archivos');
-        continue;
-      }
       if (files[i].size > 1000000) {
-        alert('Solo se permiten archivos de menos de 1MB');
+        alert('Solo se permiten archivos de 1MB como máximo');
         continue;
+      } 
+      if (imagenes.length + validFiles.length >= 3) {
+        alert('Solo se permiten 3 archivos');
+        break; // Detener el bucle si se alcanza el límite
       }
-      if (!imagenes.some((e) => e.name === files[i].name)) {
-        fileArray.push({
-          url: URL.createObjectURL(files[i]),
-          name: files[i].name
-        });
-      }
+      validFiles.push(files[i]);
     }
-    setImagenes((prev) => [...prev, ...fileArray]);
+
+    // Cargar todas las imágenes utilizando FileReader
+    const fileArray = await Promise.all(validFiles.map(file => createFileObjectAsync(file)));
+    setImagenes(prev => [...prev, ...fileArray]);
   };
 
+  const createFileObjectAsync = async function (file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve({ file, url: e.target.result });
+      reader.readAsDataURL(file);
+    });
+  };
 
   const deleteImage = (index) => {
-    const newImagenes = imagenes.filter((imagen, i) => i !== index)
-    setImagenes(newImagenes)
-}
+    setImagenes(prev => prev.filter((imagen, i) => i !== index)); 
+  };
 
   return (
     <>
-      <div id="file-upload" onDragEnter={handleDrag}>
+      <div
+        id="file-upload"
+        className={dragActive ? "drag-active" : ""}
+        onDragEnter={handleDrag}
+        onDragOver={handleDrag}
+        onDragLeave={handleDragLeave} 
+        onDrop={handleDrop}
+      >
         <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
-        <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
+        <label id="label-file-upload" htmlFor="input-file-upload">
           <div>
-            <p>Suelte archivos aqui o cargue uno</p>
+            <p>Suelte archivos aquí o cargue uno</p>
           </div>
         </label>
-        {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
       </div>
       <div className="imagenes">
-        {imagenes.map((imagen, index) => (
+        {imagenes.map((fileData, index) => (
           <div key={index}>
-            <span>{imagen.name}</span>
-            <img src={imagen.url} alt={imagen.name} />
+            <span>{fileData.file.name}</span>
+            <img src={fileData.url} alt={fileData.file.name} />
             <button onClick={() => deleteImage(index)}>borrar</button>
           </div>
         ))}
@@ -87,4 +98,4 @@ function DragAndDrop() {
   );
 };
 
-export default DragAndDrop
+export default DragAndDrop;
