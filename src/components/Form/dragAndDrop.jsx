@@ -4,9 +4,7 @@ import { useState, useRef } from 'react';
 function DragAndDrop() {
   const [imagenes, setImagenes] = useState([]);
   const [dragActive, setDragActive] = useState(false);
-  const idCounterRef = useRef(0);
-  // const inputRef = useRef(null);
-
+  const inputRef = useRef(null);
 
   const handleDrag = function (e) {
     e.preventDefault();
@@ -41,6 +39,10 @@ function DragAndDrop() {
         alert("Solo se permiten archivos de imagen");
         continue;
       }
+      if (imagenes.some((img) => img.name === files[i].name && img.size === files[i].size)) {
+        alert(`El archivo ${files[i].name} ya ha sido cargado.`);
+        continue;
+      }
       if (files[i].size > 10000000) {
         alert("Solo se permiten archivos de menos de 10MB");
         continue;
@@ -51,20 +53,17 @@ function DragAndDrop() {
       }
       newFiles.push(files[i]);
     }
-    const filesWithUrls = newFiles.map((file) => ({
-      id: idCounterRef.current++,
-      file,
-      url: URL.createObjectURL(file),
-    }));
-    setImagenes((prev) => [...prev, ...filesWithUrls]);
+    setImagenes((prev) => [...prev, ...newFiles]);
+    inputRef.current.value = '';
   };
 
   const deleteImage = (id) => {
-    URL.revokeObjectURL(imagenes.find((img) => img.id === id).url);
-    setImagenes((prev) => prev.filter((imagen) => imagen.id !== id));
+    setImagenes((prev) => prev.filter((imagen) => imagen !== id));
+    inputRef.current.value = '';
   };
 
-  console.log(imagenes)
+  console.log(imagenes);
+
   return (
     <>
       <div
@@ -75,7 +74,7 @@ function DragAndDrop() {
         onDragOver={handleDrag}
         onDrop={handleDrop}
       >
-        <input type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
+        <input type="file" id="input-file-upload" multiple={true} onChange={handleChange} ref={inputRef} />
         <label id="label-file-upload" htmlFor="input-file-upload">
           <div>
             <p>Suelte archivos aquí o cargue uno </p>
@@ -83,11 +82,11 @@ function DragAndDrop() {
         </label>
       </div>
       <div className="imagenes">
-        {imagenes.map((fileData) => (
-          <div key={fileData.id}>
-            <span>{fileData.file.name}</span>
-            <img src={fileData.url} alt={fileData.file.name} />
-            <button onClick={() => deleteImage(fileData.id)}>borrar</button>
+        {imagenes.map((file, index) => (
+          <div key={index}>
+            <span>{file.name}</span>
+            <img src={URL.createObjectURL(file)} alt={file.name} />
+            <button onClick={() => deleteImage(file)}>borrar</button>
           </div>
         ))}
       </div>
