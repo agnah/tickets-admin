@@ -3,6 +3,7 @@ import Select from '../Form/Input/Select'
 import { useState } from 'react'
 import InputForm from '../Form/Input/InputForm'
 import Button from '../partials/Button/Button'
+import DragAndDrop from '../Form/dragAndDrop'
 const optionListSelect = ['Area Técnica', 'CID', 'Data Center', 'Telefonía']
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
@@ -35,9 +36,9 @@ const TicketCreateForm = () => {
           display="true"
         />
         <div className='col-md-6 col-lg-6 d-flex align-items-center'>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="prioridad"/>
-            <label class="form-check-label" for="flexCheckDefault">
+          <div className="form-check">
+            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="prioridad" />
+            <label className="form-check-label" htmlFor="flexCheckDefault">
               Prioridad
             </label>
           </div>
@@ -173,9 +174,10 @@ const TicketCreateForm = () => {
           display={display}
         />
       </div>
+      <DragAndDrop />
       <div className='d-flex justify-content-end'>
-          <Button type="reset" classBoton="mx-1 btn btn-danger" texto="cancelar"/>
-          <Button type="submit" classBoton="mx-1 btn btn-success" texto="Guardar"/>
+        <Button type="reset" classBoton="mx-1 btn btn-danger" texto="cancelar" />
+        <Button type="submit" classBoton="mx-1 btn btn-success" texto="Guardar" />
       </div>
     </form>
   )

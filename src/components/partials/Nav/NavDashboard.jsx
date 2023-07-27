@@ -5,14 +5,13 @@ import { useAuth } from './useAuth'
 import { lazy, Suspense } from 'react'
 import SideBar from '../SideBar/SideBar'
 
-
-function NavDashboard() {
+function NavDashboard () {
   // const { user, logout } = useAuth()
   const { user } = useAuth()
   console.log(user)
   const Home = lazy(() => import('../../../pages/Home/Home'))
   const Tickets = lazy(() => import('../../../pages/Tickets/Tickets'))
-  const TicketCreate = lazy(() => import('../../../pages/Tickets/TicketCreate')) 
+  const TicketCreate = lazy(() => import('../../../pages/Tickets/TicketCreate'))
 
   if (!user.isLogged) {
     return (
