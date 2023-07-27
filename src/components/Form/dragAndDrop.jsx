@@ -1,74 +1,74 @@
-import './dragAndDropFiles.css';
-import { useState, useRef } from 'react';
+import './dragAndDropFiles.css'
+import { useState, useRef } from 'react'
 
-function DragAndDrop() {
-  const [imagenes, setImagenes] = useState([]);
-  const [dragActive, setDragActive] = useState(false);
-  const inputRef = useRef(null);
+function DragAndDrop () {
+  const [imagenes, setImagenes] = useState([])
+  const [dragActive, setDragActive] = useState(false)
+  const inputRef = useRef(null)
 
   const handleDrag = function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
+    e.preventDefault()
+    e.stopPropagation()
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setDragActive(true)
+    } else if (e.type === 'dragleave') {
+      setDragActive(false)
     }
-  };
+  }
 
   const handleDrop = function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(false)
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFiles(e.dataTransfer.files);
+      handleFiles(e.dataTransfer.files)
     }
-  };
+  }
 
   const handleChange = function (e) {
-    e.preventDefault();
+    e.preventDefault()
     if (e.target.files && e.target.files[0]) {
-      handleFiles(e.target.files);
+      handleFiles(e.target.files)
     }
-  };
+  }
 
   const handleFiles = function (files) {
-    const newFiles = [];
+    const newFiles = []
     for (let i = 0; i < files.length; i++) {
-      if (files[i].type.split("/")[0] !== "image") {
-        alert("Solo se permiten archivos de imagen");
-        continue;
+      if (files[i].type.split('/')[0] !== 'image') {
+        alert('Solo se permiten archivos de imagen')
+        continue
       }
       if (imagenes.some((img) => img.name === files[i].name && img.size === files[i].size)) {
-        alert(`El archivo ${files[i].name} ya ha sido cargado.`);
-        continue;
+        alert(`El archivo ${files[i].name} ya ha sido cargado.`)
+        continue
       }
       if (files[i].size > 10000000) {
-        alert("Solo se permiten archivos de menos de 10MB");
-        continue;
+        alert('Solo se permiten archivos de menos de 10MB')
+        continue
       }
       if (imagenes.length + newFiles.length >= 5) {
-        alert("Solo se permiten 5 archivos");
-        break;
+        alert('Solo se permiten 5 archivos')
+        break
       }
-      newFiles.push(files[i]);
+      newFiles.push(files[i])
     }
-    setImagenes((prev) => [...prev, ...newFiles]);
-    inputRef.current.value = '';
-  };
+    setImagenes((prev) => [...prev, ...newFiles])
+    inputRef.current.value = ''
+  }
 
   const deleteImage = (id) => {
-    setImagenes((prev) => prev.filter((imagen) => imagen !== id));
-    inputRef.current.value = '';
-  };
+    setImagenes((prev) => prev.filter((imagen) => imagen !== id))
+    inputRef.current.value = ''
+  }
 
-  console.log(imagenes);
+  console.log(imagenes)
 
   return (
     <>
       <div
         id="file-upload"
-        className={dragActive ? "drag-active" : ""}
+        className={dragActive ? 'drag-active' : ''}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
@@ -91,7 +91,7 @@ function DragAndDrop() {
         ))}
       </div>
     </>
-  );
+  )
 };
 
-export default DragAndDrop;
+export default DragAndDrop

@@ -8,8 +8,7 @@ import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
 import { useAuth } from '../partials/Nav/useAuth'
-
-
+const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos']
 // const InfoExtra = (data) => {
 //   const info = data.data
 //   return (
@@ -40,7 +39,9 @@ function Tabla () {
     prioridad,
     handlePrioridadChange,
     seleccionados,
-    handleSeleccionadosChange
+    handleSeleccionadosChange,
+    filtroUser,
+    handleFiltroUserChange
   } = useContext(FiltrosContext)
 
   // Botones tabla
@@ -97,7 +98,7 @@ function Tabla () {
           <i className="fa fa-print" onClick={() => handlePrint(row.id)}></i>
           <i className="fa fa-trash" onClick={() => handleCancel(row.id)}></i>
           {user.role.includes('admin') && (
-          <i className="fa-solid fa-rectangle-xmark" onClick={() => handleRechazo(row.id)}></i>
+            <i className="fa-solid fa-rectangle-xmark" onClick={() => handleRechazo(row.id)}></i>
           )}
         </>
       )
@@ -105,8 +106,8 @@ function Tabla () {
   ])
 
   // filtros
-  const data = filtroTabla(datos, seleccionados, prioridad)
-  console.log(`selecionados: ${seleccionados} prioridad: ${prioridad}`)
+  const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
+  console.log(`selecionados: ${seleccionados} prioridad: ${prioridad} user: ${filtroUser}`)
 
   if (isError) {
     return <p>Algo fallo: {error.message}</p>
@@ -123,6 +124,19 @@ function Tabla () {
           type="button"
           onClick={() => trigger()}
         />
+        <br />
+        <select
+          name='filtroUser'
+          value={filtroUser}
+          onChange={handleFiltroUserChange}
+        >
+          <option value="">Todos</option>
+          {optionListUser.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
         <CheckPrioridad
           prioridad={prioridad}
           onChange={handlePrioridadChange}
@@ -138,9 +152,9 @@ function Tabla () {
           pagination
           responsive
           striped
-        //   ! Variables para expandir.
-        //   expandableRows
-        //   expandableRowsComponent={ExpandedComponent}
+          //   ! Variables para expandir.
+          //   expandableRows
+          //   expandableRowsComponent={ExpandedComponent}
           noDataComponent="No exiten registros para esos parametros"
         />
       </>
