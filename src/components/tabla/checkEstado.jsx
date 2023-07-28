@@ -20,7 +20,11 @@ function CheckEstado ({ onChange, seleccionados }) {
         onChange(seleccionados.concat(value))
       }
     } else {
-      onChange(seleccionados.filter((filtro) => filtro !== value))
+      const nuevosSeleccionados = seleccionados.filter((filtro) => filtro !== value)
+      if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
+        handleFiltroUserChange('')
+      }
+      onChange(nuevosSeleccionados)
     }
   }
 
@@ -33,10 +37,6 @@ function CheckEstado ({ onChange, seleccionados }) {
       <label>
         <input type="checkbox" name="estado" value="marketing"
           onChange={handleMarketingChange}
-          //  onChange={() => {
-          //   onChangeValue()
-          //   handleFiltroUserChange()
-          // }}
           checked={seleccionados.includes('marketing')} />
         Nuevo marketing
       </label>

@@ -128,7 +128,7 @@ function Tabla () {
             value={filtroUser}
             onChange={(e) => handleFiltroUserChange(e.target.value)}
           >
-            <option value="">{filtroUser}</option>
+            <option value="">Colaborardor</option>
             {optionListUser.map((option, index) => (
               <option key={index} value={option}>
                 {option}
