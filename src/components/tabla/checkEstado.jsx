@@ -1,4 +1,13 @@
+import React, { useContext } from 'react'
+import { FiltrosContext } from '../tabla/contextTabla'
+
 function CheckEstado ({ onChange, seleccionados }) {
+  const { handleFiltroUserChange } = useContext(FiltrosContext)
+
+  const handleMarketingChange = (e) => {
+    onChangeValue(e)
+    handleFiltroUserChange('')
+  }
   const onChangeValue = (event) => {
     const value = event.target.value
     onChange(seleccionados)
@@ -9,10 +18,13 @@ function CheckEstado ({ onChange, seleccionados }) {
       } else {
         // onChange([...seleccionados, value])
         onChange(seleccionados.concat(value))
-        
       }
     } else {
-      onChange(seleccionados.filter((filtro) => filtro !== value))
+      const nuevosSeleccionados = seleccionados.filter((filtro) => filtro !== value)
+      if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
+        handleFiltroUserChange('')
+      }
+      onChange(nuevosSeleccionados)
     }
   }
 
@@ -20,22 +32,30 @@ function CheckEstado ({ onChange, seleccionados }) {
     <div>
       <label>
         <input type="checkbox" name="estado" value="" onChange={onChangeValue} checked={seleccionados.length === 0} />
-        Todos</label>
+        Todos
+      </label>
       <label>
-        <input type="checkbox" name="estado" value="marketing" onChange={onChangeValue} checked={seleccionados.includes('marketing')} />
-        Nuevo marketing</label>
+        <input type="checkbox" name="estado" value="marketing"
+          onChange={handleMarketingChange}
+          checked={seleccionados.includes('marketing')} />
+        Nuevo marketing
+      </label>
       <label>
         <input type="checkbox" name="estado" value="services" onChange={onChangeValue} checked={seleccionados.includes('services')} />
-        Asignado services</label>
+        Asignado services
+      </label>
       <label>
         <input type="checkbox" name="estado" value="support" onChange={onChangeValue} checked={seleccionados.includes('support')} />
-        En Proceso support</label>
+        En Curso support
+      </label>
       <label>
         <input type="checkbox" name="estado" value="accounting" onChange={onChangeValue} checked={seleccionados.includes('accounting')} />
-        Finalizado accounting </label>
+        Finalizado accounting
+      </label>
       <label>
         <input type="checkbox" name="estado" value="sales" onChange={onChangeValue} checked={seleccionados.includes('sales')} />
-        Anulado sales</label>
+        Anulado sales
+      </label>
     </div>
   )
 }

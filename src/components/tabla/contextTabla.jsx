@@ -16,7 +16,7 @@ export function FiltrosProvider ({ children }) {
   }, [])
 
   const handleFiltroUserChange = useCallback((values) => {
-    setFiltroUser(values.target.value)
+    setFiltroUser(values)
   }, [])
 
   return (

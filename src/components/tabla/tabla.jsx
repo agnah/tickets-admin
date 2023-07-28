@@ -8,6 +8,8 @@ import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
 import { useAuth } from '../partials/Nav/useAuth'
+import ButtonVer from '../partials/Button/ButtonVer'
+import ButtonEdit from '../partials/Button/ButtonEdit'
 const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos']
 // const InfoExtra = (data) => {
 //   const info = data.data
@@ -47,12 +49,6 @@ function Tabla () {
   // Botones tabla
   const handleEdit = useCallback((id) => {
     alert(`Editar ${id}`)
-  }, [])
-  const handlePrint = useCallback((id) => {
-    alert(`Imprimir ${id}`)
-  }, [])
-  const handleCancel = useCallback((id) => {
-    alert(`Cancelar ${id}`)
   }, [])
   const handleRechazo = useCallback((id) => {
     alert(`Rechazar  ${id}`)
@@ -94,9 +90,8 @@ function Tabla () {
       // selector: row => row.id,
       cell: (row) => (
         <>
-          <i className="fa fa-edit" onClick={() => handleEdit(row.id)}></i>
-          <i className="fa fa-print" onClick={() => handlePrint(row.id)}></i>
-          <i className="fa fa-trash" onClick={() => handleCancel(row.id)}></i>
+        <ButtonVer onClick={() => handleEdit(row.id)}/>
+        <ButtonEdit onClick={() => handleEdit(row.id)}/>
           {user.role.includes('admin') && (
             <i className="fa-solid fa-rectangle-xmark" onClick={() => handleRechazo(row.id)}></i>
           )}
@@ -125,18 +120,27 @@ function Tabla () {
           onClick={() => trigger()}
         />
         <br />
-        <select
-          name='filtroUser'
-          value={filtroUser}
-          onChange={handleFiltroUserChange}
-        >
-          <option value="">Todos</option>
-          {optionListUser.map((option, index) => (
-            <option key={index} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        {!seleccionados.includes('marketing') || seleccionados.length > 1
+          ? (
+          <select
+            name='filtroUser'
+            value={filtroUser}
+            onChange={(e) => handleFiltroUserChange(e.target.value)}
+          >
+            <option value="">Colaborador</option>
+            {optionListUser.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+            )
+          : (
+          <select disabled>
+            <option value=''>Todos</option>
+          </select>
+            )}
+
         <CheckPrioridad
           prioridad={prioridad}
           onChange={handlePrioridadChange}
