@@ -46,7 +46,7 @@ function CheckEstado ({ onChange, seleccionados }) {
       </label>
       <label>
         <input type="checkbox" name="estado" value="support" onChange={onChangeValue} checked={seleccionados.includes('support')} />
-        En Proceso support
+        En Curso support
       </label>
       <label>
         <input type="checkbox" name="estado" value="accounting" onChange={onChangeValue} checked={seleccionados.includes('accounting')} />

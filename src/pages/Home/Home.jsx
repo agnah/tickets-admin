@@ -1,7 +1,7 @@
 import Tablero from '../../components/Tablero/Tablero'
 import ButtonsState from '../../components/Tickets/ButtonsState'
 // import TicketsTable from '../../components/Tickets/TicketsTable'
-import TicketsTableDina from '../../components/Tickets/ticketTableDina'
+import TablaDinam from '../../components/Tablero/TablaDinam'
 import { useAuth } from '../../components/partials/Nav/useAuth'
 
 const data = [
@@ -15,6 +15,9 @@ const valoresEstados = {
   curso: 2,
   totales: 3
 }
+
+const columnas = { id: 'Id', fecha: 'Fecha', preTarea: 'Pre Tarea' }
+const acciones = true
 
 const setTitulosTabla = (user) => {
   if (user.role.includes('mesa_entrada')) {
@@ -44,13 +47,13 @@ const Home = () => {
         <div className="col-sm-12 col-md-6">
           <Tablero title={`Tickets ${titulo1}`}>
             {/* <TicketsTable /> */}
-            <TicketsTableDina data={data} />
+            <TablaDinam data={data} columnas={columnas} acciones={acciones} />
           </Tablero>
         </div>
         <div className="col-sm-12 col-md-6">
           <Tablero title={`Tickets ${titulo2}`}>
             {/* <TicketsTable /> */}
-            <TicketsTableDina data={data} />
+            <TablaDinam data={data} columnas={columnas} acciones={acciones} />
           </Tablero>
         </div>
       </div>

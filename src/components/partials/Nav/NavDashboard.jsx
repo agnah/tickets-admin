@@ -12,6 +12,7 @@ function NavDashboard () {
   const Home = lazy(() => import('../../../pages/Home/Home'))
   const Tickets = lazy(() => import('../../../pages/Tickets/Tickets'))
   const TicketCreate = lazy(() => import('../../../pages/Tickets/TicketCreate'))
+  const Usuarios = lazy(() => import('../../../pages/Users/usuarios'))
 
   if (!user.isLogged) {
     return (
@@ -59,7 +60,7 @@ function NavDashboard () {
                 />
               }
             >
-              <Route path="/usuarios" element={<h1>Usuarios</h1>} />
+              <Route path="/usuarios" element={<Usuarios/>} />
             </Route>
             <Route
               element={

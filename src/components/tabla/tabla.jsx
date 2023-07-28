@@ -8,6 +8,8 @@ import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
 import { useAuth } from '../partials/Nav/useAuth'
+import ButtonVer from '../partials/Button/ButtonVer'
+import ButtonEdit from '../partials/Button/ButtonEdit'
 const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos']
 // const InfoExtra = (data) => {
 //   const info = data.data
@@ -47,9 +49,6 @@ function Tabla () {
   // Botones tabla
   const handleEdit = useCallback((id) => {
     alert(`Editar ${id}`)
-  }, [])
-  const handleCancel = useCallback((id) => {
-    alert(`Cancelar ${id}`)
   }, [])
   const handleRechazo = useCallback((id) => {
     alert(`Rechazar  ${id}`)
@@ -91,8 +90,8 @@ function Tabla () {
       // selector: row => row.id,
       cell: (row) => (
         <>
-          <i className="fa fa-edit" onClick={() => handleEdit(row.id)}></i>
-          <i className="fa fa-trash" onClick={() => handleCancel(row.id)}></i>
+        <ButtonVer onClick={() => handleEdit(row.id)}/>
+        <ButtonEdit onClick={() => handleEdit(row.id)}/>
           {user.role.includes('admin') && (
             <i className="fa-solid fa-rectangle-xmark" onClick={() => handleRechazo(row.id)}></i>
           )}
@@ -128,7 +127,7 @@ function Tabla () {
             value={filtroUser}
             onChange={(e) => handleFiltroUserChange(e.target.value)}
           >
-            <option value="">Colaborardor</option>
+            <option value="">Colaborador</option>
             {optionListUser.map((option, index) => (
               <option key={index} value={option}>
                 {option}
