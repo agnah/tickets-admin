@@ -48,9 +48,6 @@ function Tabla () {
   const handleEdit = useCallback((id) => {
     alert(`Editar ${id}`)
   }, [])
-  const handlePrint = useCallback((id) => {
-    alert(`Imprimir ${id}`)
-  }, [])
   const handleCancel = useCallback((id) => {
     alert(`Cancelar ${id}`)
   }, [])
@@ -95,7 +92,6 @@ function Tabla () {
       cell: (row) => (
         <>
           <i className="fa fa-edit" onClick={() => handleEdit(row.id)}></i>
-          <i className="fa fa-print" onClick={() => handlePrint(row.id)}></i>
           <i className="fa fa-trash" onClick={() => handleCancel(row.id)}></i>
           {user.role.includes('admin') && (
             <i className="fa-solid fa-rectangle-xmark" onClick={() => handleRechazo(row.id)}></i>
@@ -125,18 +121,27 @@ function Tabla () {
           onClick={() => trigger()}
         />
         <br />
-        <select
-          name='filtroUser'
-          value={filtroUser}
-          onChange={handleFiltroUserChange}
-        >
-          <option value="">Todos</option>
-          {optionListUser.map((option, index) => (
-            <option key={index} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        {!seleccionados.includes('marketing') || seleccionados.length > 1
+          ? (
+          <select
+            name='filtroUser'
+            value={filtroUser}
+            onChange={(e) => handleFiltroUserChange(e.target.value)}
+          >
+            <option value="">{filtroUser}</option>
+            {optionListUser.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+            )
+          : (
+          <select disabled>
+            <option value=''>Todos</option>
+          </select>
+            )}
+
         <CheckPrioridad
           prioridad={prioridad}
           onChange={handlePrioridadChange}

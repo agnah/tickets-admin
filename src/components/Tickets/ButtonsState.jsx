@@ -3,11 +3,13 @@ import Button from '../partials/Button/Button'
 import { Link } from 'react-router-dom'
 import { FiltrosContext } from '../tabla/contextTabla'
 
-const ButtonsState = () => {
-  const { handleSeleccionadosChange, handlePrioridadChange } = useContext(FiltrosContext);
+const ButtonsState = ({ valores }) => {
+  const { nuevos, asignados, curso, totales } = valores
+  const { handleSeleccionadosChange, handlePrioridadChange, handleFiltroUserChange } = useContext(FiltrosContext)
   const cambiarSeleccionado = (e) => {
     handleSeleccionadosChange(e.target.value)
-    handlePrioridadChange("")
+    handlePrioridadChange('')
+    handleFiltroUserChange('')
   }
   return (
     <div>
@@ -19,7 +21,7 @@ const ButtonsState = () => {
           classIcon=""
           texto="Tickets Nuevos"
           classBadge="badge"
-          cantidad="15"
+          cantidad={nuevos}
           value="marketing"
           onClick={cambiarSeleccionado}
         />
@@ -32,8 +34,8 @@ const ButtonsState = () => {
           classIcon=""
           texto="Tickets Asignados"
           classBadge="badge"
-          cantidad="6"
-          value="services"
+          cantidad={asignados}
+          value={'services'}
           onClick={cambiarSeleccionado}
         />
       </Link>
@@ -45,7 +47,7 @@ const ButtonsState = () => {
           classIcon=""
           texto="Tickets en Curso"
           classBadge="badge"
-          cantidad="4"
+          cantidad={curso}
           value="support"
           onClick={cambiarSeleccionado}
         />
@@ -58,7 +60,7 @@ const ButtonsState = () => {
           classIcon=""
           texto="Tickets Totales"
           classBadge="badge"
-          cantidad="11"
+          cantidad={totales}
           value=""
           onClick={cambiarSeleccionado}
         />
