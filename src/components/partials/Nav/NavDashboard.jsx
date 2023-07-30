@@ -13,6 +13,7 @@ function NavDashboard () {
   const Tickets = lazy(() => import('../../../pages/Tickets/Tickets'))
   const TicketCreate = lazy(() => import('../../../pages/Tickets/TicketCreate'))
   const Usuarios = lazy(() => import('../../../pages/Users/usuarios'))
+  const CreateUser = lazy(() => import('../../../pages/Users/CreateUser'))
 
   if (!user.isLogged) {
     return (
@@ -61,6 +62,7 @@ function NavDashboard () {
               }
             >
               <Route path="/usuarios" element={<Usuarios/>} />
+              <Route path="/usuarios/create" element={<CreateUser/>} />
             </Route>
             <Route
               element={

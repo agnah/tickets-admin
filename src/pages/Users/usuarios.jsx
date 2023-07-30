@@ -1,5 +1,6 @@
 import Tablero from '../../components/Tablero/Tablero'
 import TablaDinam from '../../components/Tablero/TablaDinam'
+import { Link } from 'react-router-dom'
 // import Button from '../../components/partials/Button/Button'
 
 const data = [
@@ -16,6 +17,7 @@ const acciones = true
 function Usuarios () {
   return (
     <Tablero title="Usuarios" classTitle="text-center">
+      <Link to='/usuarios/create' className='btn btn-success'>Nuevo Usuario</Link>
       <TablaDinam data={data} acciones={acciones} columnas={columnas} classTable="table-hover" />
     </Tablero>
   )
