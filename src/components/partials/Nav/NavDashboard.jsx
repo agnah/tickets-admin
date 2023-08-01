@@ -14,6 +14,8 @@ function NavDashboard () {
   const TicketCreate = lazy(() => import('../../../pages/Tickets/TicketCreate'))
   const Usuarios = lazy(() => import('../../../pages/Users/usuarios'))
   const CreateUser = lazy(() => import('../../../pages/Users/CreateUser'))
+  const DetalleTicket = lazy(() => import('../../../pages/Tickets/DetalleTicket'))
+  // const DetalleUsuario = lazy(() => import('../../../pages/Users/DetalleUsuario'))
 
   if (!user.isLogged) {
     return (
@@ -35,6 +37,7 @@ function NavDashboard () {
             <Route path="/404" element={<div>404</div>} />
             <Route path="*" element={<h1>carga de requerimiento + lista</h1>} />
             <Route path="/tickets" element={<Tickets />} />
+            <Route path="/tickets/:id" element={<DetalleTicket />} />
             <Route path="/dashboard" element={<Home />} />
             {/* <Route element={<ProtectedRoutes isAllowed={user.isLogged} />}>
               <Route path="/dashboard" element={<Home />} />
@@ -61,8 +64,8 @@ function NavDashboard () {
                 />
               }
             >
-              <Route path="/usuarios" element={<Usuarios/>} />
-              <Route path="/usuarios/create" element={<CreateUser/>} />
+              <Route path="/usuarios" element={<Usuarios />} />
+              <Route path="/usuarios/create" element={<CreateUser />} />
             </Route>
             <Route
               element={

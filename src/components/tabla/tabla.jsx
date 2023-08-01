@@ -10,6 +10,8 @@ import { FiltrosContext } from './contextTabla'
 import { useAuth } from '../partials/Nav/useAuth'
 import ButtonVer from '../partials/Button/ButtonVer'
 import ButtonEdit from '../partials/Button/ButtonEdit'
+import { useNavigate } from 'react-router-dom'
+
 const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos']
 // const InfoExtra = (data) => {
 //   const info = data.data
@@ -25,6 +27,7 @@ const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos']
 
 function Tabla () {
   const { user } = useAuth()
+  const navigate = useNavigate()
   const path = 'users'
   const {
     isLoading,
@@ -48,10 +51,10 @@ function Tabla () {
 
   // Botones tabla
   const handleEdit = useCallback((id) => {
-    alert(`Editar ${id}`)
+    navigate(`/tickets/${id}`)
   }, [])
-  const handleRechazo = useCallback((id) => {
-    alert(`Rechazar  ${id}`)
+  const handleVer = useCallback((id) => {
+    navigate(`/tickets/${id}`)
   }, [])
 
   // columnas tabla
@@ -90,19 +93,15 @@ function Tabla () {
       // selector: row => row.id,
       cell: (row) => (
         <>
-        <ButtonVer onClick={() => handleEdit(row.id)}/>
-        <ButtonEdit onClick={() => handleEdit(row.id)}/>
-          {user.role.includes('admin') && (
-            <i className="fa-solid fa-rectangle-xmark" onClick={() => handleRechazo(row.id)}></i>
-          )}
+          <ButtonVer onClick={() => handleVer(row.id)} />
+          <ButtonEdit onClick={() => handleEdit(row.id)} />
         </>
       )
     }
-  ])
+  ], [user.role])
 
   // filtros
   const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
-  console.log(`selecionados: ${seleccionados} prioridad: ${prioridad} user: ${filtroUser}`)
 
   if (isError) {
     return <p>Algo fallo: {error.message}</p>
@@ -122,23 +121,23 @@ function Tabla () {
         <br />
         {!seleccionados.includes('marketing') || seleccionados.length > 1
           ? (
-          <select
-            name='filtroUser'
-            value={filtroUser}
-            onChange={(e) => handleFiltroUserChange(e.target.value)}
-          >
-            <option value="">Colaborador</option>
-            {optionListUser.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+            <select
+              name='filtroUser'
+              value={filtroUser}
+              onChange={(e) => handleFiltroUserChange(e.target.value)}
+            >
+              <option value="">Colaborador</option>
+              {optionListUser.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
             )
           : (
-          <select disabled>
-            <option value=''>Todos</option>
-          </select>
+            <select disabled>
+              <option value=''>Todos</option>
+            </select>
             )}
 
         <CheckPrioridad
