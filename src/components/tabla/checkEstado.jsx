@@ -4,21 +4,6 @@ import { FiltrosContext } from '../tabla/contextTabla'
 function CheckEstado ({ onChange, seleccionados }) {
   const { handleFiltroUserChange } = useContext(FiltrosContext)
 
-  // const handleMarketingChange = (e) => {
-  //   const value = e.target.value
-
-  //   if (e.target.checked) {
-  //     onChange(prevSeleccionados => [...prevSeleccionados, value])
-  //   } else {
-  //     const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
-  //     if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
-  //       handleFiltroUserChange('')
-  //       console.log('paso')
-  //     }
-  //     onChange(nuevosSeleccionados)
-  //   }
-  // }
-
   const handleMarketingChange = (e) => {
     const value = e.target.value
 
