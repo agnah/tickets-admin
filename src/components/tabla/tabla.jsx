@@ -102,7 +102,7 @@ function Tabla () {
 
   // filtros
   const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
-
+  console.log(`seleccionados: ${seleccionados} filtroUser: ${filtroUser}`)
   if (isError) {
     return <p>Algo fallo: {error.message}</p>
   }

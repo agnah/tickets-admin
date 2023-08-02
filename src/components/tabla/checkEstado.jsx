@@ -4,38 +4,41 @@ import { FiltrosContext } from '../tabla/contextTabla'
 function CheckEstado ({ onChange, seleccionados }) {
   const { handleFiltroUserChange } = useContext(FiltrosContext)
 
+  // const handleMarketingChange = (e) => {
+  //   const value = e.target.value
+
+  //   if (e.target.checked) {
+  //     onChange(prevSeleccionados => [...prevSeleccionados, value])
+  //   } else {
+  //     const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
+  //     if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
+  //       handleFiltroUserChange('')
+  //       console.log('paso')
+  //     }
+  //     onChange(nuevosSeleccionados)
+  //   }
+  // }
+
   const handleMarketingChange = (e) => {
     const value = e.target.value
 
     if (e.target.checked) {
-      onChange(prevSeleccionados => [...prevSeleccionados, value])
+      onChange(prevSeleccionados => {
+        const nuevosSeleccionados = [...prevSeleccionados, value]
+        if (nuevosSeleccionados.length === 1 && nuevosSeleccionados[0] === 'marketing') {
+          handleFiltroUserChange('')
+        }
+        return nuevosSeleccionados
+      })
     } else {
       const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
-      if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
+      if (nuevosSeleccionados.length === 1 && nuevosSeleccionados[0] === 'marketing') {
         handleFiltroUserChange('')
       }
       onChange(nuevosSeleccionados)
     }
   }
 
-  // const onChangeValue = (e) => {
-  //   const value = e.target.value
-
-  //   if (e.target.checked) {
-  //     if (value === '') {
-  //       onChange('')
-  //     } else {
-  //       onChange(prevSeleccionados => [...prevSeleccionados, value])
-  //     }
-  //   } else {
-  //     if (Array.isArray(seleccionados)) && const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
-
-  //     if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
-  //       handleFiltroUserChange('')
-  //     }
-  //     onChange(nuevosSeleccionados)
-  //   }
-  // }
   const onChangeValue = (e) => {
     const value = e.target.value
 
@@ -46,10 +49,8 @@ function CheckEstado ({ onChange, seleccionados }) {
         onChange(prevSeleccionados => [...prevSeleccionados, value])
       }
     } else {
-      // Definir nuevosSeleccionados fuera del if
-      const nuevosSeleccionados = Array.isArray(seleccionados) ? seleccionados.filter(filtro => filtro !== value) : []
-
       if (Array.isArray(seleccionados)) {
+        const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
         if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
           handleFiltroUserChange('')
         }
