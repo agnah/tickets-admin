@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import Tablero from '../../components/Tablero/Tablero'
 import Button from '../../components/partials/Button/Button'
 import GetTicketDetalle from '../../components/Tickets/GetTicketDetalle'
+import SelectTarea from '../../components/Tickets/SelectTarea'
 
 function DetalleTicket () {
   const { id } = useParams()
@@ -16,7 +17,7 @@ function DetalleTicket () {
         />
       </Tablero>
       <Tablero title="Tareas" classTitle="text-center" >
-        Detalle del ticket
+        <SelectTarea/>
       </Tablero>
       <Tablero title="Historial de cambios" classTitle="text-center" >
         Detalle del ticket
