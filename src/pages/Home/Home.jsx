@@ -41,7 +41,7 @@ const Home = () => {
   return (
     <>
       <Tablero title={'Tablero de Tickets'} page="Inicio">
-        <ButtonsState valores={valoresEstados} />
+        <ButtonsState valores={valoresEstados} user={user} />
       </Tablero>
       <div className="row">
         <div className="col-sm-12 col-md-6">

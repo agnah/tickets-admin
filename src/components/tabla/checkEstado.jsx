@@ -5,22 +5,30 @@ function CheckEstado ({ onChange, seleccionados }) {
   const { handleFiltroUserChange } = useContext(FiltrosContext)
 
   const handleMarketingChange = (e) => {
-    onChangeValue(e)
-    handleFiltroUserChange('')
-  }
-  const onChangeValue = (event) => {
-    const value = event.target.value
-    onChange(seleccionados)
+    const value = e.target.value
 
-    if (event.target.checked) {
+    if (e.target.checked) {
+      onChange(prevSeleccionados => [...prevSeleccionados, value])
+    } else {
+      const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
+      if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
+        handleFiltroUserChange('')
+      }
+      onChange(nuevosSeleccionados)
+    }
+  }
+
+  const onChangeValue = (e) => {
+    const value = e.target.value
+
+    if (e.target.checked) {
       if (value === '') {
-        onChange([])
+        onChange('')
       } else {
-        // onChange([...seleccionados, value])
-        onChange(seleccionados.concat(value))
+        onChange(prevSeleccionados => [...prevSeleccionados, value])
       }
     } else {
-      const nuevosSeleccionados = seleccionados.filter((filtro) => filtro !== value)
+      const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
       if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
         handleFiltroUserChange('')
       }
@@ -31,7 +39,7 @@ function CheckEstado ({ onChange, seleccionados }) {
   return (
     <div>
       <label>
-        <input type="checkbox" name="estado" value="" onChange={onChangeValue} checked={seleccionados.length === 0} />
+        <input type="checkbox" name="estado" value='' onChange={onChangeValue} checked={seleccionados.length === 0} />
         Todos
       </label>
       <label>

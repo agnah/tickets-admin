@@ -39,7 +39,7 @@ function Tabla () {
     // mutate,
     trigger
   } = useApiTest(path)
-  //   console.log('render tabla')
+
   const {
     prioridad,
     handlePrioridadChange,
@@ -102,6 +102,7 @@ function Tabla () {
 
   // filtros
   const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
+  console.log(`seleccionados: ${seleccionados} - prioridad: ${prioridad} - filtroUser: ${filtroUser}`)
 
   if (isError) {
     return <p>Algo fallo: {error.message}</p>

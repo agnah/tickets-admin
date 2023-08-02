@@ -1,6 +1,6 @@
 [
     {
-        "username": "Pedro Picapiedra",
+        "username": "Alison",
         "email": "pp@mindes.com",
         "password": "Prueba@123",
         "perfil": [
@@ -58,7 +58,7 @@
         ]
     },
     {
-        "username": "juan telefonia Admin",
+        "username": "Terry",
         "email": "atelefonia@mindes.com",
         "password": "Prueba@123",
         "perfil": [
@@ -67,7 +67,7 @@
         ]
     },
     {
-        "username": "tito area tecnica Admin",
+        "username": "terry",
         "email": "aareatecnica@mindes.com",
         "password": "Prueba@123",
         "perfil": [
