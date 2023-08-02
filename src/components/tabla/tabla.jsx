@@ -12,7 +12,7 @@ import ButtonVer from '../partials/Button/ButtonVer'
 import ButtonEdit from '../partials/Button/ButtonEdit'
 import { useNavigate } from 'react-router-dom'
 
-const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos']
+const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos', 'ewell']
 // const InfoExtra = (data) => {
 //   const info = data.data
 //   return (
@@ -102,7 +102,6 @@ function Tabla () {
 
   // filtros
   const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
-  console.log(`seleccionados: ${seleccionados} - prioridad: ${prioridad} - filtroUser: ${filtroUser}`)
 
   if (isError) {
     return <p>Algo fallo: {error.message}</p>

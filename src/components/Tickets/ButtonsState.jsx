@@ -8,9 +8,9 @@ const ButtonsState = ({ valores, user }) => {
   const { handleSeleccionadosChange, handlePrioridadChange, handleFiltroUserChange } = useContext(FiltrosContext)
   const cambiarSeleccionado = (e) => {
     const value = e.target.value
-    handleSeleccionadosChange([value])
+    value === '' ? handleSeleccionadosChange([]) : handleSeleccionadosChange([value])
     handlePrioridadChange('')
-    value === 'marketing' ? handleFiltroUserChange('') : handleFiltroUserChange(user.user)
+    value === 'marketing' ? handleFiltroUserChange('') : handleFiltroUserChange(user.user.toLowerCase())
   }
   return (
     <div>
