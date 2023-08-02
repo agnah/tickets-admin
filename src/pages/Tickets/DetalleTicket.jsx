@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import Tablero from '../../components/Tablero/Tablero'
 import Button from '../../components/partials/Button/Button'
+import GetTicketDetalle from '../../components/Tickets/GetTicketDetalle'
 
 function DetalleTicket () {
   const { id } = useParams()
@@ -8,7 +9,7 @@ function DetalleTicket () {
   return (
     <>
       <Tablero title={`Ticket ${id}`} classTitle="text-center" >
-        Detalle del ticket
+        <GetTicketDetalle id={id}/>
         <Button
           classBoton="btn btn-badge btn-open"
           texto="Editar"

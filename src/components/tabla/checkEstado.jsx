@@ -18,6 +18,24 @@ function CheckEstado ({ onChange, seleccionados }) {
     }
   }
 
+  // const onChangeValue = (e) => {
+  //   const value = e.target.value
+
+  //   if (e.target.checked) {
+  //     if (value === '') {
+  //       onChange('')
+  //     } else {
+  //       onChange(prevSeleccionados => [...prevSeleccionados, value])
+  //     }
+  //   } else {
+  //     if (Array.isArray(seleccionados)) && const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
+
+  //     if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
+  //       handleFiltroUserChange('')
+  //     }
+  //     onChange(nuevosSeleccionados)
+  //   }
+  // }
   const onChangeValue = (e) => {
     const value = e.target.value
 
@@ -28,11 +46,15 @@ function CheckEstado ({ onChange, seleccionados }) {
         onChange(prevSeleccionados => [...prevSeleccionados, value])
       }
     } else {
-      const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
-      if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
-        handleFiltroUserChange('')
+      // Definir nuevosSeleccionados fuera del if
+      const nuevosSeleccionados = Array.isArray(seleccionados) ? seleccionados.filter(filtro => filtro !== value) : []
+
+      if (Array.isArray(seleccionados)) {
+        if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
+          handleFiltroUserChange('')
+        }
+        onChange(nuevosSeleccionados)
       }
-      onChange(nuevosSeleccionados)
     }
   }
 

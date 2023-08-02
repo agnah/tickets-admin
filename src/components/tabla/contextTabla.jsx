@@ -16,7 +16,8 @@ export function FiltrosProvider ({ children }) {
   }, [])
 
   const handleFiltroUserChange = useCallback((values) => {
-    setFiltroUser(values)
+    const userLower = values.toLowerCase()
+    setFiltroUser(userLower)
   }, [])
 
   return (
