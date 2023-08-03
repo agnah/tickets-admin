@@ -5,7 +5,7 @@ export const FiltrosContext = createContext()
 export function FiltrosProvider ({ children }) {
   const [prioridad, setPrioridad] = useState([])
   const [seleccionados, setSeleccionados] = useState(['marketing', 'services', 'support'])
-  const [filtroUser, setFiltroUser] = useState([])
+  const [filtroUser, setFiltroUser] = useState('')
 
   const handlePrioridadChange = useCallback((value) => {
     setPrioridad(value)
