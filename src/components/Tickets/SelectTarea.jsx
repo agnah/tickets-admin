@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
+import Button from '../partials/Button/Button'
 
 const tareasOptions = [
   { value: 'Tarea1', id: 1, label: 'Impresora' },
@@ -16,6 +17,7 @@ function SelectTarea () {
   const [tareaSelecionado, setTareaSeleccionado] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [tareaFinalizada, setTareaFinalizada] = useState(false)
+  const [showSelect, setShowSelect] = useState(false) // Agregado
 
   const handleSelectChange = (selected) => {
     setSelectedOptions(selected)
@@ -25,6 +27,7 @@ function SelectTarea () {
     if (selectedOptions.length > 0) {
       setSavedTareas([...savedTareas, ...selectedOptions])
       setSelectedOptions([])
+      setShowSelect(false) // Ocultar el select al guardar
     }
   }
 
@@ -55,44 +58,84 @@ function SelectTarea () {
     }
   }
 
+  const renderSavedTareas = () => (
+    <div>
+      <p>Tareas: {savedTareas.map(option => (
+        <button key={option.id} onClick={() => openModal(option)}>{option.label}</button>
+      ))}</p>
+    </div>
+  )
+
+  const renderModalContent = () => (
+    <div className="modal-content">
+      <h2>{tareaSelecionado ? tareaSelecionado.label : ''}</h2>
+      {tareaFinalizada
+        ? (
+        <>
+          <label>Motivo de finalización:</label>
+          <textarea name="detalleFinTarea" />
+          <Button
+            onClick={closeModal}
+            classBoton="mx-1 btn btn-success"
+            texto="Cancelar"
+          />
+          <Button
+            onClick={handleTaskCompletion}
+            classBoton="mx-1 btn btn-success"
+            texto="Finalizar"
+          />
+        </>
+          )
+        : (
+        <>
+          <Button
+            onClick={handleFinishTask}
+            classBoton="mx-1 btn btn-success"
+            texto="Finalizar Tarea"
+          />
+          <Button
+            onClick={closeModal}
+            classBoton="mx-1 btn btn-success"
+            texto="Cancelar"
+          />
+          <Button
+            onClick={handleEliminarTarea}
+            classBoton="mx-1 btn btn-success"
+            texto="Eliminar"
+          />
+        </>
+          )}
+    </div>
+  )
+
   return (
     <div>
-      <div>
-        <p>Tareas: {savedTareas.map(option => <button key={option.id} onClick={() => openModal(option)}>{option.label}</button>)}</p>
-      </div>
-      <Select
-        isMulti
-        name="Tareas"
-        options={tareasOptions}
-        onChange={handleSelectChange}
-        value={selectedOptions}
-      />
-      <button onClick={handleSaveSelection}>Guardar Tareas</button>
-
-      {showModal && (
-        <div >
-          <div className="modal-content">
-            <h2>{tareaSelecionado ? tareaSelecionado.label : ''}</h2>
-            {tareaFinalizada
-              ? (
-              <>
-                <p>Tarea finalizada</p>
-                <label>Motivo de finalización:</label>
-                <textarea name='detalleFinTarea'
-                 />
-                <button onClick={handleTaskCompletion}>Finalizar</button>
-              </>
-                )
-              : (
-              <>
-                <button onClick={handleFinishTask}>Finalizar Tarea</button>
-                <button onClick={closeModal}>Cancelar</button>
-                <button onClick={handleEliminarTarea}>Eliminar</button>
-              </>
-                )}
-          </div>
-        </div>
-      )}
+      {renderSavedTareas()}
+      {showSelect
+        ? (
+        <>
+          <Select
+            isMulti
+            name="Tareas"
+            options={tareasOptions}
+            onChange={handleSelectChange}
+            value={selectedOptions}
+          />
+          <Button
+            onClick={handleSaveSelection}
+            classBoton="mx-1 btn btn-success"
+            texto="Guardar Tareas"
+          />
+        </>
+          )
+        : (
+        <Button
+          onClick={() => setShowSelect(true)}
+          classBoton="mx-1 btn btn-primary"
+          texto="Agregar Tarea"
+        />
+          )}
+      {showModal && <div>{renderModalContent()}</div>}
     </div>
   )
 }
