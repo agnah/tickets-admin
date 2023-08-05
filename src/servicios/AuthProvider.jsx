@@ -1,35 +1,9 @@
-import { createContext, useState, useEffect } from 'react'
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const authContext = createContext()
+import React, { useState, useEffect } from 'react'
+import { authContext } from './AuthContext'
+import { login, logout } from './AuthFunctions'
 
 export function AuthProvider ({ children }) {
-  const [user, setUser] = useState(() => {
-    const storedUser = sessionStorage.getItem('user')
-    return storedUser ? JSON.parse(storedUser) : {}
-  })
-
-  const login = async ({ email, password }) => {
-    try {
-      const response = await fetch('./assets/users.json')
-      const users = await response.json()
-      const checkUser = users.find(user => user.email === email && user.password === password)
-      if (checkUser) {
-        setUser(checkUser)
-        sessionStorage.setItem('user', JSON.stringify(checkUser))
-        return { success: 'Login correcto', user: checkUser }
-      } else {
-        return { error: 'El email o la contraseña son incorrectos.' }
-      }
-    } catch (error) {
-      return { error: 'Ha ocurrido un error al realizar el login.' }
-    }
-  }
-
-  const logout = () => {
-    sessionStorage.removeItem('user')
-    setUser({})
-  }
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user')
@@ -38,9 +12,21 @@ export function AuthProvider ({ children }) {
     }
   }, [])
 
+  const handleLogin = async (credentials) => {
+    const result = await login(credentials)
+    if (result?.user) {
+      setUser(result.user)
+    }
+    return result
+  }
+
+  const handleLogout = () => {
+    logout(setUser)
+  }
+
   return (
-      <authContext.Provider value={{ user, login, logout }}>
-        {children}
-      </authContext.Provider>
+    <authContext.Provider value={{ user, login: handleLogin, logout: handleLogout }}>
+      {children}
+    </authContext.Provider>
   )
 }

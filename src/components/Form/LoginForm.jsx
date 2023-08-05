@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import InputForm from './Input/InputForm'
 import Button from './Button/Button'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import useAuth from '../../servicios/UseAuth'
 
 const REGEX_PASSWORD =
@@ -10,20 +10,19 @@ const REGEX_PASSWORD =
 
 const LoginForm = () => {
   const { login } = useAuth()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
 
-  const onSubmit = async (data) => {
-    const result = await login(data)
-
+  const onSubmit = async (credentials) => {
+    const result = await login(credentials)
     if (result?.error) {
       alert(result.error)
     } else {
-      console.log(result.user)
-      return <Navigate to="/tickets" />
+      navigate('/dashboard')
     }
   }
 
