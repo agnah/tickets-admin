@@ -1,5 +1,5 @@
 import './App.css'
-import { AuthProvider } from './components/partials/Nav/useAuth'
+import { AuthProvider } from './servicios/AuthProvider'
 import Router from './router/Router'
 
 function App () {

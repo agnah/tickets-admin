@@ -7,7 +7,7 @@ import filtroTabla from './filtroTabla'
 import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
-import { authContext } from '../partials/Nav/useAuth'
+import useAuth from '../../servicios/UseAuth'
 import ButtonVer from '../partials/Button/ButtonVer'
 import ButtonEdit from '../partials/Button/ButtonEdit'
 import { useNavigate, Link } from 'react-router-dom'
@@ -27,7 +27,7 @@ const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos', 'ewell']
 // const ExpandedComponent = ({ data }) => <InfoExtra data={data} />
 
 function Tabla () {
-  const { user } = useContext(authContext)
+  const { user } = useAuth()
   const navigate = useNavigate()
   const path = 'users'
   const {
