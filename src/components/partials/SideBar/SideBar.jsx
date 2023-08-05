@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom'
 import Header from '../Header/Header'
 import './SideBar.css'
-import { useAuth } from '../../../components/partials/Nav/useAuth'
+import { authContext } from '../../../components/partials/Nav/useAuth'
+import { sector, perfil, rolUsuario } from '../../../constantes/constUsers'
+import BotonProfile from '../Users/BotonProfile'
+import { useContext } from 'react'
 
 const SideBar = ({ children }) => {
-  const { user } = useAuth()
+  const { user } = useContext(authContext)
   // ! TRAER LOGICA DE NAVEGACION
   return (
     <div className="sidebar">
@@ -62,87 +65,53 @@ const SideBar = ({ children }) => {
             </div>
             <span style={{ color: '#eee', fontSize: '12px' }}>Tickets</span>
           </li>
-          {(user.role.includes('mesa_entrada') || user.role.includes('sadmin')) && (
-            <li className="item mb-4">
-              <div className="item-nav mb-2">
-                <Link
-                  to="/tickets/create"
-                  className="circle-item "
-                  aria-current="page"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="right"
-                  data-bs-original-title="Home"
-                >
-                  <i
-                    className="fa-solid fa-plus fa-lg"
-                    style={{ color: '#ffffff' }}
-                  ></i>
-                </Link>
-              </div>
-              <span style={{ color: '#eee', fontSize: '12px' }}>
-                Crear Ticket
-              </span>
-            </li>
+          {(user.sector.includes(sector.MESA_DE_ENTRADA) ||
+            user.perfil.includes(perfil.ADMINISTRADOR)) && (
+              <li className="item mb-4">
+                <div className="item-nav mb-2">
+                  <Link
+                    to="/tickets/create"
+                    className="circle-item "
+                    aria-current="page"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-original-title="Home"
+                  >
+                    <i
+                      className="fa-solid fa-plus fa-lg"
+                      style={{ color: '#ffffff' }}
+                    ></i>
+                  </Link>
+                </div>
+                <span style={{ color: '#eee', fontSize: '12px' }}>
+                  Crear Ticket
+                </span>
+              </li>
           )}
-          {/* <li className="item mb-4">
-            <div className="item-nav mb-2">
-              <a
-                href="#"
-                className="circle-item "
-                aria-current="page"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                data-bs-original-title="Home"
-              >
-                <i
-                  className="fa-solid fa-desktop fa-lg"
-                  style={{ color: '#ffffff' }}
-                ></i>
-              </a>
-            </div>
-            <span style={{ color: '#eee', fontSize: '12px' }}>Terminales</span>
-          </li>
-          <li className="item mb-4">
-            <div className="item-nav mb-2">
-              <a
-                href="#"
-                className="circle-item "
-                aria-current="page"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                data-bs-original-title="Home"
-              >
-                <i
-                  className="fa-solid fa-server fa-lg"
-                  style={{ color: '#ffffff' }}
-                ></i>
-              </a>
-            </div>
-            <span style={{ color: '#eee', fontSize: '12px' }}>Equipos</span>
-          </li> */}
-          {user.role.includes('admin') && (
-            <li className="item mb-4">
-              <div className="item-nav mb-2">
-                <Link
-                  to="/usuarios"
-                  className="circle-item "
-                  aria-current="page"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="right"
-                  data-bs-original-title="Home"
-                >
-                  <i
-                    className="fa-solid fa-network-wired fa-lg"
-                    style={{ color: '#ffffff' }}
-                  ></i>
-                </Link>
-              </div>
-              <span style={{ color: '#eee', fontSize: '12px' }}>
-                Usuarios
-              </span>
-            </li>
+          {(user.rolUsuario === rolUsuario.ADMIN ||
+            user.rolUsuario === rolUsuario.EDITOR) && (
+              <li className="item mb-4">
+                <div className="item-nav mb-2">
+                  <Link
+                    to="/usuarios"
+                    className="circle-item "
+                    aria-current="page"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-original-title="Home"
+                  >
+                    <i
+                      className="fa-solid fa-network-wired fa-lg"
+                      style={{ color: '#ffffff' }}
+                    ></i>
+                  </Link>
+                </div>
+                <span style={{ color: '#eee', fontSize: '12px' }}>
+                  Usuarios
+                </span>
+              </li>
           )}
-          {user.role.includes('sadmin') && (
+          { user.perfil.includes(perfil.ADMINISTRADOR) && (
             <li className="item mb-4">
               <div className="item-nav mb-2">
                 <Link
@@ -164,6 +133,9 @@ const SideBar = ({ children }) => {
               </span>
             </li>
           )}
+          <li>
+          <BotonProfile/>
+          </li>
         </ul>
       </div>
       <main className="main">

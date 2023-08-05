@@ -1,23 +1,22 @@
 import { Route, Routes } from 'react-router-dom'
 import Login from '../../../pages/Login/Login'
 import ProtectedRoutes from '../../../router/ProtectedRoutes'
-import { useAuth } from './useAuth'
-import { lazy, Suspense } from 'react'
+import { authContext } from './useAuth'
+import { lazy, Suspense, useContext } from 'react'
 import SideBar from '../SideBar/SideBar'
+import { sector, perfil, rolUsuario } from '../../../constantes/constUsers'
 
 function NavDashboard () {
-  // const { user, logout } = useAuth()
-  const { user } = useAuth()
-  console.log(user)
+  const { user } = useContext(authContext)
   const Home = lazy(() => import('../../../pages/Home/Home'))
   const Tickets = lazy(() => import('../../../pages/Tickets/Tickets'))
   const TicketCreate = lazy(() => import('../../../pages/Tickets/TicketCreate'))
   const Usuarios = lazy(() => import('../../../pages/Users/usuarios'))
   const CreateUser = lazy(() => import('../../../pages/Users/CreateUser'))
   const DetalleTicket = lazy(() => import('../../../pages/Tickets/DetalleTicket'))
-  // const DetalleUsuario = lazy(() => import('../../../pages/Users/DetalleUsuario'))
+  const DetalleUsuario = lazy(() => import('../../../pages/Users/DetalleUsuario'))
 
-  if (!user.isLogged) {
+  if (!(user && Object.keys(user).length > 0)) {
     return (
       <>
         <Routes>
@@ -35,20 +34,16 @@ function NavDashboard () {
           <Routes>
             <Route index element={<Home />} />
             <Route path="/404" element={<div>404</div>} />
-            <Route path="*" element={<h1>carga de requerimiento + lista</h1>} />
+            <Route path="*" element={<Home />} />
             <Route path="/tickets" element={<Tickets />} />
             <Route path="/tickets/:id" element={<DetalleTicket />} />
             <Route path="/dashboard" element={<Home />} />
-            {/* <Route element={<ProtectedRoutes isAllowed={user.isLogged} />}>
-              <Route path="/dashboard" element={<Home />} />
-              <Route path="/tickets" element={<Tickets />} />
-            </Route> */}
             <Route
               element={
                 <ProtectedRoutes
                   isAllowed={
-                    user.isLogged && (user.role.includes('mesa_entrada') ||
-                      user.role.includes('sadmin'))
+                    user.sector.includes(sector.MESA_DE_ENTRADA) ||
+                    user.perfil.includes(perfil.ADMINISTRADOR)
                   }
                 />
               }
@@ -59,18 +54,20 @@ function NavDashboard () {
               element={
                 <ProtectedRoutes
                   isAllowed={
-                    user.isLogged && user.role.includes('admin')
+                    (user.rolUsuario === rolUsuario.ADMIN ||
+                    user.rolUsuario === rolUsuario.EDITOR)
                   }
                 />
               }
             >
               <Route path="/usuarios" element={<Usuarios />} />
               <Route path="/usuarios/create" element={<CreateUser />} />
+              <Route path="/usuarios/:id" element={<DetalleUsuario />} />
             </Route>
             <Route
               element={
                 <ProtectedRoutes
-                  isAllowed={user.isLogged && user.role.includes('sadmin')}
+                  isAllowed={user.perfil.includes(perfil.ADMINISTRADOR)}
                 />
               }
             >

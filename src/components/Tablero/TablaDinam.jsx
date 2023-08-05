@@ -1,7 +1,6 @@
 import React from 'react'
 import '../Tickets/TicketsTable.css'
 import ButtonEdit from '../partials/Button/ButtonEdit'
-import ButtonVer from '../partials/Button/ButtonVer'
 
 const TablaDinam = ({ data, acciones, columnas }) => {
   const columnasLowercase = Object.keys(columnas)
@@ -31,7 +30,6 @@ const TablaDinam = ({ data, acciones, columnas }) => {
               ))}
               {acciones && (
                 <td>
-                  <ButtonVer onClick={() => algunaAccion(item.id)} />
                   <ButtonEdit onClick={() => algunaAccion(item.id)} />
                 </td>
               )}

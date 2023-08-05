@@ -1,15 +1,19 @@
 import { useForm } from 'react-hook-form'
 import InputForm from './Input/InputForm'
 import Button from './Button/Button'
-import { useAuth } from '../partials/Nav/useAuth'
+import { authContext } from '../partials/Nav/useAuth'
 import { Navigate } from 'react-router-dom'
+import { useContext } from 'react'
 
 const REGEX_PASSWORD =
   /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
-const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
+// const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
 const LoginForm = () => {
-  const { user, login } = useAuth()
+  // const {  login } = useAuth()
+  const { login } = useContext(authContext)
+  // const storedUser = sessionStorage.getItem('user')
+  // const user = storedUser ? JSON.parse(storedUser) : null
   const {
     register,
     handleSubmit,
@@ -22,7 +26,7 @@ const LoginForm = () => {
     if (result?.error) {
       alert(result.error)
     } else {
-      console.log(user)
+      console.log(result.user)
       return <Navigate to="/tickets"/>
     }
   }
@@ -32,7 +36,8 @@ const LoginForm = () => {
       <div className="row">
         <InputForm
           label="Email"
-          type="email"
+          // type="email"
+          type="text"
           name="email"
           placeholder="Ingrese su correo..."
           register={register}
@@ -42,7 +47,7 @@ const LoginForm = () => {
           options={{
             required: 'Campo obligatorio',
             pattern: {
-              value: REGEX_EMAIL,
+              // value: REGEX_EMAIL,
               message: 'El e-mail tiene que ser valido'
             }
           }}
