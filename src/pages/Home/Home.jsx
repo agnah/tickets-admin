@@ -1,8 +1,9 @@
 import Tablero from '../../components/Tablero/Tablero'
 import ButtonsState from '../../components/Tickets/ButtonsState'
-// import TicketsTable from '../../components/Tickets/TicketsTable'
 import TablaDinam from '../../components/Tablero/TablaDinam'
-import { useAuth } from '../../components/partials/Nav/useAuth'
+import { authContext } from '../../components/partials/Nav/useAuth'
+import { sector } from '../../constantes/constUsers'
+import { useContext } from 'react'
 
 const data = [
   { id: 1, fecha: '2023-07-27', preTarea: 'Tarea 1' },
@@ -10,33 +11,29 @@ const data = [
   { id: 3, fecha: '2023-07-29', preTarea: 'Tarea 3' }
 ]
 const valoresEstados = {
-  nuevos: 4,
+  pendientes: 4,
   asignados: 10,
   curso: 2,
-  totales: 3
+  totales: 33
 }
 
 const columnas = { id: 'Id', fecha: 'Fecha', preTarea: 'Pre Tarea' }
 const acciones = true
 
 const setTitulosTabla = (user) => {
-  if (user.role.includes('mesa_entrada')) {
-    return { titulo1: 'Rechazados', titulo2: 'Nuevos' }
+  const sectorTitulos = {
+    [sector.MESA_DE_ENTRADA]: { titulo1: 'mesa de entrada', titulo2: 'Nuevos' },
+    [sector.SOPORTE]: { titulo1: 'Soporte', titulo2: 'Nuevos' },
+    [sector.CID]: { titulo1: 'cid', titulo2: 'Nuevos' },
+    [sector.COMPUTOS]: { titulo1: 'computos', titulo2: 'Nuevos' },
+    [sector.TELEFONIA]: { titulo1: 'telefonia', titulo2: 'Nuevos' },
+    [sector.GDE]: { titulo1: 'gde', titulo2: 'Nuevos' }
   }
-  if (user.role.includes('area_tecnica')) {
-    return { titulo1: 'Tecnico 1', titulo2: 'Nuevos' }
-  }
-  if (user.role.includes('admin')) {
-    return { titulo1: 'Admin 1', titulo2: 'Nuevos' }
-  }
-  if (user.role.includes('cid')) {
-    return { titulo1: 'Cid 1', titulo2: 'Nuevos' }
-  }
-  return { titulo1: 'Sin role', titulo2: 'Sin role' }
+  return sectorTitulos[user.sector] || { titulo1: 'admin', titulo2: 'admin' }
 }
 
 const Home = () => {
-  const { user } = useAuth()
+  const { user } = useContext(authContext)
   const { titulo1, titulo2 } = setTitulosTabla(user)
   return (
     <>

@@ -1,42 +1,45 @@
-import { createContext, useContext, useState } from 'react'
-// ! Usuarios hardcodeados
-// import usuarios from '../../../assets/users.json'
-const authContext = createContext()
+import { createContext, useState, useEffect } from 'react'
 
-export function useAuth () {
-  const user = useContext(authContext)
-  return user
-}
+export const authContext = createContext()
 
 export function AuthProvider ({ children }) {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(() => {
+    const storedUser = sessionStorage.getItem('user')
+    return storedUser ? JSON.parse(storedUser) : {}
+  })
 
   const login = async ({ email, password }) => {
-    const response = await fetch('./assets/users.json')
-    const users = await response.json()
-    await users.forEach(user => {
-      if (user.email === email) {
-        if (user.password === password) {
-          setUser({
-            user: user.username,
-            role: user.perfil,
-            email: user.email,
-            isLogged: true
-          })
-        }
+    try {
+      const response = await fetch('./assets/users.json')
+      const users = await response.json()
+      const checkUser = users.find(user => user.email === email && user.password === password)
+      if (checkUser) {
+        setUser(checkUser)
+        sessionStorage.setItem('user', JSON.stringify(checkUser))
+        return { success: 'Login correcto', user: checkUser }
+      } else {
+        return { error: 'El email o la contraseña son incorrectos.' }
       }
-    })
-    // if (!user?.email) return { error: 'El email o password proporcionados son incorrectos.' }
-    return { success: 'Login correcto', user }
+    } catch (error) {
+      return { error: 'Ha ocurrido un error al realizar el login.' }
+    }
   }
 
   const logout = () => {
+    sessionStorage.removeItem('user')
     setUser({})
   }
 
+  useEffect(() => {
+    const storedUser = sessionStorage.getItem('user')
+    if (storedUser) {
+      setUser(JSON.parse(storedUser))
+    }
+  }, [])
+
   return (
-        <authContext.Provider value={{ user, login, logout }}>
-            {children}
-        </authContext.Provider>
+      <authContext.Provider value={{ user, login, logout }}>
+        {children}
+      </authContext.Provider>
   )
 }

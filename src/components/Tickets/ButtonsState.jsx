@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 import { FiltrosContext } from '../tabla/contextTabla'
 
 const ButtonsState = ({ valores, user }) => {
-  const { nuevos, asignados, curso, totales } = valores
+  const { pendientes, asignados, curso, totales } = valores
   const { handleSeleccionadosChange, handlePrioridadChange, handleFiltroUserChange } = useContext(FiltrosContext)
   const cambiarSeleccionado = (e) => {
     const value = e.target.value
     value === '' ? handleSeleccionadosChange([]) : handleSeleccionadosChange([value])
     handlePrioridadChange('')
-    value === 'marketing' ? handleFiltroUserChange('') : handleFiltroUserChange(user.user.toLowerCase())
+    value === 'marketing' ? handleFiltroUserChange('') : handleFiltroUserChange(user.nombre.toLowerCase())
   }
   return (
     <div>
@@ -22,7 +22,7 @@ const ButtonsState = ({ valores, user }) => {
           classIcon=""
           texto="Tickets Nuevos"
           classBadge="badge"
-          cantidad={nuevos}
+          cantidad={pendientes}
           value="marketing"
           onClick={cambiarSeleccionado}
         />

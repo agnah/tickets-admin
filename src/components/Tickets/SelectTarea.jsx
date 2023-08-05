@@ -17,7 +17,7 @@ function SelectTarea () {
   const [tareaSelecionado, setTareaSeleccionado] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [tareaFinalizada, setTareaFinalizada] = useState(false)
-  const [showSelect, setShowSelect] = useState(false) // Agregado
+  const [showSelect, setShowSelect] = useState(false)
 
   const handleSelectChange = (selected) => {
     setSelectedOptions(selected)

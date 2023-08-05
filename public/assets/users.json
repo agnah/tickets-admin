@@ -1,87 +1,212 @@
 [
     {
-        "username": "Alison",
-        "email": "pp@mindes.com",
+        "nombre": "Alison",
+        "apellido": "mesa_de_entrada",
+        "email": "mesa_de_entradaOperadorUsuario",
         "password": "Prueba@123",
         "perfil": [
-            "mesa_entrada"
-        ]
+            "operador"
+        ],
+        "sector": [
+            "mesa_de_entrada"
+        ],
+        "rolUsuario": "usuario",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "Carlos Alberto Solari",
-        "email": "cas@mindes.com",
+        "nombre": "Terry",
+        "apellido": "gde",
+        "email": "gdeResponsableAdmin",
         "password": "Prueba@123",
         "perfil": [
-            "telefonia"
-        ]
+            "responsable"
+        ],
+        "sector": [
+            "gde"
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "Ewell",
-        "email": "eoli@mindes.com",
+        "nombre": "Terry",
+        "apellido": "computos",
+        "email": "computosResponsableAdmin",
         "password": "Prueba@123",
         "perfil": [
-            "area_tecnica"
-        ]
+            "responsable"
+        ],
+        "sector": [
+            "computos"
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "Roberto Gañán Ojea",
-        "email": "rgo@mindes.com",
+        "nombre": "Terry",
+        "apellido": "computos",
+        "email": "computosColaboradorEditor",
         "password": "Prueba@123",
         "perfil": [
+            "colaborador"
+        ],
+        "sector": [
+            "computos"
+        ],
+        "rolUsuario": "editor",
+        "estadoUsuario": "activo"
+    },
+    {
+        "nombre": "Terry",
+        "apellido": "computos",
+        "email": "computosColaboradorUsuario",
+        "password": "Prueba@123",
+        "perfil": [
+            "colaborador"
+        ],
+        "sector": [
+            "computos"
+        ],
+        "rolUsuario": "usuario",
+        "estadoUsuario": "activo"
+    },
+    {
+        "nombre": "Terry",
+        "apellido": "cid",
+        "email": "cidResponsableAdmin",
+        "password": "Prueba@123",
+        "perfil": [
+            "responsable"
+        ],
+        "sector": [
             "cid"
-        ]
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "Roberto Super Admin",
-        "email": "sadmin@mindes.com",
+        "nombre": "Terry",
+        "apellido": "cid",
+        "email": "cidColaboradorEditor",
         "password": "Prueba@123",
         "perfil": [
-            "sadmin",
+            "colaborador"
+        ],
+        "sector": [
+            "cid"
+        ],
+        "rolUsuario": "editor",
+        "estadoUsuario": "activo"
+    },
+    {
+        "nombre": "Terry",
+        "apellido": "cid",
+        "email": "cidColaboradorUsuario",
+        "password": "Prueba@123",
+        "perfil": [
+            "colaborador"
+        ],
+        "sector": [
+            "cid"
+        ],
+        "rolUsuario": "usuario",
+        "estadoUsuario": "activo"
+    },
+    {
+        "nombre": "Terry",
+        "apellido": "soporte",
+        "email": "soporteResponsableAdmin",
+        "password": "Prueba@123",
+        "perfil": [
+            "responsable"
+        ],
+        "sector": [
+            "soporte"
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
+    },
+    {
+        "nombre": "Terry",
+        "apellido": "soporte",
+        "email": "soporteColaboradorEditor",
+        "password": "Prueba@123",
+        "perfil": [
+            "colaborador"
+        ],
+        "sector": [
+            "soporte"
+        ],
+        "rolUsuario": "editor",
+        "estadoUsuario": "activo"
+    },
+    {
+        "nombre": "Terry",
+        "apellido": "soporte",
+        "email": "soporteColaboradorUsuario",
+        "password": "Prueba@123",
+        "perfil": [
+            "colaborador"
+        ],
+        "sector": [
+            "soporte"
+        ],
+        "rolUsuario": "usuario",
+        "estadoUsuario": "activo"
+    },
+    {
+        "nombre": "Terry",
+        "apellido": "telefonia",
+        "email": "telefoniaResponsableAdmin",
+        "password": "Prueba@123",
+        "perfil": [
+            "responsable"
+        ],
+        "sector": [
+            "telefonia"
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
+    },
+    {
+        "nombre": "Terry",
+        "apellido": "telefonia",
+        "email": "telefoniaColaboradorEditor",
+        "password": "Prueba@123",
+        "perfil": [
+            "colaborador"
+        ],
+        "sector": [
+            "telefonia"
+        ],
+        "rolUsuario": "editor",
+        "estadoUsuario": "activo"
+    },
+    {
+        "nombre": "Terry",
+        "apellido": "telefonia",
+        "email": "telefoniaColaboradorUsuario",
+        "password": "Prueba@123",
+        "perfil": [
+            "colaborador"
+        ],
+        "sector": [
+            "telefonia"
+        ],
+        "rolUsuario": "usuario",
+        "estadoUsuario": "activo"
+    },
+    {
+        "nombre": "Terry",
+        "apellido": "administrador",
+        "email": "administrador",
+        "password": "Prueba@123",
+        "perfil": [
+            "administrador"
+        ],
+        "sector": [
             "admin"
-        ]
-    },
-    {
-        "username": "Roberto data center",
-        "email": "datacenter@mindes.com",
-        "password": "Prueba@123",
-        "perfil": [
-            "data_center"
-        ]
-    },
-    {
-        "username": "Pep Admin Data Center",
-        "email": "adatacenter@mindes.com",
-        "password": "Prueba@123",
-        "perfil": [
-            "data_center",
-            "admin"
-        ]
-    },
-    {
-        "username": "Terry",
-        "email": "atelefonia@mindes.com",
-        "password": "Prueba@123",
-        "perfil": [
-            "telefonia",
-            "admin"
-        ]
-    },
-    {
-        "username": "terry",
-        "email": "aareatecnica@mindes.com",
-        "password": "Prueba@123",
-        "perfil": [
-            "area_tecnica",
-            "admin"
-        ]
-    },
-    {
-        "username": "juan Cid Admin",
-        "email": "acid@mindes.com",
-        "password": "Prueba@123",
-        "perfil": [
-            "cid",
-            "admin"
-        ]
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
     }
 ]
