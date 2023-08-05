@@ -6,7 +6,7 @@ import SideBar from '../SideBar/SideBar'
 import { sector, perfil, rolUsuario } from '../../../constantes/constUsers'
 import useAuth from '../../../servicios/UseAuth'
 
-function NavDashboard() {
+function NavDashboard () {
   const { user } = useAuth()
   const Home = lazy(() => import('../../../pages/Home/Home'))
   const Tickets = lazy(() => import('../../../pages/Tickets/Tickets'))
@@ -16,7 +16,8 @@ function NavDashboard() {
   const DetalleTicket = lazy(() => import('../../../pages/Tickets/DetalleTicket'))
   const DetalleUsuario = lazy(() => import('../../../pages/Users/DetalleUsuario'))
 
-  if (!(user && Object.keys(user).length > 0)) {
+  // if (!(user && Object.keys(user).length > 0)) {
+  if (!user) {
     return (
       <>
         <Routes>
