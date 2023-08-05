@@ -62,8 +62,6 @@ function DragAndDrop () {
     inputRef.current.value = ''
   }
 
-  console.log(imagenes)
-
   return (
     <>
       <div

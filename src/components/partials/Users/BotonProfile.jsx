@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react'
-import { authContext } from '../Nav/useAuth'
+import React, { useState } from 'react'
+import useAuth from '../../../servicios/UseAuth'
 
-function BotonProfile () {
-  const { user, logout } = useContext(authContext)
+function BotonProfile() {
+  const { user, logout } = useAuth()
   const [showInfo, setShowInfo] = useState(false)
 
   const toggleInfo = () => {
@@ -15,12 +15,12 @@ function BotonProfile () {
 
   return (
     <div>
-    <h2 style={{ color: '#eee' }}>{user.nombre}</h2>
-    <i className="fas fa-user fa-lg circle-item" onClick={toggleInfo} style={{ cursor: 'pointer', color: '#eee' }}></i>
-    {showInfo && (
+      <h2 style={{ color: '#eee' }}>{user.nombre}</h2>
+      <i className="fas fa-user fa-lg circle-item" onClick={toggleInfo} style={{ cursor: 'pointer', color: '#eee' }}></i>
+      {showInfo && (
         <button onClick={handleLogout}>Cerrar sesión</button>
-    )}
-</div>
+      )}
+    </div>
   )
 }
 

@@ -1,9 +1,8 @@
 import Tablero from '../../components/Tablero/Tablero'
 import ButtonsState from '../../components/Tickets/ButtonsState'
 import TablaDinam from '../../components/Tablero/TablaDinam'
-import { authContext } from '../../components/partials/Nav/useAuth'
 import { sector } from '../../constantes/constUsers'
-import { useContext } from 'react'
+import useAuth from '../../servicios/UseAuth'
 
 const data = [
   { id: 1, fecha: '2023-07-27', preTarea: 'Tarea 1' },
@@ -33,7 +32,7 @@ const setTitulosTabla = (user) => {
 }
 
 const Home = () => {
-  const { user } = useContext(authContext)
+  const { user } = useAuth()
   const { titulo1, titulo2 } = setTitulosTabla(user)
   return (
     <>

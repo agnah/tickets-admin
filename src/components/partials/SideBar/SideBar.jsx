@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
 import Header from '../Header/Header'
 import './SideBar.css'
-import { authContext } from '../../../components/partials/Nav/useAuth'
 import { sector, perfil, rolUsuario } from '../../../constantes/constUsers'
 import BotonProfile from '../Users/BotonProfile'
-import { useContext } from 'react'
+import useAuth from '../../../servicios/UseAuth'
 
 const SideBar = ({ children }) => {
-  const { user } = useContext(authContext)
+  const { user } = useAuth()
   // ! TRAER LOGICA DE NAVEGACION
   return (
     <div className="sidebar">
@@ -87,7 +86,7 @@ const SideBar = ({ children }) => {
                   Crear Ticket
                 </span>
               </li>
-          )}
+            )}
           {(user.rolUsuario === rolUsuario.ADMIN ||
             user.rolUsuario === rolUsuario.EDITOR) && (
               <li className="item mb-4">
@@ -110,8 +109,8 @@ const SideBar = ({ children }) => {
                   Usuarios
                 </span>
               </li>
-          )}
-          { user.perfil.includes(perfil.ADMINISTRADOR) && (
+            )}
+          {user.perfil.includes(perfil.ADMINISTRADOR) && (
             <li className="item mb-4">
               <div className="item-nav mb-2">
                 <Link
@@ -134,7 +133,7 @@ const SideBar = ({ children }) => {
             </li>
           )}
           <li>
-          <BotonProfile/>
+            <BotonProfile />
           </li>
         </ul>
       </div>

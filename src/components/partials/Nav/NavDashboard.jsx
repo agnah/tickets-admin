@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom'
 import Login from '../../../pages/Login/Login'
 import ProtectedRoutes from '../../../router/ProtectedRoutes'
-import { authContext } from './useAuth'
-import { lazy, Suspense, useContext } from 'react'
+import { lazy, Suspense } from 'react'
 import SideBar from '../SideBar/SideBar'
 import { sector, perfil, rolUsuario } from '../../../constantes/constUsers'
+import useAuth from '../../../servicios/UseAuth'
 
-function NavDashboard () {
-  const { user } = useContext(authContext)
+function NavDashboard() {
+  const { user } = useAuth()
   const Home = lazy(() => import('../../../pages/Home/Home'))
   const Tickets = lazy(() => import('../../../pages/Tickets/Tickets'))
   const TicketCreate = lazy(() => import('../../../pages/Tickets/TicketCreate'))
@@ -55,7 +55,7 @@ function NavDashboard () {
                 <ProtectedRoutes
                   isAllowed={
                     (user.rolUsuario === rolUsuario.ADMIN ||
-                    user.rolUsuario === rolUsuario.EDITOR)
+                      user.rolUsuario === rolUsuario.EDITOR)
                   }
                 />
               }

@@ -1,19 +1,15 @@
 import { useForm } from 'react-hook-form'
 import InputForm from './Input/InputForm'
 import Button from './Button/Button'
-import { authContext } from '../partials/Nav/useAuth'
 import { Navigate } from 'react-router-dom'
-import { useContext } from 'react'
+import useAuth from '../../servicios/UseAuth'
 
 const REGEX_PASSWORD =
   /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
 // const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
 const LoginForm = () => {
-  // const {  login } = useAuth()
-  const { login } = useContext(authContext)
-  // const storedUser = sessionStorage.getItem('user')
-  // const user = storedUser ? JSON.parse(storedUser) : null
+  const { login } = useAuth()
   const {
     register,
     handleSubmit,
@@ -27,7 +23,7 @@ const LoginForm = () => {
       alert(result.error)
     } else {
       console.log(result.user)
-      return <Navigate to="/tickets"/>
+      return <Navigate to="/tickets" />
     }
   }
 
