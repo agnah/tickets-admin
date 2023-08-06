@@ -8,6 +8,10 @@ function DetalleTicket () {
 
   return (
     <>
+      {/* <Tablero title={`Ticket ${id}`} page='Computos' state="En curso" classTitle="h3">
+         <TicketInfo />
+
+      </Tablero> */}
       <Tablero title={`Ticket ${id}`} classTitle="text-center" >
         <GetTicketDetalle id={id}/>
       </Tablero>
