@@ -44,7 +44,7 @@ const Select = (props) => {
           name={name}
           {...attributes}
           {...register(name, options)}
-          className="form-control"
+          className={props?.classInput ? `${props.classInput} form-control` : 'form-control'}
           disabled={display}
         >
           <option value="">{placeholder}</option>

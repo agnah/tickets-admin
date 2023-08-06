@@ -8,12 +8,13 @@ const Datalist = (props) => {
     options,
     errors,
     optionList,
+    classCol,
     ...attributes
   } = props
 
   const classes = errors[name]?.message
-    ? 'col-md-10 form-group item-form has-error'
-    : 'col-md-10 form-group item-form'
+    ? `${classCol} has-error`
+    : `${classCol}`
 
   return (
     <div className={classes}>

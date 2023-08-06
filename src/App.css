@@ -10,3 +10,9 @@
     flex: 1;
     padding: 1.5rem 2rem; 
 }
+
+.area_input{
+    border-color: #45BAF2;
+    color: #45BAF2;
+    background-color: #45bbf22d;
+}

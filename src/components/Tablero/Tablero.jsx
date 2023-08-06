@@ -5,7 +5,7 @@ const Tablero = ({ children, title, classTitle = '', page = '' }) => {
   return (
     <article className="tablero mx-0">
       <div className='d-flex justify-content-between'>
-        <h3 className={classTitle}>{title}</h3>
+        <h5 className={classTitle}>{title}</h5>
         {page && <span>Estás aquí: {page}</span>}
       </div>
       <hr />
