@@ -3,13 +3,21 @@
     background: #fff;
     padding: 20px 30px;
     margin: 0 1rem 1rem;
-    box-shadow: 1px 1px 3px #999;
+    box-shadow: 3px 3px 6px #0000001a;
 }
 
 .tablero h3 {
     margin: 0;
+    color: var(--titulo-color);
 }
 
 .tablero hr {
     margin: 1rem 0;
+    height: 2px;
+    background: var(--hr-color);
+}
+
+.tablero span {
+    color: var(texto-color);
+    font-weight: 100;
 }

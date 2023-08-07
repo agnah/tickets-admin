@@ -1,12 +1,23 @@
+* {
+    --titulo-color: #3B4449;
+    --texto-color: #7A7A7A;
+    --hr-color: #AAAAAA;
+}
+
 #root {
     /* display: flex;
     flex-direction: column; */
     min-height: 100vh;
-    background: #F5F5F5;
+    background: #EEEEEE;
+    background-image: url(../public/img/icon-background.svg);
+    background-repeat: no-repeat;
+    background-position: 10% 100%;
+    background-size: 200% 100%;
     box-sizing: border-box;
 }
 
 .main-container {
     flex: 1;
-    padding: 1.5rem 2rem; 
+    padding: 1.5rem 2rem;
+    
 }

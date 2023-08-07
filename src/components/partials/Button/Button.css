@@ -36,6 +36,8 @@
     color: #333;
     background-color: #fff;
     margin: 0 .5rem;
-    padding: 10px 12px ;
-    font-size: 14px;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
 }
