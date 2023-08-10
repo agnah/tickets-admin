@@ -2,15 +2,18 @@ import React, { useContext } from 'react'
 import Button from '../partials/Button/Button'
 import { Link } from 'react-router-dom'
 import { FiltrosContext } from '../tabla/contextTabla'
+import { estadoTicket } from '@constantes/constTickets'
 
 const ButtonsState = ({ valores, user }) => {
+  const { PENDIENTE, ASIGNADO, EN_CURSO } = estadoTicket
   const { pendientes, asignados, curso, totales } = valores
   const { handleSeleccionadosChange, handlePrioridadChange, handleFiltroUserChange } = useContext(FiltrosContext)
+
   const cambiarSeleccionado = (e) => {
     const value = e.target.value
     value === '' ? handleSeleccionadosChange([]) : handleSeleccionadosChange([value])
     handlePrioridadChange('')
-    value === 'marketing' ? handleFiltroUserChange('') : handleFiltroUserChange(user.nombre.toLowerCase())
+    value === PENDIENTE ? handleFiltroUserChange('') : handleFiltroUserChange(user.nombre)
   }
   return (
     <div>
@@ -20,10 +23,10 @@ const ButtonsState = ({ valores, user }) => {
           type=""
           classBoton="btn btn-badge btn-open"
           classIcon=""
-          texto="Tickets Nuevos"
+          texto="Pendientes"
           classBadge="badge"
           cantidad={pendientes}
-          value="marketing"
+          value={PENDIENTE}
           onClick={cambiarSeleccionado}
         />
       </Link>
@@ -33,10 +36,10 @@ const ButtonsState = ({ valores, user }) => {
           type=""
           classBoton="btn btn-badge btn-progress"
           classIcon=""
-          texto="Tickets Asignados"
+          texto="Asignados"
           classBadge="badge"
           cantidad={asignados}
-          value='services'
+          value={ASIGNADO}
           onClick={cambiarSeleccionado}
         />
       </Link>
@@ -46,10 +49,10 @@ const ButtonsState = ({ valores, user }) => {
           type=""
           classBoton="btn btn-badge btn-pending"
           classIcon=""
-          texto="Tickets en Curso"
+          texto="En Curso"
           classBadge="badge"
           cantidad={curso}
-          value="support"
+          value={EN_CURSO}
           onClick={cambiarSeleccionado}
         />
       </Link>

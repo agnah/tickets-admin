@@ -1,31 +1,36 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { apis } from '@constantes/constApis'
 
-const TicketDetalleService = (id) => {
-  const [user, setUser] = useState(null)
+const TicketDetalleService = (ID) => {
+  const [ticket, setTicket] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    fetch(`https://dummyjson.com/user/${id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('La red no responde.')
-        }
-        return response.json()
-      })
-      .then((data) => {
-        setUser(data)
-        setLoading(false)
-        setError(null)
-      })
-      .catch((error) => {
-        setUser(null)
-        setLoading(false)
-        setError(error.message)
-      })
-  }, [id])
+  // const url = `${API_USUARIO}/${id}`
+  // const url = apis.API_USUARIO.replace('{id}', id)
 
-  return { user, loading, error }
+  const url = apis.API_USUARIO
+
+  fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('La red no responde.')
+      }
+      return response.json()
+    })
+    .then((data) => {
+      const usuarioEncontrado = data.find(user => user.id === ID)
+      setTicket(usuarioEncontrado)
+      setLoading(false)
+      setError(null)
+    })
+    .catch((error) => {
+      setTicket(null)
+      setLoading(false)
+      setError(error.message)
+    })
+
+  return { ticket, loading, error }
 }
 
 export default TicketDetalleService

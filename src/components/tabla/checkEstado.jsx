@@ -1,23 +1,24 @@
 import React, { useContext } from 'react'
 import { FiltrosContext } from '../tabla/contextTabla'
+import { estadoTicket } from '@constantes/constTickets'
 
-function CheckEstado ({ onChange, seleccionados }) {
+function CheckEstado({ onChange, seleccionados }) {
   const { handleFiltroUserChange } = useContext(FiltrosContext)
-
+  const { PENDIENTE, ASIGNADO, EN_CURSO, ANULADO, FINALIZADO } = estadoTicket
   const handleMarketingChange = (e) => {
     const value = e.target.value
 
     if (e.target.checked) {
       onChange(prevSeleccionados => {
         const nuevosSeleccionados = [...prevSeleccionados, value]
-        if (nuevosSeleccionados.length === 1 && nuevosSeleccionados[0] === 'marketing') {
+        if (nuevosSeleccionados.length === 1 && nuevosSeleccionados[0] === PENDIENTE) {
           handleFiltroUserChange('')
         }
         return nuevosSeleccionados
       })
     } else {
       const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
-      if (nuevosSeleccionados.length === 1 && nuevosSeleccionados[0] === 'marketing') {
+      if (nuevosSeleccionados.length === 1 && nuevosSeleccionados[0] === PENDIENTE) {
         handleFiltroUserChange('')
       }
       onChange(nuevosSeleccionados)
@@ -36,7 +37,7 @@ function CheckEstado ({ onChange, seleccionados }) {
     } else {
       if (Array.isArray(seleccionados)) {
         const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
-        if (nuevosSeleccionados.includes('marketing') && nuevosSeleccionados.length === 1) {
+        if (nuevosSeleccionados.includes(PENDIENTE) && nuevosSeleccionados.length === 1) {
           handleFiltroUserChange('')
         }
         onChange(nuevosSeleccionados)
@@ -51,26 +52,26 @@ function CheckEstado ({ onChange, seleccionados }) {
         Todos
       </label>
       <label>
-        <input type="checkbox" name="estado" value="marketing"
+        <input type="checkbox" name="estado" value={PENDIENTE}
           onChange={handleMarketingChange}
-          checked={seleccionados.includes('marketing')} />
-        Nuevo marketing
+          checked={seleccionados.includes(PENDIENTE)} />
+        Pendiente
       </label>
       <label>
-        <input type="checkbox" name="estado" value="services" onChange={onChangeValue} checked={seleccionados.includes('services')} />
-        Asignado services
+        <input type="checkbox" name="estado" value={ASIGNADO} onChange={onChangeValue} checked={seleccionados.includes(ASIGNADO)} />
+        Asignado
       </label>
       <label>
-        <input type="checkbox" name="estado" value="support" onChange={onChangeValue} checked={seleccionados.includes('support')} />
-        En Curso support
+        <input type="checkbox" name="estado" value={EN_CURSO} onChange={onChangeValue} checked={seleccionados.includes(EN_CURSO)} />
+        En Curso
       </label>
       <label>
-        <input type="checkbox" name="estado" value="accounting" onChange={onChangeValue} checked={seleccionados.includes('accounting')} />
-        Finalizado accounting
+        <input type="checkbox" name="estado" value={FINALIZADO} onChange={onChangeValue} checked={seleccionados.includes(FINALIZADO)} />
+        Finalizado
       </label>
       <label>
-        <input type="checkbox" name="estado" value="sales" onChange={onChangeValue} checked={seleccionados.includes('sales')} />
-        Anulado sales
+        <input type="checkbox" name="estado" value={ANULADO} onChange={onChangeValue} checked={seleccionados.includes(ANULADO)} />
+        Anulado
       </label>
     </div>
   )

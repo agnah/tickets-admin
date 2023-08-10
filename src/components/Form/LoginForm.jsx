@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import InputForm from './Input/InputForm'
 import Button from './Button/Button'
 import { useNavigate } from 'react-router-dom'
-import useAuth from '../../servicios/UseAuth'
+import useAuth from '@servicios/UseAuth'
 
 const REGEX_PASSWORD =
   /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/

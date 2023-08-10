@@ -1,5 +1,5 @@
 import DataTable from 'react-data-table-component'
-import useApiTest from '@servicios/useApiTest'
+import useApiMock from '@servicios/useApiMock'
 import SkeletonTabla from './skeletonTabla'
 import { useCallback, useMemo, useContext } from 'react'
 import Button from '../partials/Button/Button'
@@ -8,27 +8,19 @@ import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
 import useAuth from '@servicios/UseAuth'
-import ButtonVer from '../partials/Button/ButtonVer'
 import ButtonEdit from '../partials/Button/ButtonEdit'
 import { useNavigate, Link } from 'react-router-dom'
+import { apis } from '@constantes/constApis'
+import { estadoTicket } from '@constantes/constTickets'
+import { areas } from '@constantes/constAreas'
 
-const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos', 'ewell']
-// const InfoExtra = (data) => {
-//   const info = data.data
-//   return (
-//     <small>
-//       id: {info.id} - compania: {info.company.name} - direccion:{' '}
-//       {info.address.address} - ciudad: {info.address.city}
-//     </small>
-//   )
-// }
+const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz']
 
-// const ExpandedComponent = ({ data }) => <InfoExtra data={data} />
-
-function Tabla() {
+function Tabla () {
+  const { PENDIENTE } = estadoTicket
   const { user } = useAuth()
   const navigate = useNavigate()
-  const path = 'users'
+  const url = apis.API_TICKETS
   const {
     isLoading,
     isValidating,
@@ -38,7 +30,7 @@ function Tabla() {
     error,
     // mutate,
     trigger
-  } = useApiTest(path)
+  } = useApiMock(url)
 
   const {
     prioridad,
@@ -53,52 +45,88 @@ function Tabla() {
   const handleEdit = useCallback((id) => {
     navigate(`/tickets/${id}`)
   }, [])
-  const handleVer = useCallback((id) => {
-    navigate(`/tickets/${id}`)
-  }, [])
 
   // columnas tabla
-  const columns = useMemo(() => [
+  const columnsTotales = useMemo(() => [
     {
       name: 'Nro.',
-      selector: (row) => row.firstName,
+      selector: (row) => row.ticket,
       sortable: true
     },
     {
       name: 'Fecha',
-      selector: (row) => row.lastName,
+      selector: (row) => row.fecha,
+      sortable: true
+    },
+    {
+      name: 'Hora',
+      selector: (row) => row.fecha,
+      sortable: true
+    },
+    {
+      name: 'Sede',
+      selector: (row) => row.sede,
       sortable: true
     },
     {
       name: 'Area',
-      selector: (row) => row.email,
+      selector: (row) => row.area,
       sortable: true
     },
     {
-      name: 'Solicitante',
-      selector: (row) => row.eyeColor,
+      name: 'Piso',
+      selector: (row) => row.piso,
       sortable: true
     },
     {
-      name: 'Departamento Asignado',
-      selector: (row) => row.company.department,
+      name: 'Colaborador',
+      selector: (row) => row.colaborador,
       sortable: true
     },
     {
-      name: 'Tecnico',
-      cell: () => <>ver</>
+      name: 'Pre-tarea',
+      selector: (row) => row.pre_tarea,
+      sortable: true
     },
     {
-      name: 'Acciones',
-      // selector: row => row.id,
+      name: 'Área asignada',
+      selector: (row) => row.area_asignada,
+      sortable: true
+    },
+    {
+      name: 'Estado',
+      selector: (row) => row.estado,
+      sortable: true
+    },
+    {
+      name: 'Accion',
       cell: (row) => (
         <>
-          <ButtonVer onClick={() => handleVer(row.id)} />
           <ButtonEdit onClick={() => handleEdit(row.id)} />
         </>
       )
     }
-  ], [user.role])
+  ], [])
+
+  const filteredColumns = (filtro) => {
+    const { MESA_DE_ENTRADA, SOPORTE, CID, COMPUTOS, TELEFONIA, GDE, CSTIMI, ADMIN } = areas
+    const filterColumns = {
+      [MESA_DE_ENTRADA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Área asignada', 'Colaborador', 'Estado', 'Accion'],
+      [SOPORTE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion'],
+      [CID]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion'],
+      [COMPUTOS]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion'],
+      [TELEFONIA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion'],
+      [GDE]: ['Area', 'Piso', 'Colaborador', 'Estado'],
+      [CSTIMI]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion'],
+      [ADMIN]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion']
+    }
+    const columnsPorArea = filterColumns[filtro] || filterColumns[MESA_DE_ENTRADA]
+    return columnsTotales.filter(column =>
+      columnsPorArea.includes(column.name)
+    )
+  }
+
+  const columns = useMemo(() => filteredColumns(user.perfil), [])
 
   // filtros
   const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
@@ -121,7 +149,7 @@ function Tabla() {
         <br />
         <Link to='/tickets/create' className='btn btn-success'>Crear Ticket</Link>
         <br />
-        {!seleccionados.includes('marketing') || seleccionados.length > 1
+        {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
           ? (
             <select
               name='filtroUser'
@@ -129,7 +157,7 @@ function Tabla() {
               onChange={(e) => handleFiltroUserChange(e.target.value)}
             >
               <option value="">Colaborador</option>
-              {optionListUser.map((option, index) => (
+              {colaborador.map((option, index) => (
                 <option key={index} value={option}>
                   {option}
                 </option>

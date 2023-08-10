@@ -1,6 +1,7 @@
 [
     {
-        "nombre": "Alison Rodriguez",
+        "id": 1,
+        "nombre": "Franco Armani",
         "apellido": "mesa_de_entrada",
         "email": "mesa_de_entradaOperadorUsuario",
         "password": "Prueba@123",
@@ -14,7 +15,8 @@
         "estadoUsuario": "activo"
     },
     {
-        "nombre": "Terry Rodriguez",
+        "id": 2,
+        "nombre": "Franco Armani",
         "apellido": "gde",
         "email": "gdeResponsableAdmin",
         "password": "Prueba@123",
@@ -28,7 +30,8 @@
         "estadoUsuario": "activo"
     },
     {
-        "nombre": "Terry Rodriguez",
+        "id": 3,
+        "nombre": "Franco Armani",
         "apellido": "computos",
         "email": "computosResponsableAdmin",
         "password": "Prueba@123",
@@ -42,7 +45,8 @@
         "estadoUsuario": "activo"
     },
     {
-        "nombre": "Terry Rodriguez",
+        "id": 4,
+        "nombre": "Franco Armani",
         "apellido": "computos",
         "email": "computosColaboradorEditor",
         "password": "Prueba@123",
@@ -56,7 +60,8 @@
         "estadoUsuario": "activo"
     },
     {
-        "nombre": "Terry Rodriguez",
+        "id": 5,
+        "nombre": "Milton Casco",
         "apellido": "computos",
         "email": "computosColaboradorUsuario",
         "password": "Prueba@123",
@@ -70,6 +75,7 @@
         "estadoUsuario": "activo"
     },
     {
+        "id": 6,
         "nombre": "Terry Rodriguez",
         "apellido": "cid",
         "email": "cidResponsableAdmin",
@@ -84,7 +90,8 @@
         "estadoUsuario": "activo"
     },
     {
-        "nombre": "Terry Rodriguez",
+        "id": 7,
+        "nombre": "Gonzáles Pirez",
         "apellido": "cid",
         "email": "cidColaboradorEditor",
         "password": "Prueba@123",
@@ -98,7 +105,8 @@
         "estadoUsuario": "activo"
     },
     {
-        "nombre": "Terry Rodriguez",
+        "id": 8,
+        "nombre": "Paulo Díaz",
         "apellido": "cid",
         "email": "cidColaboradorUsuario",
         "password": "Prueba@123",
@@ -112,6 +120,7 @@
         "estadoUsuario": "activo"
     },
     {
+        "id": 9,
         "nombre": "Terry Rodriguez",
         "apellido": "soporte",
         "email": "soporteResponsableAdmin",
@@ -126,7 +135,8 @@
         "estadoUsuario": "activo"
     },
     {
-        "nombre": "Terry Rodriguez",
+        "id": 10,
+        "nombre": "Enzo Díaz",
         "apellido": "soporte",
         "email": "soporteColaboradorEditor",
         "password": "Prueba@123",
@@ -140,7 +150,8 @@
         "estadoUsuario": "activo"
     },
     {
-        "nombre": "Terry Rodriguez",
+        "id": 11,
+        "nombre": "Enzo Pérez",
         "apellido": "soporte",
         "email": "soporteColaboradorUsuario",
         "password": "Prueba@123",
@@ -154,6 +165,7 @@
         "estadoUsuario": "activo"
     },
     {
+        "id": 12,
         "nombre": "Terry Rodriguez",
         "apellido": "telefonia",
         "email": "telefoniaResponsableAdmin",
@@ -168,7 +180,8 @@
         "estadoUsuario": "activo"
     },
     {
-        "nombre": "Terry Rodriguez",
+        "id": 13,
+        "nombre": "Rodrigo Aliendro",
         "apellido": "telefonia",
         "email": "telefoniaColaboradorEditor",
         "password": "Prueba@123",
@@ -182,7 +195,8 @@
         "estadoUsuario": "activo"
     },
     {
-        "nombre": "Terry Rodriguez",
+        "id": 14,
+        "nombre": "Nicolás De La Cruz",
         "apellido": "telefonia",
         "email": "telefoniaColaboradorUsuario",
         "password": "Prueba@123",
@@ -196,7 +210,8 @@
         "estadoUsuario": "activo"
     },
     {
-        "nombre": "Terry Rodriguez",
+        "id": 15,
+        "nombre": "Admin",
         "apellido": "administrador",
         "email": "administrador",
         "password": "Prueba@123",
@@ -204,7 +219,7 @@
             "administrador"
         ],
         "sector": [
-            "admin"
+            "administrador"
         ],
         "rolUsuario": "admin",
         "estadoUsuario": "activo"

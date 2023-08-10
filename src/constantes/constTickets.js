@@ -4,5 +4,8 @@ export const estadoTicket = {
   EN_CURSO: 'en_curso',
   ANULADO: 'anulado',
   FINALIZADO: 'finalizado',
-  DERIVADO: 'derivado'
+  DERIVADO: 'derivado',
+  ALTA: 'alta',
+  BAJA: 'baja',
+  TODAS: 'todas'
 }
