@@ -1,6 +1,7 @@
 import React from 'react'
 import '../Tickets/TicketsTable.css'
 import ButtonEdit from '../partials/Button/ButtonEdit'
+import './TablaDinam.css'
 
 const TablaDinam = ({ data, acciones, columnas }) => {
   const columnasLowercase = Object.keys(columnas)
@@ -11,8 +12,8 @@ const TablaDinam = ({ data, acciones, columnas }) => {
 
   return (
     <div>
-      <table className="table table-striped">
-        <thead className="table-dark">
+      <table className="table table-borderless ">
+        <thead className="table-thead">
           <tr>
             {columnasLowercase.map((column, index) => (
               <th scope="col" key={index}>

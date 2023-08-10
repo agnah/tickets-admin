@@ -47,7 +47,7 @@ const Home = () => {
           </Tablero>
         </div>
         <div className="col-sm-12 col-md-6">
-          <Tablero title={`Tickets ${titulo2}`}>
+          <Tablero title={<span dangerouslySetInnerHTML={{ __html: `Tickets <span class="colored-title">${titulo2}</span>` }} />}>
             {/* <TicketsTable /> */}
             <TablaDinam data={data} columnas={columnas} acciones={acciones} />
           </Tablero>

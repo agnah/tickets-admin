@@ -9,15 +9,22 @@
 .tablero h3 {
     margin: 0;
     color: var(--titulo-color);
+    font-weight: 800;
+    font-size: 1.3vw;
+}
+
+.colored-title {
+    color: var(--color-ticket-nuevo);
 }
 
 .tablero hr {
-    margin: 1rem 0;
-    height: 2px;
+    margin: 1.3rem 0;
+    height: 1px;
+    border: none;
     background: var(--hr-color);
 }
 
-.tablero span {
-    color: var(texto-color);
-    font-weight: 100;
+.span-path {
+    color: var(--texto-color);
+    font-weight: 500;
 }

@@ -1,4 +1,12 @@
 .container {
+    max-width: 90vw;
+    padding: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    justify-content: left;
+}
+
+.container a {
+    text-decoration: none;
+    margin: 0 2rem 0 0;
 }

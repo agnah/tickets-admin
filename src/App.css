@@ -1,14 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 * {
     --titulo-color: #3B4449;
     --texto-color: #7A7A7A;
     --hr-color: #AAAAAA;
+    --tr-even-color: #E1E1E1;
+    --celeste: #37BBED;
+    --color-ticket-nuevo: #9283DE;
+    --color-ticket-asignado: #F7941E;
+    --color-ticket-curso: #50B8B1;
+    --color-ticket-totales: #EE3D8F;
+    
+    font-family: 'Encode Sans', sans-serif;
 }
 
 #root {
-    /* display: flex;
-    flex-direction: column; */
     min-height: 100vh;
-    background: #EEEEEE;
+    background: #f7f7f7;
     background-image: url(../public/img/icon-background.svg);
     background-repeat: no-repeat;
     background-position: 10% 100%;
@@ -17,7 +25,8 @@
 }
 
 .main-container {
-    flex: 1;
     padding: 1.5rem 2rem;
-    
+    position: relative;
+    bottom: 0;
+    height: 100%;
 }
