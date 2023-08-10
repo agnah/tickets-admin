@@ -109,16 +109,17 @@ function Tabla () {
   ], [])
 
   const filteredColumns = (filtro) => {
+    console.log('llego', filtro)
     const { MESA_DE_ENTRADA, SOPORTE, CID, COMPUTOS, TELEFONIA, GDE, CSTIMI, ADMIN } = areas
     const filterColumns = {
       [MESA_DE_ENTRADA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Área asignada', 'Colaborador', 'Estado', 'Accion'],
-      [SOPORTE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion'],
-      [CID]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion'],
-      [COMPUTOS]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion'],
-      [TELEFONIA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion'],
+      [SOPORTE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
+      [CID]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
+      [COMPUTOS]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
+      [TELEFONIA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
       [GDE]: ['Area', 'Piso', 'Colaborador', 'Estado'],
-      [CSTIMI]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion'],
-      [ADMIN]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre Tarea', 'Colaborador', 'Estado', 'Accion']
+      [CSTIMI]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
+      [ADMIN]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion']
     }
     const columnsPorArea = filterColumns[filtro] || filterColumns[MESA_DE_ENTRADA]
     return columnsTotales.filter(column =>
@@ -126,7 +127,7 @@ function Tabla () {
     )
   }
 
-  const columns = useMemo(() => filteredColumns(user.perfil), [])
+  const columns = useMemo(() => filteredColumns(user.sector), [])
 
   // filtros
   const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
@@ -163,12 +164,12 @@ function Tabla () {
                 </option>
               ))}
             </select>
-          )
+            )
           : (
             <select disabled>
               <option value=''>Todos</option>
             </select>
-          )}
+            )}
 
         <CheckPrioridad
           prioridad={prioridad}
