@@ -112,7 +112,7 @@ function Tabla () {
   }
   if (isSuccess) {
     return (
-      <>
+      <div className="container-table">
         <Button
           classIcon="fa fa-refresh"
           texto={isValidating ? 'Validando' : ''}
@@ -165,7 +165,7 @@ function Tabla () {
           //   expandableRowsComponent={ExpandedComponent}
           noDataComponent="No exiten registros para esos parametros"
         />
-      </>
+      </div>
     )
   }
 }

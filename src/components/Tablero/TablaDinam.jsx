@@ -1,5 +1,4 @@
 import React from 'react'
-import '../Tickets/TicketsTable.css'
 import ButtonEdit from '../partials/Button/ButtonEdit'
 import './TablaDinam.css'
 

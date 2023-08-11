@@ -4,7 +4,7 @@
 .btn-asigned {
     color: white;
     border-radius: 1rem;
-    padding: .6rem 1.8rem;
+    padding: .6vw 1.5vw;
     box-shadow: 3px 3px 6px #0000001a;
     vertical-align: middle;
     display: flex;
@@ -59,7 +59,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    font-size: 1.2vw;
+    font-size: 1.3vw;
     font-weight: 600;
 }
 
@@ -68,11 +68,12 @@
     color: var(--titulo-color);
     background-color: #fff;
     margin: .2rem 0 .2rem 5rem;
-    height: 2.2vw;
-    width: 2.2vw;
-    font-size: .9vw;
+    height: 2.3vw;
+    width: 2.3vw;
+    font-size: 1vw;
     font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.6vw;
+    
 }

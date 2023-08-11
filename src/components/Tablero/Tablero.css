@@ -13,12 +13,12 @@
     font-size: 1.3vw;
 }
 
-.colored-title {
+.titulo-coloreado {
     color: var(--color-ticket-nuevo);
 }
 
 .tablero hr {
-    margin: 1.3rem 0;
+    margin: 1rem 0 1.2rem;
     height: 1px;
     border: none;
     background: var(--hr-color);

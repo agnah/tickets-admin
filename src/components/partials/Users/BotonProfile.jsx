@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import useAuth from '../../../servicios/UseAuth'
+import './BotonProfile.css'
 
-function BotonProfile() {
+function BotonProfile () {
   const { user, logout } = useAuth()
   const [showInfo, setShowInfo] = useState(false)
 
@@ -14,12 +15,16 @@ function BotonProfile() {
   }
 
   return (
-    <div>
-      <h2 style={{ color: '#eee' }}>{user.nombre}</h2>
-      <i className="fas fa-user fa-lg circle-item" onClick={toggleInfo} style={{ cursor: 'pointer', color: '#eee' }}></i>
-      {showInfo && (
-        <button onClick={handleLogout}>Cerrar sesión</button>
-      )}
+    <div className="item-nav">
+      <div>
+        <a className='circle-item'>
+          <i className="fa-solid fa-user fa-lg " onClick={toggleInfo}></i>
+          {showInfo && (
+            <button onClick={handleLogout}>Cerrar sesión</button>
+          )}
+        </a>
+      </div>
+      <span className="span-user">{user.nombre}</span>
     </div>
   )
 }
