@@ -1,6 +1,6 @@
 import useAuth from '@servicios/UseAuth'
 
-function Profile() {
+function Profile () {
   const { user } = useAuth()
   return (
     <div>

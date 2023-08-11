@@ -29,7 +29,8 @@ const Login = () => {
                   <span className="d-block mb-2">telefoniaResponsableAdmin</span>
                   <span className="d-block mb-2">telefoniaColaboradorEditor</span>
                   <span className="d-block mb-2">telefoniaColaboradorUsuario</span>
-                  <span className="d-block mb-2">administrador</span>
+                  <span className="d-block mb-2">director</span>
+                  <span className="d-block mb-2">cstimi</span>
                 </div>
               </div>
               {/* <span>mesa de entrada: pp@mindes.com</span>

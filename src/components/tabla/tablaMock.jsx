@@ -13,8 +13,9 @@ import { useNavigate, Link } from 'react-router-dom'
 import { apis } from '@constantes/constApis'
 import { estadoTicket } from '@constantes/constTickets'
 import { areas } from '@constantes/constAreas'
+import { perfil } from '@constantes/constUsers'
 
-const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz']
+const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz', 'Tito']
 
 function Tabla () {
   const { PENDIENTE } = estadoTicket
@@ -109,7 +110,6 @@ function Tabla () {
   ], [])
 
   const filteredColumns = (filtro) => {
-    console.log('llego', filtro)
     const { MESA_DE_ENTRADA, SOPORTE, CID, COMPUTOS, TELEFONIA, GDE, CSTIMI, ADMIN } = areas
     const filterColumns = {
       [MESA_DE_ENTRADA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Área asignada', 'Colaborador', 'Estado', 'Accion'],
@@ -117,7 +117,7 @@ function Tabla () {
       [CID]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
       [COMPUTOS]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
       [TELEFONIA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [GDE]: ['Area', 'Piso', 'Colaborador', 'Estado'],
+      [GDE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
       [CSTIMI]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
       [ADMIN]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion']
     }
@@ -130,6 +130,10 @@ function Tabla () {
   const columns = useMemo(() => filteredColumns(user.sector), [])
 
   // filtros
+  // const preData = datos.filter(elem => elem.area === user.sector)
+
+  // const data = filtroTabla(preData, seleccionados, prioridad, filtroUser)
+
   const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
 
   if (isError) {
@@ -148,7 +152,9 @@ function Tabla () {
           onClick={() => trigger()}
         />
         <br />
-        <Link to='/tickets/create' className='btn btn-success'>Crear Ticket</Link>
+        {!user.perfil.includes(perfil.DIRECTOR) && (
+          <Link to='/tickets/create' className='btn btn-success'>Crear Ticket</Link>
+        )}
         <br />
         {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
           ? (
@@ -157,7 +163,7 @@ function Tabla () {
               value={filtroUser}
               onChange={(e) => handleFiltroUserChange(e.target.value)}
             >
-              <option value="">Colaborador</option>
+              <option value="">Colaboradores</option>
               {colaborador.map((option, index) => (
                 <option key={index} value={option}>
                   {option}
@@ -184,12 +190,13 @@ function Tabla () {
           data={data}
           highlightOnHover
           pagination
+          paginationComponentOptions={{ rowsPerPageText: 'Filas por página' }}
           responsive
           striped
           //   ! Variables para expandir.
           //   expandableRows
           //   expandableRowsComponent={ExpandedComponent}
-          noDataComponent="No exiten registros para esos parametros"
+          noDataComponent="No exiten registros para esos parametros en este último mes"
         />
       </>
     )

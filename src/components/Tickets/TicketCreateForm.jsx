@@ -1,25 +1,69 @@
 import { useForm } from 'react-hook-form'
-import Select from '../Form/Input/Select'
+import Select from '@components/Form/Input/Select'
 import { useState } from 'react'
-import InputForm from '../Form/Input/InputForm'
+import InputForm from '@components/Form/Input/InputForm'
 import Button from '../partials/Button/Button'
-import DatalistChangeInput from '../Form/Input/DatalistCangeInput'
+import DatalistChangeInput from '@components/Form/Input/DatalistCangeInput'
 import solicitantes from '../../../public/assets/solicitantes.json'
-import TextArea from '../Form/Input/TextArea'
+import TextArea from '@components/Form/Input/TextArea'
 import { useNavigate } from 'react-router'
+import useAuth from '@servicios/UseAuth'
+import { areas } from '@constantes/constAreas'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
-const optionListSelect = ['Area Técnica', 'CID', 'Data Center', 'Telefonía']
+const optionListSelect = ['CSTIMI', 'GDE', 'Computos', 'CID']
+const optionCstimi = ['Soporte', 'Telefonia']
 const datalistSolicitante = solicitantes.map(s => s.nombre)
 
 const TicketCreateForm = () => {
+  const { user } = useAuth()
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
   const navigate = useNavigate()
+
+  const getFilterResult = (filter) => {
+    const { MESA_DE_ENTRADA, CSTIMI } = areas
+    const opcionesCompartidas = {
+      label: 'Área asignada',
+      name: 'area_asignada',
+      placeholder: 'Selecciona un área',
+      register,
+      errors,
+      classCol: 'col-md-4 col-lg-4',
+      options: {
+        required: 'Campo obligatorio'
+      },
+      classInput: 'area_input'
+    }
+    if (filter.includes(MESA_DE_ENTRADA)) {
+      return (
+        <Select
+        {...opcionesCompartidas}
+        optionList={optionListSelect}
+        />
+      )
+    } else if (filter.includes(CSTIMI)) {
+      return (
+        <Select
+        {...opcionesCompartidas}
+        optionList={optionCstimi}
+        />
+      )
+    } else {
+      return (
+        <label htmlFor="area" className="col-md-4 col-lg-4">
+          Área asignada:
+          <p name="area" id="area" className="form-group item-form">
+            {filter}
+          </p>
+        </label>
+      )
+    }
+  }
 
   const onSubmit = (data) => console.log(data)
 
@@ -168,22 +212,10 @@ const TicketCreateForm = () => {
             required: 'Campo obligatorio'
           }}
         />
-        <Select
-          label="Área"
-          name="area"
-          placeholder="Selecciona un área"
-          optionList={optionListSelect}
-          register={register}
-          errors={errors}
-          classCol="col-md-4 col-lg-4"
-          options={{
-            required: 'Campo obligatorio'
-          }}
-          classInput="area_input"
-        />
+        {getFilterResult(user.sector)}
       </div>
       <div className='d-flex justify-content-end'>
-        <Button type="reset" classBoton="mx-1 btn btn-danger" texto="cancelar" onClick={redirectTickets}/>
+        <Button type="reset" classBoton="mx-1 btn btn-danger" texto="cancelar" onClick={redirectTickets} />
         <Button type="submit" classBoton="mx-1 btn btn-success" texto="Guardar" />
       </div>
     </form>

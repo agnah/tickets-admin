@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "nombre": "Franco Armani",
+        "nombre": "Pepe",
         "apellido": "mesa_de_entrada",
         "email": "mesa_de_entradaOperadorUsuario",
         "password": "Prueba@123",
@@ -16,7 +16,7 @@
     },
     {
         "id": 2,
-        "nombre": "Franco Armani",
+        "nombre": "Tito",
         "apellido": "gde",
         "email": "gdeResponsableAdmin",
         "password": "Prueba@123",
@@ -31,7 +31,7 @@
     },
     {
         "id": 3,
-        "nombre": "Franco Armani",
+        "nombre": "Carlos",
         "apellido": "computos",
         "email": "computosResponsableAdmin",
         "password": "Prueba@123",
@@ -211,15 +211,32 @@
     },
     {
         "id": 15,
-        "nombre": "Admin",
-        "apellido": "administrador",
-        "email": "administrador",
+        "nombre": "El Dire",
+        "apellido": "director",
+        "email": "director",
         "password": "Prueba@123",
         "perfil": [
-            "administrador"
+            "director"
         ],
         "sector": [
-            "administrador"
+            "director"
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
+    },
+    {
+        "id": 15,
+        "nombre": "Juan",
+        "apellido": "CSTIMI",
+        "email": "cstimi",
+        "password": "Prueba@123",
+        "perfil": [
+            "coordinador"
+        ],
+        "sector": [
+            "cstimi",
+            "soporte",
+            "telefonia"
         ],
         "rolUsuario": "admin",
         "estadoUsuario": "activo"

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import detalleTicket from '@servicios/TicketDetalleService'
 import Button from '../partials/Button/Button'
 import Select from 'react-select'
 import ButtonEdit from '../partials/Button/ButtonEdit'
@@ -13,8 +12,7 @@ const tecnicos = [
   { value: 'laura', label: 'Laura' }
 ]
 
-const GetTicketDetalle = ({ id }) => {
-  const { ticket, loading, error } = detalleTicket(id)
+const GetTicketDetalle = ({ ticket }) => {
   const [showSelect, setShowSelect] = useState(false)
   const [selectedOption, setSelectedOption] = useState(null)
 
@@ -24,15 +22,6 @@ const GetTicketDetalle = ({ id }) => {
 
   const handleSelectChange = (selected) => {
     setSelectedOption(selected)
-  }
-  if (loading) {
-    return <div>Cargando...</div>
-  }
-  if (error) {
-    return <div>Error: {error}</div>
-  }
-  if (!ticket) {
-    return <div>No se encontraron datos del usuario.</div>
   }
 
   return (
@@ -50,16 +39,6 @@ const GetTicketDetalle = ({ id }) => {
         <ButtonEdit />
       </article>
       <article className='"col-md-6"'>
-        <p>Titulo: {ticket.titulo}</p>
-        <p>Descripcion: {ticket.descripcion}</p>
-        <p>Prioridad: {ticket.prioridad}</p>
-        <p>Estado: {ticket.estado}</p>
-        <p>Tipo: {ticket.tipo}</p>
-        <p>Categoria: {ticket.categoria}</p>
-        <p>Subcategoria: {ticket.subcategoria}</p>
-        <p>Asignado: {ticket.asignado}</p>
-        <p>Tecnico Asignado: {ticket.colaborador}</p>
-        <p>Area asignada: {ticket.area_asignada}</p>
         {(showSelect)
           ? (
             <>
@@ -75,13 +54,13 @@ const GetTicketDetalle = ({ id }) => {
                 onClick={handleSelectTecnico}
               />
             </>
-          )
+            )
           : (
             <>
               <Button
                 id="asignado"
                 classBoton="mx-1 btn btn-success"
-                texto={selectedOption ? selectedOption.label : ticket.firstName}
+                texto={selectedOption ? selectedOption.label : ticket.colaborador}
               />
               <Button
                 id="modificar"
@@ -90,7 +69,7 @@ const GetTicketDetalle = ({ id }) => {
                 onClick={handleSelectTecnico}
               />
             </>
-          )}
+            )}
       </article>
     </section>
   )

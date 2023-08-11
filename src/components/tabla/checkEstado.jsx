@@ -2,9 +2,9 @@ import React, { useContext } from 'react'
 import { FiltrosContext } from '../tabla/contextTabla'
 import { estadoTicket } from '@constantes/constTickets'
 
-function CheckEstado({ onChange, seleccionados }) {
+function CheckEstado ({ onChange, seleccionados }) {
   const { handleFiltroUserChange } = useContext(FiltrosContext)
-  const { PENDIENTE, ASIGNADO, EN_CURSO, ANULADO, FINALIZADO } = estadoTicket
+  const { PENDIENTE, EN_CURSO, ANULADO, FINALIZADO } = estadoTicket
   const handleMarketingChange = (e) => {
     const value = e.target.value
 
@@ -57,10 +57,10 @@ function CheckEstado({ onChange, seleccionados }) {
           checked={seleccionados.includes(PENDIENTE)} />
         Pendiente
       </label>
-      <label>
+      {/* <label>
         <input type="checkbox" name="estado" value={ASIGNADO} onChange={onChangeValue} checked={seleccionados.includes(ASIGNADO)} />
         Asignado
-      </label>
+      </label> */}
       <label>
         <input type="checkbox" name="estado" value={EN_CURSO} onChange={onChangeValue} checked={seleccionados.includes(EN_CURSO)} />
         En Curso

@@ -8,6 +8,7 @@ import { useState } from 'react'
 const SideBar = ({ children }) => {
   const { user } = useAuth()
   const [showNav, setShowNav] = useState(true)
+  const { DIRECTOR, RESPONSABLE, COORDINADOR } = perfil
 
   const classDisplay = showNav ? 'd-flex flex-column flex-shrink-0 bg-dark' : 'd-flex flex-column flex-shrink-0 bg-dark hideNav'
   // ! TRAER LOGICA DE NAVEGACION
@@ -70,6 +71,7 @@ const SideBar = ({ children }) => {
             </div>
             <span style={{ color: '#eee', fontSize: '12px' }}>Tickets</span>
           </li>
+          {!user.perfil.includes(DIRECTOR) && (
           <li className="item mb-4">
             <div className="item-nav mb-2">
               <Link
@@ -90,6 +92,7 @@ const SideBar = ({ children }) => {
               Crear Ticket
             </span>
           </li>
+          )}
           {(user.rolUsuario === rolUsuario.ADMIN ||
             user.rolUsuario === rolUsuario.EDITOR) && (
               <li className="item mb-4">
@@ -112,8 +115,8 @@ const SideBar = ({ children }) => {
                   Usuarios
                 </span>
               </li>
-            )}
-          {user.perfil.includes(perfil.ADMINISTRADOR) && (
+          )}
+          {(user.perfil.includes(DIRECTOR) || user.perfil.includes(RESPONSABLE) || user.perfil.includes(COORDINADOR)) && (
             <li className="item mb-4">
               <div className="item-nav mb-2">
                 <Link

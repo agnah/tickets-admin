@@ -3,17 +3,20 @@ import Button from '../partials/Button/Button'
 import { Link } from 'react-router-dom'
 import { FiltrosContext } from '../tabla/contextTabla'
 import { estadoTicket } from '@constantes/constTickets'
+import { perfil } from '@constantes/constUsers'
 
 const ButtonsState = ({ valores, user }) => {
-  const { PENDIENTE, ASIGNADO, EN_CURSO } = estadoTicket
-  const { pendientes, asignados, curso, totales } = valores
+  const { PENDIENTE, EN_CURSO } = estadoTicket
+  const { pendientes, encurso, totales } = valores
   const { handleSeleccionadosChange, handlePrioridadChange, handleFiltroUserChange } = useContext(FiltrosContext)
 
   const cambiarSeleccionado = (e) => {
     const value = e.target.value
     value === '' ? handleSeleccionadosChange([]) : handleSeleccionadosChange([value])
     handlePrioridadChange('')
-    value === PENDIENTE ? handleFiltroUserChange('') : handleFiltroUserChange(user.nombre)
+    value === PENDIENTE
+      ? handleFiltroUserChange('')
+      : (user.perfil.includes(perfil.COLABORADOR) ? handleFiltroUserChange(user.nombre) : handleFiltroUserChange(''))
   }
   return (
     <div>
@@ -30,7 +33,7 @@ const ButtonsState = ({ valores, user }) => {
           onClick={cambiarSeleccionado}
         />
       </Link>
-      <Link
+      {/* <Link
         to="/tickets">
         <Button
           type=""
@@ -42,7 +45,7 @@ const ButtonsState = ({ valores, user }) => {
           value={ASIGNADO}
           onClick={cambiarSeleccionado}
         />
-      </Link>
+      </Link> */}
       <Link
         to="/tickets">
         <Button
@@ -51,7 +54,7 @@ const ButtonsState = ({ valores, user }) => {
           classIcon=""
           texto="En Curso"
           classBadge="badge"
-          cantidad={curso}
+          cantidad={encurso}
           value={EN_CURSO}
           onClick={cambiarSeleccionado}
         />

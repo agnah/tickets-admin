@@ -1,6 +1,8 @@
 import Tablero from '@components/Tablero/Tablero'
 import TablaDinam from '@components/Tablero/TablaDinam'
 import { Link } from 'react-router-dom'
+import { perfil } from '@constantes/constUsers'
+import useAuth from '@servicios/UseAuth'
 // import Button from '@components/partials/Button/Button'
 
 const data = [
@@ -14,10 +16,13 @@ const data = [
 const columnas = { id: 'Id', nombre: 'Nombre', apellido: 'Apellido', interno: 'Interno', perfil: 'Perfil', estado: 'Estado' }
 const acciones = true
 
-function Usuarios() {
+function Usuarios () {
+  const { user } = useAuth()
   return (
     <Tablero title="Usuarios" classTitle="text-center">
+      { !user.perfil.includes(perfil.DIRECTOR) && (
       <Link to='/usuarios/create' className='btn btn-success'>Nuevo Usuario</Link>
+      )}
       <TablaDinam data={data} acciones={acciones} tipo="usuarios" columnas={columnas} classTable="table-hover" />
     </Tablero>
   )

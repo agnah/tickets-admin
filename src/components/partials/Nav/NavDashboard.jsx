@@ -4,13 +4,11 @@ import ProtectedRoutes from '../../../router/ProtectedRoutes'
 import { lazy, Suspense } from 'react'
 import SideBar from '../SideBar/SideBar'
 import { perfil, rolUsuario } from '@constantes/constUsers'
-import { areas } from '@constantes/constAreas'
 import useAuth from '@servicios/UseAuth'
 
-function NavDashboard() {
-  const { ADMINISTRADOR } = perfil
+function NavDashboard () {
+  const { DIRECTOR, RESPONSABLE, COORDINADOR } = perfil
   const { EDITOR, ADMIN, COLABORADOR } = rolUsuario
-  const { MESA_DE_ENTRADA } = areas
   const { user } = useAuth()
   const Home = lazy(() => import('@pages/Home/Home'))
   const Tickets = lazy(() => import('@pages/Tickets/Tickets'))
@@ -43,17 +41,16 @@ function NavDashboard() {
             <Route path="/tickets" element={<Tickets />} />
             <Route path="/tickets/:id" element={<DetalleTicket />} />
             <Route path="/dashboard" element={<Home />} />
-            <Route path="/tickets/create" element={<TicketCreate />} />
             <Route path="/usuarios/:id" element={<DetalleUsuario />} />
             <Route
               element={
                 <ProtectedRoutes
-                  isAllowed={
-                    user.sector.includes(MESA_DE_ENTRADA) ||
-                    user.perfil.includes(ADMINISTRADOR)
-                  }
+                isAllowed={
+                  !user.perfil.includes(DIRECTOR)
+                }
                 />
               }>
+                <Route path="/tickets/create" element={<TicketCreate />} />
             </Route>
             <Route
               element={
@@ -78,7 +75,7 @@ function NavDashboard() {
             <Route
               element={
                 <ProtectedRoutes
-                  isAllowed={user.perfil.includes(ADMINISTRADOR)}
+                  isAllowed={user.perfil.includes(DIRECTOR) || user.perfil.includes(RESPONSABLE) || user.perfil.includes(COORDINADOR)}
                 />
               }>
               <Route path="/estadisticas" element={<h1>estadisticas</h1>} />

@@ -2,7 +2,7 @@ export const perfil = {
   OPERADOR: 'operador',
   RESPONSABLE: 'responsable',
   COORDINADOR: 'coordinador',
-  ADMINISTRADOR: 'administrador',
+  DIRECTOR: 'director',
   COLABORADOR: 'colaborador'
 }
 
