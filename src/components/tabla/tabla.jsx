@@ -1,5 +1,5 @@
 import DataTable from 'react-data-table-component'
-import useApiTest from '../../servicios/useApiTest'
+import useApiTest from '@servicios/useApiTest'
 import SkeletonTabla from './skeletonTabla'
 import { useCallback, useMemo, useContext } from 'react'
 import Button from '../partials/Button/Button'
@@ -7,11 +7,10 @@ import filtroTabla from './filtroTabla'
 import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
-import useAuth from '../../servicios/UseAuth'
+import useAuth from '@servicios/UseAuth'
 import ButtonVer from '../partials/Button/ButtonVer'
 import ButtonEdit from '../partials/Button/ButtonEdit'
 import { useNavigate, Link } from 'react-router-dom'
-import { perfil } from '../../constantes/constUsers'
 
 const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos', 'ewell']
 // const InfoExtra = (data) => {
@@ -26,7 +25,7 @@ const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos', 'ewell']
 
 // const ExpandedComponent = ({ data }) => <InfoExtra data={data} />
 
-function Tabla () {
+function Tabla() {
   const { user } = useAuth()
   const navigate = useNavigate()
   const path = 'users'
@@ -120,9 +119,7 @@ function Tabla () {
           onClick={() => trigger()}
         />
         <br />
-        {(user.perfil.includes(perfil.OPERADOR) || user.perfil.includes(perfil.ADMINISTRADOR)) &&
-          <Link to='/tickets/create' className='btn btn-success'>Crear Ticket</Link>
-        }
+        <Link to='/tickets/create' className='btn btn-success'>Crear Ticket</Link>
         <br />
         {!seleccionados.includes('marketing') || seleccionados.length > 1
           ? (
@@ -138,12 +135,12 @@ function Tabla () {
                 </option>
               ))}
             </select>
-            )
+          )
           : (
             <select disabled>
               <option value=''>Todos</option>
             </select>
-            )}
+          )}
 
         <CheckPrioridad
           prioridad={prioridad}

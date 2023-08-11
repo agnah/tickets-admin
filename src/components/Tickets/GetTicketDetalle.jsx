@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import UserDataService from '../../servicios/TicketDetalleService'
 import Button from '../partials/Button/Button'
 import Select from 'react-select'
+import ButtonEdit from '../partials/Button/ButtonEdit'
 
 const tecnicos = [
   { value: 'juan', label: 'Juan' },
@@ -12,8 +12,7 @@ const tecnicos = [
   { value: 'laura', label: 'Laura' }
 ]
 
-const GetTicketDetalle = ({ id }) => {
-  const { user, loading, error } = UserDataService(id)
+const GetTicketDetalle = ({ ticket }) => {
   const [showSelect, setShowSelect] = useState(false)
   const [selectedOption, setSelectedOption] = useState(null)
 
@@ -25,57 +24,54 @@ const GetTicketDetalle = ({ id }) => {
     setSelectedOption(selected)
   }
 
-  if (loading) {
-    return <div>Cargando...</div>
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>
-  }
-
-  if (!user) {
-    return <div>No se encontraron datos del usuario.</div>
-  }
-
   return (
-    <div>
-      <h2>{user.firstName}</h2>
-      <p>Email: {user.email}</p>
-      <p>Posicion: {user.company.department}</p>
-      <Button classBoton="btn btn-badge btn-open" texto="Editar" />
-      <p>Tecnico Asignado</p>
-      {showSelect
-        ? (
-        <>
-          <Select
-            name="Tareas"
-            options={tecnicos}
-            onChange={handleSelectChange}
-            value={selectedOption}
-          />
-          <Button
-            classBoton="mx-1 btn btn-success"
-            texto="Seleccionar Tecnico"
-            onClick={handleSelectTecnico}
-          />
-        </>
-          )
-        : (
-        <>
-          <Button
-            id="asignado"
-            classBoton="mx-1 btn btn-success"
-            texto={selectedOption ? selectedOption.label : user.firstName}
-          />
-          <Button
-            id="modificar"
-            classBoton="mx-1 btn btn-danger"
-            texto="Cambiar Tecnico"
-            onClick={handleSelectTecnico}
-          />
-        </>
-          )}
-    </div>
+    <section className="row">
+      <article className='"col-md-6"'>
+        <p>Solicitante: {ticket.solicitante}</p>
+        <p>Email: {ticket.email}</p>
+        <p>Fecha: {ticket.fecha}</p>
+        <p>Telefono: {ticket.telefono}</p>
+        <p>Area: {ticket.area}</p>
+        <p>Sede: {ticket.sede}</p>
+        <p>Piso: {ticket.piso}</p>
+        <p>Referencia: {ticket.referencia}</p>
+        <p>Pre Tarea: {ticket.pre_tarea}</p>
+        <ButtonEdit />
+      </article>
+      <article className='"col-md-6"'>
+        {(showSelect)
+          ? (
+            <>
+              <Select
+                name="Tareas"
+                options={tecnicos}
+                onChange={handleSelectChange}
+                value={selectedOption}
+              />
+              <Button
+                classBoton="mx-1 btn btn-success"
+                texto="Seleccionar Tecnico"
+                onClick={handleSelectTecnico}
+              />
+            </>
+            )
+          : (
+            <>
+              <Button
+                id="asignado"
+                classBoton="mx-1 btn btn-success"
+                texto={selectedOption ? selectedOption.label : ticket.colaborador}
+              />
+              <Button
+                id="modificar"
+                classBoton="mx-1 btn btn-danger"
+                texto="Cambiar Tecnico"
+                onClick={handleSelectTecnico}
+              />
+            </>
+            )}
+      </article>
+    </section>
   )
 }
 

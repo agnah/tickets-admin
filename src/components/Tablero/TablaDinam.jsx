@@ -1,13 +1,15 @@
-import React from 'react'
+import { useCallback } from 'react'
 import '../Tickets/TicketsTable.css'
 import ButtonEdit from '../partials/Button/ButtonEdit'
+import { useNavigate } from 'react-router-dom'
 
-const TablaDinam = ({ data, acciones, columnas }) => {
+const TablaDinam = ({ data, acciones, columnas, tipo }) => {
   const columnasLowercase = Object.keys(columnas)
+  const navigate = useNavigate()
 
-  const algunaAccion = (id) => {
-    alert(`id: ${id}`)
-  }
+  const handleEdit = useCallback((id) => {
+    navigate(`/${tipo}/${id}`)
+  }, [])
 
   return (
     <div>
@@ -30,7 +32,7 @@ const TablaDinam = ({ data, acciones, columnas }) => {
               ))}
               {acciones && (
                 <td>
-                  <ButtonEdit onClick={() => algunaAccion(item.id)} />
+                  <ButtonEdit onClick={() => handleEdit(item.id)} />
                 </td>
               )}
             </tr>

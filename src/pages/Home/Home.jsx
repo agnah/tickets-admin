@@ -1,60 +1,88 @@
-import Tablero from '../../components/Tablero/Tablero'
-import ButtonsState from '../../components/Tickets/ButtonsState'
-import TablaDinam from '../../components/Tablero/TablaDinam'
-import { sector } from '../../constantes/constUsers'
-import useAuth from '../../servicios/UseAuth'
+import React from 'react'
+import Tablero from '@components/Tablero/Tablero'
+import ButtonsState from '@components/Tickets/ButtonsState'
+import TablaDinam from '@components/Tablero/TablaDinam'
+import { perfil } from '@constantes/constUsers'
+import useAuth from '@servicios/UseAuth'
+import { apis } from '@constantes/constApis'
+import useApiMock from '@servicios/useApiMock'
+import { estadoTicket } from '@constantes/constTickets'
 
-const data = [
-  { id: 1, fecha: '2023-07-27', preTarea: 'Tarea 1' },
-  { id: 2, fecha: '2023-07-28', preTarea: 'Tarea 2' },
-  { id: 3, fecha: '2023-07-29', preTarea: 'Tarea 3' }
-]
-const valoresEstados = {
-  pendientes: 4,
-  asignados: 10,
-  curso: 2,
-  totales: 33
-}
-
-const columnas = { id: 'Id', fecha: 'Fecha', preTarea: 'Pre Tarea' }
+const columnas = { id: 'Id', fecha: 'Fecha', pre_tarea: 'Pre Tarea' }
 const acciones = true
 
 const setTitulosTabla = (user) => {
+  const { RESPONSABLE, COORDINADOR, DIRECTOR, COLABORADOR } = perfil
   const sectorTitulos = {
-    [sector.MESA_DE_ENTRADA]: { titulo1: 'mesa de entrada', titulo2: 'Nuevos' },
-    [sector.SOPORTE]: { titulo1: 'Soporte', titulo2: 'Nuevos' },
-    [sector.CID]: { titulo1: 'cid', titulo2: 'Nuevos' },
-    [sector.COMPUTOS]: { titulo1: 'computos', titulo2: 'Nuevos' },
-    [sector.TELEFONIA]: { titulo1: 'telefonia', titulo2: 'Nuevos' },
-    [sector.GDE]: { titulo1: 'gde', titulo2: 'Nuevos' }
+    [RESPONSABLE]: { titulo1: 'Tickets con mas de 3 dias del Area', titulo2: 'Cantidad de Ticket en curso del Area' },
+    [COORDINADOR]: { titulo1: 'Tickets con mas de 3 dias del Area', titulo2: 'Cantidad de Ticket en curso del Area' },
+    [DIRECTOR]: { titulo1: 'Estadisticas por Area', titulo2: 'Proximos a vencer' },
+    [COLABORADOR]: { titulo1: 'Mis Tickets con mas de 3 dias', titulo2: 'Mis Tickets en curso' }
   }
-  return sectorTitulos[user.sector] || { titulo1: 'admin', titulo2: 'admin' }
+  return sectorTitulos[user.sector] || { titulo1: 'Ticket pendientes', titulo2: 'Tickets en curso' }
 }
 
 const Home = () => {
   const { user } = useAuth()
   const { titulo1, titulo2 } = setTitulosTabla(user)
-  return (
-    <>
-      <Tablero title={'Tablero de Tickets'} page="Inicio">
-        <ButtonsState valores={valoresEstados} user={user} />
-      </Tablero>
-      <div className="row">
-        <div className="col-sm-12 col-md-6">
-          <Tablero title={`Tickets ${titulo1}`}>
-            {/* <TicketsTable /> */}
-            <TablaDinam data={data} columnas={columnas} acciones={acciones} />
-          </Tablero>
+  const { PENDIENTE, EN_CURSO } = estadoTicket
+  const url = apis.API_TICKETS
+  const {
+    isLoading,
+    isError,
+    isSuccess,
+    error,
+    data
+  } = useApiMock(url)
+
+  const valoresEstados = (dato) => {
+    const initialState = {
+      encurso: 0,
+      pendientes: 0,
+      totales: dato.length
+    }
+
+    const result = dato.reduce((acc, ticket) => {
+      if (ticket.estado === EN_CURSO) {
+        acc.encurso++
+      } else if (ticket.estado === PENDIENTE) {
+        acc.pendientes++
+      }
+      return acc
+    }, initialState)
+
+    return result
+  }
+
+  if (isError) {
+    return <p>Algo falló: {error.message}</p>
+  }
+  if (isLoading) {
+    return <p>Cargando...</p>
+  }
+  if (isSuccess) {
+    return (
+      <>
+        <Tablero title={'Tablero de Tickets'} page="Inicio">
+          <ButtonsState valores={valoresEstados(data)} user={user} />
+        </Tablero>
+        <div className="row">
+          <div className="col-sm-12 col-md-6">
+            <Tablero title={titulo1}>
+              <TablaDinam data={data} columnas={columnas} tipo="tickets" acciones={acciones} />
+            </Tablero>
+          </div>
+          <div className="col-sm-12 col-md-6">
+            <Tablero title={titulo2}>
+              <TablaDinam data={data} columnas={columnas} acciones={acciones} />
+            </Tablero>
+          </div>
         </div>
-        <div className="col-sm-12 col-md-6">
-          <Tablero title={`Tickets ${titulo2}`}>
-            {/* <TicketsTable /> */}
-            <TablaDinam data={data} columnas={columnas} acciones={acciones} />
-          </Tablero>
-        </div>
-      </div>
-    </>
-  )
+      </>
+    )
+  }
+
+  return null
 }
 
 export default Home

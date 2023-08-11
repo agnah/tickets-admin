@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
-import InputForm from '../../Form/Input/InputForm'
-import Select from '../../Form/Input/Select'
+import InputForm from '@components/Form/Input/InputForm'
+import Select from '@components/Form/Input/Select'
 import Button from '../Button/Button'
 
 const REGEX_PASSWORD =

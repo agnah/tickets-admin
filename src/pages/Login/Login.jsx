@@ -1,7 +1,7 @@
-import LoginForm from '../../components/Form/LoginForm'
-import Header from '../../components/partials/Header/Header'
-import Footer from '../../components/partials/Footer/Footer'
-import Tablero from '../../components/Tablero/Tablero'
+import LoginForm from '@components/Form/LoginForm'
+import Header from '@components/partials/Header/Header'
+import Footer from '@components/partials/Footer/Footer'
+import Tablero from '@components/Tablero/Tablero'
 
 const Login = () => {
   return (
@@ -11,25 +11,26 @@ const Login = () => {
         <article>
           <div className="container">
             <div className="row">
-              <div class="row">
-                <div class="col-md-6">
-                  <span class="d-block mb-2">mesa_de_entradaOperadorUsuario</span>
-                  <span class="d-block mb-2">gdeResponsableAdmin</span>
-                  <span class="d-block mb-2">computosResponsableAdmin</span>
-                  <span class="d-block mb-2">computosColaboradorEditor</span>
-                  <span class="d-block mb-2">computosColaboradorUsuario</span>
-                  <span class="d-block mb-2">cidResponsableAdmin</span>
-                  <span class="d-block mb-2">cidColaboradorEditor</span>
-                  <span class="d-block mb-2">cidColaboradorUsuario</span>
+              <div className="row">
+                <div className="col-md-6">
+                  <span className="d-block mb-2">mesa_de_entradaOperadorUsuario</span>
+                  <span className="d-block mb-2">gdeResponsableAdmin</span>
+                  <span className="d-block mb-2">computosResponsableAdmin</span>
+                  <span className="d-block mb-2">computosColaboradorEditor</span>
+                  <span className="d-block mb-2">computosColaboradorUsuario</span>
+                  <span className="d-block mb-2">cidResponsableAdmin</span>
+                  <span className="d-block mb-2">cidColaboradorEditor</span>
+                  <span className="d-block mb-2">cidColaboradorUsuario</span>
                 </div>
-                <div class="col-md-6">
-                  <span class="d-block mb-2">soporteResponsableAdmin</span>
-                  <span class="d-block mb-2">soporteColaboradorEditor</span>
-                  <span class="d-block mb-2">soporteColaboradorUsuario</span>
-                  <span class="d-block mb-2">telefoniaResponsableAdmin</span>
-                  <span class="d-block mb-2">telefoniaColaboradorEditor</span>
-                  <span class="d-block mb-2">telefoniaColaboradorUsuario</span>
-                  <span class="d-block mb-2">administrador</span>
+                <div className="col-md-6">
+                  <span className="d-block mb-2">soporteResponsableAdmin</span>
+                  <span className="d-block mb-2">soporteColaboradorEditor</span>
+                  <span className="d-block mb-2">soporteColaboradorUsuario</span>
+                  <span className="d-block mb-2">telefoniaResponsableAdmin</span>
+                  <span className="d-block mb-2">telefoniaColaboradorEditor</span>
+                  <span className="d-block mb-2">telefoniaColaboradorUsuario</span>
+                  <span className="d-block mb-2">director</span>
+                  <span className="d-block mb-2">cstimi</span>
                 </div>
               </div>
               {/* <span>mesa de entrada: pp@mindes.com</span>

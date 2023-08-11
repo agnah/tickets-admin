@@ -2,17 +2,8 @@ export const perfil = {
   OPERADOR: 'operador',
   RESPONSABLE: 'responsable',
   COORDINADOR: 'coordinador',
-  ADMINISTRADOR: 'administrador',
+  DIRECTOR: 'director',
   COLABORADOR: 'colaborador'
-}
-
-export const sector = {
-  MESA_DE_ENTRADA: 'mesa_de_entrada',
-  GDE: 'gde',
-  COMPUTOS: 'computos',
-  CID: 'cid',
-  SOPORTE: 'soporte',
-  TELEFONIA: 'telefonia'
 }
 
 export const rolUsuario = {

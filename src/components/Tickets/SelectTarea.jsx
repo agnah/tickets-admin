@@ -72,7 +72,7 @@ function SelectTarea () {
       {tareaFinalizada
         ? (
         <>
-          <label>Motivo de finalización:</label>
+          <label>Detalle de finalización:</label>
           <textarea name="detalleFinTarea" />
           <Button
             onClick={closeModal}

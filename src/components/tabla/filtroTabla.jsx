@@ -1,9 +1,8 @@
-// ! TODO: REFACTORIZAR
 function filtroTabla (datos, seleccionados, prioridad, filtroUser) {
-  const data = datos?.users?.filter((user) => {
-    const cumpleFiltroSeleccionados = !seleccionados?.length || seleccionados.includes(user.company.department.toLowerCase())
-    const cumpleFiltroPrioridad = !prioridad?.length || prioridad.includes(user.eyeColor.toLowerCase())
-    const cumpleFiltroUser = !filtroUser?.length || filtroUser.toLowerCase().includes(user.firstName.toLowerCase())
+  const data = datos?.filter((ticket) => {
+    const cumpleFiltroSeleccionados = !seleccionados?.length || seleccionados.includes(ticket.estado.toLowerCase())
+    const cumpleFiltroPrioridad = !prioridad?.length || prioridad.includes(ticket.prioridad.toLowerCase())
+    const cumpleFiltroUser = !filtroUser?.length || filtroUser.replace(/\s/g, '').toLowerCase().includes(ticket.colaborador.replace(/\s/g, '').toLowerCase())
     return cumpleFiltroSeleccionados && cumpleFiltroPrioridad && cumpleFiltroUser
   })
   return data
