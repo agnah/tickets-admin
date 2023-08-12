@@ -41,13 +41,22 @@
     background-color: var(--celeste);
 }
 
-.menu-bars {
+.menu-h {
     display: flex;
     margin: 3.5rem auto;
     justify-content: center;
     align-items: center;
     margin-bottom: 2rem;
     text-decoration: none;
+    cursor: pointer;
+}
+
+.show-nav {
+    display: flex;
+}
+
+.close-nav {
+    display: none;
 }
 
 .fa-solid {

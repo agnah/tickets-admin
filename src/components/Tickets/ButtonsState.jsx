@@ -20,7 +20,7 @@ const ButtonsState = ({ valores, user }) => {
       : (user.perfil.includes(perfil.COLABORADOR) ? handleFiltroUserChange(user.nombre) : handleFiltroUserChange(''))
   }
   return (
-    <div class="container">
+    <div class="container-tablero-tickets">
       <Link
         to="/tickets">
         <Button

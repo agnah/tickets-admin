@@ -58,9 +58,13 @@
 .btn {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     font-size: 1.3vw;
     font-weight: 600;
+}
+
+.btn i {
+    display: none;
 }
 
 .badge {

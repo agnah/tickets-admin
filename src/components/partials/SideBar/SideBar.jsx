@@ -10,17 +10,16 @@ const SideBar = ({ children }) => {
   const [showNav, setShowNav] = useState(true)
   const { DIRECTOR, RESPONSABLE, COORDINADOR } = perfil
 
-  const classDisplay = showNav ? 'd-flex flex-column flex-shrink-0 bg-dark' : 'd-flex flex-column flex-shrink-0 bg-dark hideNav'
+  const classDisplay = showNav ? 'show-nav' : 'close-nav'
   // ! TRAER LOGICA DE NAVEGACION
   return (
     <div className="sidebar">
 
       <div
-        className="menu-container"
+        className={`menu-container ${classDisplay}`}
       >
         <a
-          id="menu-bars"
-          className={classDisplay}
+          className={`menu-h ${classDisplay}`}
           data-bs-toggle="tooltip"
           data-bs-placement="right"
           data-bs-original-title="Icon-only"

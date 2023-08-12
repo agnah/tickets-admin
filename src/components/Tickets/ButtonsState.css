@@ -1,15 +1,15 @@
-.container {
-    max-width: 90vw;
+.container-tablero-tickets {
     padding: 0;
     display: flex;
     justify-content: space-between;
 }
 
-.container a {
+.container-tablero-tickets a {
     text-decoration: none;
     margin: 0 2rem 0 0;
+    width: 30%;
 }
 
-.container a:last-child {
+.container-tablero-tickets a:last-child {
     margin: 0;
 }
