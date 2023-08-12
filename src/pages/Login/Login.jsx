@@ -1,6 +1,5 @@
 import LoginForm from '@components/Form/LoginForm'
 import Header from '@components/partials/Header/Header'
-import Footer from '@components/partials/Footer/Footer'
 import Tablero from '@components/Tablero/Tablero'
 
 const Login = () => {
@@ -46,7 +45,6 @@ const Login = () => {
           </div>
         </article>
       </section>
-      <Footer />
     </>
   )
 }

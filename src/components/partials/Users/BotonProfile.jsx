@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import useAuth from '@servicios/UseAuth'
+import './BotonProfile.css'
 
-function BotonProfile() {
+function BotonProfile () {
   const { user, logout } = useAuth()
   const [showInfo, setShowInfo] = useState(false)
   const [initials, setInitials] = useState()

@@ -1,3 +1,4 @@
+import './ButtonsState.css'
 import React, { useContext } from 'react'
 import Button from '../partials/Button/Button'
 import { Link } from 'react-router-dom'
@@ -19,7 +20,7 @@ const ButtonsState = ({ valores, user }) => {
       : (user.perfil.includes(perfil.COLABORADOR) ? handleFiltroUserChange(user.nombre) : handleFiltroUserChange(''))
   }
   return (
-    <div>
+    <div class="container">
       <Link
         to="/tickets">
         <Button

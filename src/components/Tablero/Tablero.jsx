@@ -12,7 +12,7 @@ const Tablero = ({ children, title, classTitle = '', page = '', ...props }) => {
           { props?.state && <Badge classes="badge rounded-pill text-bg-success mx-3" text={props.state} /> }
           { props?.prioridad && 'Prioridad Alta' }
         </div>
-        {page && <span>Estás aquí: {page}</span>}
+        {page && <span className='span-path'><strong>Estás aquí:</strong> {page}</span>}
       </div>
       <hr />
       {children}

@@ -16,11 +16,11 @@ const SideBar = ({ children }) => {
     <div className="sidebar">
 
       <div
-        className={classDisplay}
-        style={{ width: '6.5rem' }}
+        className="menu-container"
       >
         <a
-          className="d-block p-3 link-dark text-decoration-none text-center mt-2 mb-4 display-nav-icon"
+          id="menu-bars"
+          className={classDisplay}
           data-bs-toggle="tooltip"
           data-bs-placement="right"
           data-bs-original-title="Icon-only"
@@ -29,14 +29,13 @@ const SideBar = ({ children }) => {
           }}
         >
           <i
-            className="fa-solid fa-bars fa-2xl"
-            style={{ color: '#ffffff' }}
+            className="fa-solid fa-bars fa-2xl" id="icon-menu"
           ></i>
           <span className="visually-hidden">Icon-only</span>
         </a>
         <ul className="nav flex-column mb-auto text-center px-2">
           <li className="item mb-4">
-            <div className="item-nav mb-2">
+            <div className="item-nav">
               <Link
                 to="/dashboard"
                 className="circle-item "
@@ -47,14 +46,13 @@ const SideBar = ({ children }) => {
               >
                 <i
                   className="fa-solid fa-house fa-lg"
-                  style={{ color: '#ffffff' }}
                 ></i>
               </Link>
             </div>
-            <span style={{ color: '#eee', fontSize: '12px' }}>Inicio</span>
+            <span className="span-nav">Inicio</span>
           </li>
           <li className="item mb-4">
-            <div className="item-nav mb-2">
+            <div className="item-nav">
               <Link
                 to="/tickets"
                 className="circle-item "
@@ -65,15 +63,14 @@ const SideBar = ({ children }) => {
               >
                 <i
                   className="fa-solid fa-ticket fa-lg"
-                  style={{ color: '#ffffff' }}
                 ></i>
               </Link>
             </div>
-            <span style={{ color: '#eee', fontSize: '12px' }}>Tickets</span>
+            <span className="span-nav">Tickets</span>
           </li>
           {!user.perfil.includes(DIRECTOR) && (
           <li className="item mb-4">
-            <div className="item-nav mb-2">
+            <div className="item-nav">
               <Link
                 to="/tickets/create"
                 className="circle-item "
@@ -84,11 +81,10 @@ const SideBar = ({ children }) => {
               >
                 <i
                   className="fa-solid fa-plus fa-lg"
-                  style={{ color: '#ffffff' }}
                 ></i>
               </Link>
             </div>
-            <span style={{ color: '#eee', fontSize: '12px' }}>
+            <span className='span-nav'>
               Crear Ticket
             </span>
           </li>
@@ -96,7 +92,7 @@ const SideBar = ({ children }) => {
           {(user.rolUsuario === rolUsuario.ADMIN ||
             user.rolUsuario === rolUsuario.EDITOR) && (
               <li className="item mb-4">
-                <div className="item-nav mb-2">
+                <div className="item-nav">
                   <Link
                     to="/usuarios"
                     className="circle-item "
@@ -107,18 +103,17 @@ const SideBar = ({ children }) => {
                   >
                     <i
                       className="fa-solid fa-network-wired fa-lg"
-                      style={{ color: '#ffffff' }}
                     ></i>
                   </Link>
                 </div>
-                <span style={{ color: '#eee', fontSize: '12px' }}>
+                <span className="span-nav">
                   Usuarios
                 </span>
               </li>
           )}
           {(user.perfil.includes(DIRECTOR) || user.perfil.includes(RESPONSABLE) || user.perfil.includes(COORDINADOR)) && (
             <li className="item mb-4">
-              <div className="item-nav mb-2">
+              <div className="item-nav">
                 <Link
                   to="/estadisticas"
                   className="circle-item "
@@ -129,11 +124,10 @@ const SideBar = ({ children }) => {
                 >
                   <i
                     className="fa-solid fa-chart-column fa-lg"
-                    style={{ color: '#ffffff' }}
                   ></i>
                 </Link>
               </div>
-              <span style={{ color: '#eee', fontSize: '12px' }}>
+              <span className="span-nav">
                 Estadisticas
               </span>
             </li>

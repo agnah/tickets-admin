@@ -1,0 +1,15 @@
+.container {
+    max-width: 90vw;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container a {
+    text-decoration: none;
+    margin: 0 2rem 0 0;
+}
+
+.container a:last-child {
+    margin: 0;
+}

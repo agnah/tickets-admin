@@ -3,39 +3,77 @@
 .btn-pending,
 .btn-asigned {
     color: white;
-    border-radius: 10px;
-    box-shadow: 1px 1px 3px #444;
-    margin: 0 1rem 0 0;
+    border-radius: 1rem;
+    padding: .6vw 1.5vw;
+    box-shadow: 3px 3px 6px #0000001a;
     vertical-align: middle;
-}
-
-.btn-badge:focus {
-    border: 3px solid transparent !important;
-    outline: none;
-    border-radius: 10px !important;
+    display: flex;
+    align-items: center;
 }
 
 .btn-open {
-    background-color: #50B8B1;
+    background-color: var(--color-ticket-nuevo);
 }
 
 .btn-progress {
-    background-color: #F7941E;
+    background-color: var(--color-ticket-asignado);
 }
 
 .btn-pending {
-    background-color: #EF5350;
+    background-color: var(--color-ticket-curso);
 }
 
 .btn-asigned {
-    background-color: #EE3D8F;
+    background-color: var(--color-ticket-totales);
+}
+
+.btn-open:hover, .btn-open:active, .btn-open:focus-visible {
+    background-color: var(--color-ticket-nuevo) !important;
+    color: #fff !important;
+    filter: contrast(1.3);
+    text-decoration: none;
+}
+
+.btn-progress:hover, .btn-progress:active, .btn-progress:focus-visible {
+    background-color: var(--color-ticket-asignado) !important;
+    color: #fff !important;
+    filter: contrast(1.3);
+    text-decoration: none;
+}
+
+.btn-pending:hover, .btn-pending:active, .btn-pending:focus-visible {
+    background-color: var(--color-ticket-curso) !important;
+    color: #fff !important;
+    filter: contrast(1.3);
+    text-decoration: none;
+}
+
+.btn-asigned:hover, .btn-asigned:active, .btn-asigned:focus-visible {
+    background-color: var(--color-ticket-totales) !important;
+    color: #fff !important;
+    filter: contrast(1.3);
+    text-decoration: none;
+}
+
+.btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 1.3vw;
+    font-weight: 600;
 }
 
 .badge {
     border-radius: 50%;
-    color: #333;
+    color: var(--titulo-color);
     background-color: #fff;
-    margin: 0 .5rem;
-    padding: 10px 12px ;
-    font-size: 14px;
+    margin: .2rem 0 .2rem 5rem;
+    height: 2.3vw;
+    width: 2.3vw;
+    font-size: 1vw;
+    font-weight: 700;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.6vw;
+    
 }

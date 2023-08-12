@@ -1,0 +1,13 @@
+.header {
+    background: var(--celeste);
+    padding: 1rem;
+}
+
+.header img {
+    margin-right: 2rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}

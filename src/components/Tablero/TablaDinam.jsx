@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import '../Tickets/TicketsTable.css'
 import ButtonEdit from '../partials/Button/ButtonEdit'
 import { useNavigate } from 'react-router-dom'
+import './TablaDinam.css'
 
 const TablaDinam = ({ data, acciones, columnas, tipo }) => {
   const columnasLowercase = Object.keys(columnas)
@@ -13,8 +14,8 @@ const TablaDinam = ({ data, acciones, columnas, tipo }) => {
 
   return (
     <div>
-      <table className="table table-striped">
-        <thead className="table-dark">
+      <table className="table table-borderless ">
+        <thead className="table-thead">
           <tr>
             {columnasLowercase.map((column, index) => (
               <th scope="col" key={index}>
