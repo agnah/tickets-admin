@@ -12,6 +12,7 @@ import ButtonVer from '../partials/Button/ButtonVer'
 import ButtonEdit from '../partials/Button/ButtonEdit'
 import { useNavigate, Link } from 'react-router-dom'
 import { perfil } from '../../constantes/constUsers'
+import './tabla.css'
 
 const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos', 'ewell']
 // const InfoExtra = (data) => {
