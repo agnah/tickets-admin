@@ -16,6 +16,7 @@ const Input = (props) => {
         value={value}
         formNoValidate
         disabled={display}
+        onChange={attributes?.onChangeInput}
       />
       {errors[name]?.message && (
         <p className="help-block error" role="alert">

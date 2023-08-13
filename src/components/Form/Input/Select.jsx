@@ -16,14 +16,14 @@ const Select = (props) => {
     ? `${classCol} has-error`
     : `${classCol}`
 
-  const handleChange = (e) => {
-    (e.target.value !== '') ? attributes.displayFields(false) : attributes.displayFields(true)
-  }
+  // const handleChange = (e) => {
+  //   (e.target.value !== '') ? attributes.displayFields(false) : attributes.displayFields(true)
+  // }
 
   return (
     <div className={classes}>
+      <label htmlFor={name}>{label}</label>
       <div className="form-group item-form">
-        <label htmlFor={name}>{label}</label>
         {
           attributes?.displayFields
             ? <select
@@ -31,7 +31,7 @@ const Select = (props) => {
           {...attributes}
           {...register(name, options)}
           className="form-control"
-          onChange={handleChange}
+          onChange={attributes?.onChangeInput}
         >
           <option value="">{placeholder}</option>
           {optionList.map((option, index) => (
@@ -45,7 +45,7 @@ const Select = (props) => {
           {...attributes}
           {...register(name, options)}
           className={props?.classInput ? `${props.classInput} form-control` : 'form-control'}
-          disabled={display}
+          onChange={attributes?.onChangeInput}
         >
           <option value="">{placeholder}</option>
           {optionList.map((option, index) => (

@@ -48,7 +48,7 @@ const DatalistChangeInput = (props) => {
               className="form-control"
               onChange={onChangeSolicitante}
             />
-            <datalist id={idList}>
+            <datalist id={idList} >
               {optionList.map((option, index) => (
                 <option key={index} value={option}></option>
               ))}
@@ -62,6 +62,7 @@ const DatalistChangeInput = (props) => {
             {...register(name, options)}
             className="form-control"
             formNoValidate
+            onChange={attributes?.onChangeInput}
           />
             )}
       {errors[name] && (

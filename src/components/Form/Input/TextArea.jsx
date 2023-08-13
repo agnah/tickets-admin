@@ -14,6 +14,8 @@ function TextArea (props) {
         {...register(name, options)}
         className="form-control"
         cols='1'
+        onChange={attributes?.onChangeInput}
+        value={attributes?.value}
       />
       {errors[name] && (
         <p className="help-block error" role="alert">

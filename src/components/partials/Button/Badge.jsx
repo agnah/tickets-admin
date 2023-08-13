@@ -2,7 +2,7 @@ import React from 'react'
 
 const Badge = ({ classes, text }) => {
   return (
-    <span className={classes}>{text}</span>
+    <p className={classes}>{text}</p>
   )
 }
 
