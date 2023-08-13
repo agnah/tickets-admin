@@ -6,7 +6,7 @@
     box-shadow: 3px 3px 6px #0000001a;
 }
 
-.tablero h3 {
+.tablero h5 {
     margin: 0;
     color: var(--titulo-color);
     font-weight: 800;

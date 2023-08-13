@@ -4,10 +4,10 @@ const Header = () => {
   return (
     <header className="header">
       <nav
-        className="navbar navbar-top navbar-default bg-celeste-argentina"
+        className="navbar"
         role="navigation"
       >
-        <div className="container">
+        <div className="container-header">
           <div>
             <div className="navbar-header">
               <a
