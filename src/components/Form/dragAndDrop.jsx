@@ -1,10 +1,14 @@
 import './dragAndDropFiles.css'
-import { useState, useRef } from 'react'
+import { useState, useRef, forwardRef, useImperativeHandle } from 'react'
 
-function DragAndDrop () {
+function DragAndDropComponent ({ register, errors }, ref) {
   const [imagenes, setImagenes] = useState([])
   const [dragActive, setDragActive] = useState(false)
   const inputRef = useRef(null)
+
+  useImperativeHandle(ref, () => ({
+    getData: () => imagenes
+  }))
 
   const handleDrag = function (e) {
     e.preventDefault()
@@ -57,8 +61,13 @@ function DragAndDrop () {
     inputRef.current.value = ''
   }
 
-  const deleteImage = (id) => {
-    setImagenes((prev) => prev.filter((imagen) => imagen !== id))
+  // const deleteImage = (id) => {
+  //   setImagenes((prev) => prev.filter((imagen) => imagen !== id))
+  //   inputRef.current.value = ''
+  // }
+
+  const deleteImage = (index) => {
+    setImagenes((prev) => prev.filter((imagen, i) => i !== index))
     inputRef.current.value = ''
   }
 
@@ -72,10 +81,11 @@ function DragAndDrop () {
         onDragOver={handleDrag}
         onDrop={handleDrop}
       >
-        <input type="file" id="input-file-upload" multiple={true} onChange={handleChange} ref={inputRef} />
+        <input type="file" id="input-file-upload" name="archivos" multiple={true} onChange={handleChange} ref={inputRef} register={register}
+          errors={errors} />
         <label id="label-file-upload" htmlFor="input-file-upload">
           <div>
-            <p>Suelte archivos aquí o cargue uno </p>
+            <p>Suelte archivos aquí o seleccionelos </p>
           </div>
         </label>
       </div>
@@ -84,12 +94,15 @@ function DragAndDrop () {
           <div key={index}>
             <span>{file.name}</span>
             <img src={URL.createObjectURL(file)} alt={file.name} />
-            <button onClick={() => deleteImage(file)}>borrar</button>
+            {/* <button onClick={() => deleteImage(file)}>borrar</button> */}
+            <button onClick={() => deleteImage(index)}>Eliminar</button>
           </div>
         ))}
       </div>
     </>
   )
 };
+
+const DragAndDrop = forwardRef(DragAndDropComponent)
 
 export default DragAndDrop

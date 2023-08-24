@@ -3,10 +3,11 @@ import InputForm from '@components/Form/Input/InputForm'
 import Select from '@components/Form/Input/Select'
 import Button from '../Button/Button'
 
-const REGEX_PASSWORD =
-  /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
-const optionListSelect = ['Area Técnica', 'CID', 'Data Center', 'Telefonía']
+const optionListSelect = ['Cómputos', 'Soporte Técnico', 'Telefonía', 'Cid', 'GDE', 'Mesa de Entrada']
+const optionListSede = ['9 de Julio', 'Av. de Mayo', 'Moreno']
+const optionListPerfil = ['Operador - Mesa de Entrada', 'Colaborador', 'Responsable de Area', 'Coordinador CSTIMI', 'Director??']
+const optionListRol = ['Administrador', 'Editor', 'Lector']
 
 const CreateUserForm = () => {
   const {
@@ -29,7 +30,7 @@ const CreateUserForm = () => {
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
           options={{
-            required: 'Campo obligatorio'
+            // required: 'Campo obligatorio'
           }}
         />
         <InputForm
@@ -41,7 +42,7 @@ const CreateUserForm = () => {
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
           options={{
-            required: 'Campo obligatorio'
+            // required: 'Campo obligatorio'
           }}
         />
         <InputForm
@@ -60,44 +61,52 @@ const CreateUserForm = () => {
             }
           }}
         />
-      </div>
-      <div className="row">
         <InputForm
-          label="Password"
-          type="password"
-          name="password"
+          label="Celular"
+          type="number"
+          name="celular"
           placeholder=""
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
           options={{
-            required: 'Campo obligatorio',
             pattern: {
-              value: REGEX_PASSWORD,
-              message: 'La contraseña no cumple con el formato requerido'
+              message: 'Solo numeros'
             }
           }}
         />
         <InputForm
-          label="Confirmar Password"
-          type="password"
-          name="confirmPassword"
+          label="Teléfono"
+          type="telefono"
+          name="telefono"
           placeholder=""
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
           options={{
-            required: 'Campo obligatorio',
             pattern: {
-              value: REGEX_PASSWORD,
-              message: 'La contraseña no cumple con el formato requerido'
+              message: 'Solo numeros'
+            }
+          }}
+        />
+        <InputForm
+          label="Interno"
+          type="interno"
+          name="interno"
+          placeholder=""
+          register={register}
+          errors={errors}
+          classCol="col-md-4 col-lg-4 form-group item-form"
+          options={{
+            pattern: {
+              message: 'Solo numeros'
             }
           }}
         />
         <Select
           label="Area"
           name="area"
-          placeholder=""
+          placeholder="Seleccione Area"
           optionList={optionListSelect}
           register={register}
           errors={errors}
@@ -106,19 +115,55 @@ const CreateUserForm = () => {
             required: 'Campo obligatorio'
           }}
         />
+        <Select
+          label="Sede"
+          name="sede"
+          placeholder="Seleccione Sede"
+          optionList={optionListSede}
+          register={register}
+          errors={errors}
+          classCol="col-md-4 col-lg-4"
+          options={{
+            required: 'Campo obligatorio'
+          }}
+        />
+        <Select
+          label="Piso"
+          name="piso"
+          placeholder="Piso"
+          optionList={['PB', 1, 2, 3, 4, 5, 6, 7, 8, 9]}
+          register={register}
+          errors={errors}
+          classCol="col-md-1 col-lg-1"
+          options={{
+            // required: 'Campo obligatorio'
+          }}
+        />
+        <Select
+          label="Perfil"
+          name="perfil"
+          placeholder="Seleccione Perfil"
+          optionList={optionListPerfil}
+          register={register}
+          errors={errors}
+          classCol="col-md-4 col-lg-4"
+          options={{
+            required: 'Campo obligatorio'
+          }}
+        />
+        <Select
+          label="Rol"
+          name="rol"
+          placeholder="Seleccione Rol"
+          optionList={optionListRol}
+          register={register}
+          errors={errors}
+          classCol="col-md-4 col-lg-4"
+          options={{
+            required: 'Campo obligatorio'
+          }}
+        />
       </div>
-      {/* <div className="row">
-      <RadioButton
-        label="Sexo"
-        name="sexo"
-        optionList={optionListRadio}
-        register={register}
-        options={{
-          required: 'Seleccione una opcion'
-        }}
-        errors={errors}
-      />
-    </div> */}
       <div className="row">
         <div className="col-sm-3">
           <Button
