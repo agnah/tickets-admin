@@ -1,7 +1,7 @@
 import DataTable from 'react-data-table-component'
 import useApiMock from '@servicios/useApiMock'
 import SkeletonTabla from './skeletonTabla'
-import { useCallback, useMemo, useContext } from 'react'
+import { useCallback, useMemo, useContext, useState } from 'react'
 import Button from '../partials/Button/Button'
 import filtroTabla from './filtroTabla'
 import CheckPrioridad from './checkPrioridad'
@@ -19,6 +19,7 @@ import './tabla.css'
 const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz', 'Tito']
 
 function Tabla () {
+  const [busqueda, setBusqueda] = useState('')
   const { PENDIENTE } = estadoTicket
   const { user } = useAuth()
   const navigate = useNavigate()
@@ -154,10 +155,15 @@ function Tabla () {
     return <SkeletonTabla />
   }
   if (isSuccess) {
+    const filteredData = data.filter(item =>
+      Object.values(item).some(value =>
+        typeof value === 'string' && value.toLowerCase().includes(busqueda.toLowerCase())
+      )
+    )
     return (
       <>
-      <div className="container-h">
-        <Button
+        <div className="container-h">
+          <Button
             classIcon="fa fa-refresh"
             texto={isValidating ? 'Validando' : ''}
             type="button"
@@ -165,8 +171,8 @@ function Tabla () {
           />
           <div className="right-elements">
             <div>
-            {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
-              ? (
+              {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
+                ? (
                   <select
                     name='filtroUser'
                     value={filtroUser}
@@ -179,35 +185,41 @@ function Tabla () {
                       </option>
                     ))}
                   </select>
-                )
-              : (
+                  )
+                : (
                   <select disabled>
                     <option value=''>Todos</option>
                   </select>
-                )}
-                <i className="fa-solid fa-caret-down"></i>
+                  )}
+              <i className="fa-solid fa-caret-down"></i>
             </div>
             {!user.perfil.includes(perfil.DIRECTOR) && (
               <Link to='/tickets/create' className='btn-crear-ticket'>
                 <i className="fa-solid fa-plus"></i>
                 Agregar Ticket
-                </Link>
+              </Link>
             )}
           </div>
-      </div>
-      <div className="container-checks">
-      <CheckPrioridad
-          prioridad={prioridad}
-          onChange={handlePrioridadChange}
+        </div>
+        <div className="container-checks">
+          <CheckPrioridad
+            prioridad={prioridad}
+            onChange={handlePrioridadChange}
+          />
+          <CheckEstado
+            seleccionados={seleccionados}
+            onChange={handleSeleccionadosChange}
+          />
+        </div>
+        <input
+          type="search"
+          placeholder="Buscar..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
         />
-        <CheckEstado
-          seleccionados={seleccionados}
-          onChange={handleSeleccionadosChange}
-        />
-      </div>
         <DataTable
           columns={columns}
-          data={data}
+          data={filteredData}
           highlightOnHover
           conditionalRowStyles={conditionalRowStyles}
           pagination
