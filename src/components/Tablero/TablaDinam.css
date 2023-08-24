@@ -1,6 +1,8 @@
 .table-thead {
-    background: var(--titulo-color) ;
+    background: var(--gris-oscuro) ;
     text-align: center;
+    position: sticky;
+    display: table-header-group;
 }
 
 .table-thead th {
@@ -24,7 +26,7 @@
 }
 
 .table tr {
-    color: var(--texto-color);
+    color: var(--gris-medio);
     font-weight: 500;
     text-align: center;
 }

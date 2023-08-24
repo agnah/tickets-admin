@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 * {
-    --titulo-color: #3B4449;
-    --texto-color: #7A7A7A;
+    --gris-oscuro: #3B4449;
+    --gris-medio: #7A7A7A;
     --hr-color: #AAAAAA;
     --tr-even-color: #E1E1E1;
     --celeste: #37BBED;

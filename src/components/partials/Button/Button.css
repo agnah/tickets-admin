@@ -69,7 +69,7 @@
 
 .badge {
     border-radius: 50%;
-    color: var(--titulo-color);
+    color: var(--gris-oscuro);
     background-color: #fff;
     margin: .2rem 0 .2rem 5rem;
     height: 2.3vw;

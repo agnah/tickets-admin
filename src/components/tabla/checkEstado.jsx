@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { FiltrosContext } from '../tabla/contextTabla'
 import { estadoTicket } from '@constantes/constTickets'
+import './check.css'
 
 function CheckEstado ({ onChange, seleccionados }) {
   const { handleFiltroUserChange } = useContext(FiltrosContext)
@@ -46,7 +47,8 @@ function CheckEstado ({ onChange, seleccionados }) {
   }
 
   return (
-    <div>
+    <div className="container-checks" id='right-checks'>
+      <label className="title-label">Estado:</label>
       <label>
         <input type="checkbox" name="estado" value='' onChange={onChangeValue} checked={seleccionados.length === 0} />
         Todos

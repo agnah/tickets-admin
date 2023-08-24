@@ -14,6 +14,7 @@ import { apis } from '@constantes/constApis'
 import { estadoTicket } from '@constantes/constTickets'
 import { areas } from '@constantes/constAreas'
 import { perfil } from '@constantes/constUsers'
+import './tabla.css'
 
 const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz', 'Tito']
 
@@ -136,6 +137,16 @@ function Tabla () {
 
   const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
 
+  const conditionalRowStyles = [
+    {
+      when: row => row.prioridad === estadoTicket.ALTA,
+      style: {
+        backgroundColor: '#EC7E7B',
+        color: 'white'
+      }
+    }
+  ]
+
   if (isError) {
     return <p>Algo fallo: {error.message}</p>
   }
@@ -145,39 +156,47 @@ function Tabla () {
   if (isSuccess) {
     return (
       <>
+      <div className="container-h">
         <Button
-          classIcon="fa fa-refresh"
-          texto={isValidating ? 'Validando' : ''}
-          type="button"
-          onClick={() => trigger()}
-        />
-        <br />
-        {!user.perfil.includes(perfil.DIRECTOR) && (
-          <Link to='/tickets/create' className='btn btn-success'>Crear Ticket</Link>
-        )}
-        <br />
-        {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
-          ? (
-            <select
-              name='filtroUser'
-              value={filtroUser}
-              onChange={(e) => handleFiltroUserChange(e.target.value)}
-            >
-              <option value="">Colaboradores</option>
-              {colaborador.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            )
-          : (
-            <select disabled>
-              <option value=''>Todos</option>
-            </select>
+            classIcon="fa fa-refresh"
+            texto={isValidating ? 'Validando' : ''}
+            type="button"
+            onClick={() => trigger()}
+          />
+          <div className="right-elements">
+            <div>
+            {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
+              ? (
+                  <select
+                    name='filtroUser'
+                    value={filtroUser}
+                    onChange={(e) => handleFiltroUserChange(e.target.value)}
+                  >
+                    <option value="">Colaboradores</option>
+                    {colaborador.map((option, index) => (
+                      <option key={index} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                )
+              : (
+                  <select disabled>
+                    <option value=''>Todos</option>
+                  </select>
+                )}
+                <i className="fa-solid fa-caret-down"></i>
+            </div>
+            {!user.perfil.includes(perfil.DIRECTOR) && (
+              <Link to='/tickets/create' className='btn-crear-ticket'>
+                <i className="fa-solid fa-plus"></i>
+                Agregar Ticket
+                </Link>
             )}
-
-        <CheckPrioridad
+          </div>
+      </div>
+      <div className="container-checks">
+      <CheckPrioridad
           prioridad={prioridad}
           onChange={handlePrioridadChange}
         />
@@ -185,10 +204,12 @@ function Tabla () {
           seleccionados={seleccionados}
           onChange={handleSeleccionadosChange}
         />
+      </div>
         <DataTable
           columns={columns}
           data={data}
           highlightOnHover
+          conditionalRowStyles={conditionalRowStyles}
           pagination
           paginationComponentOptions={{ rowsPerPageText: 'Filas por página' }}
           responsive

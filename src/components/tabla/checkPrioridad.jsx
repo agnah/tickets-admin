@@ -1,4 +1,5 @@
 import { estadoTicket } from '@constantes/constTickets'
+import './check.css'
 
 function checkPrioridad({ prioridad, onChange }) {
   const { ALTA, BAJA } = estadoTicket
@@ -7,7 +8,8 @@ function checkPrioridad({ prioridad, onChange }) {
     onChange(newValue)
   }
   return (
-    <div>
+    <div className="container-checks" id='left-checks'>
+      <label className="title-label">Prioridad:</label>
       <label>
         <input type="radio" name="prioridad" value="" onChange={onChangeValue} checked={prioridad.length === 0} />
         Todas</label>

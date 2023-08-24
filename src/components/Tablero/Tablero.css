@@ -8,7 +8,7 @@
 
 .tablero h5 {
     margin: 0;
-    color: var(--titulo-color);
+    color: var(--gris-oscuro);
     font-weight: 800;
     font-size: 1.3vw;
 }
@@ -25,6 +25,6 @@
 }
 
 .span-path {
-    color: var(--texto-color);
+    color: var(--gris-medio);
     font-weight: 500;
 }

@@ -13,8 +13,8 @@ const TablaDinam = ({ data, acciones, columnas, tipo }) => {
   }, [])
 
   return (
-    <div>
-      <table className="table table-borderless ">
+    <div className="table-responsive">
+      <table className="table table-borderless">
         <thead className="table-thead">
           <tr>
             {columnasLowercase.map((column, index) => (
@@ -25,16 +25,16 @@ const TablaDinam = ({ data, acciones, columnas, tipo }) => {
             {acciones && <th scope="col">Acciones</th>}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="table-tbody">
           {data.map((item, rowIndex) => (
             <tr scope="row" key={rowIndex}>
               {columnasLowercase.map((columnName, colIndex) => (
                 <td key={colIndex}>{item[columnName]}</td>
               ))}
               {acciones && (
-                <td>
-                  <ButtonEdit onClick={() => handleEdit(item.id)} />
-                </td>
+                  <td>
+                    <ButtonEdit onClick={() => handleEdit(item.id)} />
+                  </td>
               )}
             </tr>
           ))}
