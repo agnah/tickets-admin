@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import Select from '@components/Form/Input/Select'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import InputForm from '@components/Form/Input/InputForm'
 import Button from '../partials/Button/Button'
 import DatalistChangeInput from '@components/Form/Input/DatalistCangeInput'
@@ -9,6 +9,7 @@ import TextArea from '@components/Form/Input/TextArea'
 import { useNavigate } from 'react-router'
 import useAuth from '@servicios/UseAuth'
 import { areas } from '@constantes/constAreas'
+import DragAndDrop from '../Form/dragAndDrop'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
@@ -18,6 +19,7 @@ const datalistSolicitante = solicitantes.map(s => s.nombre)
 
 const TicketCreateForm = () => {
   const { user } = useAuth()
+  const dragAndDropRef = useRef(null)
   const {
     register,
     handleSubmit,
@@ -65,7 +67,11 @@ const TicketCreateForm = () => {
     }
   }
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => {
+    const dragAndDropData = dragAndDropRef.current.getData()
+    const formData = { ...data, dragAndDropData }
+    console.log('Datos a enviar:', formData)
+  }
 
   const [solicitanteEmail, setSolicitanteEmail] = useState(null)
 
@@ -84,7 +90,7 @@ const TicketCreateForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
       <div className="row">
         <div className="col-md-6 col-lg-6">
-          <h2>Tickets #C0000001</h2>
+          <h2>Ticket</h2>
         </div>
         <div className='col-md-6 col-lg-6 d-flex align-items-center'>
           <div className="form-check">
@@ -214,6 +220,13 @@ const TicketCreateForm = () => {
         />
         {getFilterResult(user.sector)}
       </div>
+      <label>Archivos
+      <DragAndDrop
+      ref={dragAndDropRef}
+      register={register}
+      errors={errors}
+      />
+      </label>
       <div className='d-flex justify-content-end'>
         <Button type="reset" classBoton="mx-1 btn btn-danger" texto="cancelar" onClick={redirectTickets} />
         <Button type="submit" classBoton="mx-1 btn btn-success" texto="Guardar" />

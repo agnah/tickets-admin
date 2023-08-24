@@ -26,7 +26,7 @@ const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos', 'ewell']
 
 // const ExpandedComponent = ({ data }) => <InfoExtra data={data} />
 
-function Tabla() {
+function Tabla () {
   const { user } = useAuth()
   const navigate = useNavigate()
   const path = 'users'

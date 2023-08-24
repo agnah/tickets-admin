@@ -61,6 +61,7 @@ const Home = () => {
     return <p>Cargando...</p>
   }
   if (isSuccess) {
+    const limitedData = data.slice(0, 10)
     return (
       <>
         <Tablero title={'Tablero de Tickets'} page="Inicio">
@@ -69,12 +70,12 @@ const Home = () => {
         <div className="row">
           <div className="col-sm-12 col-md-6">
             <Tablero title={titulo1}>
-              <TablaDinam data={data} columnas={columnas} tipo="tickets" acciones={acciones} />
+              <TablaDinam data={limitedData} columnas={columnas} tipo="tickets" acciones={acciones} />
             </Tablero>
           </div>
           <div className="col-sm-12 col-md-6">
             <Tablero title={titulo2}>
-              <TablaDinam data={data} columnas={columnas} acciones={acciones} />
+              <TablaDinam data={limitedData} columnas={columnas} tipo="tickets" acciones={acciones} />
             </Tablero>
           </div>
         </div>
