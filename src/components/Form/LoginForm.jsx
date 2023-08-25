@@ -34,6 +34,7 @@ const LoginForm = () => {
           // type="email"
           type="text"
           name="email"
+          inputMode="email"
           placeholder="Ingrese su correo..."
           register={register}
           errors={errors}

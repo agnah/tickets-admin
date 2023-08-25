@@ -53,6 +53,7 @@ const CreateUserForm = () => {
           classCol="col-md-4 col-lg-4 form-group item-form"
           register={register}
           errors={errors}
+          inputmode="email"
           options={{
             required: 'Campo obligatorio',
             pattern: {
@@ -63,12 +64,13 @@ const CreateUserForm = () => {
         />
         <InputForm
           label="Celular"
-          type="number"
+          type="tel"
           name="celular"
           placeholder=""
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
+          inputmode="tel"
           options={{
             pattern: {
               message: 'Solo numeros'
@@ -77,12 +79,13 @@ const CreateUserForm = () => {
         />
         <InputForm
           label="Teléfono"
-          type="telefono"
+          type="tel"
           name="telefono"
           placeholder=""
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
+          inputmode="tel"
           options={{
             pattern: {
               message: 'Solo numeros'
@@ -96,6 +99,7 @@ const CreateUserForm = () => {
           placeholder=""
           register={register}
           errors={errors}
+          inputmode="numeric"
           classCol="col-md-4 col-lg-4 form-group item-form"
           options={{
             pattern: {
