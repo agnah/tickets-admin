@@ -165,6 +165,7 @@ const TicketCreateForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
+          inputmode="email"
           options={{
             required: 'Campo obligatorio',
             pattern: {
@@ -182,6 +183,7 @@ const TicketCreateForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-2 col-lg-2 form-group item-form"
+          inputmode="tel"
           options={{
             required: 'Campo obligatorio'
           }}

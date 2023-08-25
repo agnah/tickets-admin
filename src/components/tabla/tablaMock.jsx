@@ -169,6 +169,13 @@ function Tabla () {
             type="button"
             onClick={() => trigger()}
           />
+            <input
+          type="search"
+          placeholder="Buscar..."
+          inputmode="search"
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+        />
           <div className="right-elements">
             <div>
               {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
@@ -211,12 +218,6 @@ function Tabla () {
             onChange={handleSeleccionadosChange}
           />
         </div>
-        <input
-          type="search"
-          placeholder="Buscar..."
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-        />
         <DataTable
           columns={columns}
           data={filteredData}

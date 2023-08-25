@@ -37,26 +37,35 @@ function DragAndDropComponent ({ register, errors }, ref) {
   }
 
   const handleFiles = function (files) {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'text/plain', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
     const newFiles = []
+
     for (let i = 0; i < files.length; i++) {
-      if (files[i].type.split('/')[0] !== 'image') {
-        alert('Solo se permiten archivos de imagen')
+      if (!allowedTypes.includes(files[i].type)) {
+        alert('Solo se permiten archivos de imagen, texto, PDF y Word')
         continue
       }
-      if (imagenes.some((img) => img.name === files[i].name && img.size === files[i].size)) {
-        alert(`El archivo ${files[i].name} ya ha sido cargado.`)
-        continue
+
+      if (files[i].type.split('/')[0] === 'image') {
+        // Resto de las validaciones para imágenes
+        if (imagenes.some((img) => img.name === files[i].name && img.size === files[i].size)) {
+          alert(`El archivo ${files[i].name} ya ha sido cargado.`)
+          continue
+        }
+        if (files[i].size > 10000000) {
+          alert('Solo se permiten archivos de menos de 10MB')
+          continue
+        }
       }
-      if (files[i].size > 10000000) {
-        alert('Solo se permiten archivos de menos de 10MB')
-        continue
-      }
+
       if (imagenes.length + newFiles.length >= 5) {
         alert('Solo se permiten 5 archivos')
         break
       }
+
       newFiles.push(files[i])
     }
+
     setImagenes((prev) => [...prev, ...newFiles])
     inputRef.current.value = ''
   }
@@ -81,11 +90,12 @@ function DragAndDropComponent ({ register, errors }, ref) {
         onDragOver={handleDrag}
         onDrop={handleDrop}
       >
-        <input type="file" id="input-file-upload" name="archivos" multiple={true} onChange={handleChange} ref={inputRef} register={register}
+        <input type="file" id="input-file-upload" name="archivos" multiple={true}
+        accept="image/jpeg, image/png, image/gif, text/plain, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={handleChange} ref={inputRef} register={register}
           errors={errors} />
         <label id="label-file-upload" htmlFor="input-file-upload">
           <div>
-            <p>Suelte archivos aquí o seleccionelos </p>
+            <p>Suelte archivos aquí o seleccionelos</p>
           </div>
         </label>
       </div>
