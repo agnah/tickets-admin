@@ -9,5 +9,11 @@ COPY ./ .
 RUN cp .env.example .env
 RUN yarn install && yarn build
 
+#Instala las dependencias del proyecto
+RUN npm install
+
 # Expose port 3000 on container
-EXPOSE 3000
+EXPOSE 5173
+
+#Comando para ejecutar el servidor de desarrollo de React
+CMD ["npm", "run", "dev"]

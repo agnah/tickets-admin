@@ -1,12 +1,15 @@
-FROM node:lts-alpine
+FROM node
 
 # Create destination directory
 RUN mkdir -p /usr/src/tickets-admin
 WORKDIR /usr/src/tickets-admin
+COPY package*.json /usr/src/tickets-admin
+
+RUN npm install 
+
 COPY ./ .
 COPY ./start-reload.sh /start-reload.sh
 
-RUN yarn install
+EXPOSE 5173
 
-# Expose 3000 on container
-EXPOSE 3000
+CMD ["npm", "run", "dev"]
