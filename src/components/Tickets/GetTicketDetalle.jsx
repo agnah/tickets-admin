@@ -1,25 +1,58 @@
 import React, { useState } from 'react'
-import Button from '../partials/Button/Button'
-import Select from 'react-select'
+// import Button from '../partials/Button/Button'
+// import Select from 'react-select'
 // import ButtonEdit from '../partials/Button/ButtonEdit'
 import { useForm } from 'react-hook-form'
 import solicitantes from '../../../public/assets/solicitantes.json'
 import DatalistChangeInput from '../../components/Form/Input/DatalistCangeInput'
 import InputForm from '../../components/Form/Input/InputForm'
 import SelectInput from '../../components/Form/Input/Select'
+import SelectTecnico from '../Form/Input/SelectWithOption'
 import TextArea from '../../components/Form/Input/TextArea'
+import SelectTarea from '@components/Tickets/SelectTarea'
 
 const tecnicos = [
-  { value: 'juan', label: 'Juan' },
-  { value: 'pedro', label: 'Pedro' },
-  { value: 'maria', label: 'Maria' },
-  { value: 'luis', label: 'Luis' },
-  { value: 'jose', label: 'Jose' },
-  { value: 'laura', label: 'Laura' }
+  'Franco Armani',
+  'Juan',
+  'Pedro',
+  'Maria',
+  'Luis',
+  'Jose',
+  'Laura'
 ]
 
 const datalistSolicitante = solicitantes.map((s) => s.nombre)
 const optionListSelect = ['CSTIMI', 'GDE', 'Computos', 'CID']
+const historial = [
+  {
+    area: 'CSTIMI',
+    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+  },
+  {
+    area: 'GDE',
+    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+  },
+  {
+    area: 'CSTIMI',
+    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+  },
+  {
+    area: 'Computos',
+    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+  },
+  {
+    area: 'Computos',
+    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+  },
+  {
+    area: 'CSTIMI',
+    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+  },
+  {
+    area: 'GDE',
+    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+  }
+]
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
@@ -42,17 +75,29 @@ const GetTicketDetalle = ({ ticket }) => {
     pre_tarea: ticket.pre_tarea,
     motivo: 'Un motivo valido'
   })
-  const [showSelect, setShowSelect] = useState(false)
-  const [selectedOption, setSelectedOption] = useState(null)
+  // const [showSelect, setShowSelect] = useState(false)
+  const [selectedOption, setSelectedOption] = useState(ticket.colaborador)
+  const [selectedOptionArea, setSelectedOptionArea] = useState(null)
   const [edit, setEdit] = useState(false)
   const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email)
+  const [historialMensajes, setHistorialMensajes] = useState(historial)
 
-  const handleSelectTecnico = () => {
-    setShowSelect(!showSelect)
+  // const handleSelectTecnico = () => {
+  //   setShowSelect(!showSelect)
+  // }
+
+  const handleSelectChange = (e) => {
+    console.log(e.target.value)
+    if (e.target.name === 'tecnico') setSelectedOption(e.target.value)
+    if (e.target.name === 'derivar') setSelectedOptionArea(e.target.value)
   }
 
-  const handleSelectChange = (selected) => {
-    setSelectedOption(selected)
+  const handleSubmitMessage = (e) => {
+    e.preventDefault()
+    const user = JSON.parse(sessionStorage.getItem('user'))
+    console.log(user.sector[0])
+    console.log(e.target[0].value)
+    setHistorialMensajes([...historialMensajes, { area: user.sector[0], info: e.target[0].value }])
   }
 
   const handleEdit = () => {
@@ -333,39 +378,77 @@ const GetTicketDetalle = ({ ticket }) => {
             ></i>
               )}
         </form>
+        <div>
+          <p>Historial</p>
+          <div className="border border-1 d-flex flex-column">
+            <div
+              style={{ height: '200px', overflowY: 'scroll' }}
+              className="p-2"
+            >
+              {historialMensajes.map((mensaje) => (
+                <p>
+                  <span className="text-primary">{mensaje.area}</span>:{' '}
+                  {mensaje.info}
+                </p>
+              ))}
+            </div>
+            <div className="w-100 p-2 bg-secondary">
+              <form onSubmit={handleSubmitMessage} className="d-flex gap-2">
+                <input type="text" name='info' className="flex-grow-1" />
+                <button type="submit">Enviar</button>
+              </form>
+            </div>
+          </div>
+        </div>
       </article>
       <article className="col-md-5">
-        {showSelect
-          ? (
-          <>
-            <Select
-              name="Tareas"
-              options={tecnicos}
-              onChange={handleSelectChange}
-              value={selectedOption}
-            />
-            <Button
-              classBoton="mx-1 btn btn-success"
-              texto="Seleccionar Tecnico"
-              onClick={handleSelectTecnico}
-            />
-          </>
-            )
-          : (
-          <>
-            <Button
-              id="asignado"
-              classBoton="mx-1 btn btn-success"
-              texto={selectedOption ? selectedOption.label : ticket.colaborador}
-            />
-            <Button
-              id="modificar"
-              classBoton="mx-1 btn btn-danger"
-              texto="Cambiar Tecnico"
-              onClick={handleSelectTecnico}
-            />
-          </>
-            )}
+        <section className="row px-3">
+          <article className="col-lg-12 bg-secondary px-2 py-2">
+            <div>
+              <SelectTecnico
+                label="Asignar Colaborador"
+                name="tecnico"
+                placeholder="Selecciona un técnico"
+                optionList={tecnicos}
+                register={register}
+                errors={errors}
+                classCol="col-md-12 col-lg-12 d-flex ms-2"
+                options={{
+                  required: 'Campo obligatorio'
+                }}
+                selectedOption={selectedOption}
+                onChangeInput={handleSelectChange}
+              />
+            </div>
+            <div className="my-2">
+              <SelectTecnico
+                label=""
+                name="area"
+                placeholder="Derivar"
+                optionList={optionListSelect}
+                register={register}
+                errors={errors}
+                classCol="col-md-12 col-lg-12 d-flex ms-2"
+                options={{
+                  required: 'Campo obligatorio'
+                }}
+                selectedOption={selectedOptionArea}
+                onChangeInput={handleSelectChange}
+              />
+            </div>
+            <div>
+              <p className="mb-0">Tiempo de espera: {''}</p>
+              <p className="mb-0">Última acción: {''}</p>
+            </div>
+          </article>
+        </section>
+        <section>
+          <article>
+            <div>
+              <SelectTarea />
+            </div>
+          </article>
+        </section>
       </article>
     </section>
   )

@@ -52,18 +52,35 @@ function SelectTarea () {
 
   const handleEliminarTarea = () => {
     if (tareaSelecionado) {
-      const updatedTareas = savedTareas.filter(task => task.id !== tareaSelecionado.id)
+      const updatedTareas = savedTareas.filter(
+        (task) => task.id !== tareaSelecionado.id
+      )
       setSavedTareas(updatedTareas)
       closeModal()
     }
   }
 
   const renderSavedTareas = () => (
-    <div>
-      <p>Tareas: {savedTareas.map(option => (
-        <button key={option.id} onClick={() => openModal(option)}>{option.label}</button>
-      ))}</p>
-    </div>
+    <article>
+      <p>Tareas a realizar:</p>
+      <div className='d-flex'>
+        <div className="border border-1 mb-2 flex-grow-1" style={{ minHeight: '35px' }}>
+          {savedTareas.map((option) => (
+            <button key={option.id} onClick={() => openModal(option)}>
+              {option.label}
+            </button>
+          ))}
+        </div>
+        {!showSelect && (
+          <Button
+            onClick={() => setShowSelect(true)}
+            classBoton="mx-1 btn btn-primary flex-shrink-1 w-25"
+            texto="+"
+          />
+        )
+          }
+      </div>
+    </article>
   )
 
   const renderModalContent = () => (
@@ -109,10 +126,12 @@ function SelectTarea () {
   )
 
   return (
-    <div>
-      {renderSavedTareas()}
-      {showSelect
-        ? (
+    <section>
+
+        {renderSavedTareas()}
+
+      {showSelect &&
+        (
         <>
           <Select
             isMulti
@@ -127,16 +146,10 @@ function SelectTarea () {
             texto="Guardar Tareas"
           />
         </>
-          )
-        : (
-        <Button
-          onClick={() => setShowSelect(true)}
-          classBoton="mx-1 btn btn-primary"
-          texto="Agregar Tarea"
-        />
-          )}
+        )
+        }
       {showModal && <div>{renderModalContent()}</div>}
-    </div>
+    </section>
   )
 }
 
