@@ -1,5 +1,5 @@
 .table-thead {
-    background: var(--gris-oscuro) ;
+    background: var(--gris-oscuro);
     text-align: center;
     position: sticky;
     display: table-header-group;
@@ -34,3 +34,4 @@
 .table tr:nth-child(even) {
     background: var(--tr-even-color);
 }
+

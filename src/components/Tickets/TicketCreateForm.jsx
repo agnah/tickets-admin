@@ -90,7 +90,7 @@ const TicketCreateForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
       <div className="row">
         <div className="col-md-6 col-lg-6">
-          <h2>Ticket</h2>
+          <h5>Ticket</h5>
         </div>
         <div className='col-md-6 col-lg-6 d-flex align-items-center'>
           <div className="form-check">

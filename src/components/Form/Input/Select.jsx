@@ -1,3 +1,5 @@
+import './Select.css'
+
 const Select = (props) => {
   const {
     label,
@@ -21,9 +23,14 @@ const Select = (props) => {
   // }
 
   return (
-    <div className={classes}>
+    <div className={`select-container ${classes}`}>
       <label htmlFor={name}>{label}</label>
-      <div className="form-group item-form">
+      <div className="form-group item-form select-box">
+        <div className="select-header">
+          <i
+            className="fa-solid fa-caret-down"
+          ></i>
+        </div>
         {
           attributes?.displayFields
             ? <select

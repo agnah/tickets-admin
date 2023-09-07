@@ -1,0 +1,12 @@
+.select-box {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.select-container .fa-caret-down {
+    cursor: pointer;
+    position: relative;
+    right: 3.5em;
+    color: var(--gris-medio);
+}

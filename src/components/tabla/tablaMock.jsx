@@ -203,7 +203,7 @@ function Tabla () {
             {!user.perfil.includes(perfil.DIRECTOR) && (
               <Link to='/tickets/create' className='btn-crear-ticket'>
                 <i className="fa-solid fa-plus"></i>
-                Agregar Ticket
+                Nuevo Ticket
               </Link>
             )}
           </div>
