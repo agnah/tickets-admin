@@ -198,12 +198,12 @@ function Tabla () {
                     <option value=''>Todos</option>
                   </select>
                   )}
-              <i className="fa-solid fa-caret-down"></i>
+              {/* <i className="fa-solid fa-caret-down"></i> */}
             </div>
             {!user.perfil.includes(perfil.DIRECTOR) && (
               <Link to='/tickets/create' className='btn-crear-ticket'>
                 <i className="fa-solid fa-plus"></i>
-                Agregar Ticket
+                Nuevo Ticket
               </Link>
             )}
           </div>

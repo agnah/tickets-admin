@@ -3,6 +3,7 @@
 * {
     --gris-oscuro: #3B4449;
     --gris-medio: #7A7A7A;
+    --gris-claro: #dee2e6;
     --hr-color: #AAAAAA;
     --tr-even-color: #E1E1E1;
     --celeste: #37BBED;
@@ -10,6 +11,8 @@
     --color-ticket-asignado: #F7941E;
     --color-ticket-curso: #50B8B1;
     --color-ticket-totales: #EE3D8F;
+    --color-danger: #EF5350;
+    --color-success: #4FBB73;
     
     font-family: 'Encode Sans', sans-serif;
 }

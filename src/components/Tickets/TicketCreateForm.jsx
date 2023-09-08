@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router'
 import useAuth from '@servicios/UseAuth'
 import { areas } from '@constantes/constAreas'
 import DragAndDrop from '../Form/dragAndDrop'
+import './TicketCreateForm.css'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
@@ -90,7 +91,7 @@ const TicketCreateForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
       <div className="row">
         <div className="col-md-6 col-lg-6">
-          <h2>Ticket</h2>
+          <h5>Ticket</h5>
         </div>
         <div className='col-md-6 col-lg-6 d-flex align-items-center'>
           <div className="form-check">
@@ -207,7 +208,7 @@ const TicketCreateForm = () => {
           classCol="col-md-4 col-lg-4 form-group item-form"
         />
       </div>
-      <hr className="m-0" />
+      <hr/>
       <div className="row">
         <TextArea
           label="Motivo"
@@ -222,7 +223,7 @@ const TicketCreateForm = () => {
         />
         {getFilterResult(user.sector)}
       </div>
-      <label>Archivos
+      <label className='label-dragAndDrop'>Archivos
       <DragAndDrop
       ref={dragAndDropRef}
       register={register}
@@ -230,8 +231,8 @@ const TicketCreateForm = () => {
       />
       </label>
       <div className='d-flex justify-content-end'>
-        <Button type="reset" classBoton="mx-1 btn btn-danger" texto="cancelar" onClick={redirectTickets} />
-        <Button type="submit" classBoton="mx-1 btn btn-success" texto="Guardar" />
+        <Button type="reset" classBoton="btn-action btn-danger" texto="Cancelar" onClick={redirectTickets} />
+        <Button type="submit" classBoton="btn-action btn-success" texto="Guardar" />
       </div>
     </form>
   )
