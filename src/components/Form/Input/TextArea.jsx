@@ -16,6 +16,7 @@ function TextArea (props) {
         cols='1'
         onChange={attributes?.onChangeInput}
         value={attributes?.value}
+        style={{ height: '38px' }}
       />
       {errors[name] && (
         <p className="help-block error" role="alert">
