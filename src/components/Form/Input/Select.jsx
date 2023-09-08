@@ -26,11 +26,11 @@ const Select = (props) => {
     <div className={`select-container ${classes}`}>
       <label htmlFor={name}>{label}</label>
       <div className="form-group item-form select-box">
-        <div className="select-header">
+        {/* <div className="select-icon">
           <i
             className="fa-solid fa-caret-down"
           ></i>
-        </div>
+        </div> */}
         {
           attributes?.displayFields
             ? <select

@@ -28,13 +28,16 @@ const DatalistChangeInput = (props) => {
 
   return (
     <div className={classes}>
-      <label htmlFor={name}>{label}</label>
-      <label
-        htmlFor="otro"
-      >
-        <input type="checkbox" name="Otro" id="" onChange={handleChangeInput} />{' '}
-        Otro
-      </label>
+      <div className="label-container">
+        <label htmlFor={name}>{label}</label>
+        <label
+          htmlFor="otro"
+          className="check-label"
+        >
+          <input className="check-input" type="checkbox" name="Otro" id="" onChange={handleChangeInput} />{' '}
+          Otro
+        </label>
+      </div>
       <div className="form-group item-form">
         {changeInput
           ? (

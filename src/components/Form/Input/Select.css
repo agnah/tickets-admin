@@ -1,12 +1,35 @@
 .select-box {
     display: flex;
     align-items: center;
-    flex-direction: row-reverse;
+    justify-content: center;
 }
 
-.select-container .fa-caret-down {
+.select-box select::after {
+    content: '\f107';
+    font-family: 'Font Awesome 5 Free';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%); 
+    pointer-events: none;
+    color: black;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+/* .select-container .fa-caret-down {
     cursor: pointer;
-    position: relative;
-    right: 3.5em;
     color: var(--gris-medio);
 }
+
+.select-icon {
+    position: absolute;
+    right: 0;
+    top:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+} */

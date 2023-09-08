@@ -95,7 +95,7 @@ function DragAndDropComponent ({ register, errors }, ref) {
           errors={errors} />
         <label id="label-file-upload" htmlFor="input-file-upload">
           <div>
-            <p>Suelte archivos aquí o seleccionelos</p>
+            <p><span style={{ color: 'var(--celeste)' }}>Suelte archivos aquí</span> o seleccionelos</p>
           </div>
         </label>
       </div>
