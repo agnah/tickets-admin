@@ -20,7 +20,7 @@ function NavDashboard () {
   const Inicio = lazy(() => import('@pages/Inicio/Inicio'))
   const Tramites = lazy(() => import('@pages/Tramites/Tramites'))
   const TramiteCreate = lazy(() => import('@pages/Tramites/TramiteCreate'))
-  const TramiteDetalle = lazy(() => import('@pages/Tramites/TramiteDetalle'))
+  const DetalleTramite = lazy(() => import('@pages/Tramites/DetalleTramite'))
 
   // if (!(user && Object.keys(user).length > 0)) {
   if (!user) {
@@ -71,7 +71,7 @@ function NavDashboard () {
               }>
               <Route path="/tramites" element={<Tramites />} />
               <Route path="/tramites/create" element={<TramiteCreate />} />
-              <Route path="/tramites/:id" element={<TramiteDetalle />} />
+              <Route path="/tramites/:id" element={<DetalleTramite />} />
             </Route>
             <Route
               element={
