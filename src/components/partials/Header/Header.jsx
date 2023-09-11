@@ -2,7 +2,7 @@ import './Header.css'
 
 const Header = () => {
   return (
-    <header className="header">
+    <header className="header backgroundTramite">
       <nav
         className="navbar"
         role="navigation"

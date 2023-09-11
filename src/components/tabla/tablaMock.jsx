@@ -4,7 +4,7 @@ import SkeletonTabla from './skeletonTabla'
 import { useCallback, useMemo, useContext, useState } from 'react'
 import Button from '../partials/Button/Button'
 import filtroTabla from './filtroTabla'
-import CheckPrioridad from './checkPrioridad'
+// import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
 import useAuth from '@servicios/UseAuth'
@@ -18,7 +18,7 @@ import './tabla.css'
 
 const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz', 'Tito']
 
-function Tabla () {
+function Tabla() {
   const [busqueda, setBusqueda] = useState('')
   const { PENDIENTE } = estadoTicket
   const { user } = useAuth()
@@ -37,7 +37,7 @@ function Tabla () {
 
   const {
     prioridad,
-    handlePrioridadChange,
+    // handlePrioridadChange,
     seleccionados,
     handleSeleccionadosChange,
     filtroUser,
@@ -169,13 +169,13 @@ function Tabla () {
             type="button"
             onClick={() => trigger()}
           />
-            <input
-          type="search"
-          placeholder="Buscar..."
-          inputmode="search"
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-        />
+          <input
+            type="search"
+            placeholder="Buscar..."
+            inputMode="search"
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+          />
           <div className="right-elements">
             <div>
               {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
@@ -192,12 +192,12 @@ function Tabla () {
                       </option>
                     ))}
                   </select>
-                  )
+                )
                 : (
                   <select disabled>
                     <option value=''>Todos</option>
                   </select>
-                  )}
+                )}
               {/* <i className="fa-solid fa-caret-down"></i> */}
             </div>
             {!user.perfil.includes(perfil.DIRECTOR) && (
@@ -209,10 +209,10 @@ function Tabla () {
           </div>
         </div>
         <div className="container-checks">
-          <CheckPrioridad
+          {/* <CheckPrioridad
             prioridad={prioridad}
             onChange={handlePrioridadChange}
-          />
+          /> */}
           <CheckEstado
             seleccionados={seleccionados}
             onChange={handleSeleccionadosChange}

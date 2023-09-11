@@ -45,15 +45,15 @@ const TicketCreateForm = () => {
     if (filter.includes(MESA_DE_ENTRADA)) {
       return (
         <Select
-        {...opcionesCompartidas}
-        optionList={optionListSelect}
+          {...opcionesCompartidas}
+          optionList={optionListSelect}
         />
       )
     } else if (filter.includes(CSTIMI)) {
       return (
         <Select
-        {...opcionesCompartidas}
-        optionList={optionCstimi}
+          {...opcionesCompartidas}
+          optionList={optionCstimi}
         />
       )
     } else {
@@ -166,7 +166,7 @@ const TicketCreateForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
-          inputmode="email"
+          inputMode="email"
           options={{
             required: 'Campo obligatorio',
             pattern: {
@@ -184,7 +184,7 @@ const TicketCreateForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-2 col-lg-2 form-group item-form"
-          inputmode="tel"
+          inputMode="tel"
           options={{
             required: 'Campo obligatorio'
           }}
@@ -208,7 +208,7 @@ const TicketCreateForm = () => {
           classCol="col-md-4 col-lg-4 form-group item-form"
         />
       </div>
-      <hr/>
+      <hr />
       <div className="row">
         <TextArea
           label="Motivo"
@@ -224,11 +224,11 @@ const TicketCreateForm = () => {
         {getFilterResult(user.sector)}
       </div>
       <label className='label-dragAndDrop'>Archivos
-      <DragAndDrop
-      ref={dragAndDropRef}
-      register={register}
-      errors={errors}
-      />
+        <DragAndDrop
+          ref={dragAndDropRef}
+          register={register}
+          errors={errors}
+        />
       </label>
       <div className='d-flex justify-content-end'>
         <Button type="reset" classBoton="btn-action btn-danger" texto="Cancelar" onClick={redirectTickets} />
