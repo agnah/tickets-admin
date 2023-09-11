@@ -18,7 +18,7 @@ import './tabla.css'
 
 const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz', 'Tito']
 
-function Tabla () {
+function Tabla() {
   const [busqueda, setBusqueda] = useState('')
   const { PENDIENTE } = estadoTicket
   const { user } = useAuth()
@@ -169,13 +169,13 @@ function Tabla () {
             type="button"
             onClick={() => trigger()}
           />
-            <input
-          type="search"
-          placeholder="Buscar..."
-          inputmode="search"
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-        />
+          <input
+            type="search"
+            placeholder="Buscar..."
+            inputMode="search"
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+          />
           <div className="right-elements">
             <div>
               {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
@@ -192,12 +192,12 @@ function Tabla () {
                       </option>
                     ))}
                   </select>
-                  )
+                )
                 : (
                   <select disabled>
                     <option value=''>Todos</option>
                   </select>
-                  )}
+                )}
               {/* <i className="fa-solid fa-caret-down"></i> */}
             </div>
             {!user.perfil.includes(perfil.DIRECTOR) && (

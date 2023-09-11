@@ -53,7 +53,7 @@ const CreateUserForm = () => {
           classCol="col-md-4 col-lg-4 form-group item-form"
           register={register}
           errors={errors}
-          inputmode="email"
+          inputMode="email"
           options={{
             required: 'Campo obligatorio',
             pattern: {
@@ -70,7 +70,7 @@ const CreateUserForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
-          inputmode="tel"
+          inputMode="tel"
           options={{
             pattern: {
               message: 'Solo numeros'
@@ -85,7 +85,7 @@ const CreateUserForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
-          inputmode="tel"
+          inputMode="tel"
           options={{
             pattern: {
               message: 'Solo numeros'
@@ -99,7 +99,7 @@ const CreateUserForm = () => {
           placeholder=""
           register={register}
           errors={errors}
-          inputmode="numeric"
+          inputMode="numeric"
           classCol="col-md-4 col-lg-4 form-group item-form"
           options={{
             pattern: {

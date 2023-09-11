@@ -1,16 +1,17 @@
 import { Link } from 'react-router-dom'
 import HeaderLogged from '../Header/HeaderLogged'
 import './SideBar.css'
-import { perfil, rolUsuario } from '@constantes/constUsers'
+import { perfil } from '@constantes/constUsers'
 import useAuth from '@servicios/UseAuth'
 import { useState } from 'react'
 
 const SideBar = ({ children }) => {
   const { user, seccionTicket } = useAuth()
   const [showNav, setShowNav] = useState(true)
-  const { SUPERADMIN, ADMINISTRADOR, ADMINISTRATIVO, TECNICO } = perfil
+  const { SUPERADMIN, ADMINISTRADOR, ADMINISTRATIVO } = perfil
 
   const classDisplay = showNav ? 'show-nav' : 'close-nav'
+  const classColorBoton = seccionTicket ? 'circle-item' : 'circle-item-tramite'
   // ! TRAER LOGICA DE NAVEGACION
   return (
     <div className="sidebar">
@@ -37,7 +38,7 @@ const SideBar = ({ children }) => {
             <div className="item-nav">
               <Link
                 to="/inicio"
-                className="circle-item "
+                className={classColorBoton}
                 aria-current="page"
                 data-bs-toggle="tooltip"
                 data-bs-placement="right"
@@ -50,50 +51,52 @@ const SideBar = ({ children }) => {
             </div>
             <span className="span-nav">Inicio</span>
           </li>
-          <li className="item mb-4">
-            <div className="item-nav">
-              <Link
-                to="/tickets"
-                className="circle-item "
-                aria-current="page"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                data-bs-original-title="Home"
-              >
-                <i
-                  className="fa-solid fa-ticket fa-lg"
-                ></i>
-              </Link>
-            </div>
-            <span className="span-nav">Tickets</span>
-          </li>
-          {!user.perfil.includes(SUPERADMIN) && (
-            <li className="item mb-4">
-              <div className="item-nav">
-                <Link
-                  to="/tickets/create"
-                  className="circle-item "
-                  aria-current="page"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="right"
-                  data-bs-original-title="Home"
-                >
-                  <i
-                    className="fa-solid fa-plus fa-lg"
-                  ></i>
-                </Link>
-              </div>
-              <span className='span-nav'>
-                Crear Ticket
-              </span>
-            </li>
+          {seccionTicket && (
+            <>
+              <li className="item mb-4">
+                <div className="item-nav">
+                  <Link
+                    to="/tickets"
+                    className={classColorBoton}
+                    aria-current="page"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-original-title="Home"
+                  >
+                    <i
+                      className="fa-solid fa-ticket fa-lg"
+                    ></i>
+                  </Link>
+                </div>
+                <span className="span-nav">Tickets</span>
+              </li>
+              <li className="item mb-4">
+                <div className="item-nav">
+                  <Link
+                    to="/tickets/create"
+                    className={classColorBoton}
+                    aria-current="page"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-original-title="Home"
+                  >
+                    <i
+                      className="fa-solid fa-plus fa-lg"
+                    ></i>
+                  </Link>
+                </div>
+                <span className='span-nav'>
+                  Crear Ticket
+                </span>
+              </li>
+            </>
           )}
-          {(!user.perfil.includes(SUPERADMIN) || !user.perfil.includes(TECNICO)) && (
+          {!seccionTicket && (
             <><li className="item mb-4">
               <div className="item-nav">
                 <Link
                   to="/tramites"
-                  className="circle-item "
+                  className={classColorBoton}
                   aria-current="page"
                   data-bs-toggle="tooltip"
                   data-bs-placement="right"
@@ -109,7 +112,7 @@ const SideBar = ({ children }) => {
                 <div className="item-nav">
                   <Link
                     to="/tramites/create"
-                    className="circle-item "
+                    className={classColorBoton}
                     aria-current="page"
                     data-bs-toggle="tooltip"
                     data-bs-placement="right"
@@ -125,13 +128,11 @@ const SideBar = ({ children }) => {
                 </span>
               </li></>
           )}
-          {(user.rolUsuario === rolUsuario.ADMIN ||
-            user.rolUsuario === rolUsuario.EDITOR) && (
               <li className="item mb-4">
                 <div className="item-nav">
                   <Link
                     to="/usuarios"
-                    className="circle-item "
+                    className={classColorBoton}
                     aria-current="page"
                     data-bs-toggle="tooltip"
                     data-bs-placement="right"
@@ -146,13 +147,12 @@ const SideBar = ({ children }) => {
                   Usuarios
                 </span>
               </li>
-            )}
           {(user.perfil.includes(SUPERADMIN) || user.perfil.includes(ADMINISTRADOR) || user.perfil.includes(ADMINISTRATIVO)) && (
             <li className="item mb-4">
               <div className="item-nav">
                 <Link
                   to="/estadisticas"
-                  className="circle-item "
+                  className={classColorBoton}
                   aria-current="page"
                   data-bs-toggle="tooltip"
                   data-bs-placement="right"

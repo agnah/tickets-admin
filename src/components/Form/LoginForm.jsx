@@ -3,13 +3,15 @@ import InputForm from './Input/InputForm'
 import Button from './Button/Button'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '@servicios/UseAuth'
+import { perfil } from '@constantes/constUsers'
 
 const REGEX_PASSWORD =
   /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
 // const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
 const LoginForm = () => {
-  const { login } = useAuth()
+  const { login, handleSeccion } = useAuth()
+  const { ADMINISTRADOR, TECNICO } = perfil
   const navigate = useNavigate()
   const {
     register,
@@ -22,6 +24,9 @@ const LoginForm = () => {
     if (result?.error) {
       alert(result.error)
     } else {
+      if (result.user.perfil.includes(ADMINISTRADOR) || result.user.perfil.includes(TECNICO)) {
+        handleSeccion()
+      }
       navigate('/inicio')
     }
   }
