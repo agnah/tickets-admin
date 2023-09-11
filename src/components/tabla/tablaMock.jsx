@@ -4,7 +4,7 @@ import SkeletonTabla from './skeletonTabla'
 import { useCallback, useMemo, useContext, useState } from 'react'
 import Button from '../partials/Button/Button'
 import filtroTabla from './filtroTabla'
-import CheckPrioridad from './checkPrioridad'
+// import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
 import useAuth from '@servicios/UseAuth'
@@ -37,7 +37,7 @@ function Tabla () {
 
   const {
     prioridad,
-    handlePrioridadChange,
+    // handlePrioridadChange,
     seleccionados,
     handleSeleccionadosChange,
     filtroUser,
@@ -209,10 +209,10 @@ function Tabla () {
           </div>
         </div>
         <div className="container-checks">
-          <CheckPrioridad
+          {/* <CheckPrioridad
             prioridad={prioridad}
             onChange={handlePrioridadChange}
-          />
+          /> */}
           <CheckEstado
             seleccionados={seleccionados}
             onChange={handleSeleccionadosChange}

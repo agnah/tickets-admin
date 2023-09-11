@@ -22,7 +22,7 @@ const LoginForm = () => {
     if (result?.error) {
       alert(result.error)
     } else {
-      navigate('/dashboard')
+      navigate('/inicio')
     }
   }
 

@@ -4,6 +4,7 @@ import { login, logout } from './AuthFunctions'
 
 export function AuthProvider ({ children }) {
   const [user, setUser] = useState(null)
+  const [seccionTicket, setSeccionTicket] = useState(false)
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user')
@@ -24,8 +25,12 @@ export function AuthProvider ({ children }) {
     logout(setUser)
   }
 
+  const handleSeccion = () => {
+    setSeccionTicket(!seccionTicket)
+  }
+
   return (
-    <authContext.Provider value={{ user, login: handleLogin, logout: handleLogout }}>
+    <authContext.Provider value={{ handleSeccion, user, login: handleLogin, logout: handleLogout }}>
       {children}
     </authContext.Provider>
   )

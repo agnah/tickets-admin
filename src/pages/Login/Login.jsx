@@ -12,22 +12,21 @@ const Login = () => {
             <div className="row">
               <div className="row">
                 <div className="col-md-6">
-                  <span className="d-block mb-2">mesa_de_entradaOperadorUsuario</span>
-                  <span className="d-block mb-2">gdeResponsableAdmin</span>
-                  <span className="d-block mb-2">computosResponsableAdmin</span>
-                  <span className="d-block mb-2">computosColaboradorEditor</span>
-                  <span className="d-block mb-2">computosColaboradorUsuario</span>
+                  <span className="d-block mb-2">administrativoMesaEntrada</span>
+                  <span className="d-block mb-2">computosAdministrador</span>
+                  <span className="d-block mb-2">computosTecnicoEditor</span>
+                  <span className="d-block mb-2">computosTecnicoLector</span>
                   <span className="d-block mb-2">cidResponsableAdmin</span>
-                  <span className="d-block mb-2">cidColaboradorEditor</span>
-                  <span className="d-block mb-2">cidColaboradorUsuario</span>
+                  <span className="d-block mb-2">cidTecnicoEditor</span>
+                  <span className="d-block mb-2">cidTecnicoLector</span>
                 </div>
                 <div className="col-md-6">
                   <span className="d-block mb-2">soporteResponsableAdmin</span>
-                  <span className="d-block mb-2">soporteColaboradorEditor</span>
-                  <span className="d-block mb-2">soporteColaboradorUsuario</span>
+                  <span className="d-block mb-2">soporteTecnicoEditor</span>
+                  <span className="d-block mb-2">soporteTecnicoLector</span>
                   <span className="d-block mb-2">telefoniaResponsableAdmin</span>
-                  <span className="d-block mb-2">telefoniaColaboradorEditor</span>
-                  <span className="d-block mb-2">telefoniaColaboradorUsuario</span>
+                  <span className="d-block mb-2">telefoniaTecnicoEditor</span>
+                  <span className="d-block mb-2">telefoniaTecnicoLector</span>
                   <span className="d-block mb-2">director</span>
                   <span className="d-block mb-2">cstimi</span>
                 </div>

@@ -4,7 +4,7 @@ function Profile () {
   const { user } = useAuth()
   return (
     <div>
-      Sector: {user?.sector} Perfil: {user?.perfil} Rol Usuario: {user?.rolUsuario} Nombre: {user?.nombre}
+      Sector: {user?.sector} Perfil: {user?.perfil} Rol: {user?.rolUsuario} Nombre: {user?.nombre}
     </div>
   )
 }

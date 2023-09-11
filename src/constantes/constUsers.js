@@ -1,15 +1,15 @@
 export const perfil = {
-  OPERADOR: 'operador',
-  RESPONSABLE: 'responsable',
-  COORDINADOR: 'coordinador',
-  DIRECTOR: 'director',
-  COLABORADOR: 'colaborador'
+  SUPERADMIN: 'superadmin',
+  ADMINISTRADOR: 'administrador',
+  TECNICO: 'tecnico',
+  ADMINISTRATIVO: 'administrativo'
 }
 
 export const rolUsuario = {
+  DIOS: 'dios',
   ADMIN: 'admin',
   EDITOR: 'editor',
-  USUARIO: 'usuario'
+  LECTOR: 'lector'
 }
 
 export const estadoUsuario = {
