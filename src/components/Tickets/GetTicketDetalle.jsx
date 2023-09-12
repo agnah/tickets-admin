@@ -22,7 +22,7 @@ const tecnicos = [
 ]
 
 const datalistSolicitante = solicitantes.map((s) => s.nombre)
-const optionListSelect = ['CSTIMI', 'GDE', 'Computos', 'CID']
+const optionListSelect = ['CSTIMI', 'GDE', 'Computos', 'CID', 'Telefonía']
 const historial = [
   {
     area: 'CSTIMI',
@@ -97,7 +97,10 @@ const GetTicketDetalle = ({ ticket }) => {
     const user = JSON.parse(sessionStorage.getItem('user'))
     console.log(user.sector[0])
     console.log(e.target[0].value)
-    setHistorialMensajes([...historialMensajes, { area: user.sector[0], info: e.target[0].value }])
+    setHistorialMensajes([
+      ...historialMensajes,
+      { area: user.sector[0], info: e.target[0].value }
+    ])
   }
 
   const handleEdit = () => {
@@ -394,7 +397,7 @@ const GetTicketDetalle = ({ ticket }) => {
             </div>
             <div className="w-100 p-2 bg-secondary">
               <form onSubmit={handleSubmitMessage} className="d-flex gap-2">
-                <input type="text" name='info' className="flex-grow-1" />
+                <input type="text" name="info" className="flex-grow-1" />
                 <button type="submit">Enviar</button>
               </form>
             </div>
@@ -403,10 +406,10 @@ const GetTicketDetalle = ({ ticket }) => {
       </article>
       <article className="col-md-5">
         <section className="row px-3">
-          <article className="col-lg-12 bg-secondary px-2 py-2">
+          <article className="col-lg-12 bg-secondary px-2 py-2 mb-3 rounded">
             <div>
               <SelectTecnico
-                label="Asignar Colaborador"
+                label="Asignar Técnico"
                 name="tecnico"
                 placeholder="Selecciona un técnico"
                 optionList={tecnicos}
@@ -420,6 +423,8 @@ const GetTicketDetalle = ({ ticket }) => {
                 onChangeInput={handleSelectChange}
               />
             </div>
+          </article>
+          <article className="col-lg-12 bg-secondary px-2 py-2 rounded">
             <div className="my-2">
               <SelectTecnico
                 label=""

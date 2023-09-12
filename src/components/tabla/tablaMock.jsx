@@ -17,8 +17,9 @@ import { perfil } from '@constantes/constUsers'
 import './tabla.css'
 
 const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz', 'Tito']
+const sectores = ['Soporte', 'Telefonía', 'Computos', 'Sistemas', 'GDE']
 
-function Tabla() {
+function Tabla () {
   const [busqueda, setBusqueda] = useState('')
   const { PENDIENTE } = estadoTicket
   const { user } = useAuth()
@@ -41,7 +42,9 @@ function Tabla() {
     seleccionados,
     handleSeleccionadosChange,
     filtroUser,
-    handleFiltroUserChange
+    handleFiltroUserChange,
+    filtroSector,
+    handleFiltroSectorChange
   } = useContext(FiltrosContext)
 
   // Botones tabla
@@ -136,7 +139,7 @@ function Tabla() {
 
   // const data = filtroTabla(preData, seleccionados, prioridad, filtroUser)
 
-  const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
+  const data = filtroTabla(datos, seleccionados, prioridad, filtroUser, filtroSector)
 
   const conditionalRowStyles = [
     {
@@ -192,12 +195,35 @@ function Tabla() {
                       </option>
                     ))}
                   </select>
-                )
+                  )
                 : (
                   <select disabled>
                     <option value=''>Todos</option>
                   </select>
-                )}
+                  )}
+              {/* <i className="fa-solid fa-caret-down"></i> */}
+            </div>
+            <div>
+              {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
+                ? (
+                  <select
+                    name='filtroSector'
+                    value={filtroSector}
+                    onChange={(e) => handleFiltroSectorChange(e.target.value)}
+                  >
+                    <option value="">Sector</option>
+                    {sectores.map((option, index) => (
+                      <option key={index} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                  )
+                : (
+                  <select disabled>
+                    <option value=''>Todos</option>
+                  </select>
+                  )}
               {/* <i className="fa-solid fa-caret-down"></i> */}
             </div>
             {!user.perfil.includes(perfil.DIRECTOR) && (

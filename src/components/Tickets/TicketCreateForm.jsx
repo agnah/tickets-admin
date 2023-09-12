@@ -59,7 +59,7 @@ const TicketCreateForm = () => {
     } else {
       return (
         <label htmlFor="area" className="col-md-4 col-lg-4">
-          Área asignada:
+          Sector:
           <p name="area" id="area" className="form-group item-form">
             {filter}
           </p>
@@ -220,6 +220,7 @@ const TicketCreateForm = () => {
           options={{
             required: 'Campo obligatorio'
           }}
+          placeholder="Motivo por el cual precisa asistencia."
         />
         {getFilterResult(user.sector)}
       </div>
@@ -232,7 +233,7 @@ const TicketCreateForm = () => {
       </label>
       <div className='d-flex justify-content-end'>
         <Button type="reset" classBoton="btn-action btn-danger" texto="Cancelar" onClick={redirectTickets} />
-        <Button type="submit" classBoton="btn-action btn-success" texto="Guardar" />
+        <Button type="submit" classBoton="btn-action btn-success" texto="Crear" />
       </div>
     </form>
   )
