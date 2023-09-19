@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router'
 import useAuth from '@servicios/UseAuth'
 import { areas } from '@constantes/constAreas'
 import DragAndDrop from '../Form/dragAndDrop'
+import './TicketCreateForm.css'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
@@ -44,21 +45,21 @@ const TicketCreateForm = () => {
     if (filter.includes(MESA_DE_ENTRADA)) {
       return (
         <Select
-        {...opcionesCompartidas}
-        optionList={optionListSelect}
+          {...opcionesCompartidas}
+          optionList={optionListSelect}
         />
       )
     } else if (filter.includes(CSTIMI)) {
       return (
         <Select
-        {...opcionesCompartidas}
-        optionList={optionCstimi}
+          {...opcionesCompartidas}
+          optionList={optionCstimi}
         />
       )
     } else {
       return (
         <label htmlFor="area" className="col-md-4 col-lg-4">
-          Área asignada:
+          Sector:
           <p name="area" id="area" className="form-group item-form">
             {filter}
           </p>
@@ -90,7 +91,7 @@ const TicketCreateForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
       <div className="row">
         <div className="col-md-6 col-lg-6">
-          <h2>Ticket</h2>
+          <h5>Ticket</h5>
         </div>
         <div className='col-md-6 col-lg-6 d-flex align-items-center'>
           <div className="form-check">
@@ -165,6 +166,7 @@ const TicketCreateForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
+          inputMode="email"
           options={{
             required: 'Campo obligatorio',
             pattern: {
@@ -182,6 +184,7 @@ const TicketCreateForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-2 col-lg-2 form-group item-form"
+          inputMode="tel"
           options={{
             required: 'Campo obligatorio'
           }}
@@ -205,7 +208,7 @@ const TicketCreateForm = () => {
           classCol="col-md-4 col-lg-4 form-group item-form"
         />
       </div>
-      <hr className="m-0" />
+      <hr />
       <div className="row">
         <TextArea
           label="Motivo"
@@ -217,19 +220,20 @@ const TicketCreateForm = () => {
           options={{
             required: 'Campo obligatorio'
           }}
+          placeholder="Motivo por el cual precisa asistencia."
         />
         {getFilterResult(user.sector)}
       </div>
-      <label>Archivos
-      <DragAndDrop
-      ref={dragAndDropRef}
-      register={register}
-      errors={errors}
-      />
+      <label className='label-dragAndDrop'>Archivos
+        <DragAndDrop
+          ref={dragAndDropRef}
+          register={register}
+          errors={errors}
+        />
       </label>
       <div className='d-flex justify-content-end'>
-        <Button type="reset" classBoton="mx-1 btn btn-danger" texto="cancelar" onClick={redirectTickets} />
-        <Button type="submit" classBoton="mx-1 btn btn-success" texto="Guardar" />
+        <Button type="reset" classBoton="btn-action btn-danger" texto="Cancelar" onClick={redirectTickets} />
+        <Button type="submit" classBoton="btn-action btn-success" texto="Crear" />
       </div>
     </form>
   )

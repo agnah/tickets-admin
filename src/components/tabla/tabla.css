@@ -48,6 +48,10 @@ select:disabled {
     padding: .4vw 1vw;
 }
 
+.rdt_TableHeadRow {
+    border-bottom: none !important;
+}
+
 .fa-caret-down {
     color: var(--gris-medio);
     position: relative;
@@ -69,13 +73,12 @@ select:disabled {
     background-color: var(--gris-oscuro);
     color: #fff;
     font-size: 1rem;
+    border-bottom: none;
 }
 
 .rdt_TableCol {
     position: relative;
-}
-
-.rdt_TableCol {
+    background: var(--gris-oscuro);
     justify-content: center;
 }
 
@@ -116,15 +119,12 @@ select:disabled {
     background: #fff;
     font-weight: 600;
     font-size: .9rem;
-}
-
-.rdt_TableRow:not(:last-of-type) {
-    border: none;
+    border: none !important;
 }
 
 .rdt_TableRow:hover {
-    outline: none;
-    border: none;
+    outline: none !important;
+    border: none !important;
     background-color: none;
     filter: saturate(1.5);
     filter: brightness(.92);

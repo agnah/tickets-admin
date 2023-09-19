@@ -1,16 +1,17 @@
 import { Link } from 'react-router-dom'
 import HeaderLogged from '../Header/HeaderLogged'
 import './SideBar.css'
-import { perfil, rolUsuario } from '@constantes/constUsers'
+import { perfil } from '@constantes/constUsers'
 import useAuth from '@servicios/UseAuth'
 import { useState } from 'react'
 
 const SideBar = ({ children }) => {
-  const { user } = useAuth()
+  const { user, seccionTicket } = useAuth()
   const [showNav, setShowNav] = useState(true)
-  const { DIRECTOR, RESPONSABLE, COORDINADOR } = perfil
+  const { SUPERADMIN, ADMINISTRADOR, ADMINISTRATIVO } = perfil
 
   const classDisplay = showNav ? 'show-nav' : 'close-nav'
+  const classColorBoton = seccionTicket ? 'circle-item' : 'circle-item-tramite'
   // ! TRAER LOGICA DE NAVEGACION
   return (
     <div className="sidebar">
@@ -36,8 +37,8 @@ const SideBar = ({ children }) => {
           <li className="item mb-4">
             <div className="item-nav">
               <Link
-                to="/dashboard"
-                className="circle-item "
+                to="/inicio"
+                className={classColorBoton}
                 aria-current="page"
                 data-bs-toggle="tooltip"
                 data-bs-placement="right"
@@ -50,51 +51,88 @@ const SideBar = ({ children }) => {
             </div>
             <span className="span-nav">Inicio</span>
           </li>
-          <li className="item mb-4">
-            <div className="item-nav">
-              <Link
-                to="/tickets"
-                className="circle-item "
-                aria-current="page"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                data-bs-original-title="Home"
-              >
-                <i
-                  className="fa-solid fa-ticket fa-lg"
-                ></i>
-              </Link>
-            </div>
-            <span className="span-nav">Tickets</span>
-          </li>
-          {!user.perfil.includes(DIRECTOR) && (
-          <li className="item mb-4">
-            <div className="item-nav">
-              <Link
-                to="/tickets/create"
-                className="circle-item "
-                aria-current="page"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                data-bs-original-title="Home"
-              >
-                <i
-                  className="fa-solid fa-plus fa-lg"
-                ></i>
-              </Link>
-            </div>
-            <span className='span-nav'>
-              Crear Ticket
-            </span>
-          </li>
+          {seccionTicket && (
+            <>
+              <li className="item mb-4">
+                <div className="item-nav">
+                  <Link
+                    to="/tickets"
+                    className={classColorBoton}
+                    aria-current="page"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-original-title="Home"
+                  >
+                    <i
+                      className="fa-solid fa-ticket fa-lg"
+                    ></i>
+                  </Link>
+                </div>
+                <span className="span-nav">Tickets</span>
+              </li>
+              <li className="item mb-4">
+                <div className="item-nav">
+                  <Link
+                    to="/tickets/create"
+                    className={classColorBoton}
+                    aria-current="page"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-original-title="Home"
+                  >
+                    <i
+                      className="fa-solid fa-plus fa-lg"
+                    ></i>
+                  </Link>
+                </div>
+                <span className='span-nav'>
+                  Crear Ticket
+                </span>
+              </li>
+            </>
           )}
-          {(user.rolUsuario === rolUsuario.ADMIN ||
-            user.rolUsuario === rolUsuario.EDITOR) && (
+          {!seccionTicket && (
+            <><li className="item mb-4">
+              <div className="item-nav">
+                <Link
+                  to="/tramites"
+                  className={classColorBoton}
+                  aria-current="page"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  data-bs-original-title="Tramites"
+                >
+                  <i
+                    className="fa-solid fa-ticket fa-lg"
+                  ></i>
+                </Link>
+              </div>
+              <span className="span-nav">Tramites</span>
+            </li><li className="item mb-4">
+                <div className="item-nav">
+                  <Link
+                    to="/tramites/create"
+                    className={classColorBoton}
+                    aria-current="page"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-original-title="TramitesCreate"
+                  >
+                    <i
+                      className="fa-solid fa-plus fa-lg"
+                    ></i>
+                  </Link>
+                </div>
+                <span className='span-nav'>
+                  Crear Tramite
+                </span>
+              </li></>
+          )}
               <li className="item mb-4">
                 <div className="item-nav">
                   <Link
                     to="/usuarios"
-                    className="circle-item "
+                    className={classColorBoton}
                     aria-current="page"
                     data-bs-toggle="tooltip"
                     data-bs-placement="right"
@@ -109,13 +147,12 @@ const SideBar = ({ children }) => {
                   Usuarios
                 </span>
               </li>
-          )}
-          {(user.perfil.includes(DIRECTOR) || user.perfil.includes(RESPONSABLE) || user.perfil.includes(COORDINADOR)) && (
+          {(user.perfil.includes(SUPERADMIN) || user.perfil.includes(ADMINISTRADOR) || user.perfil.includes(ADMINISTRATIVO)) && (
             <li className="item mb-4">
               <div className="item-nav">
                 <Link
                   to="/estadisticas"
-                  className="circle-item "
+                  className={classColorBoton}
                   aria-current="page"
                   data-bs-toggle="tooltip"
                   data-bs-placement="right"

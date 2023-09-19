@@ -120,7 +120,7 @@ function Tabla () {
           onClick={() => trigger()}
         />
         <br />
-        <Link to='/tickets/create' className='btn btn-success'>Crear Ticket</Link>
+        <Link to='/tickets/create' className='btn btn-success'>Nuevo Ticket</Link>
         <br />
         {!seleccionados.includes('marketing') || seleccionados.length > 1
           ? (

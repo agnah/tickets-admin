@@ -1,4 +1,14 @@
 .header {
+    /* background: var(--celeste); */
+    padding: 1.3rem 2.3rem;
+}
+
+.backgroundTicket {
+    background: var(--color-success);
+    padding: 1.3rem 2.3rem;
+}
+
+.backgroundTramite {
     background: var(--celeste);
     padding: 1.3rem 2.3rem;
 }

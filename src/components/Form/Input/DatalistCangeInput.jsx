@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './DatalistChangeInput.css'
 
 const DatalistChangeInput = (props) => {
   const [changeInput, setChangeInput] = useState(true)
@@ -26,15 +27,17 @@ const DatalistChangeInput = (props) => {
   }
 
   return (
-    <div className={classes} style={{ position: 'relative' }}>
-      <label
-        htmlFor="otro"
-        style={{ position: 'absolute', right: '12px', top: '5px' }}
-      >
-        <input type="checkbox" name="Otro" id="" onChange={handleChangeInput} />{' '}
-        Otro
-      </label>
-      <label htmlFor={name}>{label}</label>
+    <div className={classes}>
+      <div className="label-container">
+        <label htmlFor={name}>{label}</label>
+        <label
+          htmlFor="otro"
+          className="check-label"
+        >
+          <input className="check-input" type="checkbox" name="Otro" id="" onChange={handleChangeInput} />{' '}
+          Otro
+        </label>
+      </div>
       <div className="form-group item-form">
         {changeInput
           ? (

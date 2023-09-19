@@ -8,7 +8,7 @@ export function FiltrosProvider ({ children }) {
   const [prioridad, setPrioridad] = useState([])
   const [seleccionados, setSeleccionados] = useState([PENDIENTE, EN_CURSO])
   const [filtroUser, setFiltroUser] = useState('')
-
+  const [filtroSector, setFiltroSector] = useState('')
   const handlePrioridadChange = useCallback((value) => {
     setPrioridad(value)
   }, [])
@@ -21,9 +21,22 @@ export function FiltrosProvider ({ children }) {
     setFiltroUser(values)
   }, [])
 
+  const handleFiltroSectorChange = useCallback((values) => {
+    setFiltroSector(values)
+  }, [])
+
   return (
     <FiltrosContext.Provider
-      value={{ prioridad, handlePrioridadChange, seleccionados, handleSeleccionadosChange, filtroUser, handleFiltroUserChange }}
+      value={{
+        prioridad,
+        handlePrioridadChange,
+        seleccionados,
+        handleSeleccionadosChange,
+        filtroUser,
+        handleFiltroUserChange,
+        filtroSector,
+        handleFiltroSectorChange
+      }}
     >
       {children}
     </FiltrosContext.Provider>
