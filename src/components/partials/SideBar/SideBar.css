@@ -1,6 +1,5 @@
 .sidebar{
     display: flex;
-    flex-wrap: wrap;
     min-height: 100vh;
 }
 
@@ -17,18 +16,19 @@
     flex: 1;
 }
 
-.item {
-    align-self: center;
-}
-
-.nav {
-    margin-top: 1.5rem;
-}
-
-.circle-item{
+.circle-item {
     border-radius: 50%;
     background-color: var(--celeste);
     padding: 15px;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-bars {
+    width: 1.8rem;
 }
 
 .circle-item:hover {
@@ -42,11 +42,10 @@
 }
 
 .menu-h {
+    height: 6rem;
     display: flex;
-    margin: 3.5rem auto;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2rem;
     text-decoration: none;
     cursor: pointer;
 }
@@ -59,12 +58,23 @@
     display: none;
 }
 
-.fa-solid {
-    color: #fff;
+.nav-icon {
+    width: 1.5rem;
+    height: 100%;
 }
 
+.plus {
+    transform: scale(0.8);
+}
+
+.chart {
+    transform: scale(0.9);
+}	
+
 .item-nav {
-    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0 0.5rem;
 }
 
 .span-nav {

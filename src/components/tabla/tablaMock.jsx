@@ -2,7 +2,6 @@ import DataTable from 'react-data-table-component'
 import useApiMock from '@servicios/useApiMock'
 import SkeletonTabla from './skeletonTabla'
 import { useCallback, useMemo, useContext, useState } from 'react'
-import Button from '../partials/Button/Button'
 import filtroTabla from './filtroTabla'
 import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
@@ -26,13 +25,10 @@ function Tabla () {
   const url = apis.API_TICKETS
   const {
     isLoading,
-    isValidating,
     isError,
     isSuccess,
     data: datos,
-    error,
-    // mutate,
-    trigger
+    error
   } = useApiMock(url)
 
   const {
@@ -163,19 +159,19 @@ function Tabla () {
     return (
       <>
         <div className="container-h">
-          <Button
-            classIcon="fa fa-refresh"
-            texto={isValidating ? 'Validando' : ''}
-            type="button"
-            onClick={() => trigger()}
-          />
+          <div className="div-search">
+            <div className="div-icon-search">
+              <img src="../../../public/img/magnifying-glass-solid.svg" alt="search"/>
+            </div>
             <input
-          type="search"
-          placeholder="Buscar..."
-          inputmode="search"
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-        />
+              type="search"
+              placeholder="Buscar..."
+              inputmode="search"
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+              className="input-search"
+            />
+          </div>
           <div className="right-elements">
             <div>
               {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1

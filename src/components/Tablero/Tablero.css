@@ -1,7 +1,7 @@
 .tablero {
     border-radius: 10px;
     background: #fff;
-    padding: 20px 30px;
+    padding: 40px;
     margin: 0 1rem 1rem;
     box-shadow: 3px 3px 6px #0000001a;
 }
@@ -10,7 +10,7 @@
     margin: 0;
     color: var(--gris-oscuro);
     font-weight: 800;
-    font-size: 1.3vw;
+    font-size: 1.6rem;
 }
 
 .titulo-coloreado {

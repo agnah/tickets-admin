@@ -1,14 +1,24 @@
 .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: var(--celeste);
     padding: 1.3rem 2.3rem;
 }
 
-.header img {
+.box-header img {
     margin-right: 2rem;
 }
 
 .container-header {
-    width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box-header {
+    width: fit-content;
     padding: 0;
     display: flex;
     justify-content: left;
@@ -20,6 +30,7 @@
 }
 
 .navbar-header {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,9 +38,31 @@
 
 .menu-nav-h {
     display: flex;
-    margin: 0;
+    margin: 0 3rem 0 0;
     justify-content: center;
     align-items: center;
     text-decoration: none;
     cursor: pointer;
+}
+
+.header-buttons {
+    width: 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-refresh {
+    background: url(../../../public/img/refresh-solid.svg) no-repeat center center;
+    border: none;
+    background-size: contain;
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #fff;
+    font-size: 8px;
+}
+
+.btn-refresh:focus-visible {
+    outline: none;
 }
