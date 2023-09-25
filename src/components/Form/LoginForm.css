@@ -1,6 +1,7 @@
 .btn-login {
     display: flex;
     justify-content: center;
+    align-items: center;
     background-color: var(--color-success);
     border: none;
     color: #fff;

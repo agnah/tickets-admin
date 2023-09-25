@@ -3,7 +3,7 @@ import useApiMock from '@servicios/useApiMock'
 import SkeletonTabla from './skeletonTabla'
 import { useCallback, useMemo, useContext, useState } from 'react'
 import filtroTabla from './filtroTabla'
-import CheckPrioridad from './checkPrioridad'
+// import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
 import useAuth from '@servicios/UseAuth'
@@ -16,6 +16,7 @@ import { perfil } from '@constantes/constUsers'
 import './tabla.css'
 
 const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz', 'Tito']
+const sectores = ['Soporte', 'Telefonía', 'Computos', 'Sistemas', 'GDE']
 
 function Tabla () {
   const [busqueda, setBusqueda] = useState('')
@@ -33,11 +34,13 @@ function Tabla () {
 
   const {
     prioridad,
-    handlePrioridadChange,
+    // handlePrioridadChange,
     seleccionados,
     handleSeleccionadosChange,
     filtroUser,
-    handleFiltroUserChange
+    handleFiltroUserChange,
+    filtroSector,
+    handleFiltroSectorChange
   } = useContext(FiltrosContext)
 
   // Botones tabla
@@ -132,7 +135,7 @@ function Tabla () {
 
   // const data = filtroTabla(preData, seleccionados, prioridad, filtroUser)
 
-  const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
+  const data = filtroTabla(datos, seleccionados, prioridad, filtroUser, filtroSector)
 
   const conditionalRowStyles = [
     {
@@ -196,6 +199,29 @@ function Tabla () {
                   )}
               <i className="fa-solid fa-caret-down"></i>
             </div>
+            <div>
+              {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
+                ? (
+                  <select
+                    name='filtroSector'
+                    value={filtroSector}
+                    onChange={(e) => handleFiltroSectorChange(e.target.value)}
+                  >
+                    <option value="">Sector</option>
+                    {sectores.map((option, index) => (
+                      <option key={index} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                  )
+                : (
+                  <select disabled>
+                    <option value=''>Todos</option>
+                  </select>
+                  )}
+              {/* <i className="fa-solid fa-caret-down"></i> */}
+            </div>
             {!user.perfil.includes(perfil.DIRECTOR) && (
               <Link to='/tickets/create' className='btn-crear-ticket'>
                 <i className="fa-solid fa-plus"></i>
@@ -205,10 +231,10 @@ function Tabla () {
           </div>
         </div>
         <div className="container-checks">
-          <CheckPrioridad
+          {/* <CheckPrioridad
             prioridad={prioridad}
             onChange={handlePrioridadChange}
-          />
+          /> */}
           <CheckEstado
             seleccionados={seleccionados}
             onChange={handleSeleccionadosChange}

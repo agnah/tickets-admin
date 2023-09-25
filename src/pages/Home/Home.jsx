@@ -12,12 +12,11 @@ const columnas = { id: 'Id', fecha: 'Fecha', pre_tarea: 'Pre Tarea' }
 const acciones = true
 
 const setTitulosTabla = (user) => {
-  const { RESPONSABLE, COORDINADOR, DIRECTOR, COLABORADOR } = perfil
+  const { ADMIN, TECNICO, ADMINISTRATIVO } = perfil
   const sectorTitulos = {
-    [RESPONSABLE]: { titulo1: 'Tickets con mas de 3 dias del Area', titulo2: 'Cantidad de Ticket en curso del Area' },
-    [COORDINADOR]: { titulo1: 'Tickets con mas de 3 dias del Area', titulo2: 'Cantidad de Ticket en curso del Area' },
-    [DIRECTOR]: { titulo1: 'Estadisticas por Area', titulo2: 'Proximos a vencer' },
-    [COLABORADOR]: { titulo1: 'Mis Tickets con mas de 3 dias', titulo2: 'Mis Tickets en curso' }
+    [ADMIN]: { titulo1: 'Tickets con mas de 3 dias del Area', titulo2: 'Cantidad de Ticket en curso del Area' },
+    [TECNICO]: { titulo1: 'Estadisticas por Area', titulo2: 'Proximos a vencer' },
+    [ADMINISTRATIVO]: { titulo1: 'Mis Tickets con mas de 3 dias', titulo2: 'Mis Tickets en curso' }
   }
   return sectorTitulos[user.sector] || { titulo1: 'Ticket pendientes', titulo2: 'Tickets en curso' }
 }

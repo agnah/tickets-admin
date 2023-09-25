@@ -3,6 +3,9 @@ import Button from '../../partials/Button/Button'
 import useApiMock from '@servicios/useApiMock'
 import { apis } from '@constantes/constApis'
 import './Header.css'
+import useAuth from '@servicios/UseAuth'
+import { useNavigate } from 'react-router-dom'
+import { perfil } from '@constantes/constUsers'
 
 const HeaderLogged = (props) => {
   const url = apis.API_TICKETS
@@ -24,51 +27,67 @@ const HeaderLogged = (props) => {
 </svg>
   )
 
+  const { seccionTicket, handleSeccion, user } = useAuth()
+  const { TECNICO } = perfil
+  const navigate = useNavigate()
+  const redirectTickets = () => {
+    handleSeccion()
+    navigate('/tickets')
+  }
+  const redirectTramites = () => {
+    handleSeccion()
+    navigate('/tramites')
+  }
+  const classColorHeaderBackground = seccionTicket ? 'backgroundTicket' : 'backgroundTramite'
   return (
-    <header className="header">
-      {
-          !props.showNav &&
-          <a
-          className="menu-nav-h"
-          data-bs-toggle="tooltip"
-          data-bs-placement="right"
-          data-bs-original-title="Icon-only"
-          onClick={() => {
-            props.setShowNav(true)
-          }}
-          >
-          <img className="menu-bars" id="icon-menu" src="../../../public/img/bars-solid.svg"></img>
-          <span className="visually-hidden">Icon-only</span>
-          </a>
-          }
+    <header className={`header ${classColorHeaderBackground}`}>
       <nav
         className="navbar-header"
         role="navigation"
       >
-        <div className='container-header'>
-          <div className="box-header">
-            <div>
-              <div className="navbar-header">
-                <a
-                  className="navbar-brand"
-                  href="/"
-                  aria-label="Argentina.gob.ar Presidencia de la Nación"
-                >
-                  <img
-                    alt="Argentina.gob.ar"
-                    src="/img/logo-mini-des.svg"
-                    height={55}
-                  />
+        {
+          !props.showNav &&
+          <a
+            className="menu-nav-h"
+            data-bs-toggle="tooltip"
+            data-bs-placement="right"
+            data-bs-original-title="Icon-only"
+            onClick={() => {
+              props.setShowNav(true)
+            }}
+          >
+            <img className="menu-bars" id="icon-menu" src="../../../public/img/bars-solid.svg"></img>
+            <span className="visually-hidden">Icon-only</span>
+          </a>
+        }
+        <div className="container-header">
+          <div>
+            <div className="navbar-header">
+              <a
+                className="navbar-brand"
+                href="/"
+                aria-label="Argentina.gob.ar Presidencia de la Nación"
+              >
+                <img
+                  alt="Argentina.gob.ar"
+                  src="/img/logo-mini-des.svg"
+                  height={55}
+                />
 
-                  <img
-                    alt="CAI"
-                    src="/img/CAI.svg"
-                    height={40}
-                  />
-                </a>
-              </div>
-            </div>
+                <img
+                  alt="CAI"
+                  src="/img/CAI.svg"
+                  height={40}
+                />
+              </a>
+             </div>
           </div>
+          {!user.perfil.includes(TECNICO) &&
+            (seccionTicket
+              ? <Button type="button" style={{ width: 'auto' }} texto="Tramites" classBoton="btn btn-info" onClick={redirectTramites} />
+              : <Button type="button" style={{ width: 'auto' }} texto="Tickets" classBoton="btn btn-success" onClick={redirectTickets} />
+            )
+          }
         </div>
         <div className="header-buttons">
           <Button

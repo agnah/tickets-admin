@@ -1,4 +1,14 @@
 .header {
+    /* background: var(--celeste); */
+    padding: 1.3rem 2.3rem;
+}
+
+.backgroundTicket {
+    background: var(--color-success);
+    padding: 1.3rem 2.3rem;
+}
+
+.backgroundTramite {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -59,7 +69,6 @@
     text-decoration: none;
     cursor: pointer;
 }
-
 .header-buttons {
     width: 7rem;
     display: flex;

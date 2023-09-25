@@ -4,9 +4,9 @@ import Select from '@components/Form/Input/Select'
 import Button from '../Button/Button'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
-const optionListSelect = ['Cómputos', 'Soporte Técnico', 'Telefonía', 'Cid', 'GDE', 'Mesa de Entrada']
+const optionListArea = ['Soportes', 'Telefonía', 'Cómputos', 'Sistemas', 'GDE']
 const optionListSede = ['9 de Julio', 'Av. de Mayo', 'Moreno']
-const optionListPerfil = ['Operador - Mesa de Entrada', 'Colaborador', 'Responsable de Area', 'Coordinador CSTIMI', 'Director??']
+const optionListPerfil = ['Administrativo', 'Técnico', 'Admin', 'Superadmin']
 const optionListRol = ['Administrador', 'Editor', 'Lector']
 
 const CreateUserForm = () => {
@@ -53,7 +53,7 @@ const CreateUserForm = () => {
           classCol="col-md-4 col-lg-4 form-group item-form"
           register={register}
           errors={errors}
-          inputmode="email"
+          inputMode="email"
           options={{
             required: 'Campo obligatorio',
             pattern: {
@@ -70,7 +70,7 @@ const CreateUserForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
-          inputmode="tel"
+          inputMode="tel"
           options={{
             pattern: {
               message: 'Solo numeros'
@@ -85,7 +85,7 @@ const CreateUserForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
-          inputmode="tel"
+          inputMode="tel"
           options={{
             pattern: {
               message: 'Solo numeros'
@@ -99,7 +99,7 @@ const CreateUserForm = () => {
           placeholder=""
           register={register}
           errors={errors}
-          inputmode="numeric"
+          inputMode="numeric"
           classCol="col-md-4 col-lg-4 form-group item-form"
           options={{
             pattern: {
@@ -111,7 +111,7 @@ const CreateUserForm = () => {
           label="Area"
           name="area"
           placeholder="Seleccione Area"
-          optionList={optionListSelect}
+          optionList={optionListArea}
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4"

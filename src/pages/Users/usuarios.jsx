@@ -1,7 +1,7 @@
 import Tablero from '@components/Tablero/Tablero'
 import TablaDinam from '@components/Tablero/TablaDinam'
 import { Link } from 'react-router-dom'
-import { perfil } from '@constantes/constUsers'
+import { rolUsuario } from '@constantes/constUsers'
 import useAuth from '@servicios/UseAuth'
 // import Button from '@components/partials/Button/Button'
 
@@ -18,9 +18,10 @@ const acciones = true
 
 function Usuarios () {
   const { user } = useAuth()
+  const { LECTOR } = rolUsuario
   return (
     <Tablero title="Usuarios" classTitle="text-center">
-      { !user.perfil.includes(perfil.DIRECTOR) && (
+      { user.rolUsuario !== LECTOR && (
       <Link to='/usuarios/create' className='btn btn-success'>Nuevo Usuario</Link>
       )}
       <TablaDinam data={data} acciones={acciones} tipo="usuarios" columnas={columnas} classTable="table-hover" />

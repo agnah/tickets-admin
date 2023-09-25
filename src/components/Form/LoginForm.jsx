@@ -4,13 +4,15 @@ import Button from './Button/Button'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '@servicios/UseAuth'
 import './LoginForm.css'
+import { perfil } from '@constantes/constUsers'
 
 const REGEX_PASSWORD =
   /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
 // const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
 const LoginForm = () => {
-  const { login } = useAuth()
+  const { login, handleSeccion } = useAuth()
+  const { ADMINISTRADOR, TECNICO } = perfil
   const navigate = useNavigate()
   const {
     register,
@@ -23,7 +25,10 @@ const LoginForm = () => {
     if (result?.error) {
       alert(result.error)
     } else {
-      navigate('/dashboard')
+      if (result.user.perfil.includes(ADMINISTRADOR) || result.user.perfil.includes(TECNICO)) {
+        handleSeccion()
+      }
+      navigate('/inicio')
     }
   }
 
@@ -73,7 +78,7 @@ const LoginForm = () => {
       </div>
       <div className="row">
         <div className="col-sm-3 w-100 d-flex justify-content-center">
-          <Button title="Ingresar" classes="btn btn-success btn-login" />
+          <Button title="Ingresar" classes="btn-login" />
         </div>
       </div>
     </form>
