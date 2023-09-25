@@ -1,0 +1,17 @@
+.btn-login {
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-success);
+    border: none;
+    color: #fff;
+    margin-top: 2rem;
+    width: 9rem;
+    height: 3rem;
+    border-radius: 33px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.inputLogin {
+    margin-top: 10px;
+}

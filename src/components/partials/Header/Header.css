@@ -5,16 +5,31 @@
     align-items: center;
     background: var(--celeste);
     padding: 1.3rem 2.3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.navbar {
+    width: 100%;
 }
 
 .box-header img {
     margin-right: 2rem;
 }
 
+.navbar-header img {
+    margin-right: 2rem;
+}
+
 .container-header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.container-header div {
+    width: 100%;
 }
 
 .box-header {
@@ -46,21 +61,25 @@
 }
 
 .header-buttons {
-    width: 6rem;
+    width: 7rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .btn-refresh {
-    background: url(../../../public/img/refresh-solid.svg) no-repeat center center;
+    background: none;
     border: none;
-    background-size: contain;
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #fff;
     font-size: 8px;
+}
+
+.btn-refresh svg {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .btn-refresh:focus-visible {

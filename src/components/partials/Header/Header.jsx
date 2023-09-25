@@ -27,6 +27,11 @@ const Header = () => {
                   height={40}
                 />
               </a>
+              <img
+                  alt="CAI"
+                  src="/img/escarapelaCorazon.svg"
+                  height={55}
+                />
             </div>
           </div>
         </div>

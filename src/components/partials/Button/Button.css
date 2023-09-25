@@ -11,6 +11,34 @@
     align-items: center;
 }
 
+.btn-action {
+    height: 3rem;
+    border-radius: 20em;
+    padding: .3em 1.4em;
+    box-shadow: 3px 3px 6px #0000001a;
+    margin-left: .8em;
+    font-weight: 600;
+}
+
+.btn-danger {
+    background-color: #fff;
+    border: 2px solid var(--color-danger);
+    color: var(--color-danger);
+}
+
+.btn-success {
+    background-color: var(--color-success);
+    border: none;
+    color: #fff;
+}
+
+.btn-action:hover {
+    transform: scale(1.01);
+    filter: brightness(1.5);
+    filter: saturate(1.5);
+    transition: all .3s;
+}
+
 .btn-open {
     background-color: var(--color-ticket-nuevo);
 }
