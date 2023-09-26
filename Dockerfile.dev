@@ -1,15 +1,31 @@
-FROM node
+# FROM node:18-alpine
+
+# # Create destination directory
+# RUN mkdir -p /usr/src/tickets-admin
+# WORKDIR /usr/src/tickets-admin
+# COPY package*.json /usr/src/tickets-admin
+
+# RUN npm install 
+
+# COPY ./ .
+# COPY ./start-reload.sh /start-reload.sh
+
+# EXPOSE 5173
+
+# CMD ["npm", "run", "dev"]
+
+FROM node:18-alpine
 
 # Create destination directory
 RUN mkdir -p /usr/src/tickets-admin
 WORKDIR /usr/src/tickets-admin
-COPY package*.json /usr/src/tickets-admin
+COPY package*.json .
 
 RUN npm install 
 
-COPY ./ .
-COPY ./start-reload.sh /start-reload.sh
+COPY . .
+COPY start-reload.sh /start-reload.sh
 
-EXPOSE 5173
+EXPOSE 5173/tcp
 
 CMD ["npm", "run", "dev"]
