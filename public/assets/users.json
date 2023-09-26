@@ -1,87 +1,229 @@
 [
     {
-        "username": "Pedro Picapiedra",
-        "email": "pp@mindes.com",
+        "id": 1,
+        "nombre": "Pepe",
+        "apellido": "administrativo",
+        "email": "administrativoMesaEntrada",
         "password": "Prueba@123",
         "perfil": [
-            "mesa_entrada"
-        ]
+            "administrativo"
+        ],
+        "sector": [
+            "gde"
+        ],
+        "rolUsuario": "lector",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "Carlos Alberto Solari",
-        "email": "cas@mindes.com",
+        "id": 3,
+        "nombre": "Carlos",
+        "apellido": "computos",
+        "email": "computosAdministrador",
         "password": "Prueba@123",
         "perfil": [
-            "telefonia"
-        ]
+            "administrador"
+        ],
+        "sector": [
+            "computos"
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "Enrique Ortiz de Landázuri Izarduy",
-        "email": "eoli@mindes.com",
+        "id": 4,
+        "nombre": "Franco Armani",
+        "apellido": "computos",
+        "email": "computosTecnicoEditor",
         "password": "Prueba@123",
         "perfil": [
-            "area_tecnica"
-        ]
+            "tecnico"
+        ],
+        "sector": [
+            "computos"
+        ],
+        "rolUsuario": "editor",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "Roberto Gañán Ojea",
-        "email": "rgo@mindes.com",
+        "id": 5,
+        "nombre": "Milton Casco",
+        "apellido": "computos",
+        "email": "computosTecnicoLector",
         "password": "Prueba@123",
         "perfil": [
+            "tecnico"
+        ],
+        "sector": [
+            "computos"
+        ],
+        "rolUsuario": "lector",
+        "estadoUsuario": "activo"
+    },
+    {
+        "id": 6,
+        "nombre": "Terry Rodriguez",
+        "apellido": "cid",
+        "email": "cidResponsableAdmin",
+        "password": "Prueba@123",
+        "perfil": [
+            "responsable"
+        ],
+        "sector": [
             "cid"
-        ]
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "Roberto Super Admin",
-        "email": "sadmin@mindes.com",
+        "id": 7,
+        "nombre": "Gonzáles Pirez",
+        "apellido": "cid",
+        "email": "cidTecnicoEditor",
         "password": "Prueba@123",
         "perfil": [
-            "sadmin",
-            "admin"
-        ]
+            "tecnico"
+        ],
+        "sector": [
+            "cid"
+        ],
+        "rolUsuario": "editor",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "Roberto data center",
-        "email": "datacenter@mindes.com",
+        "id": 8,
+        "nombre": "Paulo Díaz",
+        "apellido": "cid",
+        "email": "cidTecnicoUsuario",
         "password": "Prueba@123",
         "perfil": [
-            "data_center"
-        ]
+            "tecnico"
+        ],
+        "sector": [
+            "cid"
+        ],
+        "rolUsuario": "lector",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "Pep Admin Data Center",
-        "email": "adatacenter@mindes.com",
+        "id": 9,
+        "nombre": "Terry Rodriguez",
+        "apellido": "soporte",
+        "email": "soporteResponsableAdmin",
         "password": "Prueba@123",
         "perfil": [
-            "data_center",
-            "admin"
-        ]
+            "responsable"
+        ],
+        "sector": [
+            "soporte"
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "juan telefonia Admin",
-        "email": "atelefonia@mindes.com",
+        "id": 10,
+        "nombre": "Enzo Díaz",
+        "apellido": "soporte",
+        "email": "soporteTecnicoEditor",
         "password": "Prueba@123",
         "perfil": [
-            "telefonia",
-            "admin"
-        ]
+            "tecnico"
+        ],
+        "sector": [
+            "soporte"
+        ],
+        "rolUsuario": "editor",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "tito area tecnica Admin",
-        "email": "aareatecnica@mindes.com",
+        "id": 11,
+        "nombre": "Enzo Pérez",
+        "apellido": "soporte",
+        "email": "soporteTecnicoUsuario",
         "password": "Prueba@123",
         "perfil": [
-            "area_tecnica",
-            "admin"
-        ]
+            "tecnico"
+        ],
+        "sector": [
+            "soporte"
+        ],
+        "rolUsuario": "lector",
+        "estadoUsuario": "activo"
     },
     {
-        "username": "juan Cid Admin",
-        "email": "acid@mindes.com",
+        "id": 12,
+        "nombre": "Terry Rodriguez",
+        "apellido": "telefonia",
+        "email": "telefoniaResponsableAdmin",
         "password": "Prueba@123",
         "perfil": [
-            "cid",
-            "admin"
-        ]
+            "responsable"
+        ],
+        "sector": [
+            "telefonia"
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
+    },
+    {
+        "id": 13,
+        "nombre": "Rodrigo Aliendro",
+        "apellido": "telefonia",
+        "email": "telefoniaTecnicoEditor",
+        "password": "Prueba@123",
+        "perfil": [
+            "tecnico"
+        ],
+        "sector": [
+            "telefonia"
+        ],
+        "rolUsuario": "editor",
+        "estadoUsuario": "activo"
+    },
+    {
+        "id": 14,
+        "nombre": "Nicolás De La Cruz",
+        "apellido": "telefonia",
+        "email": "telefoniaTecnicoUsuario",
+        "password": "Prueba@123",
+        "perfil": [
+            "tecnico"
+        ],
+        "sector": [
+            "telefonia"
+        ],
+        "rolUsuario": "lector",
+        "estadoUsuario": "activo"
+    },
+    {
+        "id": 15,
+        "nombre": "El Dire",
+        "apellido": "director",
+        "email": "director",
+        "password": "Prueba@123",
+        "perfil": [
+            "director"
+        ],
+        "sector": [
+            "director"
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
+    },
+    {
+        "id": 15,
+        "nombre": "Juan",
+        "apellido": "CSTIMI",
+        "email": "cstimi",
+        "password": "Prueba@123",
+        "perfil": [
+            "coordinador"
+        ],
+        "sector": [
+            "cstimi",
+            "soporte",
+            "telefonia"
+        ],
+        "rolUsuario": "admin",
+        "estadoUsuario": "activo"
     }
 ]

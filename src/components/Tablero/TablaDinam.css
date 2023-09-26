@@ -1,0 +1,37 @@
+.table-thead {
+    background: var(--gris-oscuro);
+    text-align: center;
+    position: sticky;
+    display: table-header-group;
+}
+
+.table-thead th {
+    color: #fff;
+    position: relative;
+}
+
+.table-thead th::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 60%; 
+    background-color: #fff; 
+}
+
+.table-thead th:last-child::after {
+    display: none;
+}
+
+.table tr {
+    color: var(--gris-medio);
+    font-weight: 500;
+    text-align: center;
+}
+
+.table tr:nth-child(even) {
+    background: var(--tr-even-color);
+}
+

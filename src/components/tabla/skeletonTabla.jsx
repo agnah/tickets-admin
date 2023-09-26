@@ -65,4 +65,3 @@ const SkeletonTabla = props => {
 }
 
 export default SkeletonTabla
-

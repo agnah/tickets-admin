@@ -1,11 +1,14 @@
 import { createContext, useState, useCallback } from 'react'
+import { estadoTicket } from '@constantes/constTickets'
 
 export const FiltrosContext = createContext()
 
 export function FiltrosProvider ({ children }) {
+  const { PENDIENTE, EN_CURSO } = estadoTicket
   const [prioridad, setPrioridad] = useState([])
-  const [seleccionados, setSeleccionados] = useState(["marketing","services","support"])
-
+  const [seleccionados, setSeleccionados] = useState([PENDIENTE, EN_CURSO])
+  const [filtroUser, setFiltroUser] = useState('')
+  const [filtroSector, setFiltroSector] = useState('')
   const handlePrioridadChange = useCallback((value) => {
     setPrioridad(value)
   }, [])
@@ -14,9 +17,26 @@ export function FiltrosProvider ({ children }) {
     setSeleccionados(values)
   }, [])
 
+  const handleFiltroUserChange = useCallback((values) => {
+    setFiltroUser(values)
+  }, [])
+
+  const handleFiltroSectorChange = useCallback((values) => {
+    setFiltroSector(values)
+  }, [])
+
   return (
     <FiltrosContext.Provider
-      value={{ prioridad, handlePrioridadChange, seleccionados, handleSeleccionadosChange }}
+      value={{
+        prioridad,
+        handlePrioridadChange,
+        seleccionados,
+        handleSeleccionadosChange,
+        filtroUser,
+        handleFiltroUserChange,
+        filtroSector,
+        handleFiltroSectorChange
+      }}
     >
       {children}
     </FiltrosContext.Provider>

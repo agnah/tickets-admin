@@ -1,41 +1,80 @@
-function CheckEstado ({ onChange, seleccionados }) {
-  const onChangeValue = (event) => {
-    const value = event.target.value
-    onChange(seleccionados)
+import React, { useContext } from 'react'
+import { FiltrosContext } from '../tabla/contextTabla'
+import { estadoTicket } from '@constantes/constTickets'
+import './check.css'
 
-    if (event.target.checked) {
+function CheckEstado ({ onChange, seleccionados }) {
+  const { handleFiltroUserChange } = useContext(FiltrosContext)
+  const { PENDIENTE, EN_CURSO, ANULADO, FINALIZADO } = estadoTicket
+  const handleMarketingChange = (e) => {
+    const value = e.target.value
+
+    if (e.target.checked) {
+      onChange(prevSeleccionados => {
+        const nuevosSeleccionados = [...prevSeleccionados, value]
+        if (nuevosSeleccionados.length === 1 && nuevosSeleccionados[0] === PENDIENTE) {
+          handleFiltroUserChange('')
+        }
+        return nuevosSeleccionados
+      })
+    } else {
+      const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
+      if (nuevosSeleccionados.length === 1 && nuevosSeleccionados[0] === PENDIENTE) {
+        handleFiltroUserChange('')
+      }
+      onChange(nuevosSeleccionados)
+    }
+  }
+
+  const onChangeValue = (e) => {
+    const value = e.target.value
+
+    if (e.target.checked) {
       if (value === '') {
-        onChange([])
+        onChange('')
       } else {
-        // onChange([...seleccionados, value])
-        onChange(seleccionados.concat(value))
-        
+        onChange(prevSeleccionados => [...prevSeleccionados, value])
       }
     } else {
-      onChange(seleccionados.filter((filtro) => filtro !== value))
+      if (Array.isArray(seleccionados)) {
+        const nuevosSeleccionados = seleccionados.filter(filtro => filtro !== value)
+        if (nuevosSeleccionados.includes(PENDIENTE) && nuevosSeleccionados.length === 1) {
+          handleFiltroUserChange('')
+        }
+        onChange(nuevosSeleccionados)
+      }
     }
   }
 
   return (
-    <div>
+    <div className="container-checks" id='right-checks'>
+      <label className="title-label">Estado:</label>
       <label>
-        <input type="checkbox" name="estado" value="" onChange={onChangeValue} checked={seleccionados.length === 0} />
-        Todos</label>
+        <input type="checkbox" name="estado" value='' onChange={onChangeValue} checked={seleccionados.length === 0} />
+        Todos
+      </label>
       <label>
-        <input type="checkbox" name="estado" value="marketing" onChange={onChangeValue} checked={seleccionados.includes('marketing')} />
-        Nuevo marketing</label>
+        <input type="checkbox" name="estado" value={PENDIENTE}
+          onChange={handleMarketingChange}
+          checked={seleccionados.includes(PENDIENTE)} />
+        Pendiente
+      </label>
+      {/* <label>
+        <input type="checkbox" name="estado" value={ASIGNADO} onChange={onChangeValue} checked={seleccionados.includes(ASIGNADO)} />
+        Asignado
+      </label> */}
       <label>
-        <input type="checkbox" name="estado" value="services" onChange={onChangeValue} checked={seleccionados.includes('services')} />
-        Asignado services</label>
+        <input type="checkbox" name="estado" value={EN_CURSO} onChange={onChangeValue} checked={seleccionados.includes(EN_CURSO)} />
+        En Curso
+      </label>
       <label>
-        <input type="checkbox" name="estado" value="support" onChange={onChangeValue} checked={seleccionados.includes('support')} />
-        En Proceso support</label>
+        <input type="checkbox" name="estado" value={FINALIZADO} onChange={onChangeValue} checked={seleccionados.includes(FINALIZADO)} />
+        Finalizado
+      </label>
       <label>
-        <input type="checkbox" name="estado" value="accounting" onChange={onChangeValue} checked={seleccionados.includes('accounting')} />
-        Finalizado accounting </label>
-      <label>
-        <input type="checkbox" name="estado" value="sales" onChange={onChangeValue} checked={seleccionados.includes('sales')} />
-        Anulado sales</label>
+        <input type="checkbox" name="estado" value={ANULADO} onChange={onChangeValue} checked={seleccionados.includes(ANULADO)} />
+        Anulado
+      </label>
     </div>
   )
 }

@@ -1,0 +1,158 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+.btn-crear-ticket {
+    background: var(--celeste);
+    color: #fff;
+    text-decoration: none;
+    padding: .4vw .9vw;
+    border-radius: 20px;
+}
+
+.btn-crear-ticket .fa-plus {
+    margin-right: 1vw;
+}
+
+.container-h {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1vw;
+}
+
+.right-elements {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+select {
+    color: var(--gris-medio);
+    border-radius: 20px;
+    padding: .4vw 2.5rem .4vw 1vw;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid var(--gris-medio);
+    margin-right: 2rem;
+}
+
+select:focus {
+    outline: none;
+}
+
+select:disabled + .fa-caret-down {
+    display: none;
+}
+
+select:disabled {
+    padding: .4vw 1vw;
+}
+
+.rdt_TableHeadRow {
+    border-bottom: none !important;
+}
+
+.fa-caret-down {
+    color: var(--gris-medio);
+    position: relative;
+    right: 3.2vw;
+}
+
+.container-checks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.rdt_Table {
+    margin-top: 1rem;
+}
+
+.rdt_TableHeadRow {
+    background-color: var(--gris-oscuro);
+    color: #fff;
+    font-size: 1rem;
+    border-bottom: none;
+}
+
+.rdt_TableCol {
+    position: relative;
+    background: var(--gris-oscuro);
+    justify-content: center;
+}
+
+.rdt_TableCol::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 60%; 
+    background-color: #fff; 
+}
+
+.rdt_TableCol:last-child::after {
+    display: none;
+}
+
+.rdt_TableCol span {
+    display: none;
+}
+
+.rdt_TableCell {
+    justify-content: center;
+    text-align: center;
+}
+
+.title-label {
+    color: var(--celeste);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.rdt_TableRow {
+    color: var(--gris-medio);
+    outline: none;
+    border: none;
+    background: #fff;
+    font-weight: 600;
+    font-size: .9rem;
+    border: none !important;
+}
+
+.rdt_TableRow:hover {
+    outline: none !important;
+    border: none !important;
+    background-color: none;
+    filter: saturate(1.5);
+    filter: brightness(.92);
+}
+
+.rdt_TableRow:nth-child(even) {
+    filter: brightness(.9);
+    border: none;
+}
+
+.rdt_Pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    border: none;
+}
+
+.rdt_Pagination select {
+    margin-right: .2rem;
+}
+
+div > select + svg {
+    top: auto;
+}
+
+.rdt_Pagination div {
+    display: flex;
+    align-items: center;
+}
+

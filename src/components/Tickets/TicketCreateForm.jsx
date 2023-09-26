@@ -1,40 +1,98 @@
 import { useForm } from 'react-hook-form'
-import Select from '../Form/Input/Select'
-import { useState } from 'react'
-import InputForm from '../Form/Input/InputForm'
+import Select from '@components/Form/Input/Select'
+import { useState, useRef } from 'react'
+import InputForm from '@components/Form/Input/InputForm'
 import Button from '../partials/Button/Button'
+import DatalistChangeInput from '@components/Form/Input/DatalistCangeInput'
+import solicitantes from '../../../public/assets/solicitantes.json'
+import TextArea from '@components/Form/Input/TextArea'
+import { useNavigate } from 'react-router'
+import useAuth from '@servicios/UseAuth'
+import { areas } from '@constantes/constAreas'
 import DragAndDrop from '../Form/dragAndDrop'
-const optionListSelect = ['Area Técnica', 'CID', 'Data Center', 'Telefonía']
+import './TicketCreateForm.css'
+
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
+const optionListSelect = ['CSTIMI', 'GDE', 'Computos', 'CID']
+const optionCstimi = ['Soporte', 'Telefonia']
+const datalistSolicitante = solicitantes.map(s => s.nombre)
+
 const TicketCreateForm = () => {
+  const { user } = useAuth()
+  const dragAndDropRef = useRef(null)
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
+  const navigate = useNavigate()
 
-  const [display, setDisplay] = useState(true)
+  const getFilterResult = (filter) => {
+    const { MESA_DE_ENTRADA, CSTIMI } = areas
+    const opcionesCompartidas = {
+      label: 'Área asignada',
+      name: 'area_asignada',
+      placeholder: 'Selecciona un área',
+      register,
+      errors,
+      classCol: 'col-md-4 col-lg-4',
+      options: {
+        required: 'Campo obligatorio'
+      },
+      classInput: 'area_input'
+    }
+    if (filter.includes(MESA_DE_ENTRADA)) {
+      return (
+        <Select
+          {...opcionesCompartidas}
+          optionList={optionListSelect}
+        />
+      )
+    } else if (filter.includes(CSTIMI)) {
+      return (
+        <Select
+          {...opcionesCompartidas}
+          optionList={optionCstimi}
+        />
+      )
+    } else {
+      return (
+        <label htmlFor="area" className="col-md-4 col-lg-4">
+          Sector:
+          <p name="area" id="area" className="form-group item-form">
+            {filter}
+          </p>
+        </label>
+      )
+    }
+  }
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => {
+    const dragAndDropData = dragAndDropRef.current.getData()
+    const formData = { ...data, dragAndDropData }
+    console.log('Datos a enviar:', formData)
+  }
+
+  const [solicitanteEmail, setSolicitanteEmail] = useState(null)
+
+  const onChangeSolicitante = (e) => {
+    const solicitante = e.target.value
+    const solicitanteSeleccionado = solicitantes.find(s => s.nombre === solicitante)
+    console.log({ solicitante, solicitanteSeleccionado })
+    if (solicitanteSeleccionado) setSolicitanteEmail(solicitanteSeleccionado.email)
+  }
+
+  const redirectTickets = () => {
+    navigate('/tickets')
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
       <div className="row">
-        <Select
-          label="Area Asignada"
-          name="area2"
-          placeholder="Selecciona un departamento"
-          optionList={optionListSelect}
-          register={register}
-          errors={errors}
-          classCol="col-md-6 col-lg-6"
-          options={{
-            required: 'Campo obligatorio'
-          }}
-          displayFields={setDisplay}
-          display="true"
-        />
+        <div className="col-md-6 col-lg-6">
+          <h5>Ticket</h5>
+        </div>
         <div className='col-md-6 col-lg-6 d-flex align-items-center'>
           <div className="form-check">
             <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="prioridad" />
@@ -44,9 +102,24 @@ const TicketCreateForm = () => {
           </div>
         </div>
       </div>
-
       <hr className="mt-0" />
       <div className="row">
+        <>
+          <DatalistChangeInput
+            idList="datalistSolicitante"
+            label="Solicitante"
+            name="solicitante"
+            placeholder=""
+            optionList={datalistSolicitante}
+            register={register}
+            errors={errors}
+            classCol="col-md-4 col-lg-4"
+            options={{
+              required: 'Campo obligatorio'
+            }}
+            onChangeSolicitante={onChangeSolicitante}
+          />
+        </>
         <Select
           label="Sede"
           name="sede"
@@ -58,33 +131,30 @@ const TicketCreateForm = () => {
           options={{
             required: 'Campo obligatorio'
           }}
-          display={display}
         />
         <Select
           label="Área"
           name="area"
-          placeholder="Selecciona una áreas"
+          placeholder="Selecciona un área"
           optionList={optionListSelect}
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4"
+          classCol="col-md-3 col-lg-3"
           options={{
             required: 'Campo obligatorio'
           }}
-          display={display}
         />
         <Select
-          label="Solicitante"
-          name="solicitante"
+          label="Piso"
+          name="piso"
           placeholder=""
-          optionList={optionListSelect}
+          optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4"
+          classCol="col-md-1 col-lg-1"
           options={{
             required: 'Campo obligatorio'
           }}
-          display={display}
         />
       </div>
       <div className="row">
@@ -96,6 +166,7 @@ const TicketCreateForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4 form-group item-form"
+          inputMode="email"
           options={{
             required: 'Campo obligatorio',
             pattern: {
@@ -103,7 +174,7 @@ const TicketCreateForm = () => {
               message: 'El e-mail tiene que ser valido'
             }
           }}
-          display={display}
+          value={solicitanteEmail}
         />
         <InputForm
           label="Teléfono"
@@ -112,72 +183,57 @@ const TicketCreateForm = () => {
           placeholder=""
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4 form-group item-form"
+          classCol="col-md-2 col-lg-2 form-group item-form"
+          inputMode="tel"
           options={{
             required: 'Campo obligatorio'
           }}
-          display={display}
         />
         <InputForm
-          label="Celular"
+          label="Referencia"
           type="text"
-          name="celular"
+          name="referencia"
           placeholder=""
           register={register}
-          errors={errors}
+          errors={''}
+          classCol="col-md-2 col-lg-2 form-group item-form"
+        />
+        <InputForm
+          label="N° GDE"
+          type="text"
+          name="gde"
+          placeholder=""
+          register={register}
+          errors={''}
           classCol="col-md-4 col-lg-4 form-group item-form"
-          options={{
-            required: 'Campo obligatorio'
-          }}
-          display={display}
         />
       </div>
-      <hr className="m-0" />
+      <hr />
       <div className="row">
-        <InputForm
-          label="Archivos"
-          type="file"
-          name="files"
-          placeholder=""
+        <TextArea
+          label="Motivo"
+          name="motivo"
+          rows="20"
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4 form-group item-form"
+          classCol="col-md-8 col-lg-8 form-group item-form"
           options={{
             required: 'Campo obligatorio'
           }}
-          display={display}
+          placeholder="Motivo por el cual precisa asistencia."
         />
-        <Select
-          label="Pretarea"
-          name="pretarea"
-          placeholder=""
-          optionList={optionListSelect}
-          register={register}
-          errors={errors}
-          classCol="col-md-4 col-lg-4"
-          options={{
-            required: 'Campo obligatorio'
-          }}
-          display={display}
-        />
-        <InputForm
-          label="Observaciones"
-          type="text"
-          name="observaciones"
-          placeholder=""
-          register={register}
-          errors={errors}
-          classCol="col-md-4 col-lg-4 form-group item-form"
-          options={{
-            required: 'Campo obligatorio'
-          }}
-          display={display}
-        />
+        {getFilterResult(user.sector)}
       </div>
-      <DragAndDrop />
+      <label className='label-dragAndDrop'>Archivos
+        <DragAndDrop
+          ref={dragAndDropRef}
+          register={register}
+          errors={errors}
+        />
+      </label>
       <div className='d-flex justify-content-end'>
-        <Button type="reset" classBoton="mx-1 btn btn-danger" texto="cancelar" />
-        <Button type="submit" classBoton="mx-1 btn btn-success" texto="Guardar" />
+        <Button type="reset" classBoton="btn-action btn-danger" texto="Cancelar" onClick={redirectTickets} />
+        <Button type="submit" classBoton="btn-action btn-success" texto="Crear" />
       </div>
     </form>
   )

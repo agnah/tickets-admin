@@ -1,9 +1,9 @@
 function TextArea (props) {
-  const { label, name, register, options, errors, ...attributes } = props
+  const { label, name, register, options, errors, classCol, ...attributes } = props
 
   const classes = errors[name]?.message
-    ? 'col-md-10 form-group item-form has-error'
-    : 'col-md-10 form-group item-form'
+    ? `${classCol} has-error`
+    : `${classCol}`
 
   return (
     <div className={classes}>
@@ -13,6 +13,10 @@ function TextArea (props) {
         {...attributes}
         {...register(name, options)}
         className="form-control"
+        cols='1'
+        onChange={attributes?.onChangeInput}
+        value={attributes?.value}
+        style={{ height: '38px' }}
       />
       {errors[name] && (
         <p className="help-block error" role="alert">

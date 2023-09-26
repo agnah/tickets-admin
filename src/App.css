@@ -1,12 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    --gris-oscuro: #3B4449;
+    --gris-medio: #7A7A7A;
+    --gris-claro: #dee2e6;
+    --hr-color: #AAAAAA;
+    --tr-even-color: #E1E1E1;
+    --celeste: #37BBED;
+    --color-ticket-nuevo: #9283DE;
+    --color-ticket-asignado: #F7941E;
+    --color-ticket-curso: #50B8B1;
+    --color-ticket-totales: #EE3D8F;
+    --color-danger: #EF5350;
+    --color-success: #4FBB73;
+    
+    font-family: 'Encode Sans', sans-serif;
+}
+
 #root {
-    /* display: flex;
-    flex-direction: column; */
     min-height: 100vh;
-    background: #F5F5F5;
+    background: #e9e9e9;
+    background-image: url(../public/img/icon-background.svg);
+    background-repeat: no-repeat;
+    background-position: 10% 100%;
+    background-size: 200% 100%;
     box-sizing: border-box;
 }
 
 .main-container {
-    flex: 1;
-    padding: 1.5rem 2rem; 
+    padding: 1.5rem 2rem;
+    position: relative;
+    bottom: 0;
+    height: 100%;
+}
+
+.area_input{
+    border-color: #45BAF2;
+    color: #45BAF2;
+    background-color: #45bbf22d;
+}
+
+.hideNav {
+    display: none !important;
+    transition: all 2s;
+}
+
+.display-nav-icon{
+    cursor: pointer;
 }

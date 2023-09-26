@@ -1,3 +1,5 @@
+import './Select.css'
+
 const Select = (props) => {
   const {
     label,
@@ -16,14 +18,19 @@ const Select = (props) => {
     ? `${classCol} has-error`
     : `${classCol}`
 
-  const handleChange = (e) => {
-    (e.target.value !== '') ? attributes.displayFields(false) : attributes.displayFields(true)
-  }
+  // const handleChange = (e) => {
+  //   (e.target.value !== '') ? attributes.displayFields(false) : attributes.displayFields(true)
+  // }
 
   return (
-    <div className={classes}>
-      <div className="form-group item-form">
-        <label htmlFor={name}>{label}</label>
+    <div className={`select-container ${classes}`}>
+      <label htmlFor={name}>{label}</label>
+      <div className="form-group item-form select-box">
+        {/* <div className="select-icon">
+          <i
+            className="fa-solid fa-caret-down"
+          ></i>
+        </div> */}
         {
           attributes?.displayFields
             ? <select
@@ -31,7 +38,7 @@ const Select = (props) => {
           {...attributes}
           {...register(name, options)}
           className="form-control"
-          onChange={handleChange}
+          onChange={attributes?.onChangeInput}
         >
           <option value="">{placeholder}</option>
           {optionList.map((option, index) => (
@@ -44,8 +51,8 @@ const Select = (props) => {
           name={name}
           {...attributes}
           {...register(name, options)}
-          className="form-control"
-          disabled={display}
+          className={props?.classInput ? `${props.classInput} form-control` : 'form-control'}
+          onChange={attributes?.onChangeInput}
         >
           <option value="">{placeholder}</option>
           {optionList.map((option, index) => (

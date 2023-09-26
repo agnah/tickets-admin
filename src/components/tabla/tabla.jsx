@@ -1,5 +1,5 @@
 import DataTable from 'react-data-table-component'
-import useApiTest from '../../servicios/useApiTest'
+import useApiTest from '@servicios/useApiTest'
 import SkeletonTabla from './skeletonTabla'
 import { useCallback, useMemo, useContext } from 'react'
 import Button from '../partials/Button/Button'
@@ -7,9 +7,13 @@ import filtroTabla from './filtroTabla'
 import CheckPrioridad from './checkPrioridad'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
-import { useAuth } from '../partials/Nav/useAuth'
+import useAuth from '@servicios/UseAuth'
+import ButtonVer from '../partials/Button/ButtonVer'
+import ButtonEdit from '../partials/Button/ButtonEdit'
+import { useNavigate, Link } from 'react-router-dom'
+import './tabla.css'
 
-
+const optionListUser = ['alison', 'toy', 'terry', 'twila', 'amos', 'ewell']
 // const InfoExtra = (data) => {
 //   const info = data.data
 //   return (
@@ -24,6 +28,7 @@ import { useAuth } from '../partials/Nav/useAuth'
 
 function Tabla () {
   const { user } = useAuth()
+  const navigate = useNavigate()
   const path = 'users'
   const {
     isLoading,
@@ -35,26 +40,22 @@ function Tabla () {
     // mutate,
     trigger
   } = useApiTest(path)
-  //   console.log('render tabla')
+
   const {
     prioridad,
     handlePrioridadChange,
     seleccionados,
-    handleSeleccionadosChange
+    handleSeleccionadosChange,
+    filtroUser,
+    handleFiltroUserChange
   } = useContext(FiltrosContext)
 
   // Botones tabla
   const handleEdit = useCallback((id) => {
-    alert(`Editar ${id}`)
+    navigate(`/tickets/${id}`)
   }, [])
-  const handlePrint = useCallback((id) => {
-    alert(`Imprimir ${id}`)
-  }, [])
-  const handleCancel = useCallback((id) => {
-    alert(`Cancelar ${id}`)
-  }, [])
-  const handleRechazo = useCallback((id) => {
-    alert(`Rechazar  ${id}`)
+  const handleVer = useCallback((id) => {
+    navigate(`/tickets/${id}`)
   }, [])
 
   // columnas tabla
@@ -93,20 +94,15 @@ function Tabla () {
       // selector: row => row.id,
       cell: (row) => (
         <>
-          <i className="fa fa-edit" onClick={() => handleEdit(row.id)}></i>
-          <i className="fa fa-print" onClick={() => handlePrint(row.id)}></i>
-          <i className="fa fa-trash" onClick={() => handleCancel(row.id)}></i>
-          {user.role.includes('admin') && (
-          <i className="fa-solid fa-rectangle-xmark" onClick={() => handleRechazo(row.id)}></i>
-          )}
+          <ButtonVer onClick={() => handleVer(row.id)} />
+          <ButtonEdit onClick={() => handleEdit(row.id)} />
         </>
       )
     }
-  ])
+  ], [user.role])
 
   // filtros
-  const data = filtroTabla(datos, seleccionados, prioridad)
-  console.log(`selecionados: ${seleccionados} prioridad: ${prioridad}`)
+  const data = filtroTabla(datos, seleccionados, prioridad, filtroUser)
 
   if (isError) {
     return <p>Algo fallo: {error.message}</p>
@@ -116,13 +112,37 @@ function Tabla () {
   }
   if (isSuccess) {
     return (
-      <>
+      <div className="container-table">
         <Button
           classIcon="fa fa-refresh"
           texto={isValidating ? 'Validando' : ''}
           type="button"
           onClick={() => trigger()}
         />
+        <br />
+        <Link to='/tickets/create' className='btn btn-success'>Nuevo Ticket</Link>
+        <br />
+        {!seleccionados.includes('marketing') || seleccionados.length > 1
+          ? (
+            <select
+              name='filtroUser'
+              value={filtroUser}
+              onChange={(e) => handleFiltroUserChange(e.target.value)}
+            >
+              <option value="">Colaborador</option>
+              {optionListUser.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+            )
+          : (
+            <select disabled>
+              <option value=''>Todos</option>
+            </select>
+            )}
+
         <CheckPrioridad
           prioridad={prioridad}
           onChange={handlePrioridadChange}
@@ -138,12 +158,12 @@ function Tabla () {
           pagination
           responsive
           striped
-        //   ! Variables para expandir.
-        //   expandableRows
-        //   expandableRowsComponent={ExpandedComponent}
+          //   ! Variables para expandir.
+          //   expandableRows
+          //   expandableRowsComponent={ExpandedComponent}
           noDataComponent="No exiten registros para esos parametros"
         />
-      </>
+      </div>
     )
   }
 }

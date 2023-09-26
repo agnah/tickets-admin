@@ -1,16 +1,15 @@
 import { BrowserRouter } from 'react-router-dom'
-import NavDashboard from '../components/partials/Nav/NavDashboard'
-import { AuthProvider } from '../components/partials/Nav/useAuth'
-import { FiltrosProvider } from '../components/tabla/contextTabla'
+import NavDashboard from '@components/partials/Nav/NavDashboard'
+import { FiltrosProvider } from '@components/tabla/contextTabla'
+// import DetalleUsuario from '@pages/Users/DetalleUsuario'
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <FiltrosProvider>
-          <NavDashboard />
-        </FiltrosProvider>
-      </AuthProvider>
+      <FiltrosProvider>
+        {/* <DetalleUsuario /> */}
+        <NavDashboard />
+      </FiltrosProvider>
     </BrowserRouter>
   )
 }

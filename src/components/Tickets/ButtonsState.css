@@ -1,0 +1,15 @@
+.container-tablero-tickets {
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-tablero-tickets a {
+    text-decoration: none;
+    margin: 0 2rem 0 0;
+    width: 30%;
+}
+
+.container-tablero-tickets a:last-child {
+    margin: 0;
+}
