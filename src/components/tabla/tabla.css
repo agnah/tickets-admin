@@ -1,15 +1,19 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
 .btn-crear-ticket {
-    background: var(--celeste);
+    display: flex;
+    align-items: center;
+    background: var(--color-tickets);
     color: #fff;
     text-decoration: none;
-    padding: .4vw .9vw;
+    padding: .55rem 1.3rem;
     border-radius: 20px;
 }
 
 .btn-crear-ticket .fa-plus {
-    margin-right: 1vw;
+    margin-right: .8rem;
+    width: .9em;
+    height: .9rem;
 }
 
 .container-h {
@@ -39,12 +43,12 @@
 
 .input-search:focus-visible {
     outline: none;
-    border: 1px solid var(--celeste);
+    border: 1px solid var(--color-tickets);
     border-left: 0;
 }
 
 .input-search:focus-visible + .div-icon-search {
-    border: 1px solid var(--celeste);
+    border: 1px solid var(--color-tickets);
 }
 
 .div-search {
@@ -99,9 +103,12 @@ select:disabled {
 }
 
 .fa-caret-down {
+    width: .7em;
+    height: .7rem;
     color: var(--gris-medio);
     position: relative;
     right: 2.5vw;
+    bottom: .1rem;
 }
 
 .container-checks {
@@ -153,7 +160,7 @@ select:disabled {
 }
 
 .title-label {
-    color: var(--celeste);
+    color: var(--color-tickets);
     font-weight: 700;
     font-size: 1.1rem;
 }
@@ -202,3 +209,6 @@ div > select + svg {
     align-items: center;
 }
 
+option {
+    border: none !important;
+}
