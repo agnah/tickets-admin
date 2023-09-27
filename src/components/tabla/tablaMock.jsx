@@ -197,12 +197,13 @@ function Tabla () {
                     <option value=''>Todos</option>
                   </select>
                   )}
-              <i className="fa-solid fa-caret-down"></i>
+              <img src="public/img/caret-down-solid.svg" className="fa-solid fa-caret-down"></img>
             </div>
             <div>
               {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
                 ? (
-                  <select
+                  <div>
+                    <select
                     name='filtroSector'
                     value={filtroSector}
                     onChange={(e) => handleFiltroSectorChange(e.target.value)}
@@ -214,17 +215,18 @@ function Tabla () {
                       </option>
                     ))}
                   </select>
+                    <img src="public/img/caret-down-solid.svg" className="fa-solid fa-caret-down"></img>
+                  </div>
                   )
                 : (
                   <select disabled>
                     <option value=''>Todos</option>
                   </select>
                   )}
-              {/* <i className="fa-solid fa-caret-down"></i> */}
             </div>
             {!user.perfil.includes(perfil.DIRECTOR) && (
               <Link to='/tickets/create' className='btn-crear-ticket'>
-                <i className="fa-solid fa-plus"></i>
+                <img src="public/img/plus-solid.svg" className="fa-solid fa-plus"></img>
                 Nuevo Ticket
               </Link>
             )}

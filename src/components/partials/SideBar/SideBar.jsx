@@ -94,9 +94,7 @@ const SideBar = ({ children }) => {
                   data-bs-placement="right"
                   data-bs-original-title="Tramites"
                 >
-                  <i
-                    className="fa-solid fa-ticket fa-lg"
-                  ></i>
+                  <img className="nav-icon ticket" src="../../../public/img/ticket-solid.svg"></img>
                 </Link>
               </div>
               <span className="span-nav">Tramites</span>
@@ -110,9 +108,7 @@ const SideBar = ({ children }) => {
                     data-bs-placement="right"
                     data-bs-original-title="TramitesCreate"
                   >
-                    <i
-                      className="fa-solid fa-plus fa-lg"
-                    ></i>
+                    <img className="nav-icon plus" src="../../../public/img/plus-solid.svg"></img>
                   </Link>
                 </div>
                 <span className='span-nav'>

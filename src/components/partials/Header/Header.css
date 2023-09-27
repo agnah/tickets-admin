@@ -4,7 +4,7 @@
 }
 
 .backgroundTicket {
-    background: var(--color-success);
+    background: var(--color-tickets);
     padding: 1.3rem 2.3rem;
 }
 
@@ -87,10 +87,64 @@
 }
 
 .btn-refresh svg {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.6rem;
+    height: 1.6rem;
 }
 
 .btn-refresh:focus-visible {
     outline: none;
+}
+
+.switch-tickets {
+    cursor: pointer;
+	text-indent: -9999px;
+	width: 3.8rem;
+	height: 1.8rem;
+	background: var(--color-tickets);
+	display: block;
+	border-radius: 100px;
+    border: none;
+    box-shadow: 3px 3px 6px hsla(0, 0%, 0%, .1);
+	position: relative;
+    margin-right: 1.2rem;
+}
+
+.switch-tickets::after {
+    content: '';
+	position: absolute;
+	top: 50%;
+    transform: translateY(-50%);
+	left: .2rem;
+	width: 1.5rem;
+	height: 1.5rem;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+.switch-tramites {
+    cursor: pointer;
+	text-indent: -9999px;
+	width: 3.8rem;
+	height: 1.8rem;
+	background: var(--celeste);
+	display: block;
+	border-radius: 100px;
+    border: none;
+    box-shadow: 3px 3px 6px hsla(0, 0%, 0%, .1);
+	position: relative;
+    margin-right: 1.2rem;
+}
+
+.switch-tramites::after {
+    content: '';
+	position: absolute;
+	top: 50%;
+    transform: translateY(-50%);
+	right: .2rem;
+	width: 1.5rem;
+	height: 1.5rem;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
 }

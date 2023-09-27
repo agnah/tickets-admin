@@ -84,8 +84,8 @@ const HeaderLogged = (props) => {
           </div>
           {!user.perfil.includes(TECNICO) &&
             (seccionTicket
-              ? <Button type="button" style={{ width: 'auto' }} texto="Tramites" classBoton="btn btn-info" onClick={redirectTramites} />
-              : <Button type="button" style={{ width: 'auto' }} texto="Tickets" classBoton="btn btn-success" onClick={redirectTickets} />
+              ? <Button type="button" texto="Tramites" classBoton="switch-tramites" onClick={redirectTramites} />
+              : <Button type="button" texto="Tickets" classBoton="switch-tickets" onClick={redirectTickets} />
             )
           }
         </div>

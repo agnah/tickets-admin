@@ -30,8 +30,8 @@
 
 /* Cambiar el estilo cuando el checkbox está marcado */
 .container-checks input:checked {
-    background-color: var(--celeste);
-    border-color: var(--celeste);
+    background-color: var(--color-tickets);
+    border-color: var(--color-tickets);
   }
   
 /* Estilo del indicador del checkbox */
@@ -51,9 +51,9 @@
 }
 
 #right-checks {
-    justify-content: flex-end;
-}
-
-#left-checks {
     justify-content: flex-start;
 }
+
+/* #left-checks {
+    justify-content: flex-start;
+} */

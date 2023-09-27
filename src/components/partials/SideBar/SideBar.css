@@ -18,7 +18,18 @@
 
 .circle-item {
     border-radius: 50%;
-    background-color: var(--color-success);
+    background-color: var(--color-tickets);
+    padding: 15px;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-item-tramite {
+    border-radius: 50%;
+    background-color: var(--color-tickets);
     padding: 15px;
     width: 3.5rem;
     height: 3.5rem;
