@@ -90,9 +90,6 @@ const TicketCreateForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
       <div className="row">
-        <div className="col-md-6 col-lg-6">
-          <h5>Ticket</h5>
-        </div>
         <div className='col-md-6 col-lg-6 d-flex align-items-center'>
           <div className="form-check">
             <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="prioridad" />
@@ -102,7 +99,6 @@ const TicketCreateForm = () => {
           </div>
         </div>
       </div>
-      <hr className="mt-0" />
       <div className="row">
         <>
           <DatalistChangeInput

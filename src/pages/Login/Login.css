@@ -1,0 +1,15 @@
+.title-login {
+    width: 30rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.title-login h5 {
+    font-size: 1.8rem;
+}
+
+.container-login {
+    display: flex;
+    justify-content: center;
+}

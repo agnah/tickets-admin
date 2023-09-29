@@ -90,13 +90,15 @@ const HeaderLogged = (props) => {
           }
         </div>
         <div className="header-buttons">
-          <Button
+          {seccionTicket && (
+            <Button
             className="btn-refresh"
             texto={isValidating ? 'Validando' : ''}
             type="button"
             onClick={() => trigger()}
             svgIcon={miSvg}
           />
+          )}
           <BotonProfile />
         </div>
       </nav>

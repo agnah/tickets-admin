@@ -1,6 +1,7 @@
 import LoginForm from '@components/Form/LoginForm'
 import Header from '@components/partials/Header/Header'
 import Tablero from '@components/Tablero/Tablero'
+import './Login.css'
 
 const Login = () => {
   return (
@@ -24,8 +25,8 @@ const Login = () => {
               <span>area tecnica: eoli@mindes.com</span>
               <span>area tecnica admin: aareatecnica@mindes.com</span>
               <span> super admin: sadmin@mindes.com</span> */}
-              <div className="col-md-6 offset-md-3">
-                <Tablero title="Iniciar Sesión" classTitle="text-center">
+              <div className="container-login">
+                <Tablero title="Iniciar Sesión" classTitle="title-login">
                   <LoginForm />
                 </Tablero>
               </div>

@@ -14,5 +14,23 @@
 }
 
 .inputLogin {
-    margin-top: 10px;
+    margin-top: 15px;
+}
+
+.inputLogin label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+    color: #3B4449;
+}
+
+.inputLogin input::placeholder {
+    color: var(--gris-medio);
+    font-size: 1rem;
+    font-weight:500;
+}
+
+.inputLogin input:focus {
+    border-color: var(--celeste);
+    box-shadow: 0 0 0 0.1rem rgba(94, 178, 203, 0.25);
 }
