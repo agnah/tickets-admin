@@ -70,7 +70,6 @@
     cursor: pointer;
 }
 .header-buttons {
-    width: 7rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -84,6 +83,7 @@
     align-items: center;
     color: #fff;
     font-size: 8px;
+    margin-right: 1.3rem;
 }
 
 .btn-refresh svg {
@@ -106,7 +106,7 @@
     border: none;
     box-shadow: 3px 3px 6px hsla(0, 0%, 0%, .1);
 	position: relative;
-    margin-right: 1.2rem;
+    margin-right: 1.3rem;
 }
 
 .switch-tickets::after {
@@ -133,7 +133,7 @@
     border: none;
     box-shadow: 3px 3px 6px hsla(0, 0%, 0%, .1);
 	position: relative;
-    margin-right: 1.2rem;
+    margin-right: 1.3rem;
 }
 
 .switch-tramites::after {

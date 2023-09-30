@@ -18,7 +18,7 @@ const optionListSelect = ['CSTIMI', 'GDE', 'Computos', 'CID']
 const optionCstimi = ['Soporte', 'Telefonia']
 const datalistSolicitante = solicitantes.map(s => s.nombre)
 
-const TicketCreateForm = () => {
+const TicketCreateForm = ({ prioridad }) => {
   const { user } = useAuth()
   const dragAndDropRef = useRef(null)
   const {
@@ -70,7 +70,7 @@ const TicketCreateForm = () => {
 
   const onSubmit = (data) => {
     const dragAndDropData = dragAndDropRef.current.getData()
-    const formData = { ...data, dragAndDropData }
+    const formData = { ...data, dragAndDropData, prioridad }
     console.log('Datos a enviar:', formData)
   }
 
@@ -89,16 +89,6 @@ const TicketCreateForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
-      <div className="row">
-        <div className='col-md-6 col-lg-6 d-flex align-items-center'>
-          <div className="form-check">
-            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="prioridad" />
-            <label className="form-check-label" htmlFor="flexCheckDefault">
-              Prioridad
-            </label>
-          </div>
-        </div>
-      </div>
       <div className="row">
         <>
           <DatalistChangeInput

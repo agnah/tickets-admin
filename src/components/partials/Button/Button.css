@@ -32,6 +32,32 @@
     color: #fff;
 }
 
+.btn-tramites {
+    background-color: var(--celeste);
+    border: none;
+    color: #fff;
+}
+
+.btn-tickets {
+    background-color: var(--color-tickets);
+    border: none;
+    color: #fff;
+}
+
+.btn-tramites:hover {
+    background-color: var(--celeste);
+    color: #fff;
+    filter: contrast(1.1);
+    text-decoration: none;
+}
+
+.btn-tickets:hover {
+    background-color: var(--color-tickets);
+    color: #fff;
+    filter: contrast(1.1);
+    text-decoration: none;
+}
+
 .btn-action:hover {
     transform: scale(1.01);
     filter: brightness(1.5);

@@ -1,0 +1,12 @@
+.badge-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.badge-container svg {
+    filter: drop-shadow(3px 3px 6px #0000001a);
+    text-transform: capitalize;
+}
+

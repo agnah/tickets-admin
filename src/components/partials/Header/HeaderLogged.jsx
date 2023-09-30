@@ -82,14 +82,14 @@ const HeaderLogged = (props) => {
               </a>
              </div>
           </div>
+        </div>
+        <div className="header-buttons">
           {!user.perfil.includes(TECNICO) &&
             (seccionTicket
               ? <Button type="button" texto="Tramites" classBoton="switch-tramites" onClick={redirectTramites} />
               : <Button type="button" texto="Tickets" classBoton="switch-tickets" onClick={redirectTickets} />
             )
           }
-        </div>
-        <div className="header-buttons">
           {seccionTicket && (
             <Button
             className="btn-refresh"

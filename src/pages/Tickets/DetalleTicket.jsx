@@ -20,7 +20,7 @@ function DetalleTicket () {
 
   return (
     <>
-      <Tablero title={`Ticket ${id}`} classTitle="title-detalleTicket" page={ticket.area_asignada} state={ticket.estado}>
+      <Tablero title={`Ticket ${id}`} classTitle="title-detalleTicket" page={ticket.area_asignada} state={ticket.estado} showPrioridad>
         <GetTicketDetalle id={id} ticket={ticket} />
       </Tablero>
     </>

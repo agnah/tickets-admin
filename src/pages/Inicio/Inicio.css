@@ -1,0 +1,31 @@
+.spanTramites {
+    color: var(--color-tickets);
+}
+
+.spanTickets {
+    color: var(--celeste);
+}
+
+.h1-inicio {
+    color: var(--gris-medio);
+    font-weight: 500;
+    font-size: 40px;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.btn-tramites {
+   width: 8rem;
+   display: flex;
+   justify-content: center;
+}
+
+.btn-tickets {
+    width: 8rem;
+    display: flex;
+    justify-content: center;
+}
+
+.estadisticas {
+    height: 38vh;
+}
