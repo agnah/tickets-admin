@@ -1,67 +1,64 @@
-import React, { useState } from 'react'
-// import Button from '../partials/Button/Button'
-// import Select from 'react-select'
-// import ButtonEdit from '../partials/Button/ButtonEdit'
-import { useForm } from 'react-hook-form'
-import solicitantes from '../../../public/assets/solicitantes.json'
-import DatalistChangeInput from '../../components/Form/Input/DatalistCangeInput'
-import InputForm from '../../components/Form/Input/InputForm'
-import SelectInput from '../../components/Form/Input/Select'
-import SelectTecnico from '../Form/Input/SelectWithOption'
-import TextArea from '../../components/Form/Input/TextArea'
-import SelectTarea from '@components/Tickets/SelectTarea'
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import solicitantes from "../../../public/assets/solicitantes.json";
+import DatalistChangeInput from "../../components/Form/Input/DatalistCangeInput";
+import InputForm from "../../components/Form/Input/InputForm";
+import SelectInput from "../../components/Form/Input/Select";
+import SelectTecnico from "../Form/Input/SelectWithOption";
+import TextArea from "../../components/Form/Input/TextArea";
+import SelectTarea from "@components/Tickets/SelectTarea";
 
 const tecnicos = [
-  'Franco Armani',
-  'Juan',
-  'Pedro',
-  'Maria',
-  'Luis',
-  'Jose',
-  'Laura'
-]
+  "Franco Armani",
+  "Juan",
+  "Pedro",
+  "Maria",
+  "Luis",
+  "Jose",
+  "Laura",
+];
 
-const datalistSolicitante = solicitantes.map((s) => s.nombre)
-const optionListSelect = ['CSTIMI', 'GDE', 'Computos', 'CID', 'Telefonía']
+const datalistSolicitante = solicitantes.map((s) => s.nombre);
+const optionListSelect = ["CSTIMI", "GDE", "Computos", "CID", "Telefonía"];
 const historial = [
   {
-    area: 'CSTIMI',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "CSTIMI",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'GDE',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "GDE",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'CSTIMI',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "CSTIMI",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'Computos',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "Computos",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'Computos',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "Computos",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'CSTIMI',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "CSTIMI",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'GDE',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
-  }
-]
+    area: "GDE",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
+  },
+];
 
-const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
+const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 
 const GetTicketDetalle = ({ ticket }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
-  } = useForm()
+    formState: { errors },
+  } = useForm();
 
   const [ticketInfo, setTicketInfo] = useState({
     solicitante: ticket.solicitante,
@@ -73,42 +70,41 @@ const GetTicketDetalle = ({ ticket }) => {
     piso: ticket.piso,
     referencia: ticket.referencia,
     pre_tarea: ticket.pre_tarea,
-    motivo: 'Un motivo valido'
-  })
+    motivo: "Un motivo valido",
+  });
   // const [showSelect, setShowSelect] = useState(false)
-  const [selectedOption, setSelectedOption] = useState(ticket.colaborador)
-  const [selectedOptionArea, setSelectedOptionArea] = useState(null)
-  const [edit, setEdit] = useState(false)
-  const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email)
-  const [historialMensajes, setHistorialMensajes] = useState(historial)
+  const [selectedOption, setSelectedOption] = useState(ticket.colaborador);
+  const [selectedOptionArea, setSelectedOptionArea] = useState(null);
+  const [edit, setEdit] = useState(false);
+  const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email);
+  const [historialMensajes, setHistorialMensajes] = useState(historial);
 
   // const handleSelectTecnico = () => {
   //   setShowSelect(!showSelect)
   // }
 
   const handleSelectChange = (e) => {
-    console.log(e.target.value)
-    if (e.target.name === 'tecnico') setSelectedOption(e.target.value)
-    if (e.target.name === 'derivar') setSelectedOptionArea(e.target.value)
-  }
+    if (e.target.name === "tecnico") setSelectedOption(e.target.value);
+    if (e.target.name === "derivar") setSelectedOptionArea(e.target.value);
+  };
 
   const handleSubmitMessage = (e) => {
-    e.preventDefault()
-    const user = JSON.parse(sessionStorage.getItem('user'))
-    console.log(user.sector[0])
-    console.log(e.target[0].value)
+    e.preventDefault();
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    console.log(user.sector[0]);
+    console.log(e.target[0].value);
     setHistorialMensajes([
       ...historialMensajes,
-      { area: user.sector[0], info: e.target[0].value }
-    ])
-  }
+      { area: user.sector[0], info: e.target[0].value },
+    ]);
+  };
 
   const handleEdit = () => {
-    setEdit(!edit)
-  }
+    setEdit(!edit);
+  };
 
   const handleCancelEdit = () => {
-    setEdit(!edit)
+    setEdit(!edit);
     setTicketInfo({
       solicitante: ticket.solicitante,
       email: ticket.email,
@@ -119,39 +115,46 @@ const GetTicketDetalle = ({ ticket }) => {
       piso: ticket.piso,
       referencia: ticket.referencia,
       pre_tarea: ticket.pre_tarea,
-      motivo: 'Un motivo valido'
-    })
-    setSolicitanteEmail(ticket.email)
-  }
+      motivo: "Un motivo valido",
+    });
+    setSolicitanteEmail(ticket.email);
+  };
 
   const onSubmit = (data) => {
-    setTicketInfo({ ...ticketInfo, ...data, email: solicitanteEmail })
-    console.log(data)
-    setEdit(!edit)
-  }
+    setTicketInfo({ ...ticketInfo, ...data, email: solicitanteEmail });
+    setEdit(!edit);
+  };
 
   const onChangeSolicitante = (e) => {
-    onChangeInput(e)
-    const solicitante = e.target.value
+    onChangeInput(e);
+    const solicitante = e.target.value;
     const solicitanteSeleccionado = solicitantes.find(
       (s) => s.nombre === solicitante
-    )
-    console.log({ solicitante, solicitanteSeleccionado })
+    );
+    console.log({ solicitante, solicitanteSeleccionado });
     if (solicitanteSeleccionado) {
-      setSolicitanteEmail(solicitanteSeleccionado.email)
+      setSolicitanteEmail(solicitanteSeleccionado.email);
     }
-  }
+  };
 
   const onChangeInput = (e) => {
-    const { value, name } = e.target
-    setTicketInfo({ ...ticketInfo, [name]: value })
-    console.log(ticketInfo)
-  }
+    const { value, name } = e.target;
+    setTicketInfo({ ...ticketInfo, [name]: value });
+    console.log(ticketInfo);
+  };
 
   const onChangeInputEmail = (e) => {
-    onChangeInput(e)
-    setSolicitanteEmail(e.target.value)
-  }
+    onChangeInput(e);
+    setSolicitanteEmail(e.target.value);
+  };
+
+  const handleAnular = (e) => {
+    // TODO: LOGICA DE ANULAR TICKET
+  };
+
+  const handleFinalizar = (e) => {
+    // TODO: LOGICA DE FINALIZAR TICKET
+  };
 
   return (
     <section className="row ">
@@ -160,9 +163,8 @@ const GetTicketDetalle = ({ ticket }) => {
           <div className="row">
             <div className="col-12">
               <p className="d-flex">
-                <strong>Solicitante:</strong>{' '}
-                {edit
-                  ? (
+                <strong>Solicitante:</strong>{" "}
+                {edit ? (
                   <DatalistChangeInput
                     idList="datalistSolicitante"
                     label=""
@@ -173,23 +175,21 @@ const GetTicketDetalle = ({ ticket }) => {
                     errors={errors}
                     classCol="ms-1 col-md-6 col-lg-6 d-flex ms-2"
                     options={{
-                      required: 'Campo obligatorio'
+                      required: "Campo obligatorio",
                     }}
                     onChangeSolicitante={onChangeSolicitante}
                     onChangeInput={onChangeInput}
                     value={ticketInfo.solicitante}
                   />
-                    )
-                  : (
-                      ticketInfo.solicitante
-                    )}
+                ) : (
+                  ticketInfo.solicitante
+                )}
               </p>
             </div>
             <div className="col-6">
               <p className="d-flex">
-                <strong>Email:</strong>{' '}
-                {edit
-                  ? (
+                <strong>Email:</strong>{" "}
+                {edit ? (
                   <InputForm
                     label=""
                     type="email"
@@ -199,26 +199,24 @@ const GetTicketDetalle = ({ ticket }) => {
                     errors={errors}
                     classCol="col-md-8 col-lg-8 d-flex ms-2 form-group item-form"
                     options={{
-                      required: 'Campo obligatorio',
+                      required: "Campo obligatorio",
                       pattern: {
                         value: REGEX_EMAIL,
-                        message: 'El e-mail tiene que ser valido'
-                      }
+                        message: "El e-mail tiene que ser valido",
+                      },
                     }}
                     value={solicitanteEmail}
                     onChangeInput={onChangeInputEmail}
                   />
-                    )
-                  : (
-                      ticketInfo.email
-                    )}
+                ) : (
+                  ticketInfo.email
+                )}
               </p>
             </div>
             <div className="col-6">
               <p className="d-flex">
                 <strong>Telefono:</strong>
-                {edit
-                  ? (
+                {edit ? (
                   <InputForm
                     label=""
                     type="text"
@@ -228,22 +226,20 @@ const GetTicketDetalle = ({ ticket }) => {
                     errors={errors}
                     classCol="col-md-7 col-lg-7 d-flex ms-2 form-group item-form"
                     options={{
-                      required: 'Campo obligatorio'
+                      required: "Campo obligatorio",
                     }}
                     onChangeInput={onChangeInput}
                     value={ticketInfo.telefono}
                   />
-                    )
-                  : (
-                      ticketInfo.telefono
-                    )}
+                ) : (
+                  ticketInfo.telefono
+                )}
               </p>
             </div>
             <div className="col-6">
               <p className="d-flex">
-                <strong>Area:</strong>{' '}
-                {edit
-                  ? (
+                <strong>Area:</strong>{" "}
+                {edit ? (
                   <SelectInput
                     label=""
                     name="area"
@@ -253,21 +249,19 @@ const GetTicketDetalle = ({ ticket }) => {
                     errors={errors}
                     classCol="col-md-6 col-lg-6 d-flex ms-2"
                     options={{
-                      required: 'Campo obligatorio'
+                      required: "Campo obligatorio",
                     }}
                     onChangeInput={onChangeInput}
                   />
-                    )
-                  : (
-                      ticketInfo.area
-                    )}
+                ) : (
+                  ticketInfo.area
+                )}
               </p>
             </div>
             <div className="col-3">
               <p className="d-flex">
-                <strong>Sede:</strong>{' '}
-                {edit
-                  ? (
+                <strong>Sede:</strong>{" "}
+                {edit ? (
                   <SelectInput
                     label=""
                     name="sede"
@@ -277,21 +271,19 @@ const GetTicketDetalle = ({ ticket }) => {
                     errors={errors}
                     classCol="col-md-8 col-lg-8 d-flex ms-2"
                     options={{
-                      required: 'Campo obligatorio'
+                      required: "Campo obligatorio",
                     }}
                     onChangeInput={onChangeInput}
                   />
-                    )
-                  : (
-                      ticketInfo.sede
-                    )}
+                ) : (
+                  ticketInfo.sede
+                )}
               </p>
             </div>
             <div className="col-3">
               <p className="d-flex">
-                <strong>Piso:</strong>{' '}
-                {edit
-                  ? (
+                <strong>Piso:</strong>{" "}
+                {edit ? (
                   <SelectInput
                     label=""
                     name="piso"
@@ -301,36 +293,33 @@ const GetTicketDetalle = ({ ticket }) => {
                     errors={errors}
                     classCol="col-md-12 col-lg-12 d-flex ms-2"
                     options={{
-                      required: 'Campo obligatorio'
+                      required: "Campo obligatorio",
                     }}
                     onChangeInput={onChangeInput}
                   />
-                    )
-                  : (
-                      ticketInfo.piso
-                    )}
+                ) : (
+                  ticketInfo.piso
+                )}
               </p>
             </div>
             <div className="col-12">
               <p className="d-flex">
-                <strong>Referencia:</strong>{' '}
-                {edit
-                  ? (
+                <strong>Referencia:</strong>{" "}
+                {edit ? (
                   <InputForm
                     label=""
                     type="text"
                     name="referencia"
                     placeholder=""
                     register={register}
-                    errors={''}
+                    errors={""}
                     classCol="col-md-2 col-lg-2 d-flex ms-2 form-group item-form"
                     onChangeInput={onChangeInput}
                     value={ticketInfo.referencia}
                   />
-                    )
-                  : (
-                      ticketInfo.referencia
-                    )}
+                ) : (
+                  ticketInfo.referencia
+                )}
               </p>
             </div>
             <div className="col-12">
@@ -340,9 +329,8 @@ const GetTicketDetalle = ({ ticket }) => {
             </div>
             <div className="col-12">
               <p className="d-flex">
-                <strong>Motivo:</strong>{' '}
-                {edit
-                  ? (
+                <strong>Motivo:</strong>{" "}
+                {edit ? (
                   <TextArea
                     label=""
                     name="motivo"
@@ -351,46 +339,40 @@ const GetTicketDetalle = ({ ticket }) => {
                     errors={errors}
                     classCol="col-md-10 col-lg-10 d-flex form-group item-form"
                     options={{
-                      required: 'Campo obligatorio'
+                      required: "Campo obligatorio",
                     }}
                     onChangeInput={onChangeInput}
                     value={ticketInfo.motivo}
                   />
-                    )
-                  : (
-                      ticketInfo.motivo
-                    )}
+                ) : (
+                  ticketInfo.motivo
+                )}
               </p>
             </div>
             <div className="col-12"></div>
-            {/* <p>
-              <strong>Fecha:</strong> {ticketInfo.fecha}
-            </p> */}
           </div>
-          {edit
-            ? (
+          {edit ? (
             <div>
               <button onClick={handleCancelEdit}>Cancelar</button>
               <button type="submit">Guardar</button>
             </div>
-              )
-            : (
+          ) : (
             <i
               className="fa fa-edit position-absolute top-0 end-0"
               onClick={handleEdit}
             ></i>
-              )}
+          )}
         </form>
         <div>
           <p>Historial</p>
           <div className="border border-1 d-flex flex-column">
             <div
-              style={{ height: '200px', overflowY: 'scroll' }}
+              style={{ height: "200px", overflowY: "scroll" }}
               className="p-2"
             >
               {historialMensajes.map((mensaje) => (
                 <p>
-                  <span className="text-primary">{mensaje.area}</span>:{' '}
+                  <span className="text-primary">{mensaje.area}</span>:{" "}
                   {mensaje.info}
                 </p>
               ))}
@@ -417,7 +399,7 @@ const GetTicketDetalle = ({ ticket }) => {
                 errors={errors}
                 classCol="col-md-12 col-lg-12 d-flex ms-2"
                 options={{
-                  required: 'Campo obligatorio'
+                  required: "Campo obligatorio",
                 }}
                 selectedOption={selectedOption}
                 onChangeInput={handleSelectChange}
@@ -435,15 +417,19 @@ const GetTicketDetalle = ({ ticket }) => {
                 errors={errors}
                 classCol="col-md-12 col-lg-12 d-flex ms-2"
                 options={{
-                  required: 'Campo obligatorio'
+                  required: "Campo obligatorio",
                 }}
                 selectedOption={selectedOptionArea}
                 onChangeInput={handleSelectChange}
               />
             </div>
             <div>
-              <p className="mb-0">Tiempo de espera: {''}</p>
-              <p className="mb-0">Última acción: {''}</p>
+              <p className="mb-0">Tiempo de espera: {""}</p>
+              <p className="mb-0">Última acción: {""}</p>
+            </div>
+            <div>
+              <button onClick={handleAnular}>Anular</button>
+              <button onClick={handleFinalizar}>Finalizar</button>
             </div>
           </article>
         </section>
@@ -456,7 +442,7 @@ const GetTicketDetalle = ({ ticket }) => {
         </section>
       </article>
     </section>
-  )
-}
+  );
+};
 
-export default GetTicketDetalle
+export default GetTicketDetalle;
