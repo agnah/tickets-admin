@@ -37,7 +37,7 @@ const Select = (props) => {
           name={name}
           {...attributes}
           {...register(name, options)}
-          className="form-control"
+          className="detalle-input"
           onChange={attributes?.onChangeInput}
         >
           <option value="">{placeholder}</option>
@@ -51,7 +51,7 @@ const Select = (props) => {
           name={name}
           {...attributes}
           {...register(name, options)}
-          className={props?.classInput ? `${props.classInput} form-control` : 'form-control'}
+          className={props?.classInput ? `${props.classInput} detalle-input` : 'detalle-input'}
           onChange={attributes?.onChangeInput}
         >
           <option value="">{placeholder}</option>

@@ -12,7 +12,7 @@ function TextArea (props) {
         name={name}
         {...attributes}
         {...register(name, options)}
-        className="form-control"
+        className="detalle-input text-area mb-2 mt-1"
         cols='1'
         onChange={attributes?.onChangeInput}
         value={attributes?.value}

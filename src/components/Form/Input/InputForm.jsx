@@ -7,12 +7,12 @@ const Input = (props) => {
 
   return (
     <div className={classes}>
-      <label htmlFor={name}>{label}</label>
+      <label className='mt-2' htmlFor={name}>{label}</label>
       <input
         name={name}
         {...attributes}
         {...register(name, options)}
-        className="form-control"
+        className="detalle-input"
         value={value}
         formNoValidate
         disabled={display}

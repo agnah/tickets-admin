@@ -48,7 +48,7 @@ const DatalistChangeInput = (props) => {
               {...register(name, options)}
               list={idList}
               placeholder={placeholder}
-              className="form-control"
+              className="detalle-input"
               onChange={onChangeSolicitante}
             />
             <datalist id={idList} >
@@ -63,7 +63,7 @@ const DatalistChangeInput = (props) => {
             name={name}
             {...attributes}
             {...register(name, options)}
-            className="form-control"
+            className="detalle-input"
             formNoValidate
             onChange={attributes?.onChangeInput}
           />

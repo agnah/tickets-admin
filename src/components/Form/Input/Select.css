@@ -19,17 +19,7 @@
     font-weight: 900;
 }
 
-/* .select-container .fa-caret-down {
-    cursor: pointer;
-    color: var(--gris-medio);
+.select-box select:focus {
+    border-color: var(--celeste);
+    box-shadow: 0 0 0 0.1rem rgba(94, 178, 203, 0.25);
 }
-
-.select-icon {
-    position: absolute;
-    right: 0;
-    top:0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-} */

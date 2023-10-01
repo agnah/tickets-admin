@@ -10,6 +10,7 @@ import SelectInput from '../../components/Form/Input/Select'
 import SelectTecnico from '../Form/Input/SelectWithOption'
 import TextArea from '../../components/Form/Input/TextArea'
 import SelectTarea from '@components/Tickets/SelectTarea'
+import './GetDetalleTicket.css'
 
 const tecnicos = [
   'Franco Armani',
@@ -155,12 +156,12 @@ const GetTicketDetalle = ({ ticket }) => {
 
   return (
     <section className="row ">
-      <article className="col-md-7 position-relative">
-        <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
+      <article className="col-md-7 position-relative container-left-detalle">
+        <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off" className='d-flex flex-column'>
           <div className="row">
             <div className="col-12">
-              <p className="d-flex">
-                <strong>Solicitante:</strong>{' '}
+              <p className="d-flex align-items-center item-form">
+                <strong className='strong-title'>Solicitante:</strong>{' '}
                 {edit
                   ? (
                   <DatalistChangeInput
@@ -171,7 +172,7 @@ const GetTicketDetalle = ({ ticket }) => {
                     optionList={datalistSolicitante}
                     register={register}
                     errors={errors}
-                    classCol="ms-1 col-md-6 col-lg-6 d-flex ms-2"
+                    classCol="d-flex flex-row-reverse"
                     options={{
                       required: 'Campo obligatorio'
                     }}
@@ -185,135 +186,139 @@ const GetTicketDetalle = ({ ticket }) => {
                     )}
               </p>
             </div>
-            <div className="col-6">
-              <p className="d-flex">
-                <strong>Email:</strong>{' '}
-                {edit
-                  ? (
-                  <InputForm
-                    label=""
-                    type="email"
-                    name="email"
-                    placeholder=""
-                    register={register}
-                    errors={errors}
-                    classCol="col-md-8 col-lg-8 d-flex ms-2 form-group item-form"
-                    options={{
-                      required: 'Campo obligatorio',
-                      pattern: {
-                        value: REGEX_EMAIL,
-                        message: 'El e-mail tiene que ser valido'
-                      }
-                    }}
-                    value={solicitanteEmail}
-                    onChangeInput={onChangeInputEmail}
-                  />
-                    )
-                  : (
-                      ticketInfo.email
-                    )}
-              </p>
+            <div className="d-flex align-items-center">
+              <div className="">
+                <p className="d-flex align-items-center item-form">
+                  <strong className='strong-title'>Email:</strong>{' '}
+                  {edit
+                    ? (
+                    <InputForm
+                      label=""
+                      type="email"
+                      name="email"
+                      placeholder=""
+                      register={register}
+                      errors={errors}
+                      classCol="col-md-8 col-lg-8 d-flex ms-2 form-group item-form"
+                      options={{
+                        required: 'Campo obligatorio',
+                        pattern: {
+                          value: REGEX_EMAIL,
+                          message: 'El e-mail tiene que ser valido'
+                        }
+                      }}
+                      value={solicitanteEmail}
+                      onChangeInput={onChangeInputEmail}
+                    />
+                      )
+                    : (
+                        ticketInfo.email
+                      )}
+                </p>
+              </div>
+              <div>
+                <p className="d-flex align-items-center item-form">
+                  <strong className='strong-title'>Telefono:</strong>
+                  {edit
+                    ? (
+                    <InputForm
+                      label=""
+                      type="text"
+                      name="telefono"
+                      placeholder=""
+                      register={register}
+                      errors={errors}
+                      classCol="col-md-7 col-lg-7 d-flex ms-2 form-group item-form"
+                      options={{
+                        required: 'Campo obligatorio'
+                      }}
+                      onChangeInput={onChangeInput}
+                      value={ticketInfo.telefono}
+                    />
+                      )
+                    : (
+                        ticketInfo.telefono
+                      )}
+                </p>
+              </div>
             </div>
-            <div className="col-6">
-              <p className="d-flex">
-                <strong>Telefono:</strong>
-                {edit
-                  ? (
-                  <InputForm
-                    label=""
-                    type="text"
-                    name="telefono"
-                    placeholder=""
-                    register={register}
-                    errors={errors}
-                    classCol="col-md-7 col-lg-7 d-flex ms-2 form-group item-form"
-                    options={{
-                      required: 'Campo obligatorio'
-                    }}
-                    onChangeInput={onChangeInput}
-                    value={ticketInfo.telefono}
-                  />
-                    )
-                  : (
-                      ticketInfo.telefono
-                    )}
-              </p>
-            </div>
-            <div className="col-6">
-              <p className="d-flex">
-                <strong>Area:</strong>{' '}
-                {edit
-                  ? (
-                  <SelectInput
-                    label=""
-                    name="area"
-                    placeholder="Selecciona un área"
-                    optionList={optionListSelect}
-                    register={register}
-                    errors={errors}
-                    classCol="col-md-6 col-lg-6 d-flex ms-2"
-                    options={{
-                      required: 'Campo obligatorio'
-                    }}
-                    onChangeInput={onChangeInput}
-                  />
-                    )
-                  : (
-                      ticketInfo.area
-                    )}
-              </p>
-            </div>
-            <div className="col-3">
-              <p className="d-flex">
-                <strong>Sede:</strong>{' '}
-                {edit
-                  ? (
-                  <SelectInput
-                    label=""
-                    name="sede"
-                    placeholder="Selecciona una sede"
-                    optionList={optionListSelect}
-                    register={register}
-                    errors={errors}
-                    classCol="col-md-8 col-lg-8 d-flex ms-2"
-                    options={{
-                      required: 'Campo obligatorio'
-                    }}
-                    onChangeInput={onChangeInput}
-                  />
-                    )
-                  : (
-                      ticketInfo.sede
-                    )}
-              </p>
-            </div>
-            <div className="col-3">
-              <p className="d-flex">
-                <strong>Piso:</strong>{' '}
-                {edit
-                  ? (
-                  <SelectInput
-                    label=""
-                    name="piso"
-                    placeholder=""
-                    optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
-                    register={register}
-                    errors={errors}
-                    classCol="col-md-12 col-lg-12 d-flex ms-2"
-                    options={{
-                      required: 'Campo obligatorio'
-                    }}
-                    onChangeInput={onChangeInput}
-                  />
-                    )
-                  : (
-                      ticketInfo.piso
-                    )}
-              </p>
+            <div className="d-flex align-items-center">
+              <div>
+                <p className="d-flex align-items-center item-form">
+                  <strong className='strong-title'>Area:</strong>{' '}
+                  {edit
+                    ? (
+                    <SelectInput
+                      label=""
+                      name="area"
+                      placeholder="Selecciona un área"
+                      optionList={optionListSelect}
+                      register={register}
+                      errors={errors}
+                      classCol="d-flex ms-2"
+                      options={{
+                        required: 'Campo obligatorio'
+                      }}
+                      onChangeInput={onChangeInput}
+                    />
+                      )
+                    : (
+                        ticketInfo.area
+                      )}
+                </p>
+              </div>
+              <div>
+                <p className="d-flex align-items-center item-form">
+                  <strong className='strong-title'>Sede:</strong>{' '}
+                  {edit
+                    ? (
+                    <SelectInput
+                      label=""
+                      name="sede"
+                      placeholder="Selecciona una sede"
+                      optionList={optionListSelect}
+                      register={register}
+                      errors={errors}
+                      classCol="d-flex ms-2"
+                      options={{
+                        required: 'Campo obligatorio'
+                      }}
+                      onChangeInput={onChangeInput}
+                    />
+                      )
+                    : (
+                        ticketInfo.sede
+                      )}
+                </p>
+              </div>
+              <div>
+                <p className="d-flex align-items-center item-form">
+                  <strong className='strong-title'>Piso:</strong>{' '}
+                  {edit
+                    ? (
+                    <SelectInput
+                      label=""
+                      name="piso"
+                      placeholder=""
+                      optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+                      register={register}
+                      errors={errors}
+                      classCol="d-flex ms-2"
+                      options={{
+                        required: 'Campo obligatorio'
+                      }}
+                      onChangeInput={onChangeInput}
+                    />
+                      )
+                    : (
+                        ticketInfo.piso
+                      )}
+                </p>
+              </div>
             </div>
             <div className="col-12">
-              <p className="d-flex">
-                <strong>Referencia:</strong>{' '}
+              <p className="d-flex align-items-center item-form">
+                <strong className='strong-title'>Referencia:</strong>{' '}
                 {edit
                   ? (
                   <InputForm
@@ -333,14 +338,14 @@ const GetTicketDetalle = ({ ticket }) => {
                     )}
               </p>
             </div>
-            <div className="col-12">
-              <p>
-                <strong>Pre Tarea:</strong> {ticketInfo.pre_tarea}
+            <div className="col-12 my-1">
+              <p className="d-flex align-items-center item-form">
+                <strong className='strong-title'>Pre Tarea:</strong> {ticketInfo.pre_tarea}
               </p>
             </div>
             <div className="col-12">
-              <p className="d-flex">
-                <strong>Motivo:</strong>{' '}
+              <p className="d-flex align-items-center item-form">
+                <strong className='strong-title'>Motivo:</strong>{' '}
                 {edit
                   ? (
                   <TextArea
@@ -349,7 +354,7 @@ const GetTicketDetalle = ({ ticket }) => {
                     rows="1"
                     register={register}
                     errors={errors}
-                    classCol="col-md-10 col-lg-10 d-flex form-group item-form"
+                    classCol="w-100 d-flex form-group"
                     options={{
                       required: 'Campo obligatorio'
                     }}
@@ -369,35 +374,36 @@ const GetTicketDetalle = ({ ticket }) => {
           </div>
           {edit
             ? (
-            <div>
-              <button onClick={handleCancelEdit}>Cancelar</button>
-              <button type="submit">Guardar</button>
+            <div className='box-btn-detalles'>
+              <button id="btn-cancelar" onClick={handleCancelEdit}>Cancelar</button>
+              <button id="btn-aceptar" type="submit">Guardar</button>
             </div>
               )
             : (
-            <i
-              className="fa fa-edit position-absolute top-0 end-0"
+            <img
+              src="../public/img/pen-to-square-solid.svg"
+              className='pen-edit'
               onClick={handleEdit}
-            ></i>
+            ></img>
               )}
         </form>
-        <div>
-          <p>Historial</p>
-          <div className="border border-1 d-flex flex-column">
+        <div className='historial'>
+          <p className='strong-title my-2'>Historial</p>
+          <div className="historial-box">
             <div
               style={{ height: '200px', overflowY: 'scroll' }}
-              className="p-2"
+              className="p-3"
             >
               {historialMensajes.map((mensaje) => (
                 <p>
-                  <span className="text-primary">{mensaje.area}</span>:{' '}
+                  <span className="texto-area">{`${mensaje.area}:`}</span>{' '}
                   {mensaje.info}
                 </p>
               ))}
             </div>
-            <div className="w-100 p-2 bg-secondary">
+            <div className="w-100 p-2 input-box">
               <form onSubmit={handleSubmitMessage} className="d-flex gap-2">
-                <input type="text" name="info" className="flex-grow-1" />
+                <input type="text" name="info" className="flex-grow-1" placeholder='Ingresar un nuevo mensaje...'/>
                 <button type="submit">Enviar</button>
               </form>
             </div>
@@ -406,16 +412,16 @@ const GetTicketDetalle = ({ ticket }) => {
       </article>
       <article className="col-md-5">
         <section className="row px-3">
-          <article className="col-lg-12 bg-secondary px-2 py-2 mb-3 rounded">
+          <article className="col-lg-12 tecnico-asignado">
             <div>
               <SelectTecnico
-                label="Asignar Técnico"
+                label="Asignar Técnico:"
                 name="tecnico"
                 placeholder="Selecciona un técnico"
                 optionList={tecnicos}
                 register={register}
                 errors={errors}
-                classCol="col-md-12 col-lg-12 d-flex ms-2"
+                classCol="d-flex align-items-center ms-2 select-tecnico"
                 options={{
                   required: 'Campo obligatorio'
                 }}
@@ -424,7 +430,7 @@ const GetTicketDetalle = ({ ticket }) => {
               />
             </div>
           </article>
-          <article className="col-lg-12 bg-secondary px-2 py-2 rounded">
+          <article className="col-lg-12 box-derivar">
             <div className="my-2">
               <SelectTecnico
                 label=""

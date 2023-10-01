@@ -92,7 +92,7 @@ function DragAndDropComponent ({ register, errors }, ref) {
       >
         <input type="file" id="input-file-upload" name="archivos" multiple={true}
         accept="image/jpeg, image/png, image/gif, text/plain, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={handleChange} ref={inputRef} register={register}
-          errors={errors} />
+          errors={errors}/>
         <label id="label-file-upload" htmlFor="input-file-upload">
           <div>
             <p><span style={{ color: 'var(--celeste)' }}>Suelte archivos aquí</span> o seleccionelos</p>
