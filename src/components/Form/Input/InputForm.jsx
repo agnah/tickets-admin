@@ -12,7 +12,7 @@ const Input = (props) => {
         name={name}
         {...attributes}
         {...register(name, options)}
-        className="detalle-input"
+        className="w-100 detalle-input"
         value={value}
         formNoValidate
         disabled={display}

@@ -34,7 +34,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
-      <div className="row inputLogin">
+      <div className="row login-input-box">
         <InputForm
           label="Email"
           // type="email"
@@ -45,7 +45,7 @@ const LoginForm = () => {
           register={register}
           errors={errors}
           // value="pp@mindes.com"
-          classCol="col-md-10 w-100 form-group item-form"
+          classCol="col-md-10 form-group w-100"
           options={{
             required: 'Campo obligatorio',
             pattern: {
@@ -56,7 +56,7 @@ const LoginForm = () => {
           display={false}
         />
       </div>
-      <div className="row inputLogin">
+      <div className="row login-input-box">
         <InputForm
           label="Password"
           type="password"
@@ -64,7 +64,7 @@ const LoginForm = () => {
           placeholder="Ingrese su contraseña..."
           register={register}
           errors={errors}
-          classCol="col-md-10 w-100 form-group item-form"
+          classCol="col-md-10 form-group w-100"
           value="Prueba@123"
           options={{
             required: 'Campo obligatorio',
