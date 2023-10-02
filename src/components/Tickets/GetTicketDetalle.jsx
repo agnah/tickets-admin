@@ -10,59 +10,58 @@ import SelectInput from '../../components/Form/Input/Select'
 import SelectTecnico from '../Form/Input/SelectWithOption'
 import TextArea from '../../components/Form/Input/TextArea'
 import SelectTarea from '@components/Tickets/SelectTarea'
-import './GetDetalleTicket.css'
 
 const tecnicos = [
-  'Franco Armani',
-  'Juan',
-  'Pedro',
-  'Maria',
-  'Luis',
-  'Jose',
-  'Laura'
-]
+  "Franco Armani",
+  "Juan",
+  "Pedro",
+  "Maria",
+  "Luis",
+  "Jose",
+  "Laura",
+];
 
-const datalistSolicitante = solicitantes.map((s) => s.nombre)
-const optionListSelect = ['CSTIMI', 'GDE', 'Computos', 'CID', 'Telefonía']
+const datalistSolicitante = solicitantes.map((s) => s.nombre);
+const optionListSelect = ["CSTIMI", "GDE", "Computos", "CID", "Telefonía"];
 const historial = [
   {
-    area: 'CSTIMI',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "CSTIMI",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'GDE',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "GDE",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'CSTIMI',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "CSTIMI",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'Computos',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "Computos",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'Computos',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "Computos",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'CSTIMI',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
+    area: "CSTIMI",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
   },
   {
-    area: 'GDE',
-    info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?'
-  }
-]
+    area: "GDE",
+    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
+  },
+];
 
-const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
+const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 
 const GetTicketDetalle = ({ ticket }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
-  } = useForm()
+    formState: { errors },
+  } = useForm();
 
   const [ticketInfo, setTicketInfo] = useState({
     solicitante: ticket.solicitante,
@@ -74,42 +73,41 @@ const GetTicketDetalle = ({ ticket }) => {
     piso: ticket.piso,
     referencia: ticket.referencia,
     pre_tarea: ticket.pre_tarea,
-    motivo: 'Un motivo valido'
-  })
+    motivo: "Un motivo valido",
+  });
   // const [showSelect, setShowSelect] = useState(false)
-  const [selectedOption, setSelectedOption] = useState(ticket.colaborador)
-  const [selectedOptionArea, setSelectedOptionArea] = useState(null)
-  const [edit, setEdit] = useState(false)
-  const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email)
-  const [historialMensajes, setHistorialMensajes] = useState(historial)
+  const [selectedOption, setSelectedOption] = useState(ticket.colaborador);
+  const [selectedOptionArea, setSelectedOptionArea] = useState(null);
+  const [edit, setEdit] = useState(false);
+  const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email);
+  const [historialMensajes, setHistorialMensajes] = useState(historial);
 
   // const handleSelectTecnico = () => {
   //   setShowSelect(!showSelect)
   // }
 
   const handleSelectChange = (e) => {
-    console.log(e.target.value)
-    if (e.target.name === 'tecnico') setSelectedOption(e.target.value)
-    if (e.target.name === 'derivar') setSelectedOptionArea(e.target.value)
-  }
+    if (e.target.name === "tecnico") setSelectedOption(e.target.value);
+    if (e.target.name === "derivar") setSelectedOptionArea(e.target.value);
+  };
 
   const handleSubmitMessage = (e) => {
-    e.preventDefault()
-    const user = JSON.parse(sessionStorage.getItem('user'))
-    console.log(user.sector[0])
-    console.log(e.target[0].value)
+    e.preventDefault();
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    console.log(user.sector[0]);
+    console.log(e.target[0].value);
     setHistorialMensajes([
       ...historialMensajes,
-      { area: user.sector[0], info: e.target[0].value }
-    ])
-  }
+      { area: user.sector[0], info: e.target[0].value },
+    ]);
+  };
 
   const handleEdit = () => {
-    setEdit(!edit)
-  }
+    setEdit(!edit);
+  };
 
   const handleCancelEdit = () => {
-    setEdit(!edit)
+    setEdit(!edit);
     setTicketInfo({
       solicitante: ticket.solicitante,
       email: ticket.email,
@@ -120,39 +118,46 @@ const GetTicketDetalle = ({ ticket }) => {
       piso: ticket.piso,
       referencia: ticket.referencia,
       pre_tarea: ticket.pre_tarea,
-      motivo: 'Un motivo valido'
-    })
-    setSolicitanteEmail(ticket.email)
-  }
+      motivo: "Un motivo valido",
+    });
+    setSolicitanteEmail(ticket.email);
+  };
 
   const onSubmit = (data) => {
-    setTicketInfo({ ...ticketInfo, ...data, email: solicitanteEmail })
-    console.log(data)
-    setEdit(!edit)
-  }
+    setTicketInfo({ ...ticketInfo, ...data, email: solicitanteEmail });
+    setEdit(!edit);
+  };
 
   const onChangeSolicitante = (e) => {
-    onChangeInput(e)
-    const solicitante = e.target.value
+    onChangeInput(e);
+    const solicitante = e.target.value;
     const solicitanteSeleccionado = solicitantes.find(
       (s) => s.nombre === solicitante
-    )
-    console.log({ solicitante, solicitanteSeleccionado })
+    );
+    console.log({ solicitante, solicitanteSeleccionado });
     if (solicitanteSeleccionado) {
-      setSolicitanteEmail(solicitanteSeleccionado.email)
+      setSolicitanteEmail(solicitanteSeleccionado.email);
     }
-  }
+  };
 
   const onChangeInput = (e) => {
-    const { value, name } = e.target
-    setTicketInfo({ ...ticketInfo, [name]: value })
-    console.log(ticketInfo)
-  }
+    const { value, name } = e.target;
+    setTicketInfo({ ...ticketInfo, [name]: value });
+    console.log(ticketInfo);
+  };
 
   const onChangeInputEmail = (e) => {
-    onChangeInput(e)
-    setSolicitanteEmail(e.target.value)
-  }
+    onChangeInput(e);
+    setSolicitanteEmail(e.target.value);
+  };
+
+  const handleAnular = (e) => {
+    // TODO: LOGICA DE ANULAR TICKET
+  };
+
+  const handleFinalizar = (e) => {
+    // TODO: LOGICA DE FINALIZAR TICKET
+  };
 
   return (
     <section className="row ">
@@ -174,76 +179,71 @@ const GetTicketDetalle = ({ ticket }) => {
                     errors={errors}
                     classCol="d-flex flex-row-reverse"
                     options={{
-                      required: 'Campo obligatorio'
+                      required: "Campo obligatorio",
                     }}
                     onChangeSolicitante={onChangeSolicitante}
                     onChangeInput={onChangeInput}
                     value={ticketInfo.solicitante}
+                  />)
+                  : (ticketInfo.solicitante)}
+              </p>
+            </div>
+            <div className="d-flex align-items-center">
+              <p className="d-flex align-items-center item-form">
+                <strong className='strong-title'>Email:</strong>{' '}
+                {edit
+                  ? (
+                  <InputForm
+                    label=""
+                    type="email"
+                    name="email"
+                    placeholder=""
+                    register={register}
+                    errors={errors}
+                    classCol="col-md-8 col-lg-8 d-flex ms-2 form-group item-form"
+                    options={{
+                      required: 'Campo obligatorio',
+                      pattern: {
+                        value: REGEX_EMAIL,
+                        message: 'El e-mail tiene que ser valido'
+                      }
+                    }}
+                    value={solicitanteEmail}
+                    onChangeInput={onChangeInputEmail}
                   />
                     )
                   : (
-                      ticketInfo.solicitante
+                      ticketInfo.email
+                    )}
+              </p>
+            </div>
+            <div>
+              <p className="d-flex align-items-center item-form">
+                <strong className='strong-title'>Telefono:</strong>
+                {edit
+                  ? (
+                  <InputForm
+                    label=""
+                    type="text"
+                    name="telefono"
+                    placeholder=""
+                    register={register}
+                    errors={errors}
+                    classCol="col-md-7 col-lg-7 d-flex ms-2 form-group item-form"
+                    options={{
+                      required: 'Campo obligatorio'
+                    }}
+                    onChangeInput={onChangeInput}
+                    value={ticketInfo.telefono}
+                  />
+                    )
+                  : (
+                      ticketInfo.telefono
                     )}
               </p>
             </div>
             <div className="d-flex align-items-center">
-              <div className="">
-                <p className="d-flex align-items-center item-form">
-                  <strong className='strong-title'>Email:</strong>{' '}
-                  {edit
-                    ? (
-                    <InputForm
-                      label=""
-                      type="email"
-                      name="email"
-                      placeholder=""
-                      register={register}
-                      errors={errors}
-                      classCol="col-md-8 col-lg-8 d-flex ms-2 form-group item-form"
-                      options={{
-                        required: 'Campo obligatorio',
-                        pattern: {
-                          value: REGEX_EMAIL,
-                          message: 'El e-mail tiene que ser valido'
-                        }
-                      }}
-                      value={solicitanteEmail}
-                      onChangeInput={onChangeInputEmail}
-                    />
-                      )
-                    : (
-                        ticketInfo.email
-                      )}
-                </p>
-              </div>
-              <div>
-                <p className="d-flex align-items-center item-form">
-                  <strong className='strong-title'>Telefono:</strong>
-                  {edit
-                    ? (
-                    <InputForm
-                      label=""
-                      type="text"
-                      name="telefono"
-                      placeholder=""
-                      register={register}
-                      errors={errors}
-                      classCol="col-md-7 col-lg-7 d-flex ms-2 form-group item-form"
-                      options={{
-                        required: 'Campo obligatorio'
-                      }}
-                      onChangeInput={onChangeInput}
-                      value={ticketInfo.telefono}
-                    />
-                      )
-                    : (
-                        ticketInfo.telefono
-                      )}
-                </p>
-              </div>
-            </div>
-            <div className="d-flex align-items-center">
-              <div>
+            <div>
                 <p className="d-flex align-items-center item-form">
                   <strong className='strong-title'>Area:</strong>{' '}
                   {edit
@@ -267,60 +267,61 @@ const GetTicketDetalle = ({ ticket }) => {
                       )}
                 </p>
               </div>
-              <div>
-                <p className="d-flex align-items-center item-form">
-                  <strong className='strong-title'>Sede:</strong>{' '}
-                  {edit
-                    ? (
-                    <SelectInput
-                      label=""
-                      name="sede"
-                      placeholder="Selecciona una sede"
-                      optionList={optionListSelect}
-                      register={register}
-                      errors={errors}
-                      classCol="d-flex ms-2"
-                      options={{
-                        required: 'Campo obligatorio'
-                      }}
-                      onChangeInput={onChangeInput}
-                    />
-                      )
-                    : (
-                        ticketInfo.sede
-                      )}
-                </p>
-              </div>
-              <div>
-                <p className="d-flex align-items-center item-form">
-                  <strong className='strong-title'>Piso:</strong>{' '}
-                  {edit
-                    ? (
-                    <SelectInput
-                      label=""
-                      name="piso"
-                      placeholder=""
-                      optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
-                      register={register}
-                      errors={errors}
-                      classCol="d-flex ms-2"
-                      options={{
-                        required: 'Campo obligatorio'
-                      }}
-                      onChangeInput={onChangeInput}
-                    />
-                      )
-                    : (
-                        ticketInfo.piso
-                      )}
-                </p>
-              </div>
+            </div>
+            <div>
+              <p className="d-flex align-items-center item-form">
+                <strong className="strong-title">Sede:</strong>{' '}
+                {edit
+                  ? (
+                  <SelectInput
+                    label=""
+                    name="sede"
+                    placeholder="Selecciona una sede"
+                    optionList={optionListSelect}
+                    register={register}
+                    errors={errors}
+                    classCol="d-flex ms-2"
+                    options={{
+                      required: 'Campo obligatorio'
+                    }}
+                    onChangeInput={onChangeInput}
+                  />
+                    )
+                  : (
+                      ticketInfo.sede
+                    )}
+              </p>
+            </div>
+            <div>
+              <p className="d-flex align-items-center item-form">
+                <strong className="strong-title">Piso:</strong>{' '}
+                {edit
+                  ? (
+                  <SelectInput
+                    label=""
+                    name="piso"
+                    placeholder=""
+                    optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+                    register={register}
+                    errors={errors}
+                    classCol="d-flex ms-2"
+                    options={{
+                      required: 'Campo obligatorio'
+                    }}
+                    onChangeInput={onChangeInput}
+                  />
+                    )
+                  : (
+                      ticketInfo.piso
+                    )}
+              </p>
             </div>
             <div className="col-12">
               <p className="d-flex align-items-center item-form">
-                <strong className='strong-title'>Referencia:</strong>{' '}
+                <strong className="strong-title">Referencia:</strong>{' '}
                 {edit
                   ? (
+
                   <InputForm
                     label=""
                     type="text"
@@ -331,11 +332,8 @@ const GetTicketDetalle = ({ ticket }) => {
                     classCol="col-md-2 col-lg-2 d-flex ms-2 form-group item-form"
                     onChangeInput={onChangeInput}
                     value={ticketInfo.referencia}
-                  />
-                    )
-                  : (
-                      ticketInfo.referencia
-                    )}
+                  />)
+                  : (ticketInfo.referencia)}
               </p>
             </div>
             <div className="col-12 my-1">
@@ -360,17 +358,11 @@ const GetTicketDetalle = ({ ticket }) => {
                     }}
                     onChangeInput={onChangeInput}
                     value={ticketInfo.motivo}
-                  />
-                    )
-                  : (
-                      ticketInfo.motivo
-                    )}
+                  />)
+                  : (ticketInfo.motivo)}
               </p>
             </div>
             <div className="col-12"></div>
-            {/* <p>
-              <strong>Fecha:</strong> {ticketInfo.fecha}
-            </p> */}
           </div>
           {edit
             ? (
