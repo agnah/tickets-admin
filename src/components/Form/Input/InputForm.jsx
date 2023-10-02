@@ -1,4 +1,4 @@
-import './InputForm.css'
+// import './InputForm.css'
 
 const Input = (props) => {
   const { label, name, register, options, classCol, errors, value, display, ...attributes } = props

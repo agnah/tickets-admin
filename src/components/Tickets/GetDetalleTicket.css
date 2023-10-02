@@ -21,7 +21,7 @@
 .texto-area {
     color: var(--celeste);
     font-weight: 600;
-    width: 7rem;
+    /* width: 7rem; */
 }
 
 .input-box {
