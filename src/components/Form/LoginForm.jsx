@@ -45,7 +45,7 @@ const LoginForm = () => {
           register={register}
           errors={errors}
           // value="pp@mindes.com"
-          classCol="col-md-10 form-group w-100"
+          classCol="col-md-10 form-group w-100 login-input"
           options={{
             required: 'Campo obligatorio',
             pattern: {
@@ -64,7 +64,7 @@ const LoginForm = () => {
           placeholder="Ingrese su contraseña..."
           register={register}
           errors={errors}
-          classCol="col-md-10 form-group w-100"
+          classCol="col-md-10 form-group w-100 login-input"
           value="Prueba@123"
           options={{
             required: 'Campo obligatorio',

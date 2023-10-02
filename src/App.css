@@ -15,6 +15,7 @@
     --color-danger: #EF5350;
     --color-success: #4FBB73;
     --color-tickets: #2BD47F;
+    --color-destacado: #F7941E;
     
     font-family: 'Encode Sans', sans-serif;
 
@@ -24,10 +25,11 @@
 
 body {
     margin: 0;
+    height: 100vh;
+    overflow-y: hidden;
 }
 
 #root {
-    min-height: 100vh;
     background: #e9e9e9;
     background-image: url(../public/img/icon-background.svg);
     background-repeat: no-repeat;
@@ -40,7 +42,8 @@ body {
     padding: 1.5rem 2rem;
     position: relative;
     bottom: 0;
-    height: 100%;
+    height: 88.5vh;
+    overflow-y: auto;
 }
 
 .area_input{
@@ -58,17 +61,21 @@ body {
     cursor: pointer;
 }
 
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 16px;
-  }
 
-  *::-webkit-scrollbar-track {
-    background: #ffffff00;
-  }
+*::-webkit-scrollbar {
+  width: 16px;
+}
 
-  *::-webkit-scrollbar-thumb {
-    background-color: var(--gris-medio);
-    border-radius: 10px;
-    border: 3px solid #ffffff;
-  }
+*::-webkit-scrollbar-track {
+  background: #ffffff00;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--gris-medio);
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
+
+.main-container::-webkit-scrollbar-thumb {
+  border: 3px solid #e9e9e9;
+}

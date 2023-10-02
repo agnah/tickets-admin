@@ -89,7 +89,7 @@ const TicketCreateForm = ({ prioridad }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
-      <div className="row">
+      <div className="d-flex justify-content-between">
         <>
           <DatalistChangeInput
             idList="datalistSolicitante"
@@ -99,7 +99,7 @@ const TicketCreateForm = ({ prioridad }) => {
             optionList={datalistSolicitante}
             register={register}
             errors={errors}
-            classCol="col-md-4 col-lg-4"
+            classCol="align-items-start"
             options={{
               required: 'Campo obligatorio'
             }}
@@ -113,7 +113,7 @@ const TicketCreateForm = ({ prioridad }) => {
           optionList={optionListSelect}
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4"
+          classCol="align-items-start"
           options={{
             required: 'Campo obligatorio'
           }}
@@ -125,7 +125,7 @@ const TicketCreateForm = ({ prioridad }) => {
           optionList={optionListSelect}
           register={register}
           errors={errors}
-          classCol="col-md-3 col-lg-3"
+          classCol="align-items-start"
           options={{
             required: 'Campo obligatorio'
           }}
@@ -137,7 +137,7 @@ const TicketCreateForm = ({ prioridad }) => {
           optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
           register={register}
           errors={errors}
-          classCol="col-md-1 col-lg-1"
+          classCol="align-items-start"
           options={{
             required: 'Campo obligatorio'
           }}

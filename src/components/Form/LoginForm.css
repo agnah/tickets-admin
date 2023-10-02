@@ -35,3 +35,16 @@
     border-color: var(--celeste);
     box-shadow: 0 0 0 0.1rem rgba(94, 178, 203, 0.25);
 }
+
+.login-input-box input:focus-visible {
+    outline: none;
+    border-color: var(--celeste);
+    box-shadow: 0 0 0 0.1rem rgba(94, 178, 203, 0.25);
+}
+
+.login-input-box input {
+    color: var(--gris-medio);
+    border-radius: 10px;
+    border: 1px solid var(--hr-color);
+    padding: .25rem .8rem;
+}

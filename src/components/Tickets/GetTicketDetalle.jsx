@@ -439,7 +439,7 @@ const GetTicketDetalle = ({ ticket }) => {
                 optionList={optionListSelect}
                 register={register}
                 errors={errors}
-                classCol="col-md-12 col-lg-12 d-flex ms-2"
+                classCol="col-md-12 col-lg-12 d-flex ms-2 select-derivar"
                 options={{
                   required: 'Campo obligatorio'
                 }}
@@ -448,8 +448,8 @@ const GetTicketDetalle = ({ ticket }) => {
               />
             </div>
             <div>
-              <p className="mb-0">Tiempo de espera: {''}</p>
-              <p className="mb-0">Última acción: {''}</p>
+              <p className="mb-1 ms-2 subtitle-derivar">Tiempo de espera: {''}</p>
+              <p className="mb-0 ms-2 subtitle-derivar">Última acción: {''}</p>
             </div>
           </article>
         </section>

@@ -18,16 +18,20 @@ const DatalistChangeInput = (props) => {
     ...attributes
   } = props
 
-  const classes = errors[name]?.message
-    ? `${classCol} has-error`
+  const isError = errors[name]?.message
+
+  const classes = isError
+    ? `${classCol} has-error error-border`
     : `${classCol}`
+
+  const placeholderText = isError ? errors[name]?.message : attributes?.placeholder
 
   const handleChangeInput = () => {
     setChangeInput(!changeInput)
   }
 
   return (
-    <div className={classes}>
+    <div className={`d-flex flex-column ${classes}`}>
       <div className="label-container">
         <label htmlFor={name}>{label}</label>
         <label
@@ -47,8 +51,8 @@ const DatalistChangeInput = (props) => {
               {...attributes}
               {...register(name, options)}
               list={idList}
-              placeholder={placeholder}
-              className="detalle-input"
+              placeholder={placeholderText}
+              className={`${isError ? 'help-block error error-style detalle-input' : 'detalle-input'}`}
               onChange={onChangeSolicitante}
             />
             <datalist id={idList} >
@@ -68,12 +72,12 @@ const DatalistChangeInput = (props) => {
             onChange={attributes?.onChangeInput}
           />
             )}
-      {errors[name] && (
-        <p className="help-block error" role="alert">
+      </div>
+      {/* {errors[name] && (
+        <p className="help-block error text-error" role="alert">
           {errors[name]?.message}
         </p>
-      )}
-      </div>
+      )} */}
     </div>
   )
 }

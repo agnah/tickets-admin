@@ -14,7 +14,11 @@ const Select = (props) => {
     ...attributes
   } = props
 
-  const classes = errors[name]?.message
+  const isError = errors[name]?.message
+
+  const placeholderText = isError ? errors[name]?.message : placeholder
+
+  const classes = isError
     ? `${classCol} has-error`
     : `${classCol}`
 
@@ -23,7 +27,7 @@ const Select = (props) => {
   // }
 
   return (
-    <div className={`select-container ${classes}`}>
+    <div className={`select-container d-flex flex-column ${classes}`}>
       <label htmlFor={name}>{label}</label>
       <div className="form-group item-form select-box">
         {/* <div className="select-icon">
@@ -37,10 +41,11 @@ const Select = (props) => {
           name={name}
           {...attributes}
           {...register(name, options)}
-          className="detalle-input"
+          className={`detalle-input ${isError ? 'help-block error error-style' : ''}`}
           onChange={attributes?.onChangeInput}
+          placeholder={placeholderText}
         >
-          <option value="">{placeholder}</option>
+          <option value="">{placeholderText}</option>
           {optionList.map((option, index) => (
             <option key={index} value={option.toLowerCase()}>
               {option}
@@ -51,10 +56,11 @@ const Select = (props) => {
           name={name}
           {...attributes}
           {...register(name, options)}
-          className={props?.classInput ? `${props.classInput} detalle-input` : 'detalle-input'}
+          className={`${props?.classInput ? `${props.classInput} detalle-input` : 'detalle-input'} ${isError ? 'help-block error error-style' : ''}`}
           onChange={attributes?.onChangeInput}
+          placeholder={placeholderText}
         >
-          <option value="">{placeholder}</option>
+          <option value="">{placeholderText}</option>
           {optionList.map((option, index) => (
             <option key={index} value={option}>
               {option}
@@ -62,12 +68,12 @@ const Select = (props) => {
           ))}
         </select>
         }
-        {errors[name] && (
-          <p className="help-block error" role="alert">
+      </div>
+      {/* {errors[name] && (
+          <p className="help-block error text-error" role="alert">
             {errors[name]?.message}
           </p>
-        )}
-      </div>
+      )} */}
     </div>
   )
 }

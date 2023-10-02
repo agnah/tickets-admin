@@ -123,6 +123,7 @@
     border-radius: 19px;
     padding: 1rem;
     font-weight: 600;
+    color: var(--gris-medio);
 }
 
 .select-tecnico label {
@@ -169,6 +170,42 @@
     padding: .25rem .8rem;
 }
 
+.detalle-input:focus-visible {
+    outline: none;
+    border-color: var(--celeste);
+    box-shadow: 0 0 0 0.1rem rgba(94, 178, 203, 0.25);
+}
+
 .text-area {
     width: 100%;
+}
+
+.select-derivar select{
+    background-color: var(--color-destacado);
+    border: 1px solid var(--color-destacado);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 19px;
+    text-align: center;
+}
+
+.subtitle-derivar {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gris-medio);
+}
+
+/* Estilos para error */
+
+.error-style {
+    border: 1px solid var(--color-danger);
+    padding: .25rem .8rem;
+}
+
+.error-style::placeholder {
+    color: var(--color-danger);
+}
+  
+.text-error {
+    color: var( --color-danger);
 }

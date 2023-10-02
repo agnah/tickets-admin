@@ -11,8 +11,12 @@ const SelectWithOption = (props) => {
     ...attributes
   } = props
 
-  const classes = errors[name]?.message
-    ? `${classCol} has-error`
+  const isError = errors[name]?.message
+
+  const placeholderText = isError ? errors[name]?.message : placeholder
+
+  const classes = isError
+    ? `${classCol} has-error error-border`
     : `${classCol}`
 
   return (
@@ -23,14 +27,10 @@ const SelectWithOption = (props) => {
           name={name}
           {...attributes}
           {...register(name, options)}
-          className={
-            props?.classInput
-              ? `${props.classInput} form-control`
-              : 'form-control'
-          }
+          className={`${props?.classInput ? `${props.classInput} form-control` : 'form-control'} ${isError ? 'help-block error error-style' : ''}`}
           onChange={attributes?.onChangeInput}
         >
-          <option value="">{placeholder}</option>
+          <option value="">{placeholderText}</option>
           {optionList.map((option, index) => (
             <>
               {attributes?.selectedOption !== null &&
@@ -49,11 +49,11 @@ const SelectWithOption = (props) => {
           ))}
         </select>
 
-        {errors[name] && (
+        {/* {errors[name] && (
           <p className="help-block error" role="alert">
             {errors[name]?.message}
           </p>
-        )}
+        )} */}
       </div>
     </div>
   )
