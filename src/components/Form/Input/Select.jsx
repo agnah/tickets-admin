@@ -62,7 +62,7 @@ const Select = (props) => {
         >
           <option value="">{placeholderText}</option>
           {optionList.map((option, index) => (
-            <option key={index} value={option}>
+            <option key={index} value={index+1}>
               {option}
             </option>
           ))}
