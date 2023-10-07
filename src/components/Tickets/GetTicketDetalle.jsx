@@ -216,7 +216,7 @@ const GetTicketDetalle = ({ ticket }) => {
   };
 
   return (
-    <section className="row ">
+    <section className="row">
       <article className="col-md-7 position-relative container-left-detalle">
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -225,7 +225,7 @@ const GetTicketDetalle = ({ ticket }) => {
           className="d-flex flex-column"
         >
           <div className="row">
-            <div className="col-12">
+            <div className="col-md-6">
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Solicitante:</strong>{" "}
                 {edit ? (
@@ -252,8 +252,9 @@ const GetTicketDetalle = ({ ticket }) => {
             </div>
             <div className="d-flex align-items-center">
               <p className="d-flex align-items-center item-form">
-                <strong className="strong-title">Email:</strong>{" "}
-                {edit ? (
+                <strong className='strong-title'>Email:</strong>{' '}
+                {edit
+                  ? (
                   <InputForm
                     label=""
                     type="email"
@@ -261,7 +262,7 @@ const GetTicketDetalle = ({ ticket }) => {
                     placeholder=""
                     register={register}
                     errors={errors}
-                    classCol="col-md-8 col-lg-8 d-flex ms-2 form-group item-form"
+                    classCol="w-100 d-flex ms-2 form-group item-form"
                     options={{
                       required: "Campo obligatorio",
                       pattern: {
@@ -279,8 +280,9 @@ const GetTicketDetalle = ({ ticket }) => {
             </div>
             <div>
               <p className="d-flex align-items-center item-form">
-                <strong className="strong-title">Telefono:</strong>
-                {edit ? (
+                <strong className='strong-title'>Telefono:</strong>
+                {edit
+                  ? (
                   <InputForm
                     label=""
                     type="text"
@@ -288,7 +290,7 @@ const GetTicketDetalle = ({ ticket }) => {
                     placeholder=""
                     register={register}
                     errors={errors}
-                    classCol="col-md-7 col-lg-7 d-flex ms-2 form-group item-form"
+                    classCol="d-flex ms-2 form-group item-form"
                     options={{
                       required: "Campo obligatorio",
                     }}
@@ -301,10 +303,11 @@ const GetTicketDetalle = ({ ticket }) => {
               </p>
             </div>
             <div className="d-flex align-items-center">
-              <div>
+            <div>
                 <p className="d-flex align-items-center item-form">
-                  <strong className="strong-title">Area:</strong>{" "}
-                  {edit ? (
+                  <strong className='strong-title'>Area:</strong>{' '}
+                  {edit
+                    ? (
                     <SelectInput
                       label=""
                       name="area"
@@ -314,17 +317,18 @@ const GetTicketDetalle = ({ ticket }) => {
                       errors={errors}
                       classCol="d-flex ms-2"
                       options={{
-                        required: "Campo obligatorio",
+                        required: "Campo obligatorio"
                       }}
                       onChangeInput={onChangeInput}
                     />
-                  ) : (
-                    ticketInfo.area
-                  )}
+                      )
+                    : (
+                        ticketInfo.area
+                      )}
                 </p>
               </div>
             </div>
-            <div>
+            <div className='col-md-6'>
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Sede:</strong>{" "}
                 {edit ? (
@@ -346,7 +350,7 @@ const GetTicketDetalle = ({ ticket }) => {
                 )}
               </p>
             </div>
-            <div>
+            <div className='col-md-6'>
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Piso:</strong>{" "}
                 {edit ? (
@@ -370,15 +374,17 @@ const GetTicketDetalle = ({ ticket }) => {
             </div>
             <div className="col-12">
               <p className="d-flex align-items-center item-form">
-                <strong className="strong-title">Referencia:</strong>{" "}
-                {edit ? (
+                <strong className="strong-title">Referencia:</strong>{' '}
+                {edit
+                  ? (
+
                   <InputForm
                     label=""
                     type="text"
                     name="referencia"
                     placeholder=""
                     register={register}
-                    errors={""}
+                    errors={''}
                     classCol="col-md-2 col-lg-2 d-flex ms-2 form-group item-form"
                     onChangeInput={onChangeInput}
                     value={ticketInfo.referencia}
@@ -443,16 +449,10 @@ const GetTicketDetalle = ({ ticket }) => {
               className="p-3"
             >
               {historialMensajes.map((mensaje) => (
-                <p className="row">
-                  <span className="col-1 texto-area">{mensaje.area}:</span>
-                  <p className="col-8">{mensaje.info}</p>
-                  <span className="col-3 text-body-secondary">
-                    {mensaje.date}
-                  </span>
+                <p>
+                  <span className="texto-area">{`${mensaje.area}:`}</span>{' '}
+                  {mensaje.info}
                 </p>
-                // <div className="row">
-
-                // </div>
               ))}
             </div>
             <div className="w-100 p-2 input-box">
@@ -470,7 +470,7 @@ const GetTicketDetalle = ({ ticket }) => {
         </div>
       </article>
       <article className="col-md-5">
-        <section className="row px-3">
+        <section className="row px-2">
           <article className="col-lg-12 tecnico-asignado">
             {/* <div>
               <SelectTecnico
@@ -515,7 +515,7 @@ const GetTicketDetalle = ({ ticket }) => {
           </article>
           <article className="col-lg-12 box-derivar">
             <div className="my-2">
-              {/* <SelectTecnico
+              <SelectTecnico
                 label=""
                 name="area"
                 placeholder="Derivar"
@@ -561,7 +561,7 @@ const GetTicketDetalle = ({ ticket }) => {
             </div>
           </article>
         </section>
-        <section>
+        <section >
           <article>
             <div>
               <SelectTarea />

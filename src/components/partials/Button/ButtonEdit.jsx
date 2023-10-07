@@ -3,6 +3,7 @@ function ButtonEdit ({ onClick }) {
     <i
       className="fa fa-edit"
       onClick={onClick}
+      style={{ cursor: 'pointer' }}
     ></i>
   )
 }

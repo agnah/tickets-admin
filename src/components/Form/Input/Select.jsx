@@ -28,20 +28,17 @@ const Select = (props) => {
 
   return (
     <div className={`select-container d-flex flex-column ${classes}`}>
-      <label htmlFor={name}>{label}</label>
-      <div className="form-group item-form select-box">
-        {/* <div className="select-icon">
-          <i
-            className="fa-solid fa-caret-down"
-          ></i>
-        </div> */}
+      <div className="label-container">
+        <label className='label-form' htmlFor={name}>{label}</label>
+      </div>
+      <div className="w-100 form-group item-form select-box">
         {
           attributes?.displayFields
             ? <select
           name={name}
           {...attributes}
           {...register(name, options)}
-          className={`detalle-input ${isError ? 'help-block error error-style' : ''}`}
+          className={`detalle-input w-100 ${isError ? 'help-block error error-style w-100' : ''}`}
           onChange={attributes?.onChangeInput}
           placeholder={placeholderText}
         >
@@ -56,7 +53,7 @@ const Select = (props) => {
           name={name}
           {...attributes}
           {...register(name, options)}
-          className={`${props?.classInput ? `${props.classInput} detalle-input` : 'detalle-input'} ${isError ? 'help-block error error-style' : ''}`}
+          className={`${props?.classInput ? `${props.classInput} detalle-input w-100` : 'detalle-input w-100'} ${isError ? 'help-block error error-style w-100' : ''}`}
           onChange={attributes?.onChangeInput}
           placeholder={placeholderText}
         >
@@ -68,6 +65,9 @@ const Select = (props) => {
           ))}
         </select>
         }
+        <div className="select-icon">
+        <img src="../public/img/caret-down-solid.svg" className="fa-solid fa-caret-down"></img>
+        </div>
       </div>
       {/* {errors[name] && (
           <p className="help-block error text-error" role="alert">

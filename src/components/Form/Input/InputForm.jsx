@@ -12,8 +12,10 @@ const Input = (props) => {
   const placeholderText = isError ? errors[name]?.message : attributes?.onChangeInput
 
   return (
-    <div className={classes}>
-      <label className='mt-2' htmlFor={name}>{label}</label>
+    <div className={`input-conatiner ${classes}`}>
+      <div className="label-container">
+        <label className='label-form' htmlFor={name}>{label}</label>
+      </div>
       <input
         name={name}
         {...attributes}

@@ -14,7 +14,7 @@ import './TicketCreateForm.css'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
-const optionListSelect = ['COMPUTOS', 'TELEFONIA', 'SOPORTE TECNICO', 'CID' ,'GDE']
+const optionListSelect = ['COMPUTOS', 'TELEFONIA', 'SOPORTE TECNICO', 'CID', 'GDE']
 const optionCstimi = ['Soporte', 'Telefonia']
 const datalistSolicitante = solicitantes.map(s => s.nombre)
 
@@ -58,9 +58,9 @@ const TicketCreateForm = ({ prioridad }) => {
       )
     } else {
       return (
-        <label htmlFor="area" className="col-md-4 col-lg-4">
+        <label htmlFor="area" className="col-2 label-form">
           Sector:
-          <p name="area" id="area" className="form-group item-form">
+          <p name="area" id="area" className="form-group item-form sector-box mb-2 mt-1">
             {filter}
           </p>
         </label>
@@ -117,7 +117,7 @@ const TicketCreateForm = ({ prioridad }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
-      <div className="d-flex justify-content-between">
+      <div className="row">
         <>
           <DatalistChangeInput
             idList="datalistSolicitante"
@@ -127,7 +127,7 @@ const TicketCreateForm = ({ prioridad }) => {
             optionList={datalistSolicitante}
             register={register}
             errors={errors}
-            classCol="align-items-start"
+            classCol="col-md-3 align-items-start datalist-input"
             options={{
               required: 'Campo obligatorio'
             }}
@@ -147,8 +147,8 @@ const TicketCreateForm = ({ prioridad }) => {
           }}
         />
         <Select
-          label="Área Solicitante"
-          name="area_solicitante"
+          label="Área"
+          name="area"
           placeholder="Selecciona un área"
           optionList={optionListSelect}
           register={register}
@@ -204,13 +204,51 @@ const TicketCreateForm = ({ prioridad }) => {
           }}
         />
         <InputForm
-          label="Referencia"
+          label="N° GDE"
           type="text"
-          name="referencia"
+          name="gde"
           placeholder=""
           register={register}
           errors={''}
-          classCol="col-md-2 col-lg-2 form-group item-form"
+          classCol="col-2 form-group item-form"
+        />
+      </div>
+      <div className="col-12 d-flex justify-content-between">
+        <Select
+          label="Sede"
+          name="sede"
+          placeholder="Selecciona una sede"
+          optionList={optionListSelect}
+          register={register}
+          errors={errors}
+          classCol="col-md-4 align-items-start"
+          options={{
+            required: 'Campo obligatorio'
+          }}
+        />
+        <Select
+          label="Área Solicitante"
+          name="area_solicitante"
+          placeholder="Selecciona un área"
+          optionList={optionListSelect}
+          register={register}
+          errors={errors}
+          classCol="col-md-4 align-items-start"
+          options={{
+            required: 'Campo obligatorio'
+          }}
+        />
+        <Select
+          label="Piso"
+          name="piso"
+          placeholder=""
+          optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+          register={register}
+          errors={errors}
+          classCol="col-1 align-items-start"
+          options={{
+            required: 'Campo obligatorio'
+          }}
         />
         <InputForm
           label="N° GDE"
@@ -219,7 +257,7 @@ const TicketCreateForm = ({ prioridad }) => {
           placeholder=""
           register={register}
           errors={''}
-          classCol="col-md-4 col-lg-4 form-group item-form"
+          classCol="col-3 form-group item-form"
         />
         <Select
           label="Área Asignada"
@@ -234,6 +272,18 @@ const TicketCreateForm = ({ prioridad }) => {
           }}
         />
       </div>
+      <Select
+          label="Área Asignada"
+          name="area_asignada"
+          placeholder="Selecciona un área"
+          optionList={optionListSelect}
+          register={register}
+          errors={errors}
+          classCol="align-items-start col-md-4 col-lg-4 form-group item-form"
+          options={{
+            required: 'Campo obligatorio'
+          }}
+        />
       <hr />
       <div className="row">
         <TextArea
@@ -242,7 +292,7 @@ const TicketCreateForm = ({ prioridad }) => {
           rows="20"
           register={register}
           errors={errors}
-          classCol="col-md-8 col-lg-8 form-group item-form"
+          classCol="col-6 form-group item-form"
           options={{
             required: 'Campo obligatorio'
           }}

@@ -1,25 +1,18 @@
 .select-box {
     display: flex;
     align-items: center;
-    justify-content: center;
-}
-
-.select-box select::after {
-    content: '\f107';
-    font-family: 'Font Awesome 5 Free';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    left: auto;
-    top: 50%;
-    transform: translateY(-50%); 
-    pointer-events: none;
-    color: black;
-    font-size: 15px;
-    font-weight: 900;
 }
 
 .select-box select:focus {
     border-color: var(--celeste);
     box-shadow: 0 0 0 0.1rem rgba(94, 178, 203, 0.25);
+}
+
+.fa-caret-down {
+    width: .7em;
+    height: .7rem;
+    color: var(--gris-medio);
+    position: relative;
+    right: 2.5vw;
+    bottom: .1rem;
 }

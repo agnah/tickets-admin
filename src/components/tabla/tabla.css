@@ -184,7 +184,7 @@ select:disabled {
 }
 
 .rdt_TableRow:nth-child(even) {
-    filter: brightness(.9);
+    filter: brightness(.92);
     border: none;
 }
 
@@ -211,4 +211,8 @@ div > select + svg {
 
 option {
     border: none !important;
+}
+
+.badge-container:nth-child(even) {
+    filter: brightness(1.5);
 }

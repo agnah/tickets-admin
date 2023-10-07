@@ -11,7 +11,7 @@ function TextArea (props) {
 
   return (
     <div className={classes}>
-      <label htmlFor={name}>{label}</label>
+      <label className="label-form" htmlFor={name}>{label}</label>
       <textarea
         name={name}
         {...attributes}
@@ -20,7 +20,7 @@ function TextArea (props) {
         cols='1'
         onChange={attributes?.onChangeInput}
         value={attributes?.value}
-        style={{ height: '38px' }}
+        style={{ height: '2rem' }}
         placeholder={placeholderText}
       />
       {/* {errors[name] && (
