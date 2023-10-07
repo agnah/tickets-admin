@@ -11,7 +11,7 @@ function TextArea (props) {
 
   return (
     <div className={classes}>
-      <label htmlFor={name}>{label}</label>
+      <label className="label-form" htmlFor={name}>{label}</label>
       <textarea
         name={name}
         {...attributes}

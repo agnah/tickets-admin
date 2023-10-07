@@ -1,6 +1,10 @@
 export default async function FetchGeneral (api) {
   try {
-    const res = await fetch(api)
+    const res = await fetch(api,{
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
     if (!res.ok) {
       throw new Error(`Error de red: ${res.status} ${res.statusText}`)
     }

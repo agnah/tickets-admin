@@ -14,7 +14,7 @@ import './TicketCreateForm.css'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
-const optionListSelect = ['CSTIMI', 'GDE', 'Computos', 'CID']
+const optionListSelect = ['COMPUTOS', 'TELEFONIA', 'SOPORTE TECNICO', 'CID', 'GDE']
 const optionCstimi = ['Soporte', 'Telefonia']
 const datalistSolicitante = solicitantes.map(s => s.nombre)
 
@@ -58,9 +58,9 @@ const TicketCreateForm = ({ prioridad }) => {
       )
     } else {
       return (
-        <label htmlFor="area" className="col-md-4 col-lg-4">
+        <label htmlFor="area" className="col-2 label-form">
           Sector:
-          <p name="area" id="area" className="form-group item-form">
+          <p name="area" id="area" className="form-group item-form sector-box mb-2 mt-1">
             {filter}
           </p>
         </label>
@@ -68,10 +68,38 @@ const TicketCreateForm = ({ prioridad }) => {
     }
   }
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const dragAndDropData = dragAndDropRef.current.getData()
     const formData = { ...data, dragAndDropData, prioridad }
-    console.log('Datos a enviar:', formData)
+    let images = dragAndDropData.map(image => image.name).join(';')
+    let body = {
+      "email_solicitante": formData.email,
+      "nombre_solicitante": formData.solicitante,
+      "apellido_solicitante": formData.solicitante,
+      "telefono_solicitante": formData.telefono,
+      "celular_solicitante": formData.telefono,
+      "area_solicitante": Number(formData.area_solicitante),
+      "sede_solicitante": "9_de_julio",
+      "piso_solicitante": formData.piso,
+      "referencia": formData.referencia,
+      "area_asignada_id": Number(formData.area_asignada),
+      "tecnico_asignado_id": null,
+      "prioridad": "baja",
+      "estado": "pendiente",
+      "descripcion": formData.motivo,
+      "pre_tarea": "tarea1",
+      "archivos": images
+    }
+
+    let response = await fetch('http://localhost:8000/api/tickets',{
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+    let result = await response.json();
+    console.log({result});
   }
 
   const [solicitanteEmail, setSolicitanteEmail] = useState(null)
@@ -155,19 +183,19 @@ const TicketCreateForm = ({ prioridad }) => {
           optionList={optionListSelect}
           register={register}
           errors={errors}
-          classCol="col-md-3 align-items-start"
+          classCol="col-md-4 align-items-start"
           options={{
             required: 'Campo obligatorio'
           }}
         />
         <Select
-          label="Área"
-          name="area"
+          label="Área Solicitante"
+          name="area_solicitante"
           placeholder="Selecciona un área"
           optionList={optionListSelect}
           register={register}
           errors={errors}
-          classCol="col-md-3 align-items-start"
+          classCol="col-md-4 align-items-start"
           options={{
             required: 'Campo obligatorio'
           }}
@@ -185,15 +213,27 @@ const TicketCreateForm = ({ prioridad }) => {
           }}
         />
         <InputForm
-          label="Referencia"
+          label="N° GDE"
           type="text"
-          name="referencia"
+          name="gde"
           placeholder=""
           register={register}
           errors={''}
-          classCol="col-5 form-group item-form"
+          classCol="col-3 form-group item-form"
         />
       </div>
+      <Select
+          label="Área Asignada"
+          name="area_asignada"
+          placeholder="Selecciona un área"
+          optionList={optionListSelect}
+          register={register}
+          errors={errors}
+          classCol="align-items-start col-md-4 col-lg-4 form-group item-form"
+          options={{
+            required: 'Campo obligatorio'
+          }}
+        />
       <hr />
       <div className="row">
         <TextArea

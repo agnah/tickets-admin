@@ -67,7 +67,7 @@ function SelectTarea () {
       <div className='d-flex align-items-center'>
         <div className="border border-1 flex-grow-1 list-tareas" style={{ minHeight: '35px' }}>
           {savedTareas.map((option) => (
-            <button className="btn-tarea" key={option.id} onClick={() => openModal(option)}>
+            <button className={`btn-tarea ${tareaSelecionado && tareaSelecionado.id === option.id ? "btn-tarea-focus" : ""}`} key={option.id} onClick={() => openModal(option)}>
               {option.label}
             </button>
           ))}
@@ -86,41 +86,45 @@ function SelectTarea () {
 
   const renderModalContent = () => (
     <div className="modal-content">
-      <h2>{tareaSelecionado ? tareaSelecionado.label : ''}</h2>
+      {/* <h2>{tareaSelecionado ? tareaSelecionado.label : ''}</h2> */}
       {tareaFinalizada
         ? (
         <>
           <label>Detalle de finalización:</label>
-          <textarea name="detalleFinTarea" />
-          <Button
-            onClick={closeModal}
-            classBoton="mx-1 btn btn-success"
-            texto="Cancelar"
-          />
-          <Button
-            onClick={handleTaskCompletion}
-            classBoton="mx-1 btn btn-success"
-            texto="Finalizar"
-          />
+          <textarea className="detalle-fin-tarea" name="detalleFinTarea" />
+          <div className="d-flex justify-content-end mt-2">
+            <Button
+              onClick={closeModal}
+              classBoton="mx-1 btn-modal cancel-tarea"
+              texto="Cancelar"
+            />
+            <Button
+              onClick={handleTaskCompletion}
+              classBoton="mx-1 btn-modal finish-tarea"
+              texto="Finalizar"
+            />
+          </div>
         </>
           )
         : (
         <>
-          <Button
-            onClick={handleFinishTask}
-            classBoton="mx-1 btn btn-success"
-            texto="Finalizar Tarea"
-          />
-          <Button
-            onClick={closeModal}
-            classBoton="mx-1 btn btn-success"
-            texto="Cancelar"
-          />
-          <Button
-            onClick={handleEliminarTarea}
-            classBoton="mx-1 btn btn-success"
-            texto="Eliminar"
-          />
+          <div className="d-flex justify-content-center">
+            <Button
+                onClick={handleFinishTask}
+                classBoton="mx-1 btn-modal finish-tarea"
+                texto="Finalizar Tarea"
+              />
+              <Button
+                onClick={closeModal}
+                classBoton="mx-1 btn-modal cancel-tarea"
+                texto="Cancelar"
+              />
+              <Button
+                onClick={handleEliminarTarea}
+                classBoton="mx-1 btn-modal delete-terea"
+                texto="Eliminar"
+              />
+          </div>
         </>
           )}
     </div>
@@ -134,18 +138,22 @@ function SelectTarea () {
       {showSelect &&
         (
         <>
-          <Select
-            isMulti
-            name="Tareas"
-            options={tareasOptions}
-            onChange={handleSelectChange}
-            value={selectedOptions}
-          />
-          <Button
-            onClick={handleSaveSelection}
-            classBoton="mx-1 btn btn-success"
-            texto="Guardar Tareas"
-          />
+          <div className="mt-3">
+            <Select
+                isMulti
+                name="Tareas"
+                options={tareasOptions}
+                onChange={handleSelectChange}
+                value={selectedOptions}
+              />
+          </div>
+          <div className="d-flex justify-content-end mt-2">
+            <Button
+              onClick={handleSaveSelection}
+              classBoton="mx-1 btn-modal finish-tarea"
+              texto="Guardar Tareas"
+            />
+          </div>
         </>
         )
         }

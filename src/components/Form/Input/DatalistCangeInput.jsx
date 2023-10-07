@@ -67,7 +67,7 @@ const DatalistChangeInput = (props) => {
             name={name}
             {...attributes}
             {...register(name, options)}
-            className="detalle-input"
+            className="detalle-input w-100"
             formNoValidate
             onChange={attributes?.onChangeInput}
           />

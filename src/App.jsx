@@ -9,7 +9,11 @@ function App() {
   }, []);
 
   const testFunction = async () => {
-    let response = await fetch("http://localhost:8000/api/tickets/");
+    let response = await fetch("http://localhost:8000/api/tickets/",{
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
     let result = await response.json();
     console.log(result);
   };
