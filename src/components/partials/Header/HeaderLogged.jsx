@@ -78,7 +78,11 @@ const HeaderLogged = (props) => {
              </div>
           </div>
         </div>
+        <div className='d-flex justify-content-end w-25 pe-3 fw-bold'>
+        {!seccionTicket ? 'Ir a Tickets' : "Ir a Tramites"}
+        </div>
         <div className="header-buttons">
+          
           {!user.perfil.includes(TECNICO) &&
             (seccionTicket
               ? <Button type="button" texto="Tramites" classBoton="switch-tramites" onClick={redirectTramites} />
