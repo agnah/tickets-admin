@@ -82,15 +82,15 @@ function Tabla () {
       sortable: true
     },
     {
-      name: 'Colaborador',
+      name: 'Técnico asignado',
       selector: (row) => row.colaborador,
       sortable: true
     },
-    {
-      name: 'Pre-tarea',
-      selector: (row) => row.pre_tarea,
-      sortable: true
-    },
+    // {
+    //   name: 'Pre-tarea',
+    //   selector: (row) => row.pre_tarea,
+    //   sortable: true
+    // },
     {
       name: 'Área asignada',
       selector: (row) => row.area_asignada,
@@ -121,14 +121,14 @@ function Tabla () {
   const filteredColumns = (filtro) => {
     const { MESA_DE_ENTRADA, SOPORTE, CID, COMPUTOS, TELEFONIA, GDE, CSTIMI, ADMIN } = areas
     const filterColumns = {
-      [MESA_DE_ENTRADA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Área asignada', 'Colaborador', 'Estado', 'Accion'],
-      [SOPORTE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [CID]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [COMPUTOS]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [TELEFONIA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [GDE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [CSTIMI]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [ADMIN]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion']
+      [MESA_DE_ENTRADA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Área asignada', 'Técnico asignado', 'Estado', 'Accion'],
+      [SOPORTE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+      [CID]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+      [COMPUTOS]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+      [TELEFONIA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+      [GDE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+      [CSTIMI]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+      [ADMIN]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion']
     }
     const columnsPorArea = filterColumns[filtro] || filterColumns[MESA_DE_ENTRADA]
     return columnsTotales.filter(column =>

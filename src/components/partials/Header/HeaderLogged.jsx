@@ -1,6 +1,5 @@
 import BotonProfile from '../../partials/Users/BotonProfile'
 import Button from '../../partials/Button/Button'
-import useApiMock from '@servicios/useApiMock'
 import { apis } from '@constantes/constApis'
 import './Header.css'
 import useAuth from '@servicios/UseAuth'
@@ -9,10 +8,6 @@ import { perfil } from '@constantes/constUsers'
 
 const HeaderLogged = (props) => {
   const url = apis.API_TICKETS
-  const {
-    isValidating,
-    trigger
-  } = useApiMock(url)
 
   const miSvg = (
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34.18" height="34.18" viewBox="0 0 34.18 34.18">
@@ -90,15 +85,6 @@ const HeaderLogged = (props) => {
               : <Button type="button" texto="Tickets" classBoton="switch-tickets" onClick={redirectTickets} />
             )
           }
-          {seccionTicket && (
-            <Button
-            className="btn-refresh"
-            texto={isValidating ? 'Validando' : ''}
-            type="button"
-            onClick={() => trigger()}
-            svgIcon={miSvg}
-          />
-          )}
           <BotonProfile />
         </div>
       </nav>
