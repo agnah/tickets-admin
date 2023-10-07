@@ -11,7 +11,7 @@ const RadioButton = (props) => {
       <label htmlFor="">{label}</label>
       <div className={classes}>
         {optionList.map((option) => (
-          <label htmlFor={name} className="radio-inline" key={option.value}>
+          <label htmlFor={name} className="form-check-label" key={option.value}>
             <input
               type="radio"
               name={name}
@@ -19,6 +19,8 @@ const RadioButton = (props) => {
               {...register(name, options)}
               defaultValue={option.value}
               aria-required="true"
+              className="check-prioridad"
+              onChange={attributes.onChange}
             />
             {option.label}
           </label>

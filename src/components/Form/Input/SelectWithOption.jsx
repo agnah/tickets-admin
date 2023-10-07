@@ -27,8 +27,9 @@ const SelectWithOption = (props) => {
           name={name}
           {...attributes}
           {...register(name, options)}
-          className={`${props?.classInput ? `${props.classInput} form-control` : 'form-control'} ${isError ? 'help-block error error-style' : ''}`}
+          className={`${props?.classInput ? `${props.classInput}  detalle-input w-100` : ' detalle-input w-100'} ${isError ? 'help-block error error-style' : ''}`}
           onChange={attributes?.onChangeInput}
+          disabled={attributes?.isDisable}
         >
           <option value="">{placeholderText}</option>
           {optionList.map((option, index) => (
