@@ -515,21 +515,6 @@ const GetTicketDetalle = ({ ticket }) => {
           </article>
           <article className="col-lg-12 box-derivar">
             <div className="my-2">
-              <SelectTecnico
-                label=""
-                name="area"
-                placeholder="Derivar"
-                optionList={optionListSelect}
-                register={register}
-                errors={errors}
-                classCol="col-md-12 col-lg-12 d-flex ms-2 select-derivar"
-                options={{
-                  required: "Campo obligatorio",
-                }}
-                // selectedOption={selectedOptionArea}
-                selectedOption={null}
-                onChangeInput={handleSelectChange}
-              /> */}
               <div className="col-md-12 col-lg-12 d-flex ms-2 select-derivar">
                 <div className="form-group item-form">
                   <select
