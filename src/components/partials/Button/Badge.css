@@ -2,11 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 1rem;
+
 }
 
 .badge-container svg {
-    filter: drop-shadow(3px 3px 6px #0000001a);
+    filter: drop-shadow(3px 3px 6px #00000010) !important;
     text-transform: capitalize;
+    scale: .8;
 }
-

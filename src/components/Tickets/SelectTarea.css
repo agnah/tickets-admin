@@ -1,0 +1,78 @@
+.container-tareas {
+    margin-top: .25rem;
+}
+
+.list-tareas {
+    border-radius: 9px;
+    padding: .5rem;
+}
+
+.btn-tareas {
+    border-radius: 50%;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--celeste);
+}
+
+.btn-tarea {
+    background-color: #F8E2C2;
+    color: var(--gris-medio);
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 9px;
+    border: none;
+    padding: .25rem .75rem;
+    margin-right: .25rem;
+}
+
+.btn-tarea-focus {
+    outline: 1px solid #e0b676;
+    background-color: #e0b676;
+    color: #fff;
+    box-shadow: 0 0 6px #0000002d;
+    filter: brightness(1.05);
+}
+
+.modal-content {
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 19px;
+    background-color: #DCEFF5;
+}
+
+.btn-modal {
+    color: #fff;
+    border-radius: 19px;
+    border: none;
+    padding: .5rem 1.5rem;
+    font-size: 14px;
+    font-weight: 600;
+    margin: .25rem ;
+}
+
+.finish-tarea {
+    background-color: var(--color-success);
+}
+
+.delete-terea {
+    background-color: var(--color-danger);
+}
+
+.cancel-tarea {
+    background-color: var(--gris-medio);
+}
+
+.detalle-fin-tarea {
+    border: none;
+    border-radius: 10px;
+    margin-top: .5rem;
+}
+
+.detalle-fin-tarea:focus-visible {
+    outline: 1px solid var(--celeste);
+}
