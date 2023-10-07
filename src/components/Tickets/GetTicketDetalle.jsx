@@ -128,8 +128,8 @@ const GetTicketDetalle = ({ ticket }) => {
         ...historialMensajes,
         {
           area: user.sector[0],
-          info: `Se asigno al colaborador ${e.target.value}`,
-          date: formatearFecha(new Date()),
+          info: `Se asigno al técnico ${e.target.value}`,
+          date: `Hace unos minutos...`,
         },
       ]);
     }
@@ -141,7 +141,7 @@ const GetTicketDetalle = ({ ticket }) => {
           {
             area: user.sector[0],
             info: `El usuario ${user?.nombre} derivo el ticket a ${e.target.value}`,
-            date: formatearFecha(new Date()),
+            date: `Hace unos minutos...`,
           },
         ]);
       }
@@ -155,7 +155,7 @@ const GetTicketDetalle = ({ ticket }) => {
       {
         area: user.sector[0],
         info: e.target[0].value,
-        date: formatearFecha(new Date()),
+        date:  `Hace unos minutos...`,
       },
     ]);
   };
