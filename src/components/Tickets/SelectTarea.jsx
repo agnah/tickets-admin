@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
 import Button from '../partials/Button/Button'
+import './SelectTarea.css'
 
 const tareasOptions = [
   { value: 'Tarea1', id: 1, label: 'Impresora' },
@@ -61,12 +62,12 @@ function SelectTarea () {
   }
 
   const renderSavedTareas = () => (
-    <article>
-      <p>Tareas a realizar:</p>
-      <div className='d-flex'>
-        <div className="border border-1 mb-2 flex-grow-1" style={{ minHeight: '35px' }}>
+    <article className="container-tareas">
+      <p className="strong-title my-2">Tareas a realizar:</p>
+      <div className='d-flex align-items-center'>
+        <div className="border border-1 flex-grow-1 list-tareas" style={{ minHeight: '35px' }}>
           {savedTareas.map((option) => (
-            <button key={option.id} onClick={() => openModal(option)}>
+            <button className="btn-tarea" key={option.id} onClick={() => openModal(option)}>
               {option.label}
             </button>
           ))}
@@ -74,7 +75,7 @@ function SelectTarea () {
         {!showSelect && (
           <Button
             onClick={() => setShowSelect(true)}
-            classBoton="mx-1 btn btn-primary flex-shrink-1 w-25"
+            classBoton="btn flex-shrink-1 btn-tareas"
             texto="+"
           />
         )

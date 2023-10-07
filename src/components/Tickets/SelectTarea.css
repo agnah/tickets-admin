@@ -1,0 +1,28 @@
+.container-tareas {
+    margin-top: 2rem;
+}
+
+.list-tareas {
+    border-radius: 9px;
+    margin-right: 1rem;
+    padding: .5rem;
+}
+
+.btn-tareas {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--celeste);
+}
+
+.btn-tarea {
+    background-color: #F8E2C2;
+    border-radius: 9px;
+    border: none;
+    padding: .25rem .75rem;
+    margin-right: .25rem;
+}

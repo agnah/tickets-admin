@@ -13,6 +13,7 @@ import { apis } from '@constantes/constApis'
 import { estadoTicket } from '@constantes/constTickets'
 import { areas } from '@constantes/constAreas'
 import { perfil } from '@constantes/constUsers'
+import Badge from '../partials/Button/Badge'
 import './tabla.css'
 
 const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz', 'Tito']
@@ -95,9 +96,16 @@ function Tabla () {
       selector: (row) => row.area_asignada,
       sortable: true
     },
+    // {
+    //   name: 'Estado',
+    //   selector: (row) => row.estado,
+    //   sortable: true
+    // },
     {
       name: 'Estado',
-      selector: (row) => row.estado,
+      selector: (row) => (
+        <Badge ticketEstado={row.estado} text={row.estado} />
+      ),
       sortable: true
     },
     {

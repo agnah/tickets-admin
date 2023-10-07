@@ -89,7 +89,7 @@ const TicketCreateForm = ({ prioridad }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
-      <div className="d-flex justify-content-between">
+      <div className="row">
         <>
           <DatalistChangeInput
             idList="datalistSolicitante"
@@ -99,51 +99,13 @@ const TicketCreateForm = ({ prioridad }) => {
             optionList={datalistSolicitante}
             register={register}
             errors={errors}
-            classCol="align-items-start"
+            classCol="col-md-3 align-items-start datalist-input"
             options={{
               required: 'Campo obligatorio'
             }}
             onChangeSolicitante={onChangeSolicitante}
           />
         </>
-        <Select
-          label="Sede"
-          name="sede"
-          placeholder="Selecciona una sede"
-          optionList={optionListSelect}
-          register={register}
-          errors={errors}
-          classCol="align-items-start"
-          options={{
-            required: 'Campo obligatorio'
-          }}
-        />
-        <Select
-          label="Área"
-          name="area"
-          placeholder="Selecciona un área"
-          optionList={optionListSelect}
-          register={register}
-          errors={errors}
-          classCol="align-items-start"
-          options={{
-            required: 'Campo obligatorio'
-          }}
-        />
-        <Select
-          label="Piso"
-          name="piso"
-          placeholder=""
-          optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
-          register={register}
-          errors={errors}
-          classCol="align-items-start"
-          options={{
-            required: 'Campo obligatorio'
-          }}
-        />
-      </div>
-      <div className="row">
         <InputForm
           label="Email"
           type="email"
@@ -176,22 +138,60 @@ const TicketCreateForm = ({ prioridad }) => {
           }}
         />
         <InputForm
-          label="Referencia"
-          type="text"
-          name="referencia"
-          placeholder=""
-          register={register}
-          errors={''}
-          classCol="col-md-2 col-lg-2 form-group item-form"
-        />
-        <InputForm
           label="N° GDE"
           type="text"
           name="gde"
           placeholder=""
           register={register}
           errors={''}
-          classCol="col-md-4 col-lg-4 form-group item-form"
+          classCol="col-2 form-group item-form"
+        />
+      </div>
+      <div className="col-12 d-flex justify-content-between">
+        <Select
+          label="Sede"
+          name="sede"
+          placeholder="Selecciona una sede"
+          optionList={optionListSelect}
+          register={register}
+          errors={errors}
+          classCol="col-md-3 align-items-start"
+          options={{
+            required: 'Campo obligatorio'
+          }}
+        />
+        <Select
+          label="Área"
+          name="area"
+          placeholder="Selecciona un área"
+          optionList={optionListSelect}
+          register={register}
+          errors={errors}
+          classCol="col-md-3 align-items-start"
+          options={{
+            required: 'Campo obligatorio'
+          }}
+        />
+        <Select
+          label="Piso"
+          name="piso"
+          placeholder=""
+          optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+          register={register}
+          errors={errors}
+          classCol="col-1 align-items-start"
+          options={{
+            required: 'Campo obligatorio'
+          }}
+        />
+        <InputForm
+          label="Referencia"
+          type="text"
+          name="referencia"
+          placeholder=""
+          register={register}
+          errors={''}
+          classCol="col-5 form-group item-form"
         />
       </div>
       <hr />
@@ -202,7 +202,7 @@ const TicketCreateForm = ({ prioridad }) => {
           rows="20"
           register={register}
           errors={errors}
-          classCol="col-md-8 col-lg-8 form-group item-form"
+          classCol="col-6 form-group item-form"
           options={{
             required: 'Campo obligatorio'
           }}

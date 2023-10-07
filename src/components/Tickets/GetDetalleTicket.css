@@ -21,7 +21,6 @@
 .texto-area {
     color: var(--celeste);
     font-weight: 600;
-    width: 7rem;
 }
 
 .input-box {
@@ -100,7 +99,7 @@
 
 .strong-title {
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     margin-right: .5rem;
 }
 
@@ -165,9 +164,11 @@
 
 .detalle-input {
     color: var(--gris-medio);
-    border-radius: 10px;
     border: 1px solid var(--hr-color);
-    padding: .25rem .8rem;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: .25rem 2.5rem .25rem .8rem;
 }
 
 .detalle-input:focus-visible {

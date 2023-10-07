@@ -31,9 +31,9 @@ const DatalistChangeInput = (props) => {
   }
 
   return (
-    <div className={`d-flex flex-column ${classes}`}>
+    <div className={`d-flex flex-column input-container ${classes}`}>
       <div className="label-container">
-        <label htmlFor={name}>{label}</label>
+        <label className="label-form" htmlFor={name}>{label}</label>
         <label
           htmlFor="otro"
           className="check-label"
@@ -42,7 +42,7 @@ const DatalistChangeInput = (props) => {
           Otro
         </label>
       </div>
-      <div className="form-group item-form">
+      <div className="w-100 form-group item-form">
         {changeInput
           ? (
           <>
@@ -52,7 +52,7 @@ const DatalistChangeInput = (props) => {
               {...register(name, options)}
               list={idList}
               placeholder={placeholderText}
-              className={`${isError ? 'help-block error error-style detalle-input' : 'detalle-input'}`}
+              className={`${isError ? 'help-block error error-style detalle-input w-100' : 'detalle-input w-100'}`}
               onChange={onChangeSolicitante}
             />
             <datalist id={idList} >

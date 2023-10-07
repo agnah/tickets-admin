@@ -164,7 +164,7 @@ const GetTicketDetalle = ({ ticket }) => {
       <article className="col-md-7 position-relative container-left-detalle">
         <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off" className='d-flex flex-column'>
           <div className="row">
-            <div className="col-12">
+            <div className="col-md-6">
               <p className="d-flex align-items-center item-form">
                 <strong className='strong-title'>Solicitante:</strong>{' '}
                 {edit
@@ -188,8 +188,8 @@ const GetTicketDetalle = ({ ticket }) => {
                   : (ticketInfo.solicitante)}
               </p>
             </div>
-            <div className="d-flex align-items-center">
-              <p className="d-flex align-items-center item-form">
+            <div className="col-md-6 d-flex align-items-center">
+              <p className="w-100 d-flex align-items-center item-form">
                 <strong className='strong-title'>Email:</strong>{' '}
                 {edit
                   ? (
@@ -200,7 +200,7 @@ const GetTicketDetalle = ({ ticket }) => {
                     placeholder=""
                     register={register}
                     errors={errors}
-                    classCol="col-md-8 col-lg-8 d-flex ms-2 form-group item-form"
+                    classCol="w-100 d-flex ms-2 form-group item-form"
                     options={{
                       required: 'Campo obligatorio',
                       pattern: {
@@ -217,9 +217,9 @@ const GetTicketDetalle = ({ ticket }) => {
                     )}
               </p>
             </div>
-            <div>
-              <p className="d-flex align-items-center item-form">
-                <strong className='strong-title'>Telefono:</strong>
+            <div className='col-md-6'>
+              <p className="w-100 d-flex align-items-center item-form">
+                <strong className='strong-title'>Teléfono:</strong>
                 {edit
                   ? (
                   <InputForm
@@ -229,7 +229,7 @@ const GetTicketDetalle = ({ ticket }) => {
                     placeholder=""
                     register={register}
                     errors={errors}
-                    classCol="col-md-7 col-lg-7 d-flex ms-2 form-group item-form"
+                    classCol="d-flex ms-2 form-group item-form"
                     options={{
                       required: "Campo obligatorio"
                     }}
@@ -242,33 +242,33 @@ const GetTicketDetalle = ({ ticket }) => {
                     )}
               </p>
             </div>
-            <div className="d-flex align-items-center">
-            <div>
-                <p className="d-flex align-items-center item-form">
-                  <strong className='strong-title'>Area:</strong>{' '}
-                  {edit
-                    ? (
-                    <SelectInput
-                      label=""
-                      name="area"
-                      placeholder="Selecciona un área"
-                      optionList={optionListSelect}
-                      register={register}
-                      errors={errors}
-                      classCol="d-flex ms-2"
-                      options={{
-                        required: "Campo obligatorio"
-                      }}
-                      onChangeInput={onChangeInput}
-                    />
-                      )
-                    : (
-                        ticketInfo.area
-                      )}
-                </p>
-              </div>
+            <div className="col-md-6 d-flex align-items-center">
+              <div>
+                  <p className="d-flex align-items-center item-form">
+                    <strong className='strong-title'>Area:</strong>{' '}
+                    {edit
+                      ? (
+                      <SelectInput
+                        label=""
+                        name="area"
+                        placeholder="Selecciona un área"
+                        optionList={optionListSelect}
+                        register={register}
+                        errors={errors}
+                        classCol="d-flex ms-2"
+                        options={{
+                          required: "Campo obligatorio"
+                        }}
+                        onChangeInput={onChangeInput}
+                      />
+                        )
+                      : (
+                          ticketInfo.area
+                        )}
+                  </p>
+                </div>
             </div>
-            <div>
+            <div className='col-md-6'>
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Sede:</strong>{' '}
                 {edit
@@ -292,7 +292,7 @@ const GetTicketDetalle = ({ ticket }) => {
                     )}
               </p>
             </div>
-            <div>
+            <div className='col-md-6'>
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Piso:</strong>{' '}
                 {edit
@@ -316,8 +316,8 @@ const GetTicketDetalle = ({ ticket }) => {
                     )}
               </p>
             </div>
-            <div className="col-12">
-              <p className="d-flex align-items-center item-form">
+            <div className="col-6">
+              <p className="w-100 d-flex align-items-center item-form">
                 <strong className="strong-title">Referencia:</strong>{' '}
                 {edit
                   ? (
@@ -329,7 +329,7 @@ const GetTicketDetalle = ({ ticket }) => {
                     placeholder=""
                     register={register}
                     errors={''}
-                    classCol="col-md-2 col-lg-2 d-flex ms-2 form-group item-form"
+                    classCol="d-flex ms-2 form-group item-form"
                     onChangeInput={onChangeInput}
                     value={ticketInfo.referencia}
                   />)
