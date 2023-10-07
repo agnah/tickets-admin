@@ -456,9 +456,6 @@ const GetTicketDetalle = ({ ticket }) => {
                     {mensaje.date}
                   </span>
                 </p>
-                // <div className="row">
-
-                // </div>
               ))}
             </div>
             <div className="w-100 p-2 input-box">

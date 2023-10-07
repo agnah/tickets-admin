@@ -58,3 +58,7 @@
     border: none;
     padding: .25rem .8rem;
 }
+
+.text-area {
+    width: 100%;
+}
