@@ -137,16 +137,12 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   }, []);
 
   const getTecnicos = async (id_area) => {
-    let response = await fetch(`http://localhost:8000/api/usuario/list/?area_id=${id_area}`, {
+    let response = await fetch(`http://localhost:8000/api/usuario/${id_area}`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
     let tecnicos_por_area = await response.json();
-    console.log(tecnicos_por_area);
-    // tecnicos_por_area = tecnicos_por_area.filter(
-    //   (tecnico) => Number(id_area) === tecnico.area_id
-    // );
     setTecnicos(tecnicos_por_area);
   };
 
@@ -157,15 +153,10 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       },
     });
     let tareas_por_area = await response.json();
-    console.log(tareas_por_area);
-    // tecnicos_por_area = tecnicos_por_area.filter(
-    //   (tecnico) => Number(id_area) === tecnico.area_id
-    // );
     setTareas(tareas_por_area);
   }
 
   const updateTicket = async (updateTicket) => {
-    console.log(updateTicket.tecnico_asignado_id);
     let data = {
       nombre_solicitante: updateTicket.nombre_solicitante,
       telefono_solicitante: updateTicket.telefono_solicitante,
@@ -173,7 +164,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       sede_solicitante: "nueve_de_julio",
       piso_solicitante: updateTicket.piso_solicitante,
       referencia: updateTicket.referencia,
-      // prioridad: updateTicket.prioridad,
+      prioridad: updateTicket.prioridad,
       tecnico_asignado_id: null,
       estado: updateTicket.estado,
       descripcion: updateTicket.descripcion,
@@ -192,7 +183,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       }
     );
     let result = await response.json();
-    console.log(result);
     setTicket({ ...ticketInfo, ...data });
   };
 
@@ -230,7 +220,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           date: `Hace unos minutos...`,
         },
       ]);
-      // console.log(ticket_update_info);
       updateTicket(ticket_update_info);
     }
     if (e.target.name === "derivar") {
@@ -298,6 +287,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   const onSubmit = (data) => {
     let respuesta = confirm(`Esta seguro que desea actualizar los datos del ticket?`)
     if(respuesta){
+      setTicketInfo({...ticketInfo, prioridad: data.prioridad ? 'alta' : 'baja'})
       updateTicket({...ticketInfo, prioridad: data.prioridad ? 'alta' : 'baja'})
       setEdit(!edit);
       setHistorialMensajes([

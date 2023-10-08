@@ -13,6 +13,7 @@ import './SelectTarea.css'
 // ]
 
 function SelectTarea ({tareas}) {
+  console.log(tareas);
   const [selectedOptions, setSelectedOptions] = useState([])
   const [savedTareas, setSavedTareas] = useState([])
   const [tareaSelecionado, setTareaSeleccionado] = useState(null)
