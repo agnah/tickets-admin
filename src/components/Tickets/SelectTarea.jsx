@@ -3,16 +3,16 @@ import Select from 'react-select'
 import Button from '../partials/Button/Button'
 import './SelectTarea.css'
 
-const tareasOptions = [
-  { value: 'Tarea1', id: 1, label: 'Impresora' },
-  { value: 'Tarea2', id: 2, label: 'Notebook' },
-  { value: 'Tarea3', id: 3, label: 'Monitor' },
-  { value: 'Tarea4', id: 4, label: 'SSD' },
-  { value: 'Tarea5', id: 5, label: 'Otras' },
-  { value: 'Tarea6', id: 6, label: 'Scanner' }
-]
+// const tareasOptions = [
+//   { value: 'Tarea1', id: 1, label: 'Impresora' },
+//   { value: 'Tarea2', id: 2, label: 'Notebook' },
+//   { value: 'Tarea3', id: 3, label: 'Monitor' },
+//   { value: 'Tarea4', id: 4, label: 'SSD' },
+//   { value: 'Tarea5', id: 5, label: 'Otras' },
+//   { value: 'Tarea6', id: 6, label: 'Scanner' }
+// ]
 
-function SelectTarea () {
+function SelectTarea ({tareas}) {
   const [selectedOptions, setSelectedOptions] = useState([])
   const [savedTareas, setSavedTareas] = useState([])
   const [tareaSelecionado, setTareaSeleccionado] = useState(null)
@@ -142,7 +142,7 @@ function SelectTarea () {
             <Select
                 isMulti
                 name="Tareas"
-                options={tareasOptions}
+                options={tareas}
                 onChange={handleSelectChange}
                 value={selectedOptions}
               />

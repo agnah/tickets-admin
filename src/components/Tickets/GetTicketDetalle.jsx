@@ -129,24 +129,34 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   // const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email);
   const [historialMensajes, setHistorialMensajes] = useState(historial);
   const [tecnicos, setTecnicos] = useState([]);
+  const [tareas, setTareas] = useState([]);
 
   useEffect(() => {
     getTecnicos(ticketInfo.area_asignada_id);
+    getTareasPorArea(ticketInfo.area_asignada_id)
   }, []);
 
   const getTecnicos = async (id_area) => {
-    let response = await fetch(`http://localhost:8000/api/usuario/list/?area_id=${id_area}`, {
+    let response = await fetch(`http://localhost:8000/api/usuario/${id_area}`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
     let tecnicos_por_area = await response.json();
-    console.log(tecnicos_por_area);
-    // tecnicos_por_area = tecnicos_por_area.filter(
-    //   (tecnico) => Number(id_area) === tecnico.area_id
-    // );
     setTecnicos(tecnicos_por_area);
   };
+
+  const getTareasPorArea = async (id_area) => {
+    let response = await fetch(`http://localhost:8000/api/area/tareas/${id_area}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let tareas_por_area = await response.json();
+    tareas_por_area = tareas_por_area.map( tarea => ({ value: tarea.tarea, id: tarea.id, label: tarea.tarea}))
+    console.log(tareas_por_area);
+    setTareas(tareas_por_area);
+  }
 
   const updateTicket = async (updateTicket) => {
     console.log(updateTicket.tecnico_asignado_id);
@@ -194,6 +204,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     let result = await response.json();
     setTicket(result);
     getTecnicos(id_area);
+    getTareasPorArea(id_area)
   };
 
   const handleSelectChange = (e) => {
@@ -689,7 +700,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         <section>
           <article>
             <div>
-              <SelectTarea />
+              <SelectTarea tareas={tareas}/>
             </div>
           </article>
         </section>
