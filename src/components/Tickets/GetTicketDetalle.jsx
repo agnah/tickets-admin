@@ -11,6 +11,7 @@ import SelectTecnico from "../Form/Input/SelectWithOption";
 import TextArea from "../../components/Form/Input/TextArea";
 import SelectTarea from "@components/Tickets/SelectTarea";
 import "./GetDetalleTicket.css";
+import { useNavigate } from "react-router-dom";
 
 const tecnicos = [
   // "Franco Armani",
@@ -114,7 +115,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   } = useForm();
 
   const user = JSON.parse(sessionStorage.getItem("user"));
-
+  const navigate = useNavigate()
   const [ticketInfo, setTicketInfo] = useState({
     id: ticket.id,
     identificador: ticket.identificador,
@@ -223,22 +224,26 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       updateTicket(ticket_update_info);
     }
     if (e.target.name === "derivar") {
-      if (e.target.value != "") {
-        setTicketInfo({ ...ticketInfo, area_asignada: e.target.value });
-        setHistorialMensajes([
-          ...historialMensajes,
-          {
-            area: user.sector[0],
-            info: `El usuario ${user?.nombre} derivo el ticket a ${
-              optionListSelect[e.target.value - 1]
-            }`,
-            date: `Hace unos minutos...`,
-          },
-        ]);
-        derivarTicket(e.target.value);
+      let respuesta = confirm('Esta seguro que desea derivar a otra area?')
+      if(respuesta){
+        if (e.target.value != "") {
+          setTicketInfo({ ...ticketInfo, area_asignada: e.target.value });
+          setHistorialMensajes([
+            ...historialMensajes,
+            {
+              area: user.sector[0],
+              info: `El usuario ${user?.nombre} derivo el ticket a ${
+                optionListSelect[e.target.value - 1]
+              }`,
+              date: `Hace unos minutos...`,
+            },
+          ]);
+          derivarTicket(e.target.value);
+        }
+      }else{
+        e.target.value = ''
       }
     }
-    setTicket(ticketInfo);
   };
 
   const handleSubmitMessage = (e) => {
@@ -300,16 +305,40 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     setTicketInfo({ ...ticketInfo, [name]: value });
   };
 
-  const handleAnular = (e) => {
-    // TODO: LOGICA DE ANULAR TICKET
+  const handleAnular = async (e) => {
+    let respuesta = confirm('Esta seguro que desea anular el ticket?')
+    if(respuesta) {
+      let response = await fetch(`http://localhost:8000/api/tickets/${ticketInfo.id}`,{
+        method:'DELETE',
+        headers: {
+          "Content-Type": "application/json",
+          "x-usuario": user.id,
+        },
+      })
+      let result = await response.json()
+      setTicket({...ticketInfo, ...result})
+      navigate('/tickets')
+    }
   };
 
-  const handleFinalizar = (e) => {
-    // TODO: LOGICA DE FINALIZAR TICKET
+  const handleFinalizar = async (e) => {
+    let respuesta = confirm('Esta seguro que desea finalizar el ticket?')
+    if(respuesta) {
+      let response = await fetch(`http://localhost:8000/api/tickets/finalizar/${ticketInfo.id}`,{
+        method:'PATCH', 
+        headers: {
+          "Content-Type": "application/json",
+          "x-usuario": user.id,
+        },
+      })
+      let result = await response.json()
+      console.log(result);
+      setTicket({...ticketInfo, ...result})
+    }
   };
 
   return (
-    <section className="row">
+    <section className="row" disable={ ticketInfo.state == "finalizado" ||  ticketInfo.state == "anulado" ? true : false}>
       <article className="col-md-7 position-relative container-left-detalle">
         <form
           onSubmit={handleSubmit(onSubmit)}
