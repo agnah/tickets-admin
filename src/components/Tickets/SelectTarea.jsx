@@ -3,23 +3,23 @@ import Select from 'react-select'
 import Button from '../partials/Button/Button'
 import './SelectTarea.css'
 
-const tareasOptions = [
-  { value: 'Tarea1', id: 1, label: 'Impresora' },
-  { value: 'Tarea2', id: 2, label: 'Notebook' },
-  { value: 'Tarea3', id: 3, label: 'Monitor' },
-  { value: 'Tarea4', id: 4, label: 'SSD' },
-  { value: 'Tarea5', id: 5, label: 'Otras' },
-  { value: 'Tarea6', id: 6, label: 'Scanner' }
-]
+// const tareasOptions = [
+//   { value: 'Tarea1', id: 1, label: 'Impresora' },
+//   { value: 'Tarea2', id: 2, label: 'Notebook' },
+//   { value: 'Tarea3', id: 3, label: 'Monitor' },
+//   { value: 'Tarea4', id: 4, label: 'SSD' },
+//   { value: 'Tarea5', id: 5, label: 'Otras' },
+//   { value: 'Tarea6', id: 6, label: 'Scanner' }
+// ]
 
-function SelectTarea () {
+function SelectTarea ({tareas}) {
   const [selectedOptions, setSelectedOptions] = useState([])
   const [savedTareas, setSavedTareas] = useState([])
   const [tareaSelecionado, setTareaSeleccionado] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [tareaFinalizada, setTareaFinalizada] = useState(false)
   const [showSelect, setShowSelect] = useState(false)
-
+  const [tareasOptions, setTareasOptions] = useState(tareas.map( tarea => ({ value: tarea.tarea, id: tarea.id, label: tarea.tarea})))
   const handleSelectChange = (selected) => {
     setSelectedOptions(selected)
   }
