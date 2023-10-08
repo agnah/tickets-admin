@@ -492,7 +492,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
             </div>
             <div className="col-12">
               <p className="d-flex align-items-center item-form">
-                <strong className="strong-title">Motivo:</strong>{" "}
+                <strong className="strong-title align-self-start">Motivo:</strong>{" "}
                 {edit ? (
                   <TextArea
                     label=""
@@ -508,7 +508,9 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                     value={ticketInfo.descripcion}
                   />
                 ) : (
-                  ticketInfo.descripcion
+                  <div style={{height:'100px', overflowY: 'scroll'}}>
+                    {ticketInfo.descripcion}
+                  </div>
                 )}
               </p>
             </div>
