@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Button from '../partials/Button/Button'
 // import Select from 'react-select'
 // import ButtonEdit from '../partials/Button/ButtonEdit'
@@ -13,17 +13,29 @@ import SelectTarea from "@components/Tickets/SelectTarea";
 import "./GetDetalleTicket.css";
 
 const tecnicos = [
-  "Franco Armani",
-  "Juan",
-  "Pedro",
-  "Maria",
-  "Luis",
-  "Jose",
-  "Laura",
+  // "Franco Armani",
+  // "Juan",
+  // "Pedro",
+  // "Maria",
+  // "Luis",
+  // "Jose",
+  // "Laura",
 ];
 
 const datalistSolicitante = solicitantes.map((s) => s.nombre);
-const optionListSelect = ["CSTIMI", "GDE", "Computos", "CID", "Telefonía"];
+const optionListSelect = [
+  "COMPUTOS",
+  "TELEFONIA",
+  "SOPORTE",
+  "SISTEMAS",
+  "GDE",
+];
+const optionListAreaSolicitante = [
+  "ADMINISTRACION",
+  "RRHH",
+  "CONTABILIDAD",
+  "LEGALES",
+];
 const historial = [
   {
     area: "CSTIMI",
@@ -94,6 +106,7 @@ function formatearFecha(fecha) {
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 
 const GetTicketDetalle = ({ ticket }) => {
+  // console.log(ticket);
   const {
     register,
     handleSubmit,
@@ -103,39 +116,101 @@ const GetTicketDetalle = ({ ticket }) => {
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   const [ticketInfo, setTicketInfo] = useState({
-    solicitante: ticket.solicitante,
-    email: ticket.email,
+    id: ticket.id,
+    solicitante: ticket.nombre_solicitante,
+    email: ticket.email_solicitante,
     fecha: ticket.fecha,
-    telefono: ticket.telefono,
-    area: ticket.area,
-    sede: ticket.sede,
-    piso: ticket.piso,
+    telefono: ticket.telefono_solicitante,
+    area: ticket.area_solicitante,
+    sede: ticket?.sede || "nueve_de_julio",
+    piso: ticket.piso_solicitante,
     referencia: ticket.referencia,
-    pre_tarea: ticket.pre_tarea,
-    motivo: "Un motivo valido",
-    colaborador: ticket.colaborador,
-    area_asignada: ticket.area,
+    // pre_tarea: ticket.pre_tarea,
+    motivo: ticket.descripcion,
+    colaborador: ticket.tecnico_asignado_id,
+    area_asignada: ticket.area_asignada_id,
   });
 
   const [edit, setEdit] = useState(false);
   const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email);
   const [historialMensajes, setHistorialMensajes] = useState(historial);
+  const [tecnicos, setTecnicos] = useState([]);
+
+  useEffect(() => {
+    getTecnicos();
+  }, []);
+
+  const getTecnicos = async () => {
+    let response = await fetch(`http://localhost:8000/api/usuario/list/`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let tecnicos_por_area = await response.json();
+    tecnicos_por_area = tecnicos_por_area.filter(
+      (tecnico) => ticket.area_asignada_id === tecnico.area_id
+    );
+    setTecnicos(tecnicos_por_area);
+  };
+
+  const updateTicket = async (updateTicket)=> {
+    let data = {
+      nombre_solicitante: updateTicket.solicitante,
+      telefono_solicitante: updateTicket.telefono,
+      area_solicitante: updateTicket.area,
+      sede_solicitante: "nueve_de_julio",
+      piso_solicitante: updateTicket.piso,
+      referencia: updateTicket.referencia,
+      tecnico_asignado_id: Number(updateTicket.colaborador),
+      estado: "pendiente",
+      descripcion: updateTicket.motivo,
+      // archivos: ticketInfo.solicitante
+    }
+
+    let response = await fetch(`http://localhost:8000/api/tickets/actualizaciones/${ticket.id}`,{
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        "x-usuario": user.id,
+      },
+    })
+    let result = await response.json()
+    console.log(result);
+  }
+
+  const derivarTicket = async (id_area)=> {
+    let response = await fetch(`http://localhost:8000/api/tickets/derivaciones/${ticket.id}/?area_id=${id_area}`,{
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+        "x-usuario": user.id,
+      },
+    })
+    let result = await response.json()
+    console.log(result);
+  }
+
 
   const handleSelectChange = (e) => {
+    let ticket_update_info;
     if (e.target.name === "tecnico_asignado") {
-      setTicketInfo({ ...ticketInfo, colaborado: e.target.value });
+      setTicketInfo({ ...ticketInfo, colaborador: e.target.value });
+      ticket_update_info = { ...ticketInfo, colaborador: e.target.value }
+      let tecnico = tecnicos.find(tecnico => (tecnico.id = e.target.value))
       setHistorialMensajes([
         ...historialMensajes,
         {
           area: user.sector[0],
-          info: `Se asigno al técnico ${e.target.value}`,
+          info: `Se asigno al técnico ${tecnico.nombre}`,
           date: `Hace unos minutos...`,
         },
       ]);
+      updateTicket(ticket_update_info)
     }
     if (e.target.name === "derivar") {
       if (e.target.value != "") {
-        setTicketInfo({ ...ticketInfo, area_asignada: e.target.value });
+        setTicketInfo({ ...ticketInfo, area_asignada: optionListSelect.indexOf(e.target.value) + 1 });
         setHistorialMensajes([
           ...historialMensajes,
           {
@@ -144,8 +219,11 @@ const GetTicketDetalle = ({ ticket }) => {
             date: `Hace unos minutos...`,
           },
         ]);
+        derivarTicket(optionListSelect.indexOf(e.target.value) + 1)
       }
     }
+
+    
   };
 
   const handleSubmitMessage = (e) => {
@@ -155,7 +233,7 @@ const GetTicketDetalle = ({ ticket }) => {
       {
         area: user.sector[0],
         info: e.target[0].value,
-        date:  `Hace unos minutos...`,
+        date: `Hace unos minutos...`,
       },
     ]);
   };
@@ -167,22 +245,23 @@ const GetTicketDetalle = ({ ticket }) => {
   const handleCancelEdit = () => {
     setEdit(!edit);
     setTicketInfo({
-      solicitante: ticket.solicitante,
-      email: ticket.email,
+      solicitante: ticket.nombre_solicitante,
       fecha: ticket.fecha,
-      telefono: ticket.telefono,
-      area: ticket.area,
-      sede: ticket.sede,
-      piso: ticket.piso,
+      telefono: ticket.telefono_solicitante,
+      area: ticket.area_solicitante,
+      sede: ticket?.sede || "nueve_de_julio",
+      piso: ticket.piso_solicitante,
       referencia: ticket.referencia,
-      pre_tarea: ticket.pre_tarea,
-      motivo: "Un motivo valido",
+      // pre_tarea: ticket.pre_tarea,
+      motivo: ticket.descripcion,
+      colaborador: ticket.tecnico_asignado_id,
+      area_asignada: ticket.area_asignada_id,
     });
-    setSolicitanteEmail(ticket.email);
+    // setSolicitanteEmail(ticket.email);
   };
 
   const onSubmit = (data) => {
-    setTicketInfo({ ...ticketInfo, ...data, email: solicitanteEmail });
+    setTicketInfo({ ...ticketInfo, ...data });
     setEdit(!edit);
   };
 
@@ -497,16 +576,21 @@ const GetTicketDetalle = ({ ticket }) => {
                   onChange={handleSelectChange}
                 >
                   <option value="">Selecciona un técnico</option>
-                  {tecnicos.map((tecnico) => (
-                    <option
-                      value={tecnico}
-                      selected={
-                        tecnico == ticketInfo?.colaborador ? true : false
-                      }
-                    >
-                      {tecnico}
-                    </option>
-                  ))}
+                  {tecnicos.length > 0 && (
+                    <>
+                      {" "}
+                      {tecnicos.map((tecnico) => (
+                        <option
+                          value={tecnico?.id}
+                          selected={
+                            tecnico.id == ticketInfo?.colaborador ? true : false
+                          }
+                        >
+                          {tecnico.nombre}
+                        </option>
+                      ))}
+                    </>
+                  )}
                 </select>
               </div>
             </div>
@@ -530,9 +614,7 @@ const GetTicketDetalle = ({ ticket }) => {
               /> */}
               <label className="ms-2">Acciones:</label>
               <div className="col-md-12 col-lg-12 d-flex m-2 select-derivar">
-                
                 <div className="form-group item-form">
-                  
                   <select
                     name="derivar"
                     id="derivar"
@@ -554,12 +636,20 @@ const GetTicketDetalle = ({ ticket }) => {
                 </div>
               </div>
               <div>
-                <button id="btn-cancelar" onClick={handleAnular} className="m-2 ">
+                <button
+                  id="btn-cancelar"
+                  onClick={handleAnular}
+                  className="m-2 "
+                >
                   Anular
                 </button>
               </div>
               <div>
-                <button id="btn-aceptar" onClick={handleFinalizar} className="m-2 ">
+                <button
+                  id="btn-aceptar"
+                  onClick={handleFinalizar}
+                  className="m-2 "
+                >
                   Finalizar
                 </button>
               </div>
