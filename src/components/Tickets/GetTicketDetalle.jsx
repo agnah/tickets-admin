@@ -98,6 +98,7 @@ function formatearFecha(fecha) {
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 
 const GetTicketDetalle = ({ ticket, setTicket }) => {
+  
   const {
     register,
     handleSubmit,
@@ -122,9 +123,10 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     descripcion: ticket.descripcion,
     tecnico_asignado_id: ticket.tecnico_asignado_id,
     area_asignada_id: ticket.area_asignada_id,
-    estado: ticket.estado,
+    estado: ticket.estado
   });
 
+  const [ticketTareas, setTicketTareas] = useState([])
   const [edit, setEdit] = useState(false);
   // const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email);
   const [historialMensajes, setHistorialMensajes] = useState(historial);
@@ -154,7 +156,14 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     });
     let tareas_por_area = await response.json();
     tareas_por_area = tareas_por_area.map( tarea => ({ value: tarea.tarea, id: tarea.id, label: tarea.tarea}))
-    console.log(tareas_por_area);
+    if(ticket.tareas.length > 0) {
+      let ticketTareasId = ticket.tareas.filter(tarea=> tarea.estado == 'ACTIVA').map(tarea => tarea.tarea_id)
+      let tareasTicketsArr = []
+      tareas_por_area.forEach(tarea_por_area => {
+        if(ticketTareasId.includes(tarea_por_area.id)) tareasTicketsArr.push(tarea_por_area)
+      });
+      setTicketTareas(tareasTicketsArr)
+    }
     setTareas(tareas_por_area);
   }
 
@@ -170,6 +179,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       tecnico_asignado_id: null,
       estado: updateTicket.estado,
       descripcion: updateTicket.descripcion,
+      tecnico_asignado_id: updateTicket.tecnico_asignado_id
       // archivos: ticketInfo.solicitante
     };
 
@@ -185,6 +195,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       }
     );
     let result = await response.json();
+    console.log(result);
     setTicket({ ...ticketInfo, ...data });
   };
 
@@ -208,21 +219,27 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   const handleSelectChange = (e) => {
     let ticket_update_info;
     if (e.target.name === "tecnico_asignado") {
-      setTicketInfo({ ...ticketInfo, tecnico_asignado_id: e.target.value });
-      ticket_update_info = {
-        ...ticketInfo,
-        tecnico_asignado_id: e.target.value,
-      };
-      let tecnico = tecnicos.find((tecnico) => (tecnico.id = e.target.value));
-      setHistorialMensajes([
-        ...historialMensajes,
-        {
-          area: user.sector[0],
-          info: `Se asigno al técnico ${tecnico.nombre}`,
-          date: `Hace unos minutos...`,
-        },
-      ]);
-      updateTicket(ticket_update_info);
+      let nombre_tecnico = tecnicos.find(tecnico => tecnico.id == e.target.value).nombre
+      let respuesta = confirm(`Esta seguro que desea asignar al tecnico ${nombre_tecnico}?`)
+      if(respuesta){
+        setTicketInfo({ ...ticketInfo, tecnico_asignado_id: e.target.value });
+        ticket_update_info = {
+          ...ticketInfo,
+          tecnico_asignado_id: e.target.value,
+        };
+        let tecnico = tecnicos.find((tecnico) => (tecnico.id = e.target.value));
+        setHistorialMensajes([
+          ...historialMensajes,
+          {
+            area: user.sector[0],
+            info: `Se asigno al técnico ${tecnico.nombre}`,
+            date: `Hace unos minutos...`,
+          },
+        ]);
+        updateTicket(ticket_update_info);
+      }else{
+        e.target.value = ticketInfo.tecnico_asignado_id || ""
+      }
     }
     if (e.target.name === "derivar") {
       let respuesta = confirm('Esta seguro que desea derivar a otra area?')
@@ -654,7 +671,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
             <div className="mb-2">
               <label className="ms-2">Acciones:</label>
               <div className="col-md-12 col-lg-12 d-flex m-2 select-derivar">
-                <div className="form-group item-form">
+                <div className="form-group item-form" style={{minWidth:'150px'}}>
                   <select
                     name="derivar"
                     id="derivar"
@@ -673,6 +690,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                   id="btn-cancelar"
                   onClick={handleAnular}
                   className="m-2 "
+                  style={{minWidth:'150px'}}
                 >
                   Anular
                 </button>
@@ -682,6 +700,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                   id="btn-aceptar"
                   onClick={handleFinalizar}
                   className="m-2 "
+                  style={{minWidth:'150px'}}
                 >
                   Finalizar
                 </button>
@@ -698,7 +717,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         <section>
           <article>
             <div>
-              <SelectTarea tareas={tareas}/>
+              <SelectTarea tareas={tareas} ticketTareas={ticketTareas} ticketId={ticket.id} user={user}/>
             </div>
           </article>
         </section>

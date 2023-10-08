@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import Select from 'react-select'
-import Button from '../partials/Button/Button'
-import './SelectTarea.css'
+import React, { useEffect, useState } from "react";
+import Select from "react-select";
+import Button from "../partials/Button/Button";
+import "./SelectTarea.css";
 
 // const tareasOptions = [
 //   { value: 'Tarea1', id: 1, label: 'Impresora' },
@@ -12,62 +12,95 @@ import './SelectTarea.css'
 //   { value: 'Tarea6', id: 6, label: 'Scanner' }
 // ]
 
-function SelectTarea ({tareas}) {
-  const [selectedOptions, setSelectedOptions] = useState([])
-  const [savedTareas, setSavedTareas] = useState([])
-  const [tareaSelecionado, setTareaSeleccionado] = useState(null)
-  const [showModal, setShowModal] = useState(false)
-  const [tareaFinalizada, setTareaFinalizada] = useState(false)
-  const [showSelect, setShowSelect] = useState(false)
-  
+function SelectTarea({ tareas, ticketTareas, ticketId, user }) {
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [savedTareas, setSavedTareas] = useState([]);
+  const [tareaSelecionado, setTareaSeleccionado] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [tareaFinalizada, setTareaFinalizada] = useState(false);
+  const [showSelect, setShowSelect] = useState(false);
+
+  useEffect(() => {
+    setSavedTareas(ticketTareas);
+  }, [ticketTareas]);
+
   const handleSelectChange = (selected) => {
-    setSelectedOptions(selected)
-  }
+    setSelectedOptions(selected);
+  };
 
   const handleSaveSelection = () => {
     if (selectedOptions.length > 0) {
-      setSavedTareas([...savedTareas, ...selectedOptions])
-      setSelectedOptions([])
-      setShowSelect(false) // Ocultar el select al guardar
+      selectedOptions.forEach((option) => {
+        saveTarea(option);
+      });
+      setSavedTareas([...savedTareas, ...selectedOptions]);
+      setSelectedOptions([]);
+      setShowSelect(false); // Ocultar el select al guardar
     }
-  }
+  };
+
+  const saveTarea = async (option) => {
+    let response = await fetch(
+      `http://localhost:8000/api/tickets/${ticketId}/tareas/?tarea=${option.value}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-usuario": user.id,
+        },
+      }
+    );
+    let result = await response.json();
+    console.log(result);
+  };
 
   const openModal = (task) => {
-    setTareaSeleccionado(task)
-    setShowModal(true)
-  }
+    setTareaSeleccionado(task);
+    setShowModal(true);
+  };
 
   const closeModal = () => {
-    setTareaSeleccionado(null)
-    setShowModal(false)
-    setTareaFinalizada(false)
-  }
+    setTareaSeleccionado(null);
+    setShowModal(false);
+    setTareaFinalizada(false);
+  };
 
   const handleFinishTask = () => {
-    setTareaFinalizada(true)
-  }
+    setTareaFinalizada(true);
+  };
 
   const handleTaskCompletion = () => {
-    closeModal()
-  }
+    closeModal();
+  };
 
   const handleEliminarTarea = () => {
     if (tareaSelecionado) {
       const updatedTareas = savedTareas.filter(
         (task) => task.id !== tareaSelecionado.id
-      )
-      setSavedTareas(updatedTareas)
-      closeModal()
+      );
+      setSavedTareas(updatedTareas);
+      closeModal();
     }
-  }
+  };
 
   const renderSavedTareas = () => (
     <article className="container-tareas">
       <p className="strong-title my-2">Tareas a realizar:</p>
-      <div className='d-flex align-items-center'>
-        <div className="border border-1 flex-grow-1 list-tareas" style={{ minHeight: '35px' }}>
+      <div className="d-flex align-items-center">
+        <div
+          className="border border-1 flex-grow-1 list-tareas"
+          style={{ minHeight: "35px" }}
+        >
           {savedTareas.map((option) => (
-            <button className={`btn-tarea ${tareaSelecionado && tareaSelecionado.id === option.id ? "btn-tarea-focus" : ""}`} key={option.id} onClick={() => openModal(option)}>
+            <button
+              className={`btn-tarea ${
+                tareaSelecionado && tareaSelecionado.id === option.id
+                  ? "btn-tarea-focus"
+                  : ""
+              }`}
+              key={option.id}
+              onClick={() => openModal(option)}
+            >
               {option.label}
             </button>
           ))}
@@ -78,17 +111,15 @@ function SelectTarea ({tareas}) {
             classBoton="btn flex-shrink-1 btn-tareas"
             texto="+"
           />
-        )
-          }
+        )}
       </div>
     </article>
-  )
+  );
 
   const renderModalContent = () => (
     <div className="modal-content">
       {/* <h2>{tareaSelecionado ? tareaSelecionado.label : ''}</h2> */}
-      {tareaFinalizada
-        ? (
+      {tareaFinalizada ? (
         <>
           <label>Detalle de finalización:</label>
           <textarea className="detalle-fin-tarea" name="detalleFinTarea" />
@@ -105,47 +136,44 @@ function SelectTarea ({tareas}) {
             />
           </div>
         </>
-          )
-        : (
+      ) : (
         <>
           <div className="d-flex justify-content-center">
             <Button
-                onClick={handleFinishTask}
-                classBoton="mx-1 btn-modal finish-tarea"
-                texto="Finalizar Tarea"
-              />
-              <Button
-                onClick={closeModal}
-                classBoton="mx-1 btn-modal cancel-tarea"
-                texto="Cancelar"
-              />
-              <Button
-                onClick={handleEliminarTarea}
-                classBoton="mx-1 btn-modal delete-terea"
-                texto="Eliminar"
-              />
+              onClick={handleFinishTask}
+              classBoton="mx-1 btn-modal finish-tarea"
+              texto="Finalizar Tarea"
+            />
+            <Button
+              onClick={closeModal}
+              classBoton="mx-1 btn-modal cancel-tarea"
+              texto="Cancelar"
+            />
+            <Button
+              onClick={handleEliminarTarea}
+              classBoton="mx-1 btn-modal delete-terea"
+              texto="Eliminar"
+            />
           </div>
         </>
-          )}
+      )}
     </div>
-  )
+  );
 
   return (
     <section>
+      {renderSavedTareas()}
 
-        {renderSavedTareas()}
-
-      {showSelect &&
-        (
+      {showSelect && (
         <>
           <div className="mt-3">
             <Select
-                isMulti
-                name="Tareas"
-                options={tareas}
-                onChange={handleSelectChange}
-                value={selectedOptions}
-              />
+              isMulti
+              name="Tareas"
+              options={tareas}
+              onChange={handleSelectChange}
+              value={selectedOptions}
+            />
           </div>
           <div className="d-flex justify-content-end mt-2">
             <Button
@@ -155,11 +183,10 @@ function SelectTarea ({tareas}) {
             />
           </div>
         </>
-        )
-        }
+      )}
       {showModal && <div>{renderModalContent()}</div>}
     </section>
-  )
+  );
 }
 
-export default SelectTarea
+export default SelectTarea;
