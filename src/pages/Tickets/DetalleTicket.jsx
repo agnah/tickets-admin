@@ -12,11 +12,12 @@ const optionListSelect = [
 ];
 
 import './DetalleTicket.css'
+import { useState } from 'react';
 
 function DetalleTicket () {
   const { id } = useParams()
-  const { ticket, loading, error } = detalleTicket(Number(id))
-
+  const { ticket, loading, error, setTicket } = detalleTicket(Number(id))
+  
   if (loading) {
     return <div>Cargando...</div>
   }
@@ -26,13 +27,11 @@ function DetalleTicket () {
   if (!ticket) {
     return <div>No se encontraron datos del Ticket.....</div>
   }
-  console.log(ticket);
-  console.log(optionListSelect[ticket.area_asignada_id - 1]);
 
   return (
     <>
-      <Tablero title={`Ticket ${ticket[0].identificador}`} classTitle="title-detalleTicket" page={optionListSelect[ticket[0].area_asignada_id - 1]} state={ticket[0].estado} showPrioridad>
-        <GetTicketDetalle id={id} ticket={ticket[0]} />
+      <Tablero title={`Ticket ${ticket.identificador}`} classTitle="title-detalleTicket" page={optionListSelect[ticket.area_asignada_id - 1]} state={ticket.estado} >
+        <GetTicketDetalle id={id} ticket={ticket} setTicket={setTicket}/>
       </Tablero>
     </>
   )
