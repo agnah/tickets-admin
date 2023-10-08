@@ -127,6 +127,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     sede: ticket?.sede || "nueve_de_julio",
     piso_solicitante: ticket.piso_solicitante,
     referencia: ticket.referencia,
+    prioridad: ticket.prioridad,
     // pre_tarea: ticket.pre_tarea,
     descripcion: ticket.descripcion,
     tecnico_asignado_id: ticket.tecnico_asignado_id,
@@ -144,20 +145,21 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   }, []);
 
   const getTecnicos = async (id_area) => {
-    let response = await fetch(`http://localhost:8000/api/usuario/list/`, {
+    let response = await fetch(`http://localhost:8000/api/usuario/list/?area_id=${id_area}`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
     let tecnicos_por_area = await response.json();
     console.log(tecnicos_por_area);
-    tecnicos_por_area = tecnicos_por_area.filter(
-      (tecnico) => Number(id_area) === tecnico.area_id
-    );
+    // tecnicos_por_area = tecnicos_por_area.filter(
+    //   (tecnico) => Number(id_area) === tecnico.area_id
+    // );
     setTecnicos(tecnicos_por_area);
   };
 
   const updateTicket = async (updateTicket) => {
+    console.log(updateTicket.tecnico_asignado_id);
     let data = {
       nombre_solicitante: updateTicket.nombre_solicitante,
       telefono_solicitante: updateTicket.telefono_solicitante,
@@ -165,7 +167,8 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       sede_solicitante: "nueve_de_julio",
       piso_solicitante: updateTicket.piso_solicitante,
       referencia: updateTicket.referencia,
-      tecnico_asignado_id: Number(updateTicket.tecnico_asignado_id),
+      // prioridad: updateTicket.prioridad,
+      tecnico_asignado_id: null,
       estado: updateTicket.estado,
       descripcion: updateTicket.descripcion,
       // archivos: ticketInfo.solicitante
@@ -275,6 +278,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       sede: ticket?.sede || "nueve_de_julio",
       piso_solicitante: ticket.piso_solicitante,
       referencia: ticket.referencia,
+      prioridad: ticket.prioridad,
       // pre_tarea: ticket.pre_tarea,
       descripcion: ticket.descripcion,
       tecnico_asignado_id: ticket.tecnico_asignado_id,
@@ -284,8 +288,9 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     // setSolicitanteEmail(ticket.email);
   };
 
-  const onSubmit = () => {
-    updateTicket(ticketInfo)
+  const onSubmit = (data) => {
+    console.log({...ticketInfo, prioridad: data.prioridad ? 'alta' : 'baja'});
+    updateTicket({...ticketInfo, prioridad: data.prioridad ? 'alta' : 'baja'})
     setEdit(!edit);
     setHistorialMensajes([
       ...historialMensajes,
@@ -513,6 +518,28 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                   ticketInfo.referencia
                 )}
               </p>
+            </div>
+            <div className="col-12">
+            <p className="w-100 d-flex align-items-center item-form">
+                <strong className="strong-title">Prioridad:</strong>{" "}
+                {edit ? (
+                  <>
+                   <input
+                    className="check-prioridad-form"
+                    type="checkbox"
+                    id="flexCheckDefault"
+                    name="prioridad_ticket"
+                    {...register("prioridad")}
+                  />
+                   <label className="form-check-label" htmlFor="flexCheckDefault">
+                    Alta
+                  </label>
+                  </>
+                ) : (
+                  ticketInfo.prioridad
+                )}
+              </p>
+             
             </div>
             <div className="col-12">
               <p className="d-flex align-items-center item-form">
