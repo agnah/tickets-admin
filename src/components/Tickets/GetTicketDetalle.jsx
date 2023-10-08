@@ -13,16 +13,6 @@ import SelectTarea from "@components/Tickets/SelectTarea";
 import "./GetDetalleTicket.css";
 import { useNavigate } from "react-router-dom";
 
-const tecnicos = [
-  // "Franco Armani",
-  // "Juan",
-  // "Pedro",
-  // "Maria",
-  // "Luis",
-  // "Jose",
-  // "Laura",
-];
-
 const datalistSolicitante = solicitantes.map((s) => s.nombre);
 const optionListSelect = [
   "COMPUTOS",
@@ -289,17 +279,19 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   };
 
   const onSubmit = (data) => {
-    console.log({...ticketInfo, prioridad: data.prioridad ? 'alta' : 'baja'});
-    updateTicket({...ticketInfo, prioridad: data.prioridad ? 'alta' : 'baja'})
-    setEdit(!edit);
-    setHistorialMensajes([
-      ...historialMensajes,
-      {
-        area: user.sector[0],
-        info: `El usuario ${user?.nombre} modifico la información del solicitante`,
-        date: `Hace unos minutos...`,
-      },
-    ]);
+    let respuesta = confirm(`Esta seguro que desea actualizar los datos del ticket?`)
+    if(respuesta){
+      updateTicket({...ticketInfo, prioridad: data.prioridad ? 'alta' : 'baja'})
+      setEdit(!edit);
+      setHistorialMensajes([
+        ...historialMensajes,
+        {
+          area: user.sector[0],
+          info: `El usuario ${user?.nombre} modifico la información del solicitante`,
+          date: `Hace unos minutos...`,
+        },
+      ]);
+    }
   };
 
   const onChangeInput = (e) => {
