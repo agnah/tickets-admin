@@ -717,7 +717,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         <section>
           <article>
             <div>
-              <SelectTarea tareas={tareas} ticketTareas={ticketTareas} ticketId={ticket.id} user={user}/>
+              <SelectTarea tareas={tareas} ticketTareas={ticketTareas} ticketId={ticket.id} user={user} setHistorialMensajes={setHistorialMensajes} historialMensajes={historialMensajes}/>
             </div>
           </article>
         </section>

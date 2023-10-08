@@ -12,7 +12,7 @@ import "./SelectTarea.css";
 //   { value: 'Tarea6', id: 6, label: 'Scanner' }
 // ]
 
-function SelectTarea({ tareas, ticketTareas, ticketId, user }) {
+function SelectTarea({ tareas, ticketTareas, ticketId, user, setHistorialMensajes,historialMensajes }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [savedTareas, setSavedTareas] = useState([]);
   const [tareaSelecionado, setTareaSeleccionado] = useState(null);
@@ -40,6 +40,14 @@ function SelectTarea({ tareas, ticketTareas, ticketId, user }) {
   };
 
   const saveTarea = async (option) => {
+    setHistorialMensajes([
+      ...historialMensajes,
+      {
+        area: user.sector[0],
+        info: `Se agrego la tarea ${option.value} al ticket`,
+        date: `Hace unos minutos...`,
+      },
+    ]);
     let response = await fetch(
       `http://localhost:8000/api/tickets/${ticketId}/tareas/?tarea=${option.value}`,
       {
