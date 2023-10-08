@@ -13,14 +13,13 @@ import './SelectTarea.css'
 // ]
 
 function SelectTarea ({tareas}) {
-  console.log(tareas);
   const [selectedOptions, setSelectedOptions] = useState([])
   const [savedTareas, setSavedTareas] = useState([])
   const [tareaSelecionado, setTareaSeleccionado] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [tareaFinalizada, setTareaFinalizada] = useState(false)
   const [showSelect, setShowSelect] = useState(false)
-  const [tareasOptions, setTareasOptions] = useState(tareas.map( tarea => ({ value: tarea.tarea, id: tarea.id, label: tarea.tarea})))
+  
   const handleSelectChange = (selected) => {
     setSelectedOptions(selected)
   }
@@ -143,7 +142,7 @@ function SelectTarea ({tareas}) {
             <Select
                 isMulti
                 name="Tareas"
-                options={tareasOptions}
+                options={tareas}
                 onChange={handleSelectChange}
                 value={selectedOptions}
               />

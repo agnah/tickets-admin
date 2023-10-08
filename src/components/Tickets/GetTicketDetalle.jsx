@@ -153,6 +153,8 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       },
     });
     let tareas_por_area = await response.json();
+    tareas_por_area = tareas_por_area.map( tarea => ({ value: tarea.tarea, id: tarea.id, label: tarea.tarea}))
+    console.log(tareas_por_area);
     setTareas(tareas_por_area);
   }
 
@@ -696,7 +698,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         <section>
           <article>
             <div>
-              <SelectTarea tareas={tareas} />
+              <SelectTarea tareas={tareas}/>
             </div>
           </article>
         </section>
