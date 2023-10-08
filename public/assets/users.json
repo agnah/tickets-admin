@@ -1,6 +1,7 @@
 [
     {
-        "id": 1,
+        "id": 2,
+        "token": "abc-123",
         "nombre": "Pepe",
         "apellido": "administrativo",
         "email": "administrativoMesaEntrada",
@@ -16,6 +17,7 @@
     },
     {
         "id": 3,
+        "token": "cbd-234",
         "nombre": "Carlos",
         "apellido": "computos",
         "email": "computosAdministrador",
@@ -31,6 +33,7 @@
     },
     {
         "id": 4,
+        "token": "cde-345",
         "nombre": "Franco Armani",
         "apellido": "computos",
         "email": "computosTecnicoEditor",
@@ -46,6 +49,7 @@
     },
     {
         "id": 5,
+        "token":"def-456",
         "nombre": "Milton Casco",
         "apellido": "computos",
         "email": "computosTecnicoLector",

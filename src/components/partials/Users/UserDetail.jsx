@@ -1,19 +1,20 @@
-import { useState } from "react";
-import Input from "../../Form/Input/InputForm";
-import Select from "../../Form/Input/Select";
-import { useForm } from "react-hook-form";
+import { useState } from 'react'
+import Input from '../../Form/Input/InputForm'
+import Select from '../../Form/Input/Select'
+import { useForm } from 'react-hook-form'
 
-const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
+const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
-const optionListSelect = ["CSTIMI", "GDE", "Computos", "CID", "Telefonía"];
+const optionListSelect = ['CSTIMI', 'GDE', 'Computos', 'CID', 'Telefonía']
 
-const UserDetail = ({ user }) => {
-  const [edit, setEdit] = useState(false);
+const UserDetail = ({ user, datos }) => {
+  console.log('llego a detalle', datos) // aca estan los datos del usuario sin fetch
+  const [edit, setEdit] = useState(false)
   const [userInfo, setUserInfo] = useState({
     nombre: user?.nombre || null,
     apellido: user?.apellido || null,
     // TODO: INVERTIR!
-    email: "prueba@gmail.com" || user?.email,
+    email: 'prueba@gmail.com' || user?.email,
     telefono: user?.telefono || null,
     celular: user?.celular || null,
     interno: user?.interno || null,
@@ -21,33 +22,33 @@ const UserDetail = ({ user }) => {
     sector: user?.sector || null,
     sede: user?.sede || null,
     perfil: user?.perfil || null,
-    rolUsuario: user?.rolUsuario || null,
-  });
+    rolUsuario: user?.rolUsuario || null
+  })
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    formState: { errors }
+  } = useForm()
 
   const onChangeInput = (e) => {
-    const { value, name } = e.target;
-    setUserInfo({ ...userInfo, [name]: value });
-  };
+    const { value, name } = e.target
+    setUserInfo({ ...userInfo, [name]: value })
+  }
 
   const onSubmit = (data) => {
-    console.log(data);
-    setUserInfo({...userInfo, ...data})
-    setEdit(!edit);
-  };
+    console.log(data)
+    setUserInfo({ ...userInfo, ...data })
+    setEdit(!edit)
+  }
 
   const handleCancelEdit = () => {
-    setEdit(!edit);
+    setEdit(!edit)
     setUserInfo({
       nombre: user?.nombre || null,
       apellido: user?.apellido || null,
       // TODO: INVERTIR!
-      email: "prueba@gmail.com" || user?.email,
+      email: 'prueba@gmail.com' || user?.email,
       telefono: user?.telefono || null,
       celular: user?.celular || null,
       interno: user?.interno || null,
@@ -55,13 +56,13 @@ const UserDetail = ({ user }) => {
       sector: user?.sector || null,
       sede: user?.sede || null,
       perfil: user?.perfil || null,
-      rolUsuario: user?.rolUsuario || null,
-    });
-  };
+      rolUsuario: user?.rolUsuario || null
+    })
+  }
 
   const handleEdit = () => {
-    setEdit(!edit);
-  };
+    setEdit(!edit)
+  }
 
   return (
     <section className="position-relative pt-5">
@@ -151,7 +152,7 @@ const UserDetail = ({ user }) => {
                   errors={errors}
                   classCol="col-md-8 col-lg-8 d-flex form-group item-form align-items-center gap-2"
                   options={{
-                    required: "Campo obligatorio",
+                    required: 'Campo obligatorio'
                     // pattern: {
                     //   value: REGEX_EMAIL,
                     //   message: "El e-mail tiene que ser valido",
@@ -173,7 +174,7 @@ const UserDetail = ({ user }) => {
                   errors={errors}
                   classCol="col-md-8 col-lg-8 d-flex form-group item-form align-items-center gap-2"
                   options={{
-                    required: "Campo obligatorio",
+                    required: 'Campo obligatorio'
                     // pattern: {
                     //   value: REGEX_EMAIL,
                     //   message: "El e-mail tiene que ser valido",
@@ -195,11 +196,11 @@ const UserDetail = ({ user }) => {
                   errors={errors}
                   classCol="col-md-8 col-lg-8 d-flex form-group item-form align-items-center gap-2"
                   options={{
-                    required: "Campo obligatorio",
+                    required: 'Campo obligatorio',
                     pattern: {
                       value: REGEX_EMAIL,
-                      message: "El e-mail tiene que ser valido",
-                    },
+                      message: 'El e-mail tiene que ser valido'
+                    }
                   }}
                   value={userInfo?.email}
                   onChangeInput={onChangeInput}
@@ -348,11 +349,11 @@ const UserDetail = ({ user }) => {
                   name="perfil"
                   placeholder="Seleccione el perfil"
                   optionList={[
-                    "Colaborador",
-                    "Coordinador",
-                    "Director",
-                    "Responsable",
-                    "Operador",
+                    'Colaborador',
+                    'Coordinador',
+                    'Director',
+                    'Responsable',
+                    'Operador'
                   ]}
                   register={register}
                   errors={errors}
@@ -372,7 +373,7 @@ const UserDetail = ({ user }) => {
                   label="Rol"
                   name="rolUsuario"
                   placeholder="Seleccione el rol"
-                  optionList={["Admin", "Editor", "Usuario"]}
+                  optionList={['Admin', 'Editor', 'Usuario']}
                   register={register}
                   errors={errors}
                   classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
@@ -393,7 +394,7 @@ const UserDetail = ({ user }) => {
         </form>
       )}
     </section>
-  );
-};
+  )
+}
 
-export default UserDetail;
+export default UserDetail

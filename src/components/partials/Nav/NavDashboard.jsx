@@ -91,6 +91,7 @@ function NavDashboard () {
                 />
               }>
             </Route>
+            <Route path="*" element={<Inicio />} />
           </Routes>
         </Suspense>
       </SideBar>

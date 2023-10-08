@@ -1,0 +1,69 @@
+GET http://localhost:8000/ HTTP/1.1
+
+### inico
+GET http://localhost:8000/api/tickets/inicio/ HTTP/1.1
+X-Token: abcd-1234
+
+
+### todos los ticket?
+GET http://localhost:8000/api/tickets/ HTTP/1.1
+X-Token: abc-123
+
+### agregar tickets
+POST http://localhost:8000/api/tickets/ HTTP/1.1
+# X-Token: abcd-1234
+{
+"email_solicitante": "tito@gamil.com",
+"nombre_solicitante": "carlos",	
+"telefono_solicitante": "23424324",
+"celular_solicitante": "333442",
+"area_solicitante": 1,
+"sede_solicitante": "9_de_julio",
+"piso_solicitante": "3",
+"referencia":	"referncia",
+"area_asignada_id": 1 ,
+"prioridad": "baja",
+"estado": "pendiente",	
+"descripcion": "aljflsalfalfalsfa",
+}
+
+### actualizar ticket
+PATCH  http://localhost:8000/api/tickets/actualizaciones/1/ HTTP/1.1
+X-Usuario: 1234
+
+### agregar usuario
+POST http://localhost:8000/api/usuario/ HTTP/1.1
+{
+  "nombre_apellido": "Carlos perez",
+  "email": "carlos@perez.com",
+  "celular": "324324324",
+  "telefono": "324534",
+  "interno": "33",
+  "area_id": 2,
+  "piso": "4",
+  "perfil": "solicitante",
+  "rol": "administrador",
+  "token": "xxxx-1234"
+}
+
+
+### usuario por id
+GET http://localhost:8000/api/usuario/?field=id&value=6 HTTP/1.1
+
+### actualizar usuario por id
+PATCH http://localhost:8000/api/usuario/id/6 HTTP/1.1
+{
+ "nombre_apellido": "Leandro_Fernandez",
+  "email": "Leandro@gmail.com",
+  "celular": "12312",
+  "telefono": "111111",
+  "interno": "13",
+  "area_id": 1,
+  "piso": "4",
+  "perfil": "solicitante",
+  "rol": "administrador",
+  "token": "abcd-1234"
+}
+
+### todos los usuarios
+GET http://localhost:8000/api/usuario/list/
