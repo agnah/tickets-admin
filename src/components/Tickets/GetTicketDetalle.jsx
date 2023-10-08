@@ -260,7 +260,10 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   const handleCancelEdit = () => {
     setEdit(!edit);
     setTicketInfo({
+      id: ticket.id,
+      identificador: ticket.identificador,
       nombre_solicitante: ticket.nombre_solicitante,
+      email_solicitante: ticket.email_solicitante,
       fecha_creacion: ticket.fecha_creacion,
       telefono_solicitante: ticket.telefono_solicitante,
       area_solicitante: ticket.area_solicitante,
@@ -271,26 +274,23 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       descripcion: ticket.descripcion,
       tecnico_asignado_id: ticket.tecnico_asignado_id,
       area_asignada_id: ticket.area_asignada_id,
+      estado: ticket.estado,
     });
     // setSolicitanteEmail(ticket.email);
   };
 
   const onSubmit = () => {
-    setTicketInfo({ ...ticketInfo});
     updateTicket(ticketInfo)
     setEdit(!edit);
+    setHistorialMensajes([
+      ...historialMensajes,
+      {
+        area: user.sector[0],
+        info: `El usuario ${user?.nombre} modifico la información del solicitante`,
+        date: `Hace unos minutos...`,
+      },
+    ]);
   };
-
-  // const onChangeSolicitante = (e) => {
-  //   onChangeInput(e);
-  //   const solicitante = e.target.value;
-  //   const solicitanteSeleccionado = solicitantes.find(
-  //     (s) => s.nombre === solicitante
-  //   );
-  //   if (solicitanteSeleccionado) {
-  //     setSolicitanteEmail(solicitanteSeleccionado.email);
-  //   }
-  // };
 
   const onChangeInput = (e) => {
     let { value, name } = e.target;
@@ -299,11 +299,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     console.log({ ...ticketInfo, [name]: value });
     setTicketInfo({ ...ticketInfo, [name]: value });
   };
-
-  // const onChangeInputEmail = (e) => {
-  //   onChangeInput(e);
-  //   setSolicitanteEmail(e.target.value);
-  // };
 
   const handleAnular = (e) => {
     // TODO: LOGICA DE ANULAR TICKET
