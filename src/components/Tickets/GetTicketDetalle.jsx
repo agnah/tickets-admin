@@ -128,8 +128,8 @@ const GetTicketDetalle = ({ ticket }) => {
         ...historialMensajes,
         {
           area: user.sector[0],
-          info: `Se asigno al colaborador ${e.target.value}`,
-          date: formatearFecha(new Date()),
+          info: `Se asigno al técnico ${e.target.value}`,
+          date: `Hace unos minutos...`,
         },
       ]);
     }
@@ -141,7 +141,7 @@ const GetTicketDetalle = ({ ticket }) => {
           {
             area: user.sector[0],
             info: `El usuario ${user?.nombre} derivo el ticket a ${e.target.value}`,
-            date: formatearFecha(new Date()),
+            date: `Hace unos minutos...`,
           },
         ]);
       }
@@ -155,7 +155,7 @@ const GetTicketDetalle = ({ ticket }) => {
       {
         area: user.sector[0],
         info: e.target[0].value,
-        date: formatearFecha(new Date()),
+        date:  `Hace unos minutos...`,
       },
     ]);
   };
@@ -253,7 +253,7 @@ const GetTicketDetalle = ({ ticket }) => {
             <div className="col-md-6 d-flex align-items-center">
               <p className="w-100 d-flex align-items-center item-form">
                 <strong className="strong-title">Email:</strong>{" "}
-                {edit
+                {/* {edit
                   ? (
                   <InputForm
                     label=""
@@ -273,16 +273,15 @@ const GetTicketDetalle = ({ ticket }) => {
                     value={solicitanteEmail}
                     onChangeInput={onChangeInputEmail}
                   />
-                ) : (
-                  ticketInfo.email
-                )}
+                ) : ( */}
+                {ticketInfo.email}
+                {/* )} */}
               </p>
             </div>
             <div className="col-md-6">
               <p className="w-100 d-flex align-items-center item-form">
                 <strong className="strong-title">Teléfono:</strong>
-                {edit
-                  ? (
+                {edit ? (
                   <InputForm
                     label=""
                     type="text"
@@ -304,31 +303,29 @@ const GetTicketDetalle = ({ ticket }) => {
             </div>
             <div className="col-md-6 d-flex align-items-center">
               <div>
-                  <p className="d-flex align-items-center item-form">
-                    <strong className="strong-title">Area:</strong>{" "}
-                    {edit
-                      ? (
-                      <SelectInput
-                        label=""
-                        name="area"
-                        placeholder="Selecciona un área"
-                        optionList={optionListSelect}
-                        register={register}
-                        errors={errors}
-                        classCol="d-flex ms-2"
-                        options={{
-                          required: "Campo obligatorio"
-                        }}
-                        onChangeInput={onChangeInput}
-                      />
-                        )
-                      : (
-                          ticketInfo.area
-                        )}
-                  </p>
-                </div>
+                <p className="d-flex align-items-center item-form">
+                  <strong className="strong-title">Area:</strong>{" "}
+                  {edit ? (
+                    <SelectInput
+                      label=""
+                      name="area"
+                      placeholder="Selecciona un área"
+                      optionList={optionListSelect}
+                      register={register}
+                      errors={errors}
+                      classCol="d-flex ms-2"
+                      options={{
+                        required: "Campo obligatorio",
+                      }}
+                      onChangeInput={onChangeInput}
+                    />
+                  ) : (
+                    ticketInfo.area
+                  )}
+                </p>
+              </div>
             </div>
-            <div className='col-md-6'>
+            <div className="col-md-6">
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Sede:</strong>{" "}
                 {edit ? (
@@ -350,7 +347,7 @@ const GetTicketDetalle = ({ ticket }) => {
                 )}
               </p>
             </div>
-            <div className='col-md-6'>
+            <div className="col-md-6">
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Piso:</strong>{" "}
                 {edit ? (
@@ -375,9 +372,7 @@ const GetTicketDetalle = ({ ticket }) => {
             <div className="col-6">
               <p className="w-100 d-flex align-items-center item-form">
                 <strong className="strong-title">Referencia:</strong>{" "}
-                {edit
-                  ? (
-
+                {edit ? (
                   <InputForm
                     label=""
                     type="text"
@@ -394,12 +389,12 @@ const GetTicketDetalle = ({ ticket }) => {
                 )}
               </p>
             </div>
-            <div className="col-12 my-1">
+            {/* <div className="col-12 my-1">
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Pre Tarea:</strong>{" "}
                 {ticketInfo.pre_tarea}
               </p>
-            </div>
+            </div> */}
             <div className="col-12">
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Motivo:</strong>{" "}
@@ -516,7 +511,7 @@ const GetTicketDetalle = ({ ticket }) => {
               </div>
             </div>
           </article>
-          <article className="col-lg-12 box-derivar">
+          <article className="col-lg-12 tecnico-asignado">
             <div className="mb-2">
               {/* <SelectTecnico
                 label=""
@@ -533,8 +528,11 @@ const GetTicketDetalle = ({ ticket }) => {
                 selectedOption={null}
                 onChangeInput={handleSelectChange}
               /> */}
-              <div className="col-md-12 col-lg-12 d-flex ms-2 select-derivar">
+              <label className="ms-2">Acciones:</label>
+              <div className="col-md-12 col-lg-12 d-flex m-2 select-derivar">
+                
                 <div className="form-group item-form">
+                  
                   <select
                     name="derivar"
                     id="derivar"
@@ -555,16 +553,26 @@ const GetTicketDetalle = ({ ticket }) => {
                   </select>
                 </div>
               </div>
+              <div>
+                <button id="btn-cancelar" onClick={handleAnular} className="m-2 ">
+                  Anular
+                </button>
+              </div>
+              <div>
+                <button id="btn-aceptar" onClick={handleFinalizar} className="m-2 ">
+                  Finalizar
+                </button>
+              </div>
             </div>
-            <div>
+            {/* <div>
               <p className="mb-1 ms-2 subtitle-derivar">
                 Tiempo de espera: {""}
               </p>
               <p className="mb-0 ms-2 subtitle-derivar">Última acción: {""}</p>
-            </div>
+            </div> */}
           </article>
         </section>
-        <section >
+        <section>
           <article>
             <div>
               <SelectTarea />
