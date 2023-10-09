@@ -31,7 +31,8 @@ const sedes = ["NUEVE_DE_JULIO", "ANEXO1", "ANEXO2", "ANEXO3"];
 const datalistSolicitante = solicitantes.map((s) => s.email);
 
 const TicketCreateForm = ({ prioridad }) => {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
+  const [message, setMessage] = useState("");
   const { user } = useAuth();
   const dragAndDropRef = useRef(null);
   const {
@@ -79,11 +80,12 @@ const TicketCreateForm = ({ prioridad }) => {
     let result = await response.json();
     reset();
     reset({ area_asignada: user.sector[0].toUpperCase() });
-    if(result?.id !== null) {
-      setShow(!show)
+    if (result?.id !== null) {
+      setMessage(`El ticket ${result?.identificador} se creo correctamente`);
+      setShow(!show);
     }
   };
-
+  
   const redirectTickets = () => {
     navigate("/tickets");
   };
@@ -95,7 +97,7 @@ const TicketCreateForm = ({ prioridad }) => {
           class="alert alert-success alert-dismissible fade show"
           role="alert"
         >
-          El ticket se creo correctamente
+          {message}
           <button
             type="button"
             class="btn-close"
