@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import HeaderLogged from '../Header/HeaderLogged'
 import './SideBar.css'
-import { perfil } from '@constantes/constUsers'
+import { perfil, rolUsuario } from '@constantes/constUsers'
 import useAuth from '@servicios/UseAuth'
 import { useState } from 'react'
 
@@ -9,6 +9,7 @@ const SideBar = ({ children }) => {
   const { user, seccionTicket } = useAuth()
   const [showNav, setShowNav] = useState(true)
   const { SUPERADMIN, ADMINISTRADOR, ADMINISTRATIVO } = perfil
+  const { LECTOR } = rolUsuario
 
   const classDisplay = showNav ? 'show-nav' : 'close-nav'
   const classColorBoton = seccionTicket ? 'circle-item' : 'circle-item-tramite'
@@ -42,7 +43,7 @@ const SideBar = ({ children }) => {
                 data-bs-placement="right"
                 data-bs-original-title="Home"
               >
-               <img className="nav-icon house" src="../../../public/img/house-solid.svg"></img>
+                <img className="nav-icon house" src="../../../public/img/house-solid.svg"></img>
               </Link>
             </div>
             <span className="span-nav">Inicio</span>
@@ -59,7 +60,7 @@ const SideBar = ({ children }) => {
                     data-bs-placement="right"
                     data-bs-original-title="Home"
                   >
-                  <img className="nav-icon ticket" src="../../../public/img/ticket-solid.svg"></img>
+                    <img className="nav-icon ticket" src="../../../public/img/ticket-solid.svg"></img>
                   </Link>
                 </div>
                 <span className="span-nav">Tickets</span>
@@ -74,7 +75,7 @@ const SideBar = ({ children }) => {
                     data-bs-placement="right"
                     data-bs-original-title="Home"
                   >
-                  <img className="nav-icon plus" src="../../../public/img/plus-solid.svg"></img>
+                    <img className="nav-icon plus" src="../../../public/img/plus-solid.svg"></img>
                   </Link>
                 </div>
                 <span className='span-nav'>
@@ -116,23 +117,25 @@ const SideBar = ({ children }) => {
                 </span>
               </li></>
           )}
-              <li className="item mb-4">
-                <div className="item-nav">
-                  <Link
-                    to="/usuarios"
-                    className={classColorBoton}
-                    aria-current="page"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="right"
-                    data-bs-original-title="Home"
-                  >
-                    <img className="nav-icon user" id="icon-menu" src="../../../public/img/network-wired-solid.svg"></img>
-                  </Link>
-                </div>
-                <span className="span-nav">
-                  Usuarios
-                </span>
-              </li>
+          {(user.rolUsuario !== LECTOR) && (
+            <li className="item mb-4">
+              <div className="item-nav">
+                <Link
+                  to="/usuarios"
+                  className={classColorBoton}
+                  aria-current="page"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  data-bs-original-title="Home"
+                >
+                  <img className="nav-icon user" id="icon-menu" src="../../../public/img/network-wired-solid.svg"></img>
+                </Link>
+              </div>
+              <span className="span-nav">
+                Usuarios
+              </span>
+            </li>
+          )}
           {(user.perfil.includes(SUPERADMIN) || user.perfil.includes(ADMINISTRADOR) || user.perfil.includes(ADMINISTRATIVO)) && (
             <li className="item mb-4">
               <div className="item-nav">

@@ -3,7 +3,7 @@ import { estadoTicket } from '@constantes/constTickets'
 
 export const FiltrosContext = createContext()
 
-export function FiltrosProvider ({ children }) {
+export function FiltrosProvider({ children }) {
   const { PENDIENTE, EN_CURSO } = estadoTicket
   const [prioridad, setPrioridad] = useState([])
   const [seleccionados, setSeleccionados] = useState([PENDIENTE, EN_CURSO])
@@ -17,13 +17,15 @@ export function FiltrosProvider ({ children }) {
     setSeleccionados(values)
   }, [])
 
-  const handleFiltroUserChange = useCallback((values) => {
+  const handleFiltroUserChange = (values) => {
     setFiltroUser(values)
-  }, [])
+    console.log('llego a handle user', values)
+  }
 
-  const handleFiltroSectorChange = useCallback((values) => {
-    setFiltroSector(values)
-  }, [])
+  const handleFiltroSectorChange = (value) => {
+    setFiltroSector(value)
+    console.log('llego a handle sector', value)
+  }
 
   return (
     <FiltrosContext.Provider
