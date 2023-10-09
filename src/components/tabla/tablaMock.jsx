@@ -139,7 +139,6 @@ function Tabla () {
 
   // const data = filtroTabla(preData, seleccionados, prioridad, filtroUser)
   const data = filtroTabla(datos, seleccionados, filtroUser, filtroSector)
-  console.log('existe', filtroUser, filtroSector)
 
   const conditionalRowStyles = [
     {

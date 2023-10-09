@@ -44,6 +44,7 @@ function NavDashboard () {
             <Route path="/404" element={<div>404</div>} />
             {/* <Route path="*" element={<Home />} /> */}
             <Route path="/inicio" element={<Inicio />} />
+            <Route path="/usuarios/:id" element={<DetalleUsuario />} />
             <Route path="/estadisticas" element={<h1>estadisticas</h1>} />
             <Route
               element={
@@ -81,7 +82,6 @@ function NavDashboard () {
               }>
               <Route path="/usuarios/create" element={<CreateUser />} />
               <Route path="/usuarios" element={<Usuarios />} />
-              <Route path="/usuarios/:id" element={<DetalleUsuario />} />
             </Route>
             <Route
               element={

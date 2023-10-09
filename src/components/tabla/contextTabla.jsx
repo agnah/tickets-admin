@@ -3,7 +3,7 @@ import { estadoTicket } from '@constantes/constTickets'
 
 export const FiltrosContext = createContext()
 
-export function FiltrosProvider({ children }) {
+export function FiltrosProvider ({ children }) {
   const { PENDIENTE, EN_CURSO } = estadoTicket
   const [prioridad, setPrioridad] = useState([])
   const [seleccionados, setSeleccionados] = useState([PENDIENTE, EN_CURSO])

@@ -1,22 +1,75 @@
 import { useForm } from 'react-hook-form'
 import InputForm from '@components/Form/Input/InputForm'
-import Select from '@components/Form/Input/Select'
+import Select from '@components/Form/Input/select2'
 import Button from '../Button/Button'
+import useAuth from '@servicios/UseAuth'
+import { useState } from 'react'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
-const optionListArea = ['Soportes', 'Telefonía', 'Cómputos', 'Sistemas', 'GDE']
+const optionListArea = ['soportes', 'telefonia', 'computos', 'sistemas', 'gde']
 const optionListSede = ['9 de Julio', 'Av. de Mayo', 'Moreno']
-const optionListPerfil = ['Administrativo', 'Técnico', 'Admin', 'Superadmin']
-const optionListRol = ['Administrador', 'Editor', 'Lector']
+const optionListPerfil = ['administrativo', 'tecnico', 'administrador', 'superadmin']
+const optionListRol = ['admin', 'editor', 'Lector']
 
 const CreateUserForm = () => {
+  const { user } = useAuth()
+  const [selectedAreaIndex, setSelectedAreaIndex] = useState(null)
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  // const handleAreaChange = (selectedIndex) => {
+  //   console.log('Selected Area Index:', selectedIndex)
+  //   setSelectedAreaIndex(selectedIndex)
+  // }
+  const handleAreaChange = (selectedIndex) => {
+    setSelectedAreaIndex(selectedIndex)
+  }
+
+  // const onSubmit = (data) => console.log(data)
+  const onSubmit = async (data) => {
+    const formData = { ...data }
+    if (user.sector[0] !== 'GDE') {
+      formData.area_id =
+        optionListArea.indexOf(user.sector[0].toUpperCase()) + 1
+    }
+    console.log(formData)
+
+    const body = {
+      nombre: formData.nombre,
+      apellido: formData.apellido,
+      email: formData.email,
+      celular: formData.celular,
+      telefono: formData.telefono,
+      interno: formData.interno,
+      area_id: selectedAreaIndex !== null ? selectedAreaIndex + 1 : '',
+      piso: formData.piso,
+      perfil: formData.perfil,
+      rol: formData.rol,
+      token: user.token
+    }
+
+    const jsonString = JSON.stringify(body)
+    console.log(jsonString)
+
+    const response = await fetch('http://localhost:8000/api/usuario', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const result = await response.json()
+    console.log(result)
+    reset()
+
+    // if (result?.id !== null) {
+    //   setShow(!show) // Asegúrate de definir `show` antes de usarlo
+    // }
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
@@ -109,12 +162,14 @@ const CreateUserForm = () => {
         />
         <Select
           label="Area"
-          name="area"
+          name="area_id"
           placeholder="Seleccione Area"
           optionList={optionListArea}
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4"
+          valueType="index"
+          onChangeInput={handleAreaChange}
           options={{
             required: 'Campo obligatorio'
           }}
@@ -127,6 +182,7 @@ const CreateUserForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4"
+          valueType="value"
           options={{
             required: 'Campo obligatorio'
           }}
@@ -151,6 +207,7 @@ const CreateUserForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4"
+          // valueType="value"
           options={{
             required: 'Campo obligatorio'
           }}
@@ -159,10 +216,11 @@ const CreateUserForm = () => {
           label="Rol"
           name="rol"
           placeholder="Seleccione Rol"
-          optionList={optionListRol}
+          optionList={optionListRol.map(String)}
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4"
+          valueType="value"
           options={{
             required: 'Campo obligatorio'
           }}
