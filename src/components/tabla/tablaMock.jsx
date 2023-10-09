@@ -1,5 +1,6 @@
 import DataTable from 'react-data-table-component'
-import useApiMock from '@servicios/useApiMock'
+// import useApiMock from '@servicios/useApiMock'
+import useApiTest from '@servicios/useApiTest'
 import SkeletonTabla from './skeletonTabla'
 import { useCallback, useMemo, useContext, useState } from 'react'
 import filtroTabla from './filtroTabla'
@@ -7,19 +8,21 @@ import filtroTabla from './filtroTabla'
 import CheckEstado from './checkEstado'
 import { FiltrosContext } from './contextTabla'
 import useAuth from '@servicios/UseAuth'
+// import Button from '../partials/Button/Button'
 import ButtonEdit from '../partials/Button/ButtonEdit'
 import { useNavigate, Link } from 'react-router-dom'
 import { apis } from '@constantes/constApis'
 import { estadoTicket } from '@constantes/constTickets'
-import { areas } from '@constantes/constAreas'
-import { perfil } from '@constantes/constUsers'
+// import { areas } from '@constantes/constAreas'
+import { perfil, rolUsuario } from '@constantes/constUsers'
 import Badge from '../partials/Button/Badge'
 import './tabla.css'
 
 const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz', 'Tito']
 const sectores = ['Soporte', 'Telefonía', 'Computos', 'Sistemas', 'GDE']
+const sectoresid = [1, 2, 3, 4, 5]
 
-function Tabla () {
+function Tabla() {
   const [busqueda, setBusqueda] = useState('')
   const { PENDIENTE } = estadoTicket
   const { user } = useAuth()
@@ -27,12 +30,16 @@ function Tabla () {
   const url = apis.API_TICKETS
   const {
     isLoading,
+    // isValidating,
     isError,
     isSuccess,
     data: datos,
+    // trigger,
     error
-  } = useApiMock(url)
+    // } = useApiMock(url)
+  } = useApiTest(url)
 
+  console.log('llego de back', datos)
   const {
     prioridad,
     // handlePrioridadChange,
@@ -50,20 +57,20 @@ function Tabla () {
   }, [])
 
   // columnas tabla
-  const columnsTotales = useMemo(() => [
+  const columns = useMemo(() => [
     {
       name: 'Nro.',
-      selector: (row) => row.ticket,
+      selector: (row) => row.identificador,
       sortable: true
     },
     {
       name: 'Fecha',
-      selector: (row) => row.fecha,
+      selector: (row) => row.fecha_creacion,
       sortable: true
     },
     {
       name: 'Hora',
-      selector: (row) => row.fecha,
+      selector: (row) => row.fecha_creacion,
       sortable: true
     },
     {
@@ -72,28 +79,28 @@ function Tabla () {
       sortable: true
     },
     {
-      name: 'Area',
-      selector: (row) => row.area,
+      name: 'Area Solicitante',
+      selector: (row) => row.area_solicitante,
       sortable: true
     },
     {
       name: 'Piso',
-      selector: (row) => row.piso,
+      selector: (row) => row.piso_solicitante,
       sortable: true
     },
     {
-      name: 'Colaborador',
-      selector: (row) => row.colaborador,
+      name: 'Técnico asignado',
+      selector: (row) => row.tecnico_asignado_id,
       sortable: true
     },
+    // {
+    //   name: 'Pre-tarea',
+    //   selector: (row) => row.pre_tarea,
+    //   sortable: true
+    // },
     {
-      name: 'Pre-tarea',
-      selector: (row) => row.pre_tarea,
-      sortable: true
-    },
-    {
-      name: 'Área asignada',
-      selector: (row) => row.area_asignada,
+      name: 'Sector',
+      selector: (row) => row.area_asignada_id,
       sortable: true
     },
     // {
@@ -118,32 +125,35 @@ function Tabla () {
     }
   ], [])
 
-  const filteredColumns = (filtro) => {
-    const { MESA_DE_ENTRADA, SOPORTE, CID, COMPUTOS, TELEFONIA, GDE, CSTIMI, ADMIN } = areas
-    const filterColumns = {
-      [MESA_DE_ENTRADA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Área asignada', 'Colaborador', 'Estado', 'Accion'],
-      [SOPORTE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [CID]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [COMPUTOS]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [TELEFONIA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [GDE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [CSTIMI]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion'],
-      [ADMIN]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Colaborador', 'Estado', 'Accion']
-    }
-    const columnsPorArea = filterColumns[filtro] || filterColumns[MESA_DE_ENTRADA]
-    return columnsTotales.filter(column =>
-      columnsPorArea.includes(column.name)
-    )
-  }
+  // const filteredColumns = (filtro) => {
+  //   const { MESA_DE_ENTRADA, SOPORTE, CID, COMPUTOS, TELEFONIA, GDE, CSTIMI, ADMIN } = areas
+  //   const filterColumns = {
+  //     [MESA_DE_ENTRADA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Área asignada', 'Técnico asignado', 'Estado', 'Accion'],
+  //     [SOPORTE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+  //     [CID]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+  //     [COMPUTOS]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+  //     [TELEFONIA]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+  //     [GDE]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+  //     [CSTIMI]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion'],
+  //     [ADMIN]: ['Nro.', 'Fecha', 'Hora', 'Area', 'Piso', 'Pre-tarea', 'Técnico asignado', 'Estado', 'Accion']
+  //   }
+  //   const columnsPorArea = filterColumns[filtro] || filterColumns[MESA_DE_ENTRADA]
+  //   return columnsTotales.filter(column =>
+  //     columnsPorArea.includes(column.name)
+  //   )
+  // }
 
-  const columns = useMemo(() => filteredColumns(user.sector), [])
+  // const columns = useMemo(() => filteredColumns(user.sector), [])
 
   // filtros
   // const preData = datos.filter(elem => elem.area === user.sector)
 
   // const data = filtroTabla(preData, seleccionados, prioridad, filtroUser)
 
-  const data = filtroTabla(datos, seleccionados, prioridad, filtroUser, filtroSector)
+  // const data = filtroTabla(datos, seleccionados, prioridad, filtroUser, filtroSector)
+
+  // console.log('data', data)
+  // const data = datos
 
   const conditionalRowStyles = [
     {
@@ -162,11 +172,37 @@ function Tabla () {
     return <SkeletonTabla />
   }
   if (isSuccess) {
+    const mapeoAreas = {
+      1: 'Computos',
+      2: 'Telefonia',
+      3: 'Soporte',
+      4: 'Sistemas'
+    }
+    const AreasMapeadas = datos.map((obj) => ({
+      ...obj,
+      area_asignada_id: mapeoAreas[obj.area_asignada_id]
+    }))
+    console.log('areas mapeadas', AreasMapeadas)
+    // tecnicos unicos
+    const tecnicosUnicos = [...new Set(datos.map(item => item.tecnico_asignado_id))]
+    console.log('tecnicosUnicos', tecnicosUnicos)
+
+    // const data = filtroTabla(AreasMapeadas, seleccionados, prioridad, filtroUser, filtroSector)
+    const data = datos
+
     const filteredData = data.filter(item =>
       Object.values(item).some(value =>
         typeof value === 'string' && value.toLowerCase().includes(busqueda.toLowerCase())
       )
     )
+
+    /* <Button
+          classIcon="fa fa-refresh"
+          texto={isValidating ? 'Validando' : ''}
+          type="button"
+          onClick={() => trigger()}
+        /> */
+
     return (
       <>
         <div className="container-h">
@@ -192,46 +228,50 @@ function Tabla () {
                     value={filtroUser}
                     onChange={(e) => handleFiltroUserChange(e.target.value)}
                   >
-                    <option value="">Colaboradores</option>
+                    <option value="">Técnicos</option>
                     {colaborador.map((option, index) => (
                       <option key={index} value={option}>
                         {option}
                       </option>
                     ))}
                   </select>
-                  )
+                )
                 : (
                   <select disabled>
                     <option value=''>Todos</option>
                   </select>
-                  )}
+                )}
               <img src="public/img/caret-down-solid.svg" className="fa-solid fa-caret-down"></img>
             </div>
-            <div>
-              {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
-                ? (
-                  <div>
-                    <select
-                    name='filtroSector'
-                    value={filtroSector}
-                    onChange={(e) => handleFiltroSectorChange(e.target.value)}
-                  >
-                    <option value="">Sector</option>
-                    {sectores.map((option, index) => (
-                      <option key={index} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                    <img src="public/img/caret-down-solid.svg" className="fa-solid fa-caret-down"></img>
-                  </div>
-                  )
-                : (
-                  <select disabled>
-                    <option value=''>Todos</option>
-                  </select>
-                  )}
-            </div>
+            {user.perfil.includes(perfil.ADMINISTRATIVO) || user.rolUsuario === rolUsuario.DIOS
+              ? (
+                <div>
+                  {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
+                    ? (
+                      <div>
+                        <select
+                          name='filtroSector'
+                          value={filtroSector}
+                          onChange={(e) => handleFiltroSectorChange(e.target.value)}
+                        >
+                          <option value=''>Sector</option>
+                          {sectoresid.map((option, index) => (
+                            <option key={index} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                        <img src='public/img/caret-down-solid.svg' className='fa-solid fa-caret-down' alt='Caret Down' />
+                      </div>
+                    )
+                    : (
+                      <select disabled>
+                        <option value=''>Todos</option>
+                      </select>
+                    )}
+                </div>
+              )
+              : null}
             {!user.perfil.includes(perfil.DIRECTOR) && (
               <Link to='/tickets/create' className='btn-crear-ticket'>
                 <img src="public/img/plus-solid.svg" className="fa-solid fa-plus"></img>

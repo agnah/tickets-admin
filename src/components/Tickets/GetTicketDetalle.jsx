@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Button from '../partials/Button/Button'
 // import Select from 'react-select'
 // import ButtonEdit from '../partials/Button/ButtonEdit'
@@ -11,19 +11,24 @@ import SelectTecnico from "../Form/Input/SelectWithOption";
 import TextArea from "../../components/Form/Input/TextArea";
 import SelectTarea from "@components/Tickets/SelectTarea";
 import "./GetDetalleTicket.css";
-
-const tecnicos = [
-  "Franco Armani",
-  "Juan",
-  "Pedro",
-  "Maria",
-  "Luis",
-  "Jose",
-  "Laura",
-];
+import { useNavigate } from "react-router-dom";
+import Badge from "../partials/Button/Badge";
 
 const datalistSolicitante = solicitantes.map((s) => s.nombre);
-const optionListSelect = ["CSTIMI", "GDE", "Computos", "CID", "Telefonía"];
+const optionListSelect = [
+  "COMPUTOS",
+  "TELEFONIA",
+  "SOPORTE",
+  "SISTEMAS",
+  "GDE",
+];
+const optionListAreaSolicitante = [
+  "ADMINISTRACION",
+  "RRHH",
+  "CONTABILIDAD",
+  "LEGALES",
+];
+const sedes = ["NUEVE_DE_JULIO", "ANEXO1", "ANEXO2", "ANEXO3"];
 const historial = [
   {
     area: "CSTIMI",
@@ -93,7 +98,8 @@ function formatearFecha(fecha) {
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 
-const GetTicketDetalle = ({ ticket }) => {
+const GetTicketDetalle = ({ ticket, setTicket }) => {
+
   const {
     register,
     handleSubmit,
@@ -101,49 +107,174 @@ const GetTicketDetalle = ({ ticket }) => {
   } = useForm();
 
   const user = JSON.parse(sessionStorage.getItem("user"));
-
+  const navigate = useNavigate();
   const [ticketInfo, setTicketInfo] = useState({
-    solicitante: ticket.solicitante,
-    email: ticket.email,
-    fecha: ticket.fecha,
-    telefono: ticket.telefono,
-    area: ticket.area,
-    sede: ticket.sede,
-    piso: ticket.piso,
+    id: ticket.id,
+    identificador: ticket.identificador,
+    nombre_solicitante: ticket.nombre_solicitante,
+    email_solicitante: ticket.email_solicitante,
+    fecha_creacion: ticket.fecha_creacion,
+    telefono_solicitante: ticket.telefono_solicitante,
+    area_solicitante: ticket.area_solicitante,
+    sede: ticket?.sede || "nueve_de_julio",
+    piso_solicitante: ticket.piso_solicitante,
     referencia: ticket.referencia,
-    pre_tarea: ticket.pre_tarea,
-    motivo: "Un motivo valido",
-    colaborador: ticket.colaborador,
-    area_asignada: ticket.area,
+    prioridad: ticket.prioridad,
+    // pre_tarea: ticket.pre_tarea,
+    descripcion: ticket.descripcion,
+    tecnico_asignado_id: ticket.tecnico_asignado_id,
+    area_asignada_id: ticket.area_asignada_id,
+    estado: ticket.estado,
   });
 
+  const [ticketTareas, setTicketTareas] = useState([]);
   const [edit, setEdit] = useState(false);
-  const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email);
+  // const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email);
   const [historialMensajes, setHistorialMensajes] = useState(historial);
+  const [tecnicos, setTecnicos] = useState([]);
+  const [tareas, setTareas] = useState([]);
+
+  useEffect(() => {
+    getTecnicos(ticketInfo.area_asignada_id);
+    getTareasPorArea(ticketInfo.area_asignada_id);
+  }, []);
+
+  const getTecnicos = async (id_area) => {
+    let response = await fetch(`http://localhost:8000/api/usuario/${id_area}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let tecnicos_por_area = await response.json();
+    setTecnicos(tecnicos_por_area);
+  };
+
+  const getTareasPorArea = async (id_area) => {
+    let response = await fetch(
+      `http://localhost:8000/api/area/tareas/${id_area}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    let tareas_por_area = await response.json();
+    tareas_por_area = tareas_por_area.map((tarea) => ({
+      value: tarea.tarea,
+      id: tarea.id,
+      label: tarea.tarea,
+    }));
+    if (ticket.tareas.length > 0) {
+      let ticketTareasId = ticket.tareas
+        .filter((tarea) => tarea.estado == "ACTIVA")
+        .map((tarea) => tarea.tarea_id);
+      let tareasTicketsArr = [];
+      tareas_por_area.forEach((tarea_por_area) => {
+        if (ticketTareasId.includes(tarea_por_area.id))
+          tareasTicketsArr.push(tarea_por_area);
+      });
+      setTicketTareas(tareasTicketsArr);
+    }
+    setTareas(tareas_por_area);
+  };
+
+  const updateTicket = async (updateTicket) => {
+    let data = {
+      nombre_solicitante: updateTicket.nombre_solicitante,
+      telefono_solicitante: updateTicket.telefono_solicitante,
+      area_solicitante: updateTicket.area_solicitante,
+      sede_solicitante: "nueve_de_julio",
+      piso_solicitante: updateTicket.piso_solicitante,
+      referencia: updateTicket.referencia,
+      prioridad: updateTicket.prioridad,
+      tecnico_asignado_id: null,
+      estado: updateTicket.estado,
+      descripcion: updateTicket.descripcion,
+      tecnico_asignado_id: updateTicket.tecnico_asignado_id,
+      // archivos: ticketInfo.solicitante
+    };
+
+    let response = await fetch(
+      `http://localhost:8000/api/tickets/actualizaciones/${ticket.id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          "x-usuario": user.id,
+        },
+      }
+    );
+    let result = await response.json();
+    setTicket({ ...ticketInfo, ...data });
+  };
+
+  const derivarTicket = async (id_area) => {
+    let response = await fetch(
+      `http://localhost:8000/api/tickets/derivaciones/${ticket.id}/?area_id=${id_area}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "x-usuario": user.id,
+        },
+      }
+    );
+    let result = await response.json();
+    setTicket(result);
+    getTecnicos(id_area);
+    getTareasPorArea(id_area);
+    navigate('/tickets')
+  };
 
   const handleSelectChange = (e) => {
+    let ticket_update_info;
     if (e.target.name === "tecnico_asignado") {
-      setTicketInfo({ ...ticketInfo, colaborado: e.target.value });
-      setHistorialMensajes([
-        ...historialMensajes,
-        {
-          area: user.sector[0],
-          info: `Se asigno al colaborador ${e.target.value}`,
-          date: formatearFecha(new Date()),
-        },
-      ]);
-    }
-    if (e.target.name === "derivar") {
-      if (e.target.value != "") {
-        setTicketInfo({ ...ticketInfo, area_asignada: e.target.value });
+      let nombre_tecnico = tecnicos.find(
+        (tecnico) => tecnico.id == e.target.value
+      ).nombre;
+      let respuesta = confirm(
+        `Esta seguro que desea asignar al tecnico ${nombre_tecnico}?`
+      );
+      if (respuesta) {
+        setTicketInfo({ ...ticketInfo, tecnico_asignado_id: e.target.value });
+        ticket_update_info = {
+          ...ticketInfo,
+          tecnico_asignado_id: e.target.value,
+        };
+        let tecnico = tecnicos.find((tecnico) => (tecnico.id = e.target.value));
         setHistorialMensajes([
           ...historialMensajes,
           {
             area: user.sector[0],
-            info: `El usuario ${user?.nombre} derivo el ticket a ${e.target.value}`,
-            date: formatearFecha(new Date()),
+            info: `Se asigno al técnico ${tecnico.nombre}`,
+            date: `Hace unos minutos...`,
           },
         ]);
+        updateTicket(ticket_update_info);
+      } else {
+        e.target.value = ticketInfo.tecnico_asignado_id || "";
+      }
+    }
+    if (e.target.name === "derivar") {
+      let respuesta = confirm("Esta seguro que desea derivar a otra area?");
+      if (respuesta) {
+        if (e.target.value != "") {
+          setTicketInfo({ ...ticketInfo, area_asignada: e.target.value });
+          setHistorialMensajes([
+            ...historialMensajes,
+            {
+              area: user.sector[0],
+              info: `El usuario ${user?.nombre} derivo el ticket a ${
+                optionListSelect[e.target.value - 1]
+              }`,
+              date: `Hace unos minutos...`,
+            },
+          ]);
+          derivarTicket(e.target.value);
+        }
+      } else {
+        e.target.value = "";
       }
     }
   };
@@ -155,7 +286,7 @@ const GetTicketDetalle = ({ ticket }) => {
       {
         area: user.sector[0],
         info: e.target[0].value,
-        date: formatearFecha(new Date()),
+        date: `Hace unos minutos...`,
       },
     ]);
   };
@@ -167,56 +298,104 @@ const GetTicketDetalle = ({ ticket }) => {
   const handleCancelEdit = () => {
     setEdit(!edit);
     setTicketInfo({
-      solicitante: ticket.solicitante,
-      email: ticket.email,
-      fecha: ticket.fecha,
-      telefono: ticket.telefono,
-      area: ticket.area,
-      sede: ticket.sede,
-      piso: ticket.piso,
+      id: ticket.id,
+      identificador: ticket.identificador,
+      nombre_solicitante: ticket.nombre_solicitante,
+      email_solicitante: ticket.email_solicitante,
+      fecha_creacion: ticket.fecha_creacion,
+      telefono_solicitante: ticket.telefono_solicitante,
+      area_solicitante: ticket.area_solicitante,
+      sede: ticket?.sede || "nueve_de_julio",
+      piso_solicitante: ticket.piso_solicitante,
       referencia: ticket.referencia,
-      pre_tarea: ticket.pre_tarea,
-      motivo: "Un motivo valido",
+      prioridad: ticket.prioridad,
+      // pre_tarea: ticket.pre_tarea,
+      descripcion: ticket.descripcion,
+      tecnico_asignado_id: ticket.tecnico_asignado_id,
+      area_asignada_id: ticket.area_asignada_id,
+      estado: ticket.estado,
     });
-    setSolicitanteEmail(ticket.email);
+    // setSolicitanteEmail(ticket.email);
   };
 
   const onSubmit = (data) => {
-    setTicketInfo({ ...ticketInfo, ...data, email: solicitanteEmail });
-    setEdit(!edit);
-  };
-
-  const onChangeSolicitante = (e) => {
-    onChangeInput(e);
-    const solicitante = e.target.value;
-    const solicitanteSeleccionado = solicitantes.find(
-      (s) => s.nombre === solicitante
+    let respuesta = confirm(
+      `Esta seguro que desea actualizar los datos del ticket?`
     );
-    if (solicitanteSeleccionado) {
-      setSolicitanteEmail(solicitanteSeleccionado.email);
+    if (respuesta) {
+      setTicketInfo({
+        ...ticketInfo,
+        prioridad: data.prioridad ? "alta" : "baja",
+      });
+      updateTicket({
+        ...ticketInfo,
+        prioridad: data.prioridad ? "alta" : "baja",
+      });
+      setEdit(!edit);
+      setHistorialMensajes([
+        ...historialMensajes,
+        {
+          area: user.sector[0],
+          info: `El usuario ${user?.nombre} modifico la información del solicitante`,
+          date: `Hace unos minutos...`,
+        },
+      ]);
     }
   };
 
   const onChangeInput = (e) => {
-    const { value, name } = e.target;
+    let { value, name } = e.target;
+    if (name == "area_solicitante")
+      value = optionListAreaSolicitante[value - 1];
     setTicketInfo({ ...ticketInfo, [name]: value });
   };
 
-  const onChangeInputEmail = (e) => {
-    onChangeInput(e);
-    setSolicitanteEmail(e.target.value);
+  const handleAnular = async (e) => {
+    let respuesta = confirm("Esta seguro que desea anular el ticket?");
+    if (respuesta) {
+      let response = await fetch(
+        `http://localhost:8000/api/tickets/${ticketInfo.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "x-usuario": user.id,
+          },
+        }
+      );
+      let result = await response.json();
+      setTicket({ ...ticketInfo, ...result });
+      navigate("/tickets");
+    }
   };
 
-  const handleAnular = (e) => {
-    // TODO: LOGICA DE ANULAR TICKET
+  const handleFinalizar = async (e) => {
+    let respuesta = confirm("Esta seguro que desea finalizar el ticket?");
+    if (respuesta) {
+      let response = await fetch(
+        `http://localhost:8000/api/tickets/finalizar/${ticketInfo.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "x-usuario": user.id,
+          },
+        }
+      );
+      let result = await response.json();
+      setTicket({ ...ticketInfo, ...result });
+      navigate('/tickets')
+    }
   };
 
-  const handleFinalizar = (e) => {
-    // TODO: LOGICA DE FINALIZAR TICKET
+  let disable = {
+    opacity: "0.7",
+    cursor: "not-allowed",
+    pointerEvents: "none",
   };
 
   return (
-    <section className="row">
+    <section className="row" style={ticketInfo.estado == 'anulado' || ticketInfo.estado == 'finalizado'  ? disable : {}}>
       <article className="col-md-7 position-relative container-left-detalle">
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -224,36 +403,36 @@ const GetTicketDetalle = ({ ticket }) => {
           autoComplete="off"
           className="d-flex flex-column"
         >
-          <div className="row">
+          <div className="row" >
             <div className="col-md-6">
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Solicitante:</strong>{" "}
                 {edit ? (
-                  <DatalistChangeInput
-                    idList="datalistSolicitante"
-                    label=""
-                    name="solicitante"
-                    placeholder=""
-                    optionList={datalistSolicitante}
-                    register={register}
-                    errors={errors}
-                    classCol="d-flex flex-row-reverse"
-                    options={{
-                      required: "Campo obligatorio",
-                    }}
-                    onChangeSolicitante={onChangeSolicitante}
-                    onChangeInput={onChangeInput}
-                    value={ticketInfo.solicitante}
-                  />
+                  <>
+                    <InputForm
+                      label=""
+                      type="text"
+                      name="nombre_solicitante"
+                      placeholder=""
+                      register={register}
+                      errors={errors}
+                      classCol="form-group item-form"
+                      options={{
+                        required: "Campo obligatorio",
+                      }}
+                      onChangeInput={onChangeInput}
+                      value={ticketInfo.nombre_solicitante}
+                    />
+                  </>
                 ) : (
-                  ticketInfo.solicitante
+                  ticketInfo.nombre_solicitante
                 )}
               </p>
             </div>
             <div className="col-md-6 d-flex align-items-center">
               <p className={edit ? "w-100 d-flex align-items-center item-form" : "w-100 d-flex align-items-center item-form email-view-style"}>
                 <strong className="strong-title">Email:</strong>{" "}
-                {edit
+                {/* {edit
                   ? (
                   <InputForm
                     label=""
@@ -273,20 +452,19 @@ const GetTicketDetalle = ({ ticket }) => {
                     value={solicitanteEmail}
                     onChangeInput={onChangeInputEmail}
                   />
-                ) : (
-                  <div className={edit ? "" : "email-content"}>{ticketInfo.email}</div>
-                )}
+                ) : ( */}
+                {ticketInfo.email_solicitante}
+                {/* )} */}
               </p>
             </div>
             <div className="col-md-6">
               <p className="w-100 d-flex align-items-center item-form">
                 <strong className="strong-title">Teléfono:</strong>
-                {edit
-                  ? (
+                {edit ? (
                   <InputForm
                     label=""
                     type="text"
-                    name="telefono"
+                    name="telefono_solicitante"
                     placeholder=""
                     register={register}
                     errors={errors}
@@ -295,48 +473,47 @@ const GetTicketDetalle = ({ ticket }) => {
                       required: "Campo obligatorio",
                     }}
                     onChangeInput={onChangeInput}
-                    value={ticketInfo.telefono}
+                    value={ticketInfo.telefono_solicitante}
                   />
                 ) : (
-                  ticketInfo.telefono
+                  ticketInfo.telefono_solicitante
                 )}
               </p>
             </div>
             <div className="col-md-6 d-flex align-items-center">
               <div>
-                  <p className="d-flex align-items-center item-form">
-                    <strong className="strong-title">Area:</strong>{" "}
-                    {edit
-                      ? (
-                      <SelectInput
-                        label=""
-                        name="area"
-                        placeholder="Selecciona un área"
-                        optionList={optionListSelect}
-                        register={register}
-                        errors={errors}
-                        classCol="d-flex ms-2"
-                        options={{
-                          required: "Campo obligatorio"
-                        }}
-                        onChangeInput={onChangeInput}
-                      />
-                        )
-                      : (
-                          ticketInfo.area
-                        )}
-                  </p>
-                </div>
+                <p className="d-flex align-items-center item-form">
+                  <strong className="strong-title">Area:</strong>{" "}
+                  {edit ? (
+                    <SelectInput
+                      label=""
+                      name="area_solicitante"
+                      placeholder="Selecciona un área"
+                      optionList={optionListAreaSolicitante}
+                      register={register}
+                      errors={errors}
+                      classCol="d-flex ms-2"
+                      options={{
+                        required: "Campo obligatorio",
+                      }}
+                      onChangeInput={onChangeInput}
+                      selectedOption={ticketInfo.area_solicitante.toUpperCase()}
+                    />
+                  ) : (
+                    ticketInfo.area_solicitante.toUpperCase()
+                  )}
+                </p>
+              </div>
             </div>
-            <div className='col-md-6'>
+            <div className="col-md-6">
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Sede:</strong>{" "}
-                {edit ? (
+                {/* {edit ? (
                   <SelectInput
                     label=""
                     name="sede"
                     placeholder="Selecciona una sede"
-                    optionList={optionListSelect}
+                    optionList={sedes}
                     register={register}
                     errors={errors}
                     classCol="d-flex ms-2"
@@ -345,18 +522,18 @@ const GetTicketDetalle = ({ ticket }) => {
                     }}
                     onChangeInput={onChangeInput}
                   />
-                ) : (
-                  ticketInfo.sede
-                )}
+                ) : ( */}
+                {ticketInfo.sede}
+                {/* )} */}
               </p>
             </div>
-            <div className='col-md-6'>
+            <div className="col-md-6">
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Piso:</strong>{" "}
                 {edit ? (
                   <SelectInput
                     label=""
-                    name="piso"
+                    name="piso_solicitante"
                     placeholder=""
                     optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
                     register={register}
@@ -365,19 +542,18 @@ const GetTicketDetalle = ({ ticket }) => {
                     options={{
                       required: "Campo obligatorio",
                     }}
+                    selectedOption={Number(ticketInfo.piso_solicitante)}
                     onChangeInput={onChangeInput}
                   />
                 ) : (
-                  ticketInfo.piso
+                  ticketInfo.piso_solicitante
                 )}
               </p>
             </div>
             <div className="col-6">
               <p className="w-100 d-flex align-items-center item-form">
                 <strong className="strong-title">Referencia:</strong>{" "}
-                {edit
-                  ? (
-
+                {edit ? (
                   <InputForm
                     label=""
                     type="text"
@@ -394,19 +570,39 @@ const GetTicketDetalle = ({ ticket }) => {
                 )}
               </p>
             </div>
-            <div className="col-12 my-1">
-              <p className="d-flex align-items-center item-form">
-                <strong className="strong-title">Pre Tarea:</strong>{" "}
-                {ticketInfo.pre_tarea}
+            <div className="col-12">
+              <p className="w-100 d-flex align-items-center item-form">
+                <strong className="strong-title">Prioridad:</strong>{" "}
+                {edit ? (
+                  <>
+                    <input
+                      className="check-prioridad-form"
+                      type="checkbox"
+                      id="flexCheckDefault"
+                      name="prioridad_ticket"
+                      {...register("prioridad")}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexCheckDefault"
+                    >
+                      Alta
+                    </label>
+                  </>
+                ) : (
+                    <Badge classes="state-button" text={ticketInfo.prioridad} ticketEstado={ticketInfo.prioridad == 'baja' ? 'finalizado' : 'prioridad_alta'}/>
+                )}
               </p>
             </div>
             <div className="col-12">
               <p className="d-flex align-items-center item-form">
-                <strong className="strong-title">Motivo:</strong>{" "}
+                <strong className="strong-title align-self-start">
+                  Motivo:
+                </strong>{" "}
                 {edit ? (
                   <TextArea
                     label=""
-                    name="motivo"
+                    name="descripcion"
                     rows="1"
                     register={register}
                     errors={errors}
@@ -415,10 +611,12 @@ const GetTicketDetalle = ({ ticket }) => {
                       required: "Campo obligatorio",
                     }}
                     onChangeInput={onChangeInput}
-                    value={ticketInfo.motivo}
+                    value={ticketInfo.descripcion}
                   />
                 ) : (
-                  ticketInfo.motivo
+                  <div style={{ height: "100px", overflowY: "scroll" }}>
+                    {ticketInfo.descripcion}
+                  </div>
                 )}
               </p>
             </div>
@@ -456,9 +654,6 @@ const GetTicketDetalle = ({ ticket }) => {
                     {mensaje.date}
                   </span>
                 </p>
-                // <div className="row">
-
-                // </div>
               ))}
             </div>
             <div className="w-100 p-2 input-box">
@@ -478,23 +673,6 @@ const GetTicketDetalle = ({ ticket }) => {
       <article className="col-md-5">
         <section className="row px-2">
           <article className="col-lg-12 tecnico-asignado">
-            {/* <div>
-              <SelectTecnico
-                label="Asignar Técnico:"
-                name="tecnico"
-                placeholder="Selecciona un técnico"
-                optionList={tecnicos}
-                register={register}
-                errors={errors}
-                classCol="d-flex align-items-center ms-2 select-tecnico"
-                options={{
-                  required: "Campo obligatorio"
-                }}
-                // selectedOption={selectedOption}
-                selectedOption={null}
-                onChangeInput={handleSelectChange}
-              />
-            </div> */}
             <div className="d-flex align-items-center ms-2 select-tecnico">
               <label htmlFor="tecnico_asignado">Asignar Técnico:</label>
               <div className="form-group item-form">
@@ -505,39 +683,35 @@ const GetTicketDetalle = ({ ticket }) => {
                   onChange={handleSelectChange}
                 >
                   <option value="">Selecciona un técnico</option>
-                  {tecnicos.map((tecnico) => (
-                    <option
-                      value={tecnico}
-                      selected={
-                        tecnico == ticketInfo?.colaborador ? true : false
-                      }
-                    >
-                      {tecnico}
-                    </option>
-                  ))}
+                  {tecnicos.length > 0 && (
+                    <>
+                      {" "}
+                      {tecnicos.map((tecnico) => (
+                        <option
+                          value={tecnico?.id}
+                          selected={
+                            tecnico.id == ticketInfo?.tecnico_asignado_id
+                              ? true
+                              : false
+                          }
+                        >
+                          {tecnico.nombre}
+                        </option>
+                      ))}
+                    </>
+                  )}
                 </select>
               </div>
             </div>
           </article>
-          <article className="col-lg-12 box-derivar">
+          <article className="col-lg-12 tecnico-asignado">
             <div className="mb-2">
-              {/* <SelectTecnico
-                label=""
-                name="area"
-                placeholder="Derivar"
-                optionList={optionListSelect}
-                register={register}
-                errors={errors}
-                classCol="col-md-12 col-lg-12 d-flex ms-2 select-derivar"
-                options={{
-                  required: "Campo obligatorio",
-                }}
-                // selectedOption={selectedOptionArea}
-                selectedOption={null}
-                onChangeInput={handleSelectChange}
-              /> */}
-              <div className="col-md-12 col-lg-12 d-flex ms-2 select-derivar">
-                <div className="form-group item-form">
+              <label className="ms-2">Acciones:</label>
+              <div className="col-md-12 col-lg-12 d-flex m-2 select-derivar">
+                <div
+                  className="form-group item-form"
+                  style={{ minWidth: "150px" }}
+                >
                   <select
                     name="derivar"
                     id="derivar"
@@ -545,32 +719,53 @@ const GetTicketDetalle = ({ ticket }) => {
                     onChange={handleSelectChange}
                   >
                     <option value="">Derivar</option>
-                    {optionListSelect.map((area) => (
-                      <option
-                        value={area}
-                        selected={
-                          area == ticketInfo?.area_asignada ? true : false
-                        }
-                      >
-                        {area}
-                      </option>
+                    {optionListSelect.map((area, index) => (
+                      <option value={index + 1}>{area}</option>
                     ))}
                   </select>
                 </div>
               </div>
+              <div>
+                <button
+                  id="btn-cancelar"
+                  onClick={handleAnular}
+                  className="m-2 "
+                  style={{ minWidth: "150px" }}
+                >
+                  Anular
+                </button>
+              </div>
+              <div>
+                <button
+                  id="btn-aceptar"
+                  onClick={handleFinalizar}
+                  className="m-2 "
+                  style={{ minWidth: "150px" }}
+                >
+                  Finalizar
+                </button>
+              </div>
             </div>
-            <div>
+            {/* <div>
               <p className="mb-1 ms-2 subtitle-derivar">
                 Tiempo de espera: {""}
               </p>
               <p className="mb-0 ms-2 subtitle-derivar">Última acción: {""}</p>
-            </div>
+            </div> */}
           </article>
         </section>
-        <section >
+
+        <section style={ticketInfo.tecnico_asignado_id === null ? disable : {}}>
           <article>
             <div>
-              <SelectTarea />
+              <SelectTarea
+                tareas={tareas}
+                ticketTareas={ticketTareas}
+                ticketId={ticket.id}
+                user={user}
+                setHistorialMensajes={setHistorialMensajes}
+                historialMensajes={historialMensajes}
+              />
             </div>
           </article>
         </section>

@@ -1,11 +1,11 @@
 export const areas = {
   // MESA_DE_ENTRADA: 'mesa_de_entrada',
-  GDE: 'gde',
   COMPUTOS: 'computos',
-  // CID: 'cid',
-  SOPORTES: 'soporte',
   TELEFONIA: 'telefonia',
+  SOPORTES: 'soporte',
+  SISTEMAS: 'sistemas',
+  GDE: 'gde'
+  // CID: 'cid',
   // CSTIMI: 'cstimi',
-  ADMIN: 'administrador',
-  SISTEMAS: 'sistemas'
+  // ADMIN: 'administrador',
 }

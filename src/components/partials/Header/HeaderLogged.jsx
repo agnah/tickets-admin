@@ -1,6 +1,5 @@
 import BotonProfile from '../../partials/Users/BotonProfile'
 import Button from '../../partials/Button/Button'
-import useApiMock from '@servicios/useApiMock'
 import { apis } from '@constantes/constApis'
 import './Header.css'
 import useAuth from '@servicios/UseAuth'
@@ -9,10 +8,6 @@ import { perfil } from '@constantes/constUsers'
 
 const HeaderLogged = (props) => {
   const url = apis.API_TICKETS
-  const {
-    isValidating,
-    trigger
-  } = useApiMock(url)
 
   const miSvg = (
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34.18" height="34.18" viewBox="0 0 34.18 34.18">
@@ -65,7 +60,6 @@ const HeaderLogged = (props) => {
             <div className="navbar-header">
               <a
                 className="navbar-brand"
-                href="/"
                 aria-label="Argentina.gob.ar Presidencia de la Nación"
               >
                 <img
@@ -83,22 +77,17 @@ const HeaderLogged = (props) => {
              </div>
           </div>
         </div>
+        <div className='d-flex justify-content-end w-25 pe-3 fw-bold text-white'>
+        {!seccionTicket ? 'Ir a Tickets' : 'Ir a Tramites'}
+        </div>
         <div className="header-buttons">
+
           {!user.perfil.includes(TECNICO) &&
             (seccionTicket
               ? <Button type="button" texto="Tramites" classBoton="switch-tramites" onClick={redirectTramites} />
               : <Button type="button" texto="Tickets" classBoton="switch-tickets" onClick={redirectTickets} />
             )
           }
-          {seccionTicket && (
-            <Button
-            className="btn-refresh"
-            texto={isValidating ? 'Validando' : ''}
-            type="button"
-            onClick={() => trigger()}
-            svgIcon={miSvg}
-          />
-          )}
           <BotonProfile />
         </div>
       </nav>

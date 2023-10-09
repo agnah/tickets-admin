@@ -1,4 +1,4 @@
-import './Select.css'
+import "./Select.css";
 
 const Select = (props) => {
   const {
@@ -12,15 +12,13 @@ const Select = (props) => {
     classCol,
     display,
     ...attributes
-  } = props
+  } = props;
 
-  const isError = errors[name]?.message
+  const isError = errors[name]?.message;
 
-  const placeholderText = isError ? errors[name]?.message : placeholder
+  const placeholderText = isError ? errors[name]?.message : placeholder;
 
-  const classes = isError
-    ? `${classCol} has-error`
-    : `${classCol}`
+  const classes = isError ? `${classCol} has-error` : `${classCol}`;
 
   // const handleChange = (e) => {
   //   (e.target.value !== '') ? attributes.displayFields(false) : attributes.displayFields(true)
@@ -29,44 +27,69 @@ const Select = (props) => {
   return (
     <div className={`select-container d-flex flex-column ${classes}`}>
       <div className="label-container">
-        <label className='label-form' htmlFor={name}>{label}</label>
+        <label className="label-form" htmlFor={name}>
+          {label}
+        </label>
       </div>
       <div className="w-100 form-group item-form select-box">
-        {
-          attributes?.displayFields
-            ? <select
-          name={name}
-          {...attributes}
-          {...register(name, options)}
-          className={`detalle-input w-100 ${isError ? 'help-block error error-style w-100' : ''}`}
-          onChange={attributes?.onChangeInput}
-          placeholder={placeholderText}
-        >
-          <option value="">{placeholderText}</option>
-          {optionList.map((option, index) => (
-            <option key={index} value={option.toLowerCase()}>
-              {option}
-            </option>
-          ))}
-        </select>
-            : <select
-          name={name}
-          {...attributes}
-          {...register(name, options)}
-          className={`${props?.classInput ? `${props.classInput} detalle-input w-100` : 'detalle-input w-100'} ${isError ? 'help-block error error-style w-100' : ''}`}
-          onChange={attributes?.onChangeInput}
-          placeholder={placeholderText}
-        >
-          <option value="">{placeholderText}</option>
-          {optionList.map((option, index) => (
+        {attributes?.displayFields ? (
+          <select
+            name={name}
+            {...attributes}
+            {...register(name, options)}
+            className={`detalle-input w-100 ${
+              isError ? "help-block error error-style w-100" : ""
+            }`}
+            onChange={attributes?.onChangeInput}
+            placeholder={placeholderText}
+          >
+            <option value="">{placeholderText}</option>
+            {optionList.map((option, index) => (
+              <option key={index} value={option.toLowerCase()}>
+                {option}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <select
+            name={name}
+            {...attributes}
+            {...register(name, options)}
+            className={`${
+              props?.classInput
+                ? `${props.classInput} detalle-input w-100`
+                : "detalle-input w-100"
+            } ${isError ? "help-block error error-style w-100" : ""}`}
+            onChange={attributes?.onChangeInput}
+            placeholder={placeholderText}
+          >
+            <option value="">{placeholderText}</option>
+            {optionList.map((option, index) => (
+              <>
+                {attributes?.selectedOption !== null &&
+                attributes?.selectedOption === option ? (
+                  <option key={index} value={index + 1} selected="selected">
+                    {option}
+                  </option>
+                ) : (
+                  <option key={index} value={index + 1}>
+                    {option}
+                  </option>
+                )}
+              </>
+            ))}
+            {/* {optionList.map((option, index) => (
             <option key={index} value={index+1}>
               {option}
             </option>
-          ))}
-        </select>
-        }
+          ))} */}
+          </select>
+        )}
         <div className="select-icon">
-        <img src="../public/img/caret-down-solid.svg" className="fa-solid fa-caret-down"></img>
+          <img
+            src="../public/img/caret-down-solid.svg"
+            className="fa-solid fa-caret-down"
+          ></img>
         </div>
       </div>
       {/* {errors[name] && (
@@ -75,7 +98,7 @@ const Select = (props) => {
           </p>
       )} */}
     </div>
-  )
-}
+  );
+};
 
-export default Select
+export default Select;

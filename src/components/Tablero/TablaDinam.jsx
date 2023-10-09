@@ -8,8 +8,8 @@ const TablaDinam = ({ data, acciones, columnas, tipo }) => {
   const columnasLowercase = Object.keys(columnas)
   const navigate = useNavigate()
 
-  const handleEdit = useCallback((id) => {
-    navigate(`/${tipo}/${id}`)
+  const handleEdit = useCallback((item) => {
+    navigate(`/${tipo}/${item.id}`, { state: item })
   }, [])
 
   return (
@@ -33,7 +33,7 @@ const TablaDinam = ({ data, acciones, columnas, tipo }) => {
               ))}
               {acciones && (
                   <td>
-                    <ButtonEdit onClick={() => handleEdit(item.id)} />
+                    <ButtonEdit onClick={() => handleEdit(item)} />
                   </td>
               )}
             </tr>

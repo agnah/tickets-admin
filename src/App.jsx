@@ -1,28 +1,13 @@
-import "./App.css";
-import { AuthProvider } from "@servicios/AuthProvider";
-import Router from "./router/Router";
-import { useEffect } from "react";
+import './App.css'
+import { AuthProvider } from '@servicios/AuthProvider'
+import Router from './router/Router'
 
-function App() {
-  useEffect(() => {
-    testFunction();
-  }, []);
-
-  const testFunction = async () => {
-    let response = await fetch("http://localhost:8000/api/tickets/",{
-      headers: {
-        "Content-Type": "application/json",
-      }
-    });
-    let result = await response.json();
-    console.log(result);
-  };
-
+function App () {
   return (
     <AuthProvider>
       <Router />
     </AuthProvider>
-  );
+  )
 }
 
-export default App;
+export default App
