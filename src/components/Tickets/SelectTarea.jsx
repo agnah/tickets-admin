@@ -108,8 +108,8 @@ function SelectTarea () {
           )
         : (
         <>
-          <div className="d-flex justify-content-center">
-            <Button
+          <div className="d-flex justify-content-end">
+              <Button
                 onClick={handleFinishTask}
                 classBoton="mx-1 btn-modal finish-tarea"
                 texto="Finalizar Tarea"

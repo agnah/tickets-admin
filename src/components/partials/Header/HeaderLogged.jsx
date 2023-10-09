@@ -56,7 +56,7 @@ const HeaderLogged = (props) => {
               props.setShowNav(true)
             }}
           >
-            <img className="menu-bars" id="icon-menu" src="../../../public/img/bars-solid.svg"></img>
+            <img className="menu-bars" id="icon-menu" src="/public/img/bars-solid.svg"></img>
             <span className="visually-hidden">Icon-only</span>
           </a>
         }

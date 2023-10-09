@@ -36,7 +36,7 @@
   
 /* Estilo del indicador del checkbox */
 .container-checks input:checked::before {
-    content: url('../../../public/img/check-solid.svg');
+    content: url('/public/img/check-solid.svg');
     font-family: "Font Awesome 5 Free"; 
     font-size: 8px;
     position: absolute;

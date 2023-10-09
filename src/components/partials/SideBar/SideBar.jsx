@@ -28,7 +28,7 @@ const SideBar = ({ children }) => {
             setShowNav(false)
           }}
         >
-          <img className="menu-bars" id="icon-menu" src="../../../public/img/bars-solid.svg"></img>
+          <img className="menu-bars" id="icon-menu" src="/public/img/bars-solid.svg"></img>
           <span className="visually-hidden">Icon-only</span>
         </a>
         <ul className="nav flex-column mb-auto text-center px-2">
@@ -42,7 +42,7 @@ const SideBar = ({ children }) => {
                 data-bs-placement="right"
                 data-bs-original-title="Home"
               >
-               <img className="nav-icon house" src="../../../public/img/house-solid.svg"></img>
+               <img className="nav-icon house" src="/public/img/house-solid.svg"></img>
               </Link>
             </div>
             <span className="span-nav">Inicio</span>
@@ -59,7 +59,7 @@ const SideBar = ({ children }) => {
                     data-bs-placement="right"
                     data-bs-original-title="Home"
                   >
-                  <img className="nav-icon ticket" src="../../../public/img/ticket-solid.svg"></img>
+                  <img className="nav-icon ticket" src="/public/img/ticket-solid.svg"></img>
                   </Link>
                 </div>
                 <span className="span-nav">Tickets</span>
@@ -74,7 +74,7 @@ const SideBar = ({ children }) => {
                     data-bs-placement="right"
                     data-bs-original-title="Home"
                   >
-                  <img className="nav-icon plus" src="../../../public/img/plus-solid.svg"></img>
+                  <img className="nav-icon plus" src="/public/img/plus-solid.svg"></img>
                   </Link>
                 </div>
                 <span className='span-nav'>
@@ -94,7 +94,7 @@ const SideBar = ({ children }) => {
                   data-bs-placement="right"
                   data-bs-original-title="Tramites"
                 >
-                  <img className="nav-icon ticket" src="../../../public/img/ticket-solid.svg"></img>
+                  <img className="nav-icon ticket" src="/public/img/ticket-solid.svg"></img>
                 </Link>
               </div>
               <span className="span-nav">Tramites</span>
@@ -108,7 +108,7 @@ const SideBar = ({ children }) => {
                     data-bs-placement="right"
                     data-bs-original-title="TramitesCreate"
                   >
-                    <img className="nav-icon plus" src="../../../public/img/plus-solid.svg"></img>
+                    <img className="nav-icon plus" src="/public/img/plus-solid.svg"></img>
                   </Link>
                 </div>
                 <span className='span-nav'>
@@ -126,7 +126,7 @@ const SideBar = ({ children }) => {
                     data-bs-placement="right"
                     data-bs-original-title="Home"
                   >
-                    <img className="nav-icon user" id="icon-menu" src="../../../public/img/network-wired-solid.svg"></img>
+                    <img className="nav-icon user" id="icon-menu" src="/public/img/network-wired-solid.svg"></img>
                   </Link>
                 </div>
                 <span className="span-nav">
@@ -144,7 +144,7 @@ const SideBar = ({ children }) => {
                   data-bs-placement="right"
                   data-bs-original-title="Home"
                 >
-                  <img className="nav-icon chart" id="icon-menu" src="../../../public/img/chart-column-solid.svg"></img>
+                  <img className="nav-icon chart" id="icon-menu" src="/public/img/chart-column-solid.svg"></img>
                 </Link>
               </div>
               <span className="span-nav">

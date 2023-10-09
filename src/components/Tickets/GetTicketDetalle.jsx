@@ -251,7 +251,7 @@ const GetTicketDetalle = ({ ticket }) => {
               </p>
             </div>
             <div className="col-md-6 d-flex align-items-center">
-              <p className="w-100 d-flex align-items-center item-form">
+              <p className={edit ? "w-100 d-flex align-items-center item-form" : "w-100 d-flex align-items-center item-form email-view-style"}>
                 <strong className="strong-title">Email:</strong>{" "}
                 {edit
                   ? (
@@ -274,7 +274,7 @@ const GetTicketDetalle = ({ ticket }) => {
                     onChangeInput={onChangeInputEmail}
                   />
                 ) : (
-                  ticketInfo.email
+                  <div className={edit ? "" : "email-content"}>{ticketInfo.email}</div>
                 )}
               </p>
             </div>
@@ -450,8 +450,8 @@ const GetTicketDetalle = ({ ticket }) => {
             >
               {historialMensajes.map((mensaje) => (
                 <p className="row">
-                  <span className="col-1 texto-area">{mensaje.area}:</span>
-                  <p className="col-8">{mensaje.info}</p>
+                  <span className="col-2 texto-area">{mensaje.area}:</span>
+                  <p className="col-7">{mensaje.info}</p>
                   <span className="col-3 date-historial d-flex justify-content-end">
                     {mensaje.date}
                   </span>

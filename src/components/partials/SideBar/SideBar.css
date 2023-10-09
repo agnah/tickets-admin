@@ -1,13 +1,13 @@
 .sidebar{
     display: flex;
-    min-height: 100vh;
+    min-height: 100%;
 }
 
 .menu-container {
     background: var(--gris-oscuro);
     display: flex;
     flex-direction: column;
-    width: 6.5rem;
+    padding: 0 1rem;
 }
 
 .main{
@@ -107,4 +107,48 @@
 .span-nav {
     color: #fff;
     font-size: 12px;
+}
+
+
+@media (max-width: 1366px) {
+    .menu-container {
+        padding: 0 .5rem;
+    }
+
+    .circle-item {
+        padding: 10px;
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .circle-item-tramite {
+        padding: 10px;
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .menu-bars {
+        width: 1.5rem;
+    }
+    
+    .circle-item-tramite{
+        padding: 10px;
+    }
+    
+    .menu-h {
+        height: 6rem;
+    }
+    
+    .nav-icon {
+        width: 1.3rem;
+    }
+    
+    
+    .item-nav {
+        margin: .2rem .5rem;
+    }
+    
+    .span-nav {
+        font-size: 9px;
+    }
 }

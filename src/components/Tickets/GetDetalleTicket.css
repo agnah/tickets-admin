@@ -21,7 +21,6 @@
 .texto-area {
     color: var(--celeste);
     font-weight: 600;
-    /* width: 7rem; */
 }
 
 .input-box {
@@ -46,7 +45,7 @@
     padding: .5rem 1.5rem;
     font-size: 14px;
     font-weight: 600;
-    margin: .25rem ;
+    margin: .25rem;
     background-color: var(--celeste);
     color: white;
 }
@@ -99,9 +98,12 @@
 }
 
 .strong-title {
+    color: rgb(64, 68, 68);
     font-size: 16px;
     font-weight: 600;
-    margin-right: .5rem;
+    padding-right: .5rem;
+    position: relative;
+    z-index: 2;
 }
 
 .item-form {
@@ -115,6 +117,7 @@
     padding-top: .25rem;
     right: 3rem;
     position: absolute;
+    cursor: pointer;
 }
 
 .tecnico-asignado {
@@ -128,6 +131,7 @@
 
 .select-tecnico label {
     margin-right: .5rem;
+    font-size: 14px;
 }
 
 .select-tecnico select {
@@ -139,6 +143,7 @@
     color: var(--celeste);
     font-weight: 600;
     text-align: center;
+    cursor: pointer;
 }
 
 .select-tecnico select:focus {
@@ -189,6 +194,7 @@
     font-weight: 700;
     border-radius: 19px;
     text-align: center;
+    cursor: pointer;
 }
 
 .subtitle-derivar {
@@ -210,6 +216,12 @@
     margin-bottom: 0;
 }
 
+.text-container {
+    height: auto;
+    max-width: 1rem;
+    word-wrap: break-word;
+}
+
 /* Estilos para error */
 
 .error-style {
@@ -223,4 +235,83 @@
   
 .text-error {
     color: var( --color-danger);
+}
+
+@media (max-width: 1366px) {
+    .historial {
+        margin-top: 1rem;
+        margin-right: 1rem;
+    }
+    
+    .historial-box {
+        font-size: 12px;
+    }
+    
+    .input-box input {
+        font-size: 12px;
+    }
+    
+    .input-box button {
+        font-size: 12px;
+    }
+    
+    #btn-aceptar {
+        font-size: 12px;
+        margin: .2rem ;
+    }
+    
+    #btn-cancelar {
+        font-size: 12px;
+        margin: .2rem ;
+    }
+    
+    .container-left-detalle {
+        padding-right: 1rem;
+    }
+    
+    .strong-title {
+        font-size: 14px;
+    }
+    
+    .item-form {
+        font-size: 12px;
+        margin: .1rem 1rem .1rem 0;
+    }
+    
+    .pen-edit {
+        right: 2rem;
+    }
+    
+    .select-tecnico select {
+        padding: .4rem;
+        font-size: 12px;
+    }
+    
+    .detalle-input {
+        font-size: 12px;
+        padding: .25rem 1rem .25rem .8rem;
+    }
+    
+    .select-derivar select{
+        font-size: 12px;
+    }
+    
+    .subtitle-derivar {
+        font-size: 12px;
+    }
+    
+    .date-historial {
+        font-size: 10px;
+    }
+
+    .email-content {
+        display: inline-block;
+    }
+       
+    .email-view-style {
+        max-width: 17vw;
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+    }
 }

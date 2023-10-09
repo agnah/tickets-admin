@@ -2,7 +2,7 @@ import Badge from '../partials/Button/Badge'
 import { useState } from 'react'
 import './Tablero.css'
 
-const Tablero = ({ children, title, classTitle = '', page = '', showPrioridad = false, updatePrioridad, ticketEstado, ...props }) => {
+const Tablero = ({ children, title, classTitle = '', page = '', showPrioridad = false, updatePrioridad, ticketEstado, mensajeCantidadTickets, ...props }) => {
   classTitle += ' m-0'
   const [prioridad, setPrioridad] = useState(false)
 
@@ -33,6 +33,7 @@ const Tablero = ({ children, title, classTitle = '', page = '', showPrioridad = 
             </div>
           )}
         </div>
+        {mensajeCantidadTickets && <span className="d-flex align-items-center span-cant-tickets">{mensajeCantidadTickets}</span>}
         {page && <span className='span-path'><strong>Estás aquí:</strong> {page}</span>}
       </div>
       <hr />
