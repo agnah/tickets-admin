@@ -81,11 +81,11 @@ const TicketCreateForm = ({ prioridad }) => {
     reset();
     reset({ area_asignada: user.sector[0].toUpperCase() });
     if (result?.id !== null) {
-      setMessage(`El ticket ${result?.identificador} se creo correctamente`);
+      setMessage(`El ticket se genero correctamente. Referencia: ${result?.identificador}`);
       setShow(!show);
     }
   };
-  
+
   const redirectTickets = () => {
     navigate("/tickets");
   };
