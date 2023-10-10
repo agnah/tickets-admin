@@ -12,6 +12,7 @@ import TextArea from "../../components/Form/Input/TextArea";
 import SelectTarea from "@components/Tickets/SelectTarea";
 import "./GetDetalleTicket.css";
 import { useNavigate } from "react-router-dom";
+import Badge from "../partials/Button/Badge";
 
 const datalistSolicitante = solicitantes.map((s) => s.nombre);
 const optionListSelect = [
@@ -98,7 +99,7 @@ function formatearFecha(fecha) {
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 
 const GetTicketDetalle = ({ ticket, setTicket }) => {
-  
+
   const {
     register,
     handleSubmit,
@@ -106,7 +107,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   } = useForm();
 
   const user = JSON.parse(sessionStorage.getItem("user"));
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [ticketInfo, setTicketInfo] = useState({
     id: ticket.id,
     identificador: ticket.identificador,
@@ -123,10 +124,10 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     descripcion: ticket.descripcion,
     tecnico_asignado_id: ticket.tecnico_asignado_id,
     area_asignada_id: ticket.area_asignada_id,
-    estado: ticket.estado
+    estado: ticket.estado,
   });
 
-  const [ticketTareas, setTicketTareas] = useState([])
+  const [ticketTareas, setTicketTareas] = useState([]);
   const [edit, setEdit] = useState(false);
   // const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email);
   const [historialMensajes, setHistorialMensajes] = useState(historial);
@@ -135,7 +136,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
 
   useEffect(() => {
     getTecnicos(ticketInfo.area_asignada_id);
-    getTareasPorArea(ticketInfo.area_asignada_id)
+    getTareasPorArea(ticketInfo.area_asignada_id);
   }, []);
 
   const getTecnicos = async (id_area) => {
@@ -149,23 +150,33 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   };
 
   const getTareasPorArea = async (id_area) => {
-    let response = await fetch(`http://localhost:8000/api/area/tareas/${id_area}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let response = await fetch(
+      `http://localhost:8000/api/area/tareas/${id_area}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     let tareas_por_area = await response.json();
-    tareas_por_area = tareas_por_area.map( tarea => ({ value: tarea.tarea, id: tarea.id, label: tarea.tarea}))
-    if(ticket.tareas.length > 0) {
-      let ticketTareasId = ticket.tareas.filter(tarea=> tarea.estado == 'ACTIVA').map(tarea => tarea.tarea_id)
-      let tareasTicketsArr = []
-      tareas_por_area.forEach(tarea_por_area => {
-        if(ticketTareasId.includes(tarea_por_area.id)) tareasTicketsArr.push(tarea_por_area)
+    tareas_por_area = tareas_por_area.map((tarea) => ({
+      value: tarea.tarea,
+      id: tarea.id,
+      label: tarea.tarea,
+    }));
+    if (ticket.tareas.length > 0) {
+      let ticketTareasId = ticket.tareas
+        .filter((tarea) => tarea.estado == "ACTIVA")
+        .map((tarea) => tarea.tarea_id);
+      let tareasTicketsArr = [];
+      tareas_por_area.forEach((tarea_por_area) => {
+        if (ticketTareasId.includes(tarea_por_area.id))
+          tareasTicketsArr.push(tarea_por_area);
       });
-      setTicketTareas(tareasTicketsArr)
+      setTicketTareas(tareasTicketsArr);
     }
     setTareas(tareas_por_area);
-  }
+  };
 
   const updateTicket = async (updateTicket) => {
     let data = {
@@ -179,7 +190,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       tecnico_asignado_id: null,
       estado: updateTicket.estado,
       descripcion: updateTicket.descripcion,
-      tecnico_asignado_id: updateTicket.tecnico_asignado_id
+      tecnico_asignado_id: updateTicket.tecnico_asignado_id,
       // archivos: ticketInfo.solicitante
     };
 
@@ -195,7 +206,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       }
     );
     let result = await response.json();
-    console.log(result);
     setTicket({ ...ticketInfo, ...data });
   };
 
@@ -213,15 +223,20 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     let result = await response.json();
     setTicket(result);
     getTecnicos(id_area);
-    getTareasPorArea(id_area)
+    getTareasPorArea(id_area);
+    navigate('/tickets')
   };
 
   const handleSelectChange = (e) => {
     let ticket_update_info;
     if (e.target.name === "tecnico_asignado") {
-      let nombre_tecnico = tecnicos.find(tecnico => tecnico.id == e.target.value).nombre
-      let respuesta = confirm(`Esta seguro que desea asignar al tecnico ${nombre_tecnico}?`)
-      if(respuesta){
+      let nombre_tecnico = tecnicos.find(
+        (tecnico) => tecnico.id == e.target.value
+      ).nombre;
+      let respuesta = confirm(
+        `Esta seguro que desea asignar al tecnico ${nombre_tecnico}?`
+      );
+      if (respuesta) {
         setTicketInfo({ ...ticketInfo, tecnico_asignado_id: e.target.value });
         ticket_update_info = {
           ...ticketInfo,
@@ -237,13 +252,13 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           },
         ]);
         updateTicket(ticket_update_info);
-      }else{
-        e.target.value = ticketInfo.tecnico_asignado_id || ""
+      } else {
+        e.target.value = ticketInfo.tecnico_asignado_id || "";
       }
     }
     if (e.target.name === "derivar") {
-      let respuesta = confirm('Esta seguro que desea derivar a otra area?')
-      if(respuesta){
+      let respuesta = confirm("Esta seguro que desea derivar a otra area?");
+      if (respuesta) {
         if (e.target.value != "") {
           setTicketInfo({ ...ticketInfo, area_asignada: e.target.value });
           setHistorialMensajes([
@@ -258,8 +273,8 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           ]);
           derivarTicket(e.target.value);
         }
-      }else{
-        e.target.value = ''
+      } else {
+        e.target.value = "";
       }
     }
   };
@@ -304,10 +319,18 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   };
 
   const onSubmit = (data) => {
-    let respuesta = confirm(`Esta seguro que desea actualizar los datos del ticket?`)
-    if(respuesta){
-      setTicketInfo({...ticketInfo, prioridad: data.prioridad ? 'alta' : 'baja'})
-      updateTicket({...ticketInfo, prioridad: data.prioridad ? 'alta' : 'baja'})
+    let respuesta = confirm(
+      `Esta seguro que desea actualizar los datos del ticket?`
+    );
+    if (respuesta) {
+      setTicketInfo({
+        ...ticketInfo,
+        prioridad: data.prioridad ? "alta" : "baja",
+      });
+      updateTicket({
+        ...ticketInfo,
+        prioridad: data.prioridad ? "alta" : "baja",
+      });
       setEdit(!edit);
       setHistorialMensajes([
         ...historialMensajes,
@@ -322,46 +345,57 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
 
   const onChangeInput = (e) => {
     let { value, name } = e.target;
-    console.log(name);
-    if(name == 'area_solicitante') value = optionListAreaSolicitante[value-1]
-    console.log({ ...ticketInfo, [name]: value });
+    if (name == "area_solicitante")
+      value = optionListAreaSolicitante[value - 1];
     setTicketInfo({ ...ticketInfo, [name]: value });
   };
 
   const handleAnular = async (e) => {
-    let respuesta = confirm('Esta seguro que desea anular el ticket?')
-    if(respuesta) {
-      let response = await fetch(`http://localhost:8000/api/tickets/${ticketInfo.id}`,{
-        method:'DELETE',
-        headers: {
-          "Content-Type": "application/json",
-          "x-usuario": user.id,
-        },
-      })
-      let result = await response.json()
-      setTicket({...ticketInfo, ...result})
-      navigate('/tickets')
+    let respuesta = confirm("Esta seguro que desea anular el ticket?");
+    if (respuesta) {
+      let response = await fetch(
+        `http://localhost:8000/api/tickets/${ticketInfo.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "x-usuario": user.id,
+          },
+        }
+      );
+      let result = await response.json();
+      setTicket({ ...ticketInfo, ...result });
+      navigate("/tickets");
     }
   };
 
   const handleFinalizar = async (e) => {
-    let respuesta = confirm('Esta seguro que desea finalizar el ticket?')
-    if(respuesta) {
-      let response = await fetch(`http://localhost:8000/api/tickets/finalizar/${ticketInfo.id}`,{
-        method:'PATCH', 
-        headers: {
-          "Content-Type": "application/json",
-          "x-usuario": user.id,
-        },
-      })
-      let result = await response.json()
-      console.log(result);
-      setTicket({...ticketInfo, ...result})
+    let respuesta = confirm("Esta seguro que desea finalizar el ticket?");
+    if (respuesta) {
+      let response = await fetch(
+        `http://localhost:8000/api/tickets/finalizar/${ticketInfo.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "x-usuario": user.id,
+          },
+        }
+      );
+      let result = await response.json();
+      setTicket({ ...ticketInfo, ...result });
+      navigate('/tickets')
     }
   };
 
+  let disable = {
+    opacity: "0.7",
+    cursor: "not-allowed",
+    pointerEvents: "none",
+  };
+
   return (
-    <section className="row" disable={ ticketInfo.state == "finalizado" ||  ticketInfo.state == "anulado" ? true : false}>
+    <section className="row" style={ticketInfo.estado == 'anulado' || ticketInfo.estado == 'finalizado'  ? disable : {}}>
       <article className="col-md-7 position-relative container-left-detalle">
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -369,7 +403,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           autoComplete="off"
           className="d-flex flex-column"
         >
-          <div className="row">
+          <div className="row" >
             <div className="col-md-6">
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Solicitante:</strong>{" "}
@@ -389,7 +423,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                       onChangeInput={onChangeInput}
                       value={ticketInfo.nombre_solicitante}
                     />
-                   
                   </>
                 ) : (
                   ticketInfo.nombre_solicitante
@@ -490,7 +523,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                     onChangeInput={onChangeInput}
                   />
                 ) : ( */}
-                  {ticketInfo.sede}
+                {ticketInfo.sede}
                 {/* )} */}
               </p>
             </div>
@@ -538,30 +571,34 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
               </p>
             </div>
             <div className="col-12">
-            <p className="w-100 d-flex align-items-center item-form">
+              <p className="w-100 d-flex align-items-center item-form">
                 <strong className="strong-title">Prioridad:</strong>{" "}
                 {edit ? (
                   <>
-                   <input
-                    className="check-prioridad-form"
-                    type="checkbox"
-                    id="flexCheckDefault"
-                    name="prioridad_ticket"
-                    {...register("prioridad")}
-                  />
-                   <label className="form-check-label" htmlFor="flexCheckDefault">
-                    Alta
-                  </label>
+                    <input
+                      className="check-prioridad-form"
+                      type="checkbox"
+                      id="flexCheckDefault"
+                      name="prioridad_ticket"
+                      {...register("prioridad")}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexCheckDefault"
+                    >
+                      Alta
+                    </label>
                   </>
                 ) : (
-                  ticketInfo.prioridad
+                    <Badge classes="state-button" text={ticketInfo.prioridad} ticketEstado={ticketInfo.prioridad == 'baja' ? 'finalizado' : 'prioridad_alta'}/>
                 )}
               </p>
-             
             </div>
             <div className="col-12">
               <p className="d-flex align-items-center item-form">
-                <strong className="strong-title align-self-start">Motivo:</strong>{" "}
+                <strong className="strong-title align-self-start">
+                  Motivo:
+                </strong>{" "}
                 {edit ? (
                   <TextArea
                     label=""
@@ -577,7 +614,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                     value={ticketInfo.descripcion}
                   />
                 ) : (
-                  <div style={{height:'100px', overflowY: 'scroll'}}>
+                  <div style={{ height: "100px", overflowY: "scroll" }}>
                     {ticketInfo.descripcion}
                   </div>
                 )}
@@ -671,7 +708,10 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
             <div className="mb-2">
               <label className="ms-2">Acciones:</label>
               <div className="col-md-12 col-lg-12 d-flex m-2 select-derivar">
-                <div className="form-group item-form" style={{minWidth:'150px'}}>
+                <div
+                  className="form-group item-form"
+                  style={{ minWidth: "150px" }}
+                >
                   <select
                     name="derivar"
                     id="derivar"
@@ -690,7 +730,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                   id="btn-cancelar"
                   onClick={handleAnular}
                   className="m-2 "
-                  style={{minWidth:'150px'}}
+                  style={{ minWidth: "150px" }}
                 >
                   Anular
                 </button>
@@ -700,7 +740,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                   id="btn-aceptar"
                   onClick={handleFinalizar}
                   className="m-2 "
-                  style={{minWidth:'150px'}}
+                  style={{ minWidth: "150px" }}
                 >
                   Finalizar
                 </button>
@@ -714,10 +754,18 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
             </div> */}
           </article>
         </section>
-        <section>
+
+        <section style={ticketInfo.tecnico_asignado_id === null ? disable : {}}>
           <article>
             <div>
-              <SelectTarea tareas={tareas} ticketTareas={ticketTareas} ticketId={ticket.id} user={user} setHistorialMensajes={setHistorialMensajes} historialMensajes={historialMensajes}/>
+              <SelectTarea
+                tareas={tareas}
+                ticketTareas={ticketTareas}
+                ticketId={ticket.id}
+                user={user}
+                setHistorialMensajes={setHistorialMensajes}
+                historialMensajes={historialMensajes}
+              />
             </div>
           </article>
         </section>

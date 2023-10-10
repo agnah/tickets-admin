@@ -18,11 +18,14 @@ const Badge = ({ classes, text, ticketEstado }) => {
       fillColor = '#EF5350'
       break
     case 'finalizado':
-      fillColor = '#AAAAAA'
+      fillColor = '#3A455C'
       break
     case 'derivado':
       fillColor = '#9283BE'
       break
+    case 'prioridad_alta':
+        fillColor = '#DB161D'
+        break
     default:
       fillColor = '#000000'
       break

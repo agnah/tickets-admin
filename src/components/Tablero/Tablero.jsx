@@ -16,7 +16,7 @@ const Tablero = ({ children, title, classTitle = '', page = '', showPrioridad = 
         <div className='d-flex'>
           <h5 className={classTitle}>{title}</h5>
           { props?.state && <Badge classes="state-button" text={props.state} ticketEstado={props.state}/> }
-          { props?.prioridad && 'Prioridad Alta' }
+          {/* { props?.prioridad && 'Prioridad Alta' } */}
           {showPrioridad && (
             <div className="form-prioridad">
               <input
