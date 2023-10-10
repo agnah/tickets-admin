@@ -6,8 +6,9 @@ import { rolUsuario } from '@constantes/constUsers'
 import useAuth from '@servicios/UseAuth'
 import FetchGeneral from '@servicios/fetchgeneral'
 import { apis } from '@constantes/constApis'
+import './usuarios.css'
 
-const columnas = { nombre: 'Nombre', apellido: 'Apellido', email: 'Email', telefono: 'Teléfono', interno: 'Interno', area_id: 'Perfil' }
+const columnas = { nombre: 'Nombre', apellido: 'Apellido', email: 'Email', telefono: 'Teléfono', interno: 'Interno', perfil: 'Perfil' }
 const acciones = true
 const url = apis.API_USUARIOS
 
@@ -32,7 +33,12 @@ function Usuarios () {
   return (
     <Tablero title="Usuarios" classTitle="text-center">
       {user.rolUsuario !== LECTOR && (
-        <Link to='/usuarios/create' className='btn btn-success'>Nuevo Usuario</Link>
+        // <Link to='/usuarios/create' className='btn-login"'>Nuevo Usuario</Link>
+        // <Button title="Nuevo Usuario" classes="btn-login" />
+        <Link to='/usuarios/create' className='btn-crear-ticket'>
+          <img src="public/img/plus-solid.svg" className="fa-solid fa-plus"></img>
+          Nuevo Usuario
+        </Link>
       )}
       {loading
         ? (

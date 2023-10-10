@@ -22,7 +22,7 @@ const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo 
 const sectores = ['Soporte', 'Telefonía', 'Computos', 'Sistemas', 'GDE']
 const sectoresid = [1, 2, 3, 4, 5]
 
-function Tabla() {
+function Tabla () {
   const [busqueda, setBusqueda] = useState('')
   const { PENDIENTE } = estadoTicket
   const { user } = useAuth()
@@ -39,9 +39,8 @@ function Tabla() {
     // } = useApiMock(url)
   } = useApiTest(url)
 
-  console.log('llego de back', datos)
+  // console.log('llego de back', datos)
   const {
-    prioridad,
     // handlePrioridadChange,
     seleccionados,
     handleSeleccionadosChange,
@@ -75,7 +74,7 @@ function Tabla() {
     },
     {
       name: 'Sede',
-      selector: (row) => row.sede,
+      selector: (row) => row.sede_solicitante,
       sortable: true
     },
     {
@@ -90,24 +89,14 @@ function Tabla() {
     },
     {
       name: 'Técnico asignado',
-      selector: (row) => row.tecnico_asignado_id,
+      selector: (row) => row.tecnico?.nombre,
       sortable: true
     },
-    // {
-    //   name: 'Pre-tarea',
-    //   selector: (row) => row.pre_tarea,
-    //   sortable: true
-    // },
     {
       name: 'Sector',
-      selector: (row) => row.area_asignada_id,
+      selector: (row) => row.area.nombre,
       sortable: true
     },
-    // {
-    //   name: 'Estado',
-    //   selector: (row) => row.estado,
-    //   sortable: true
-    // },
     {
       name: 'Estado',
       selector: (row) => (
@@ -149,11 +138,7 @@ function Tabla() {
   // const preData = datos.filter(elem => elem.area === user.sector)
 
   // const data = filtroTabla(preData, seleccionados, prioridad, filtroUser)
-
-  // const data = filtroTabla(datos, seleccionados, prioridad, filtroUser, filtroSector)
-
-  // console.log('data', data)
-  // const data = datos
+  const data = filtroTabla(datos, seleccionados, filtroUser, filtroSector)
 
   const conditionalRowStyles = [
     {
@@ -172,32 +157,21 @@ function Tabla() {
     return <SkeletonTabla />
   }
   if (isSuccess) {
-    const mapeoAreas = {
-      1: 'Computos',
-      2: 'Telefonia',
-      3: 'Soporte',
-      4: 'Sistemas'
-    }
-    const AreasMapeadas = datos.map((obj) => ({
-      ...obj,
-      area_asignada_id: mapeoAreas[obj.area_asignada_id]
-    }))
-    console.log('areas mapeadas', AreasMapeadas)
-    // tecnicos unicos
-    const tecnicosUnicos = [...new Set(datos.map(item => item.tecnico_asignado_id))]
-    console.log('tecnicosUnicos', tecnicosUnicos)
+    const nombresUnicosSet = new Set(datos.map(ticket => ticket?.tecnico?.nombre).filter(nombre => nombre))
+    const nombresUnicosArray = [...nombresUnicosSet]
+    // console.log(nombresUnicosArray)
 
-    // const data = filtroTabla(AreasMapeadas, seleccionados, prioridad, filtroUser, filtroSector)
-    const data = datos
+    const areaUnicosSet = new Set(datos.map(ticket => ticket?.area?.nombre).filter(nombre => nombre))
+    const areasUnicosArray = [...areaUnicosSet]
+    // console.log(areasUnicosArray)
 
     const filteredData = data.filter(item =>
       Object.values(item).some(value =>
         typeof value === 'string' && value.toLowerCase().includes(busqueda.toLowerCase())
       )
     )
-
     /* <Button
-          classIcon="fa fa-refresh"
+        classIcon="fa fa-refresh"
           texto={isValidating ? 'Validando' : ''}
           type="button"
           onClick={() => trigger()}
@@ -229,18 +203,18 @@ function Tabla() {
                     onChange={(e) => handleFiltroUserChange(e.target.value)}
                   >
                     <option value="">Técnicos</option>
-                    {colaborador.map((option, index) => (
+                    {nombresUnicosArray.map((option, index) => (
                       <option key={index} value={option}>
                         {option}
                       </option>
                     ))}
                   </select>
-                )
+                  )
                 : (
                   <select disabled>
                     <option value=''>Todos</option>
                   </select>
-                )}
+                  )}
               <img src="public/img/caret-down-solid.svg" className="fa-solid fa-caret-down"></img>
             </div>
             {user.perfil.includes(perfil.ADMINISTRATIVO) || user.rolUsuario === rolUsuario.DIOS
@@ -255,7 +229,7 @@ function Tabla() {
                           onChange={(e) => handleFiltroSectorChange(e.target.value)}
                         >
                           <option value=''>Sector</option>
-                          {sectoresid.map((option, index) => (
+                          {areasUnicosArray.map((option, index) => (
                             <option key={index} value={option}>
                               {option}
                             </option>
@@ -263,14 +237,14 @@ function Tabla() {
                         </select>
                         <img src='public/img/caret-down-solid.svg' className='fa-solid fa-caret-down' alt='Caret Down' />
                       </div>
-                    )
+                      )
                     : (
                       <select disabled>
                         <option value=''>Todos</option>
                       </select>
-                    )}
+                      )}
                 </div>
-              )
+                )
               : null}
             {!user.perfil.includes(perfil.DIRECTOR) && (
               <Link to='/tickets/create' className='btn-crear-ticket'>

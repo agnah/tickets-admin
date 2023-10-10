@@ -8,7 +8,7 @@ import useAuth from '@servicios/UseAuth'
 
 function NavDashboard () {
   const { ADMINISTRATIVO, ADMINISTRADOR, TECNICO, SUPERADMIN } = perfil
-  const { DIOS, ADMIN, EDITOR } = rolUsuario
+  const { DIOS, LECTOR } = rolUsuario
   const { user } = useAuth()
   // const Home = lazy(() => import('@pages/Home/Home'))
   const Tickets = lazy(() => import('@pages/Tickets/Tickets'))
@@ -44,7 +44,6 @@ function NavDashboard () {
             <Route path="/404" element={<div>404</div>} />
             {/* <Route path="*" element={<Home />} /> */}
             <Route path="/inicio" element={<Inicio />} />
-            <Route path="/usuarios" element={<Usuarios />} />
             <Route path="/usuarios/:id" element={<DetalleUsuario />} />
             <Route path="/estadisticas" element={<h1>estadisticas</h1>} />
             <Route
@@ -77,12 +76,12 @@ function NavDashboard () {
               element={
                 <ProtectedRoutes
                   isAllowed={
-                    (user.rolUsuario === ADMIN ||
-                      user.rolUsuario === EDITOR)
+                    (user.rolUsuario !== LECTOR)
                   }
                 />
               }>
               <Route path="/usuarios/create" element={<CreateUser />} />
+              <Route path="/usuarios" element={<Usuarios />} />
             </Route>
             <Route
               element={

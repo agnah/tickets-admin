@@ -1,34 +1,34 @@
-import { useForm } from "react-hook-form";
-import Select from "@components/Form/Input/Select";
-import { useState, useRef } from "react";
-import InputForm from "@components/Form/Input/InputForm";
-import Button from "../partials/Button/Button";
-import DatalistChangeInput from "@components/Form/Input/DatalistCangeInput";
-import solicitantes from "../../../public/assets/solicitantes.json";
-import TextArea from "@components/Form/Input/TextArea";
-import { useNavigate } from "react-router";
-import useAuth from "@servicios/UseAuth";
-import DragAndDrop from "../Form/dragAndDrop";
-import SelectWithOption from "../Form/Input/SelectWithOption";
-import "./TicketCreateForm.css";
+import { useForm } from 'react-hook-form'
+import Select from '@components/Form/Input/Select'
+import { useState, useRef } from 'react'
+import InputForm from '@components/Form/Input/InputForm'
+import Button from '../partials/Button/Button'
+import DatalistChangeInput from '@components/Form/Input/DatalistCangeInput'
+import solicitantes from '../../../public/assets/solicitantes.json'
+import TextArea from '@components/Form/Input/TextArea'
+import { useNavigate } from 'react-router'
+import useAuth from '@servicios/UseAuth'
+import DragAndDrop from '../Form/dragAndDrop'
+import SelectWithOption from '../Form/Input/SelectWithOption'
+import './TicketCreateForm.css'
 
-const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
+const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
 const optionListSelect = [
-  "COMPUTOS",
-  "TELEFONIA",
-  "SOPORTE",
-  "SISTEMAS",
-  "GDE",
-];
+  'COMPUTOS',
+  'TELEFONIA',
+  'SOPORTE',
+  'SISTEMAS',
+  'GDE'
+]
 const optionListAreaSolicitante = [
-  "ADMINISTRACION",
-  "RRHH",
-  "CONTABILIDAD",
-  "LEGALES",
-];
-const sedes = ["NUEVE_DE_JULIO", "ANEXO1", "ANEXO2", "ANEXO3"];
-const datalistSolicitante = solicitantes.map((s) => s.email);
+  'ADMINISTRACION',
+  'RRHH',
+  'CONTABILIDAD',
+  'LEGALES'
+]
+const sedes = ['NUEVE_DE_JULIO', 'ANEXO1', 'ANEXO2', 'ANEXO3']
+const datalistSolicitante = solicitantes.map((s) => s.email)
 
 const TicketCreateForm = ({ prioridad }) => {
   const [show, setShow] = useState(false);
@@ -40,38 +40,39 @@ const TicketCreateForm = ({ prioridad }) => {
     handleSubmit,
     formState: { errors },
     reset,
-    setValue,
-  } = useForm();
-  const navigate = useNavigate();
+    setValue
+  } = useForm()
+  const navigate = useNavigate()
 
   const onSubmit = async (data) => {
     // const dragAndDropData = dragAndDropRef.current.getData();
     // const formData = { ...data, dragAndDropData, prioridad };
-    const formData = { ...data };
-    if (user.sector[0] !== "GDE")
+    const formData = { ...data }
+    if (user.sector[0] !== 'GDE') {
       formData.area_asignada =
-        optionListSelect.indexOf(user.sector[0].toUpperCase()) + 1;
-    console.log(formData);
+        optionListSelect.indexOf(user.sector[0].toUpperCase()) + 1
+    }
+    console.log(formData)
     // let images = dragAndDropData.map((image) => image.name).join(";");
-    let body = {
+    const body = {
       email_solicitante: formData.email,
       nombre_solicitante: formData.solicitante,
       telefono_solicitante: formData.telefono,
       celular_solicitante: formData.telefono,
       area_solicitante:
         optionListAreaSolicitante[formData.area_solicitante - 1].toLowerCase(),
-      sede_solicitante: "nueve_de_julio",
+      sede_solicitante: 'nueve_de_julio',
       piso_solicitante: formData.piso,
       referencia: formData.referencia,
       area_asignada_id: Number(formData.area_asignada),
-      prioridad: formData.prioridad ? "alta" : "baja",
-      estado: "pendiente",
-      descripcion: formData.motivo,
+      prioridad: formData.prioridad ? 'alta' : 'baja',
+      estado: 'pendiente',
+      descripcion: formData.motivo
       // archivos: images,
-    };
-    console.log(body);
-    let response = await fetch("http://localhost:8000/api/tickets", {
-      method: "POST",
+    }
+    console.log(body)
+    const response = await fetch('http://localhost:8000/api/tickets', {
+      method: 'POST',
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
@@ -84,11 +85,11 @@ const TicketCreateForm = ({ prioridad }) => {
       setMessage(`El ticket se genero correctamente. Referencia: ${result?.identificador}`);
       setShow(!show);
     }
-  };
+  }
 
   const redirectTickets = () => {
-    navigate("/tickets");
-  };
+    navigate('/tickets')
+  }
 
   return (
     <>
@@ -104,7 +105,7 @@ const TicketCreateForm = ({ prioridad }) => {
             data-bs-dismiss="alert"
             aria-label="Close"
             onClick={() => {
-              setShow(!show);
+              setShow(!show)
             }}
           ></button>
         </div>
@@ -120,7 +121,7 @@ const TicketCreateForm = ({ prioridad }) => {
             errors={errors}
             classCol="col-md-3 form-group item-form"
             options={{
-              required: "Campo obligatorio",
+              required: 'Campo obligatorio'
             }}
           />
           <DatalistChangeInput
@@ -133,11 +134,11 @@ const TicketCreateForm = ({ prioridad }) => {
             errors={errors}
             classCol="col-md-4 col-lg-4 align-items-start datalist-input"
             options={{
-              required: "Campo obligatorio",
+              required: 'Campo obligatorio',
               pattern: {
                 value: REGEX_EMAIL,
-                message: "El e-mail tiene que ser valido",
-              },
+                message: 'El e-mail tiene que ser valido'
+              }
             }}
           />
           <InputForm
@@ -150,7 +151,7 @@ const TicketCreateForm = ({ prioridad }) => {
             classCol="col-md-2 col-lg-2 form-group item-form"
             inputMode="tel"
             options={{
-              required: "Campo obligatorio",
+              required: 'Campo obligatorio'
             }}
           />
           <InputForm
@@ -159,7 +160,7 @@ const TicketCreateForm = ({ prioridad }) => {
             name="gde"
             placeholder=""
             register={register}
-            errors={""}
+            errors={''}
             classCol="col-2 form-group item-form"
           />
         </div>
@@ -173,7 +174,7 @@ const TicketCreateForm = ({ prioridad }) => {
             errors={errors}
             classCol="col-md-4 align-items-start"
             options={{
-              required: "Campo obligatorio",
+              required: 'Campo obligatorio'
             }}
           />
           <Select
@@ -185,7 +186,7 @@ const TicketCreateForm = ({ prioridad }) => {
             errors={errors}
             classCol="col-md-4 align-items-start"
             options={{
-              required: "Campo obligatorio",
+              required: 'Campo obligatorio'
             }}
           />
           <Select
@@ -197,7 +198,7 @@ const TicketCreateForm = ({ prioridad }) => {
             errors={errors}
             classCol="col-1 align-items-start"
             options={{
-              required: "Campo obligatorio",
+              required: 'Campo obligatorio'
             }}
           />
           <InputForm
@@ -206,7 +207,7 @@ const TicketCreateForm = ({ prioridad }) => {
             name="referencia"
             placeholder=""
             register={register}
-            errors={""}
+            errors={''}
             classCol="col-3 form-group item-form"
           />
         </div>
@@ -221,43 +222,45 @@ const TicketCreateForm = ({ prioridad }) => {
             errors={errors}
             classCol="col-6 form-group item-form"
             options={{
-              required: "Campo obligatorio",
+              required: 'Campo obligatorio'
             }}
             placeholder="Motivo por el cual precisa asistencia."
           />
-          {user.sector.includes("gde") ? (
-            <Select
-              label="Área Asignada"
-              name="area_asignada"
-              placeholder="Selecciona un área"
-              optionList={optionListSelect}
-              register={register}
-              errors={errors}
-              classCol="align-items-start col-md-4 col-lg-4 form-group item-form"
-              options={{
-                required: "Campo obligatorio",
-              }}
-            />
-          ) : (
-            <SelectWithOption
-              label="Sector"
-              name="area_asignada"
-              optionList={optionListSelect}
-              register={register}
-              errors={""}
-              classCol="align-items-start col-md-4 col-lg-4 form-group item-form"
-              selectedOption={user.sector[0].toUpperCase()}
-              onChangeInput={""}
-              isDisable={true}
-            />
-          )}
+          {user.sector.includes('gde')
+            ? (
+              <Select
+                label="Área Asignada"
+                name="area_asignada"
+                placeholder="Selecciona un área"
+                optionList={optionListSelect}
+                register={register}
+                errors={errors}
+                classCol="align-items-start col-md-4 col-lg-4 form-group item-form"
+                options={{
+                  required: 'Campo obligatorio'
+                }}
+              />
+            )
+            : (
+              <SelectWithOption
+                label="Sector"
+                name="area_asignada"
+                optionList={optionListSelect}
+                register={register}
+                errors={''}
+                classCol="align-items-start col-md-4 col-lg-4 form-group item-form"
+                selectedOption={user.sector[0].toUpperCase()}
+                onChangeInput={''}
+                isDisable={true}
+              />
+            )}
           <div className="form-create-prioridad col-1">
             <input
               className="check-prioridad-form"
               type="checkbox"
               id="flexCheckDefault"
               name="prioridad_ticket"
-              {...register("prioridad")}
+              {...register('prioridad')}
             />
             <label className="form-check-label" htmlFor="flexCheckDefault">
               Prioridad
@@ -287,7 +290,7 @@ const TicketCreateForm = ({ prioridad }) => {
         </div>
       </form>
     </>
-  );
-};
+  )
+}
 
-export default TicketCreateForm;
+export default TicketCreateForm

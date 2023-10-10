@@ -34,16 +34,7 @@ X-Usuario: 1234
 ### agregar usuario
 POST http://localhost:8000/api/usuario/ HTTP/1.1
 {
-  "nombre_apellido": "Carlos perez",
-  "email": "carlos@perez.com",
-  "celular": "324324324",
-  "telefono": "324534",
-  "interno": "33",
-  "area_id": 2,
-  "piso": "4",
-  "perfil": "solicitante",
-  "rol": "administrador",
-  "token": "xxxx-1234"
+ {"nombre":"jjadf","apellido":"fajsd","email":"fa@fa.com","celular":"23","telefono":"232","interno":"32","area_id":0,"piso":"6","perfil":"administrativo","rol":"admin","token":"cbd-234"}
 }
 
 
@@ -51,7 +42,7 @@ POST http://localhost:8000/api/usuario/ HTTP/1.1
 GET http://localhost:8000/api/usuario/?field=id&value=6 HTTP/1.1
 
 ### actualizar usuario por id
-PATCH http://localhost:8000/api/usuario/id/6 HTTP/1.1
+PATCH http://localhost:8000/api/usuario/id/21 HTTP/1.1
 {
  "nombre_apellido": "Leandro_Fernandez",
   "email": "Leandro@gmail.com",
