@@ -25,7 +25,7 @@ const LoginForm = () => {
     if (result?.error) {
       alert(result.error)
     } else {
-      if (result.user.perfil.includes(ADMINISTRADOR) || result.user.perfil.includes(TECNICO)) {
+      if (result.user.perfil === ADMINISTRADOR || result.user.perfil === TECNICO) {
         handleSeccion()
       }
       navigate('/inicio')

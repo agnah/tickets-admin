@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import useAuth from '@servicios/UseAuth'
 import './BotonProfile.css'
+import { FiltrosContext } from '../../tabla/contextTabla'
 
 function BotonProfile () {
   const { user, logout } = useAuth()
@@ -9,6 +10,12 @@ function BotonProfile () {
   const [initials, setInitials] = useState()
   const navigate = useNavigate()
   const dropdownRef = useRef(null)
+  const {
+    // handlePrioridadChange,
+    handleSeleccionadosChange,
+    handleFiltroUserChange,
+    handleFiltroSectorChange
+  } = useContext(FiltrosContext)
 
   useEffect(() => {
     getInitials()
@@ -29,6 +36,9 @@ function BotonProfile () {
   }
 
   const handleLogout = () => {
+    handleFiltroSectorChange('')
+    handleFiltroUserChange('')
+    handleSeleccionadosChange([])
     logout()
     navigate('')
   }
@@ -46,8 +56,8 @@ function BotonProfile () {
       {initials}
       {showInfo && (
         <ul className="dropDownUser">
-          <li><img src="../../public/img/arrow-right-from-bracket-solid.svg"/><a className="dropdown-item" href="#" onClick={handleLogout}>Cerrar sesión</a></li>
-          <li><img src="../../public/img/user-solid.svg"/><a className="dropdown-item" href="#" onClick={() => handlePerfil()}>Perfil</a></li>
+          <li><img src="../../public/img/arrow-right-from-bracket-solid.svg" /><a className="dropdown-item" href="#" onClick={handleLogout}>Cerrar sesión</a></li>
+          <li><img src="../../public/img/user-solid.svg" /><a className="dropdown-item" href="#" onClick={() => handlePerfil()}>Perfil</a></li>
         </ul>
       )}
     </div>

@@ -17,15 +17,15 @@ export function FiltrosProvider ({ children }) {
     setSeleccionados(values)
   }, [])
 
-  const handleFiltroUserChange = (values) => {
+  const handleFiltroUserChange = useCallback((values) => {
     setFiltroUser(values)
     console.log('llego a handle user', values)
-  }
+  }, [])
 
-  const handleFiltroSectorChange = (value) => {
+  const handleFiltroSectorChange = useCallback((value) => {
     setFiltroSector(value)
     console.log('llego a handle sector', value)
-  }
+  }, [])
 
   return (
     <FiltrosContext.Provider

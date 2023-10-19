@@ -25,7 +25,6 @@ function Usuarios () {
         setLoading(false)
       })
       .catch((error) => {
-        // Maneja el error adecuadamente, por ejemplo, mostrando un mensaje de error
         console.error('Error al obtener los datos:', error)
       })
   }, [])
@@ -33,8 +32,6 @@ function Usuarios () {
   return (
     <Tablero title="Usuarios" classTitle="text-center">
       {user.rolUsuario !== LECTOR && (
-        // <Link to='/usuarios/create' className='btn-login"'>Nuevo Usuario</Link>
-        // <Button title="Nuevo Usuario" classes="btn-login" />
         <Link to='/usuarios/create' className='btn-crear-ticket'>
           <img src="public/img/plus-solid.svg" className="fa-solid fa-plus"></img>
           Nuevo Usuario

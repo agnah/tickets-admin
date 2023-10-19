@@ -136,7 +136,7 @@ const SideBar = ({ children }) => {
               </span>
             </li>
           )}
-          {(user.perfil.includes(SUPERADMIN) || user.perfil.includes(ADMINISTRADOR) || user.perfil.includes(ADMINISTRATIVO)) && (
+          {(user.perfil === SUPERADMIN || user.perfil === ADMINISTRADOR || user.perfil === ADMINISTRATIVO) && (
             <li className="item mb-4">
               <div className="item-nav">
                 <Link

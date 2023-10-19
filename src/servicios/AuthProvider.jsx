@@ -81,9 +81,8 @@ export function AuthProvider ({ children }) {
 
   const handleLogout = () => {
     setSeccionTicket(false)
-    logout(setUser)
-
-    // Borrar la variable seccionTicket de sessionStorage al hacer logout
+    setUser(null)
+    logout()
     sessionStorage.removeItem('seccionTicket')
   }
 

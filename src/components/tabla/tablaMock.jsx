@@ -17,15 +17,13 @@ import { estadoTicket } from '@constantes/constTickets'
 import { perfil, rolUsuario } from '@constantes/constUsers'
 import Badge from '../partials/Button/Badge'
 import './tabla.css'
-
-const colaborador = ['Franco Armani', 'Milton Casco', 'González Pirez', 'Paulo Díaz', 'Enzo Díaz', 'Enzo Pérez', 'Rodrigo Aliendro', 'Nicolás De La Cruz', 'Tito']
-const sectores = ['Soporte', 'Telefonía', 'Computos', 'Sistemas', 'GDE']
-const sectoresid = [1, 2, 3, 4, 5]
+import fechaLocal from '../../utils/fechas'
 
 function Tabla () {
   const [busqueda, setBusqueda] = useState('')
   const { PENDIENTE } = estadoTicket
   const { user } = useAuth()
+  const { ADMINISTRATIVO, DIRECTOR } = perfil
   const navigate = useNavigate()
   const url = apis.API_TICKETS
   const {
@@ -64,12 +62,17 @@ function Tabla () {
     },
     {
       name: 'Fecha',
-      selector: (row) => row.fecha_creacion,
-      sortable: true
-    },
-    {
-      name: 'Hora',
-      selector: (row) => row.fecha_creacion,
+      selector: 'hora',
+      format: (row) => {
+        const { hora, fecha } = fechaLocal(row.fecha_creacion)
+        return (
+          <>
+            {fecha}
+            <br />
+            {hora}
+          </>
+        )
+      },
       sortable: true
     },
     {
@@ -138,7 +141,6 @@ function Tabla () {
   // const preData = datos.filter(elem => elem.area === user.sector)
 
   // const data = filtroTabla(preData, seleccionados, prioridad, filtroUser)
-  const data = filtroTabla(datos, seleccionados, filtroUser, filtroSector)
 
   const conditionalRowStyles = [
     {
@@ -157,13 +159,10 @@ function Tabla () {
     return <SkeletonTabla />
   }
   if (isSuccess) {
-    const nombresUnicosSet = new Set(datos.map(ticket => ticket?.tecnico?.nombre).filter(nombre => nombre))
-    const nombresUnicosArray = [...nombresUnicosSet]
-    // console.log(nombresUnicosArray)
+    const nombresUnicosArray = [...new Set(datos.map(ticket => ticket?.tecnico?.nombre).filter(nombre => nombre))]
 
-    const areaUnicosSet = new Set(datos.map(ticket => ticket?.area?.nombre).filter(nombre => nombre))
-    const areasUnicosArray = [...areaUnicosSet]
-    // console.log(areasUnicosArray)
+    const areasUnicosArray = [...new Set(datos.map(ticket => ticket?.area?.nombre).filter(nombre => nombre))]
+    const data = filtroTabla(datos, seleccionados, filtroUser, filtroSector)
 
     const filteredData = data.filter(item =>
       Object.values(item).some(value =>
@@ -194,30 +193,34 @@ function Tabla () {
             />
           </div>
           <div className="right-elements">
-            <div>
-              {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
-                ? (
-                  <select
-                    name='filtroUser'
-                    value={filtroUser}
-                    onChange={(e) => handleFiltroUserChange(e.target.value)}
-                  >
-                    <option value="">Técnicos</option>
-                    {nombresUnicosArray.map((option, index) => (
-                      <option key={index} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                  )
-                : (
-                  <select disabled>
-                    <option value=''>Todos</option>
-                  </select>
-                  )}
-              <img src="public/img/caret-down-solid.svg" className="fa-solid fa-caret-down"></img>
-            </div>
-            {user.perfil.includes(perfil.ADMINISTRATIVO) || user.rolUsuario === rolUsuario.DIOS
+            {/* {user.perfil !== TECNICO
+              ? ( */}
+                <div>
+                  {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
+                    ? (
+                      <select
+                        name='filtroUser'
+                        value={filtroUser}
+                        onChange={(e) => handleFiltroUserChange(e.target.value)}
+                      >
+                        <option value="">Técnicos</option>
+                        {nombresUnicosArray.map((option, index) => (
+                          <option key={index} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                      )
+                    : (
+                      <select disabled>
+                        <option value=''>Todos</option>
+                      </select>
+                      )}
+                  <img src="public/img/caret-down-solid.svg" className="fa-solid fa-caret-down"></img>
+                </div>
+                {/* )
+              : null} */}
+            {user.perfil === ADMINISTRATIVO || user.rolUsuario === rolUsuario.DIOS
               ? (
                 <div>
                   {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
@@ -246,7 +249,7 @@ function Tabla () {
                 </div>
                 )
               : null}
-            {!user.perfil.includes(perfil.DIRECTOR) && (
+            {user.perfil !== DIRECTOR && (
               <Link to='/tickets/create' className='btn-crear-ticket'>
                 <img src="public/img/plus-solid.svg" className="fa-solid fa-plus"></img>
                 Nuevo Ticket
