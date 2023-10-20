@@ -39,7 +39,9 @@ function Usuarios () {
       )}
       {loading
         ? (
-          <p>Cargando datos...</p>
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
           )
         : (
           <TablaDinam data={datos} acciones={user.rolUsuario !== LECTOR && acciones} tipo="usuarios" columnas={columnas} classTable="table-hover" />

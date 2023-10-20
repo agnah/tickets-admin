@@ -2,13 +2,15 @@ import { useState } from 'react'
 import Input from '../../Form/Input/InputForm'
 import Select from '../../Form/Input/Select'
 import { useForm } from 'react-hook-form'
+import { areas } from '../../../constantes/constAreas'
+import { rolUsuario } from '../../../constantes/constUsers'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
-const optionListArea = ['computos', 'telefonia', 'soportes', 'sistemas', 'gde']
+const { COMPUTOS, TELEFONIA, SOPORTES, SISTEMAS, GDE } = areas
+const { ADMIN, DIOS } = rolUsuario
+let { optionListArea, optionListPerfil, optionListRol } = []
 const optionListSede = ['nueve_de_julio', 'anexo1', 'anexo2', 'anexo3']
-const optionListPerfil = ['administrativo', 'tecnico', 'administrador', 'superadmin']
-const optionListRol = ['admin', 'editor', 'lector', 'dios']
 
 const rolMapping = {
   1: 'admin',
@@ -26,6 +28,39 @@ const perfilMapping = {
 
 const UserDetail2 = ({ user, datos }) => {
   const [edit, setEdit] = useState(false)
+  const rolSelect = user.rolUsuario === ADMIN || user.rolUsuario === DIOS ? optionListRol = ['admin', 'editor', 'Lector'] : optionListRol = ['editor', 'Lector']
+  switch (user.sector) {
+    case COMPUTOS:
+      optionListArea = ['computos']
+      optionListPerfil = ['tecnico']
+      optionListRol = rolSelect
+      break
+    case TELEFONIA:
+      optionListArea = ['telefonia']
+      optionListPerfil = ['tecnico']
+      optionListRol = rolSelect
+      break
+    case SOPORTES:
+      optionListArea = ['soportes']
+      optionListPerfil = ['tecnico']
+      optionListRol = rolSelect
+      break
+    case SISTEMAS:
+      optionListArea = ['sistemas']
+      optionListPerfil = ['tecnico']
+      optionListRol = rolSelect
+      break
+    case GDE:
+      optionListArea = ['gde']
+      optionListPerfil = ['administrativo']
+      optionListRol = rolSelect
+      break
+    default:
+      optionListArea = ['soportes', 'telefonia', 'computos', 'sistemas', 'gde']
+      optionListPerfil = ['administrativo', 'tecnico', 'administrador', 'superadmin']
+      optionListRol = ['admin', 'editor', 'Lector']
+      break
+  }
   const [userInfo, setUserInfo] = useState({
     nombre: datos?.nombre || '',
     apellido: datos?.apellido || '',
@@ -301,7 +336,7 @@ const UserDetail2 = ({ user, datos }) => {
                                         register={register}
                                         errors={errors}
                                         classCol="col-md-8 col-lg-8 d-flex form-group item-form align-items-center gap-2"
-                                        options={{}}
+                                        options={{ required: 'Campo obligatorio' }}
                                         value={userInfo?.interno}
                                         onChangeInput={onChangeInput}
                                     />
@@ -319,7 +354,7 @@ const UserDetail2 = ({ user, datos }) => {
                                         register={register}
                                         errors={errors}
                                         classCol="col-md-6 col-lg-6 d-flex align-items-center gap-2"
-                                        // options={{}}
+                                        options={{ required: 'Campo obligatorio' }}
                                         value={userInfo?.sector}
                                         onChangeInput={onChangeInput}
                                     />
@@ -335,7 +370,7 @@ const UserDetail2 = ({ user, datos }) => {
                                         register={register}
                                         errors={errors}
                                         classCol="col-md-6 col-lg-6 d-flex align-items-center gap-2"
-                                        // options={{}}
+                                        options={{ required: 'Campo obligatorio' }}
                                         selectedOption={userInfo?.sede}
                                         onChangeInput={onChangeInput}
                                     />
@@ -371,7 +406,7 @@ const UserDetail2 = ({ user, datos }) => {
                                         register={register}
                                         errors={errors}
                                         classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
-                                        // options={{ optionListPerfil }}
+                                        options={{ required: 'Campo obligatorio' }}
                                         selectedOption={userInfo?.perfil}
                                         onChangeInput={onChangeInput}
                                     />
@@ -388,6 +423,7 @@ const UserDetail2 = ({ user, datos }) => {
                                         errors={errors}
                                         classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
                                         selectedOption={userInfo?.rolUsuario}
+                                        options={{ required: 'Campo obligatorio' }}
                                         onChangeInput={onChangeInput}
                                     />
                                 </p>

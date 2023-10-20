@@ -30,7 +30,6 @@ const HeaderLogged = (props) => {
     handleSeccion()
     navigate('/tramites')
   }
-  console.log('perfil', user.perfil)
   const classColorHeaderBackground = seccionTicket ? 'backgroundTicket' : 'backgroundTramite'
   return (
     <header className={`header ${classColorHeaderBackground}`}>
@@ -75,15 +74,24 @@ const HeaderLogged = (props) => {
             </div>
           </div>
         </div>
-        <div className='d-flex justify-content-end w-25 pe-3 fw-bold'>
+        {/* <div className='d-flex justify-content-end w-25 pe-3 fw-bold'>
           {!seccionTicket ? 'Ir a Tickets' : 'Ir a Tramites'}
-        </div>
+        </div> */}
         <div className="header-buttons">
 
           {user.perfil !== TECNICO &&
             (seccionTicket
-              ? <Button type="button" texto="Tramites" classBoton="switch-tramites" onClick={redirectTramites} />
-              : <Button type="button" texto="Tickets" classBoton="switch-tickets" onClick={redirectTickets} />
+              ? <> <div className='d-flex justify-content-end w-25 pe-3 fw-bold'>
+                Ir a Tramites
+              </div>
+                <Button type="button" texto="Tramites" classBoton="switch-tramites" onClick={redirectTramites} />
+              </>
+              : <>
+                <div className='d-flex justify-content-end w-25 pe-3 fw-bold'>
+                  Ir a Tickets
+                </div>
+                <Button type="button" texto="Tickets" classBoton="switch-tickets" onClick={redirectTickets} />
+              </>
             )
           }
           <BotonProfile />
