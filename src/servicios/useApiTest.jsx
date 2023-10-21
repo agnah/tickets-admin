@@ -2,10 +2,6 @@ import useSWR from 'swr'
 import { getUserFromSessionStorage } from './AuthFunctions'
 // import useSWRMutation from 'swr/mutation'
 
-// function fetcher(path) {
-//   const url = `https://dummyjson.com/${path}?limit=100`
-//   return fetch(url).then((res) => res.json())
-// }
 const user = getUserFromSessionStorage()
 
 async function fetcher (path) {

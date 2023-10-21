@@ -1,65 +1,49 @@
-[
+[ 
     {
         "id": 2,
         "token": "abc-123",
-        "nombre": "Pepe",
-        "apellido": "administrativo",
+        "nombre": "Usuario mesa de entrada",
+        "apellido": "Usuario mesa de entrada",
         "email": "administrativoMesaEntrada",
         "password": "Prueba@123",
-        "perfil": [
-            "administrativo"
-        ],
-        "sector": [
-            "gde"
-        ],
+        "perfil": "administrativo",
+        "sector": "gde",
         "rolUsuario": "lector",
         "estadoUsuario": "activo"
     },
     {
         "id": 3,
         "token": "cbd-234",
-        "nombre": "Carlos",
-        "apellido": "computos",
+        "nombre": "Usuario admin computos",
+        "apellido": "Usuario admin computos",
         "email": "computosAdministrador",
         "password": "Prueba@123",
-        "perfil": [
-            "administrador"
-        ],
-        "sector": [
-            "computos"
-        ],
+        "perfil": "administrador",
+        "sector": "computos",
         "rolUsuario": "admin",
         "estadoUsuario": "activo"
     },
     {
         "id": 4,
         "token": "cde-345",
-        "nombre": "Franco Armani",
-        "apellido": "computos",
+        "nombre": "Usuario editor computos",
+        "apellido": "Usuario editor computos",
         "email": "computosTecnicoEditor",
         "password": "Prueba@123",
-        "perfil": [
-            "tecnico"
-        ],
-        "sector": [
-            "computos"
-        ],
+        "perfil": "tecnico",
+        "sector": "computos",
         "rolUsuario": "editor",
         "estadoUsuario": "activo"
     },
     {
         "id": 5,
-        "token":"def-456",
-        "nombre": "Milton Casco",
-        "apellido": "computos",
+        "token": "def-456",
+        "nombre": "Usuario lector computos",
+        "apellido": "Usuario lector computos",
         "email": "computosTecnicoLector",
         "password": "Prueba@123",
-        "perfil": [
-            "tecnico"
-        ],
-        "sector": [
-            "computos"
-        ],
+        "perfil": "tecnico",
+        "sector": "computos",
         "rolUsuario": "lector",
         "estadoUsuario": "activo"
     },

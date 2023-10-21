@@ -14,9 +14,9 @@ export const login = async ({ email, password }) => {
   }
 }
 
-export const logout = (setUser) => {
+export const logout = () => {
   sessionStorage.removeItem('user')
-  setUser(null)
+  // window.location.reload()
 }
 
 export const getUserFromSessionStorage = () => {

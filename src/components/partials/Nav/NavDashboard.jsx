@@ -10,7 +10,7 @@ function NavDashboard () {
   const { ADMINISTRATIVO, ADMINISTRADOR, TECNICO, SUPERADMIN } = perfil
   const { DIOS, LECTOR } = rolUsuario
   const { user } = useAuth()
-  // const Home = lazy(() => import('@pages/Home/Home'))
+
   const Tickets = lazy(() => import('@pages/Tickets/Tickets'))
   const TicketCreate = lazy(() => import('@pages/Tickets/TicketCreate'))
   const Usuarios = lazy(() => import('@pages/Users/usuarios'))
@@ -42,7 +42,6 @@ function NavDashboard () {
 
             <Route index element={<Inicio />} />
             <Route path="/404" element={<div>404</div>} />
-            {/* <Route path="*" element={<Home />} /> */}
             <Route path="/inicio" element={<Inicio />} />
             <Route path="/usuarios/:id" element={<DetalleUsuario />} />
             <Route path="/estadisticas" element={<h1>estadisticas</h1>} />
@@ -50,9 +49,9 @@ function NavDashboard () {
               element={
                 <ProtectedRoutes
                   isAllowed={
-                    user.perfil.includes(TECNICO) ||
-                    user.perfil.includes(ADMINISTRADOR) ||
-                    user.perfil.includes(ADMINISTRATIVO)
+                    user.perfil === TECNICO ||
+                    user.perfil === ADMINISTRADOR ||
+                    user.perfil === ADMINISTRATIVO
                   }
                 />
               }>
@@ -64,7 +63,7 @@ function NavDashboard () {
               element={
                 <ProtectedRoutes
                   isAllowed={
-                    !user.perfil.includes(TECNICO)
+                    user.perfil !== TECNICO
                   }
                 />
               }>
@@ -86,7 +85,7 @@ function NavDashboard () {
             <Route
               element={
                 <ProtectedRoutes
-                  isAllowed={user.perfil.includes(ADMINISTRADOR) || user.perfil.includes(SUPERADMIN) || user.perfil.includes(DIOS)}
+                  isAllowed={user.perfil === ADMINISTRADOR || user.perfil === SUPERADMIN || user.perfil === DIOS}
                 />
               }>
             </Route>

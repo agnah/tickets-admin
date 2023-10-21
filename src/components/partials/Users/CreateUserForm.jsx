@@ -4,12 +4,10 @@ import Select from '@components/Form/Input/select2'
 import Button from '../Button/Button'
 import useAuth from '@servicios/UseAuth'
 import { useState } from 'react'
+import { areas } from '../../../constantes/constAreas'
+import { rolUsuario } from '../../../constantes/constUsers'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
-const optionListArea = ['soportes', 'telefonia', 'computos', 'sistemas', 'gde']
-const optionListSede = ['9 de Julio', 'Av. de Mayo', 'Moreno']
-const optionListPerfil = ['administrativo', 'tecnico', 'administrador', 'superadmin']
-const optionListRol = ['admin', 'editor', 'Lector']
 
 const CreateUserForm = () => {
   const { user } = useAuth()
@@ -20,6 +18,44 @@ const CreateUserForm = () => {
     formState: { errors },
     reset
   } = useForm()
+  const { COMPUTOS, TELEFONIA, SOPORTES, SISTEMAS, GDE } = areas
+  const { ADMIN, DIOS } = rolUsuario
+
+  let { optionListArea, optionListPerfil, optionListRol } = []
+  const optionListSede = ['nueve_de_julio', 'anexo1', 'anexo2', 'anexo3']
+  const rolSelect = user.rolUsuario === ADMIN || user.rolUsuario === DIOS ? optionListRol = ['admin', 'editor', 'Lector'] : optionListRol = ['editor', 'Lector']
+  switch (user.sector) {
+    case COMPUTOS:
+      optionListArea = ['computos']
+      optionListPerfil = ['tecnico']
+      optionListRol = rolSelect
+      break
+    case TELEFONIA:
+      optionListArea = ['telefonia']
+      optionListPerfil = ['tecnico']
+      optionListRol = rolSelect
+      break
+    case SOPORTES:
+      optionListArea = ['soportes']
+      optionListPerfil = ['tecnico']
+      optionListRol = rolSelect
+      break
+    case SISTEMAS:
+      optionListArea = ['sistemas']
+      optionListPerfil = ['tecnico']
+      optionListRol = rolSelect
+      break
+    case GDE:
+      optionListArea = ['gde']
+      optionListPerfil = ['administrativo']
+      optionListRol = rolSelect
+      break
+    default:
+      optionListArea = ['computos', 'telefonia', 'soportes', 'sistemas', 'gde']
+      optionListPerfil = ['superadmin', 'administrador', 'tecnico', 'administrativo']
+      optionListRol = ['admin', 'editor', 'Lector']
+      break
+  }
 
   // const handleAreaChange = (selectedIndex) => {
   //   console.log('Selected Area Index:', selectedIndex)
@@ -32,10 +68,10 @@ const CreateUserForm = () => {
   // const onSubmit = (data) => console.log(data)
   const onSubmit = async (data) => {
     const formData = { ...data }
-    if (user.sector[0] !== 'GDE') {
-      formData.area_id =
-        optionListArea.indexOf(user.sector[0].toUpperCase()) + 1
-    }
+    // if (user.sector[0] !== 'GDE') {
+    //   formData.area_id =
+    //     optionListArea.indexOf(user.sector[0].toUpperCase()) + 1
+    // }
     console.log(formData)
 
     const body = {
@@ -167,14 +203,13 @@ const CreateUserForm = () => {
           optionList={optionListArea}
           register={register}
           errors={errors}
+          value={user.sector}
           classCol="col-md-4 col-lg-4"
           valueType="index"
           onChangeInput={handleAreaChange}
           options={{
             required: 'Campo obligatorio'
-          }}
-        />
-        <Select
+          }} /><Select
           label="Sede"
           name="sede"
           placeholder="Seleccione Sede"
@@ -185,9 +220,7 @@ const CreateUserForm = () => {
           valueType="value"
           options={{
             required: 'Campo obligatorio'
-          }}
-        />
-        <Select
+          }} /><Select
           label="Piso"
           name="piso"
           placeholder="Piso"
@@ -197,9 +230,7 @@ const CreateUserForm = () => {
           classCol="col-md-1 col-lg-1"
           options={{
             // required: 'Campo obligatorio'
-          }}
-        />
-        <Select
+          }} /><Select
           label="Perfil"
           name="perfil"
           placeholder="Seleccione Perfil"
@@ -210,21 +241,18 @@ const CreateUserForm = () => {
           // valueType="value"
           options={{
             required: 'Campo obligatorio'
-          }}
-        />
-        <Select
+          }} /><Select
           label="Rol"
           name="rol"
           placeholder="Seleccione Rol"
-          optionList={optionListRol.map(String)}
+          optionList={optionListRol}
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4"
           valueType="value"
           options={{
             required: 'Campo obligatorio'
-          }}
-        />
+          }} />
       </div>
       <div className="row">
         <div className="col-sm-3">

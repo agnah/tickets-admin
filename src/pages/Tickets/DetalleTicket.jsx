@@ -2,22 +2,20 @@ import { useParams } from 'react-router-dom'
 import Tablero from '../../components/Tablero/Tablero'
 import GetTicketDetalle from '../../components/Tickets/GetTicketDetalle'
 import detalleTicket from '../../servicios/TicketDetalleService'
+import './DetalleTicket.css'
 
 const optionListSelect = [
-  "COMPUTOS",
-  "TELEFONIA",
-  "SOPORTE",
-  "SISTEMAS",
-  "GDE",
-];
-
-import './DetalleTicket.css'
-import { useState } from 'react';
+  'COMPUTOS',
+  'TELEFONIA',
+  'SOPORTE',
+  'SISTEMAS',
+  'GDE'
+]
 
 function DetalleTicket () {
   const { id } = useParams()
   const { ticket, loading, error, setTicket } = detalleTicket(Number(id))
-  
+
   if (loading) {
     return <div>Cargando...</div>
   }
@@ -31,7 +29,7 @@ function DetalleTicket () {
   return (
     <>
       <Tablero title={`Ticket ${ticket.identificador}`} classTitle="title-detalleTicket" page={optionListSelect[ticket.area_asignada_id - 1]} state={ticket.estado} >
-        <GetTicketDetalle id={id} ticket={ticket} setTicket={setTicket}/>
+        <GetTicketDetalle id={id} ticket={ticket} setTicket={setTicket} />
       </Tablero>
     </>
   )
