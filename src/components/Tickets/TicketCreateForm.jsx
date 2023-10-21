@@ -48,9 +48,9 @@ const TicketCreateForm = ({ prioridad }) => {
     // const dragAndDropData = dragAndDropRef.current.getData();
     // const formData = { ...data, dragAndDropData, prioridad };
     const formData = { ...data }
-    if (user.sector[0] !== 'GDE') {
+    if (user.sector !== 'GDE') {
       formData.area_asignada =
-        optionListSelect.indexOf(user.sector[0].toUpperCase()) + 1
+        optionListSelect.indexOf(user.sector.toUpperCase()) + 1
     }
     console.log(formData)
     // let images = dragAndDropData.map((image) => image.name).join(";");
@@ -80,7 +80,7 @@ const TicketCreateForm = ({ prioridad }) => {
     });
     let result = await response.json();
     reset();
-    reset({ area_asignada: user.sector[0].toUpperCase() });
+    reset({ area_asignada: user.sector.toUpperCase() });
     if (result?.id !== null) {
       setMessage(`El ticket se genero correctamente. Referencia: ${result?.identificador}`);
       setShow(!show);
@@ -95,13 +95,13 @@ const TicketCreateForm = ({ prioridad }) => {
     <>
       {show && (
         <div
-          class="alert alert-success alert-dismissible fade show"
+          className="alert alert-success alert-dismissible fade show"
           role="alert"
         >
           {message}
           <button
             type="button"
-            class="btn-close"
+            className="btn-close"
             data-bs-dismiss="alert"
             aria-label="Close"
             onClick={() => {
@@ -249,7 +249,7 @@ const TicketCreateForm = ({ prioridad }) => {
                 register={register}
                 errors={''}
                 classCol="align-items-start col-md-4 col-lg-4 form-group item-form"
-                selectedOption={user.sector[0].toUpperCase()}
+                selectedOption={user.sector.toUpperCase()}
                 onChangeInput={''}
                 isDisable={true}
               />
