@@ -246,7 +246,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         setHistorialMensajes([
           ...historialMensajes,
           {
-            area: user.sector[0],
+            area: user.sector,
             info: `Se asigno al técnico ${tecnico.nombre}`,
             date: `Hace unos minutos...`,
           },
