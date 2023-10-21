@@ -13,20 +13,29 @@ let { optionListArea, optionListPerfil, optionListRol } = []
 const optionListSede = ['nueve_de_julio', 'anexo1', 'anexo2', 'anexo3']
 
 const rolMapping = {
-  1: 'admin',
-  2: 'editor',
-  3: 'lector',
-  4: 'dios'
+  1: 'dios',
+  2: 'admin',
+  3: 'editor',
+  4: 'lector'
 }
 
 const perfilMapping = {
-  1: 'administrativo',
-  2: 'tecnico',
-  3: 'admin',
-  4: 'superadmin'
+  1: 'superadmin',
+  2: 'administrador',
+  3: 'tecnico',
+  4: 'administrativo'
+}
+
+const areaMapping = {
+  1: 'computos',
+  2: 'telefonia',
+  3: 'soporte',
+  4: 'sistemas',
+  5: 'gde'
 }
 
 const UserDetail2 = ({ user, datos }) => {
+  console.log(datos)
   const [edit, setEdit] = useState(false)
   const rolSelect = user.rolUsuario === ADMIN || user.rolUsuario === DIOS ? optionListRol = ['admin', 'editor', 'Lector'] : optionListRol = ['editor', 'Lector']
   switch (user.sector) {
@@ -56,8 +65,8 @@ const UserDetail2 = ({ user, datos }) => {
       optionListRol = rolSelect
       break
     default:
-      optionListArea = ['soportes', 'telefonia', 'computos', 'sistemas', 'gde']
-      optionListPerfil = ['administrativo', 'tecnico', 'administrador', 'superadmin']
+      optionListArea = ['computos', 'telefonia', 'soportes', 'sistemas', 'gde']
+      optionListPerfil = ['superadmin', 'administrador', 'tecnico', 'administrativo']
       optionListRol = ['admin', 'editor', 'Lector']
       break
   }
@@ -69,7 +78,7 @@ const UserDetail2 = ({ user, datos }) => {
     celular: datos?.celular || '',
     interno: datos?.interno || '',
     piso: datos?.piso || '',
-    sector: datos?.area_id,
+    sector: areaMapping[datos?.area_id] || '',
     sede: datos?.sede || '',
     perfil: datos?.perfil || '',
     rolUsuario: datos?.rol || ''
@@ -129,7 +138,7 @@ const UserDetail2 = ({ user, datos }) => {
     data.perfil = perfilMapping[data.perfil]
     data.rolUsuario = rolMapping[data.rolUsuario]
     const formData = { ...data }
-    console.log(formData)
+    console.log('envio', formData)
     setUserInfo({ ...userInfo, ...data })
     sendPatchRequest(formData)
   }
@@ -355,8 +364,8 @@ const UserDetail2 = ({ user, datos }) => {
                                         errors={errors}
                                         classCol="col-md-6 col-lg-6 d-flex align-items-center gap-2"
                                         options={{ required: 'Campo obligatorio' }}
-                                        value={userInfo?.sector}
-                                        onChangeInput={onChangeInput}
+                                        selectedOption={userInfo?.sector}
+                                    // onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -372,7 +381,7 @@ const UserDetail2 = ({ user, datos }) => {
                                         classCol="col-md-6 col-lg-6 d-flex align-items-center gap-2"
                                         options={{ required: 'Campo obligatorio' }}
                                         selectedOption={userInfo?.sede}
-                                        onChangeInput={onChangeInput}
+                                    // onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -387,8 +396,8 @@ const UserDetail2 = ({ user, datos }) => {
                                         errors={errors}
                                         classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
                                         options={{}}
-                                        value={userInfo?.piso}
-                                        onChangeInput={onChangeInput}
+                                        selectedOption={userInfo?.piso}
+                                    // onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -408,7 +417,7 @@ const UserDetail2 = ({ user, datos }) => {
                                         classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
                                         options={{ required: 'Campo obligatorio' }}
                                         selectedOption={userInfo?.perfil}
-                                        onChangeInput={onChangeInput}
+                                    // onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -424,7 +433,7 @@ const UserDetail2 = ({ user, datos }) => {
                                         classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
                                         selectedOption={userInfo?.rolUsuario}
                                         options={{ required: 'Campo obligatorio' }}
-                                        onChangeInput={onChangeInput}
+                                    // onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>

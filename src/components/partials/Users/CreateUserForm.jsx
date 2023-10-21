@@ -51,8 +51,8 @@ const CreateUserForm = () => {
       optionListRol = rolSelect
       break
     default:
-      optionListArea = ['soportes', 'telefonia', 'computos', 'sistemas', 'gde']
-      optionListPerfil = ['administrativo', 'tecnico', 'administrador', 'superadmin']
+      optionListArea = ['computos', 'telefonia', 'soportes', 'sistemas', 'gde']
+      optionListPerfil = ['superadmin', 'administrador', 'tecnico', 'administrativo']
       optionListRol = ['admin', 'editor', 'Lector']
       break
   }
@@ -203,7 +203,7 @@ const CreateUserForm = () => {
           optionList={optionListArea}
           register={register}
           errors={errors}
-          value={user.area}
+          value={user.sector}
           classCol="col-md-4 col-lg-4"
           valueType="index"
           onChangeInput={handleAreaChange}

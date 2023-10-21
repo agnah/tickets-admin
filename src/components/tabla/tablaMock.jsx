@@ -23,7 +23,7 @@ function Tabla () {
   const [busqueda, setBusqueda] = useState('')
   const { PENDIENTE } = estadoTicket
   const { user } = useAuth()
-  const { ADMINISTRATIVO, DIRECTOR } = perfil
+  const { ADMINISTRATIVO, SUPERADMIN } = perfil
   const navigate = useNavigate()
   const url = apis.API_TICKETS
   const {
@@ -159,10 +159,11 @@ function Tabla () {
     return <SkeletonTabla />
   }
   if (isSuccess) {
-    const nombresUnicosArray = [...new Set(datos.map(ticket => ticket?.tecnico?.nombre).filter(nombre => nombre))]
-
-    const areasUnicosArray = [...new Set(datos.map(ticket => ticket?.area?.nombre).filter(nombre => nombre))]
-    const data = filtroTabla(datos, seleccionados, filtroUser, filtroSector)
+    const datosPerfil = (user.perfil === ADMINISTRATIVO || user.perfil === SUPERADMIN) ? datos : datos.filter(ticket => ticket?.area?.nombre === user.sector)
+    console.log('datos perfil', datosPerfil)
+    const nombresUnicosArray = [...new Set(datosPerfil.map(ticket => ticket?.tecnico?.nombre).filter(nombre => nombre))]
+    const areasUnicosArray = [...new Set(datosPerfil.map(ticket => ticket?.area?.nombre).filter(nombre => nombre))]
+    const data = filtroTabla(datosPerfil, seleccionados, filtroUser, filtroSector)
 
     const filteredData = data.filter(item =>
       Object.values(item).some(value =>
@@ -249,12 +250,12 @@ function Tabla () {
                 </div>
                 )
               : null}
-            {user.perfil !== DIRECTOR && (
+            {/* {user.perfil !== DIRECTOR && ( */}
               <Link to='/tickets/create' className='btn-crear-ticket'>
                 <img src="public/img/plus-solid.svg" className="fa-solid fa-plus"></img>
                 Nuevo Ticket
               </Link>
-            )}
+            {/* )} */}
           </div>
         </div>
         <div className="container-checks">
