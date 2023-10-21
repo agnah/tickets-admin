@@ -120,6 +120,7 @@ select:disabled {
 
 .rdt_Table {
     margin-top: 1rem;
+    width: 100%;
 }
 
 .rdt_TableHeadRow {
@@ -184,7 +185,7 @@ select:disabled {
 }
 
 .rdt_TableRow:nth-child(even) {
-    filter: brightness(.92);
+    filter: brightness(.95);
     border: none;
 }
 
@@ -213,6 +214,11 @@ option {
     border: none !important;
 }
 
-.badge-container:nth-child(even) {
-    filter: brightness(1.5);
+@media (max-width: 1366px) {
+    .fa-caret-down {
+        width: .7em;
+        height: .7rem;
+        right: 3.2vw;
+        bottom: .1rem;
+    }
 }

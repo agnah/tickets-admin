@@ -57,7 +57,7 @@
 }
 
 .check-prioridad:checked::before {
-    content: url('../../../public/img/check-solid.svg');
+    content: url('/public/img/check-solid.svg');
     font-family: "Font Awesome 5 Free";
     font-size: 7px;
     position: absolute;
@@ -75,4 +75,10 @@
     font-weight: 500;
     color: var(--gris-medio);
     margin-left: 1rem;
+}
+
+.span-cant-tickets {
+    color: var(--hr-color);
+    font-weight: 400;
+    font-size: 14;
 }

@@ -182,7 +182,7 @@ function Tabla () {
         <div className="container-h">
           <div className="div-search">
             <div className="div-icon-search">
-              <img src="../../../public/img/magnifying-glass-solid.svg" alt="search" />
+              <img src="/public/img/magnifying-glass-solid.svg" alt="search"/>
             </div>
             <input
               type="search"

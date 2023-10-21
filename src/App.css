@@ -23,9 +23,8 @@
     scrollbar-color: var(--gris-medio) #ffffff;
 }
 
-body {
+body, html {
     margin: 0;
-    height: 100vh;
     overflow-y: hidden;
 }
 
@@ -36,12 +35,13 @@ select {
 }
 
 #root {
+    height: 100vh;
     background: #e9e9e9;
-    background-image: url(../public/img/icon-background.svg);
+    background-image: url(/public/img/icon-background.svg);
     background-repeat: no-repeat;
     background-position: 10% 100%;
     background-size: 200% 100%;
-    box-sizing: border-box;
+    background-attachment: fixed;
 }
 
 .main-container {
@@ -84,4 +84,22 @@ select {
 
 .main-container::-webkit-scrollbar-thumb {
   border: 3px solid #e9e9e9;
+}
+
+@media (max-width: 1366px) {
+  #root {
+    background: #e9e9e9;
+    background-image: url(/public/img/icon-background.svg);
+    background-repeat: no-repeat;
+    background-position: 10% 100%;
+    background-size: 200% 100%;
+    background-attachment: fixed;
+  }
+  
+  .main-container {
+    padding: 1.5rem 2rem;
+    position: relative;
+    bottom: 0;
+    overflow-y: auto;
+  }
 }

@@ -126,28 +126,26 @@ function SelectTarea ({ tareas, ticketTareas, ticketId, user, setHistorialMensaj
   const renderModalContent = () => (
     <div className="modal-content">
       {/* <h2>{tareaSelecionado ? tareaSelecionado.label : ''}</h2> */}
-      {tareaFinalizada
-        ? (
-          <>
-            <label>Detalle de finalización:</label>
-            <textarea className="detalle-fin-tarea" name="detalleFinTarea" />
-            <div className="d-flex justify-content-end mt-2">
-              <Button
-                onClick={closeModal}
-                classBoton="mx-1 btn-modal cancel-tarea"
-                texto="Cancelar"
-              />
-              <Button
-                onClick={handleTaskCompletion}
-                classBoton="mx-1 btn-modal finish-tarea"
-                texto="Finalizar"
-              />
-            </div>
-          </>
-        )
-        : (
-          <>
-            <div className="d-flex justify-content-center">
+      {tareaFinalizada ? (
+        <>
+          <label>Detalle de finalización:</label>
+          <textarea className="detalle-fin-tarea" name="detalleFinTarea" />
+          <div className="d-flex justify-content-end mt-2">
+            <Button
+              onClick={closeModal}
+              classBoton="mx-1 btn-modal cancel-tarea"
+              texto="Cancelar"
+            />
+            <Button
+              onClick={handleTaskCompletion}
+              classBoton="mx-1 btn-modal finish-tarea"
+              texto="Finalizar"
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="d-flex justify-content-end">
               <Button
                 onClick={handleFinishTask}
                 classBoton="mx-1 btn-modal finish-tarea"
@@ -163,9 +161,9 @@ function SelectTarea ({ tareas, ticketTareas, ticketId, user, setHistorialMensaj
                 classBoton="mx-1 btn-modal delete-terea"
                 texto="Eliminar"
               />
-            </div>
-          </>
-        )}
+          </div>
+        </>
+      )}
     </div>
   )
 

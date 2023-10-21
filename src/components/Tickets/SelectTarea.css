@@ -39,10 +39,9 @@
 }
 
 .modal-content {
-    padding: 1rem;
+    padding: 1rem 0;
     margin-top: 1rem;
     border-radius: 19px;
-    background-color: #DCEFF5;
 }
 
 .btn-modal {
@@ -68,11 +67,35 @@
 }
 
 .detalle-fin-tarea {
-    border: none;
+    border: 1px solid var(--hr-color);
     border-radius: 10px;
     margin-top: .5rem;
 }
 
 .detalle-fin-tarea:focus-visible {
     outline: 1px solid var(--celeste);
+}
+
+@media (max-width: 1366px) {
+    
+    .btn-tareas {
+        font-size: 20px;
+    }
+    
+    .btn-tarea {
+        font-size: 11px;
+    }
+    
+    .finish-tarea {
+        font-size: 12px;
+    }
+    
+    .delete-terea {
+        font-size: 12px;
+    }
+    
+    .cancel-tarea {
+        font-size: 12px;
+    }
+    
 }

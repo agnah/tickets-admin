@@ -6,7 +6,7 @@ import './Tickets.css'
 
 const Tickets = () => {
   return (
-    <Tablero title="Lista de Tickets" classTitle="title-ticket" page="Inicio / Tickets">
+    <Tablero title="Lista de Tickets" classTitle="title-ticket" page="Inicio / Tickets" mensajeCantidadTickets="- Tickets de los ultimos 10 días -">
       {/* <Tabla /> */}
       <TablaMock />
     </Tablero>

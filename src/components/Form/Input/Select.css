@@ -16,3 +16,12 @@
     right: 2.5vw;
     bottom: .1rem;
 }
+
+@media (max-width: 1366px) {
+    .fa-caret-down {
+        width: .7em;
+        height: .7rem;
+        right: 3.2vw;
+        bottom: .1rem;
+    }
+}

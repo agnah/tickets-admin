@@ -24,8 +24,8 @@ const Badge = ({ classes, text, ticketEstado }) => {
       fillColor = '#9283BE'
       break
     case 'prioridad_alta':
-        fillColor = '#DB161D'
-        break
+      fillColor = '#DB161D'
+      break
     default:
       fillColor = '#000000'
       break
