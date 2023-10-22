@@ -187,7 +187,7 @@ function Tabla () {
             <input
               type="search"
               placeholder="Buscar..."
-              inputmode="search"
+              inputMode="search"
               value={busqueda}
               onChange={(e) => setBusqueda(e.target.value)}
               className="input-search"

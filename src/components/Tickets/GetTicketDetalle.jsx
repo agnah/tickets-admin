@@ -99,7 +99,6 @@ function formatearFecha(fecha) {
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 
 const GetTicketDetalle = ({ ticket, setTicket }) => {
-
   const {
     register,
     handleSubmit,
@@ -165,13 +164,21 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       label: tarea.tarea,
     }));
     if (ticket.tareas.length > 0) {
+      console.log(ticket.tareas);
       let ticketTareasId = ticket.tareas
-        .filter((tarea) => tarea.estado == "ACTIVA")
+        // .filter((tarea) => tarea.estado == "ACTIVA")
         .map((tarea) => tarea.tarea_id);
       let tareasTicketsArr = [];
       tareas_por_area.forEach((tarea_por_area) => {
-        if (ticketTareasId.includes(tarea_por_area.id))
-          tareasTicketsArr.push(tarea_por_area);
+        if (ticketTareasId.includes(tarea_por_area.id)) {
+          let tarea_estado = ticket.tareas.filter(
+            (tarea) => tarea.tarea_id == tarea_por_area.id        
+          );
+          tareasTicketsArr.push({
+            ...tarea_por_area,
+            estado: tarea_estado[0].estado,
+          });
+        }
       });
       setTicketTareas(tareasTicketsArr);
     }
@@ -188,7 +195,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       referencia: updateTicket.referencia,
       prioridad: updateTicket.prioridad,
       tecnico_asignado_id: null,
-      estado: updateTicket.estado,
       descripcion: updateTicket.descripcion,
       tecnico_asignado_id: updateTicket.tecnico_asignado_id,
       // archivos: ticketInfo.solicitante
@@ -224,7 +230,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     setTicket(result);
     getTecnicos(id_area);
     getTareasPorArea(id_area);
-    navigate('/tickets')
+    navigate("/tickets");
   };
 
   const handleSelectChange = (e) => {
@@ -240,13 +246,13 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         setTicketInfo({ ...ticketInfo, tecnico_asignado_id: e.target.value });
         ticket_update_info = {
           ...ticketInfo,
-          tecnico_asignado_id: e.target.value,
+          tecnico_asignado_id: e.target.value
         };
         let tecnico = tecnicos.find((tecnico) => (tecnico.id = e.target.value));
         setHistorialMensajes([
           ...historialMensajes,
           {
-            area: user.sector,
+            area: user.sector.toUpperCase(),
             info: `Se asigno al técnico ${tecnico.nombre}`,
             date: `Hace unos minutos...`,
           },
@@ -284,7 +290,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     setHistorialMensajes([
       ...historialMensajes,
       {
-        area: user.sector[0],
+        area: user.sector.toUpperCase(),
         info: e.target[0].value,
         date: `Hace unos minutos...`,
       },
@@ -335,7 +341,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       setHistorialMensajes([
         ...historialMensajes,
         {
-          area: user.sector[0],
+          area: user.sector.toUpperCase(),
           info: `El usuario ${user?.nombre} modifico la información del solicitante`,
           date: `Hace unos minutos...`,
         },
@@ -384,7 +390,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       );
       let result = await response.json();
       setTicket({ ...ticketInfo, ...result });
-      navigate('/tickets')
+      navigate("/tickets");
     }
   };
 
@@ -395,7 +401,14 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   };
 
   return (
-    <section className="row" style={ticketInfo.estado == 'anulado' || ticketInfo.estado == 'finalizado'  ? disable : {}}>
+    <section
+      className="row"
+      style={
+        ticketInfo.estado == "anulado" || ticketInfo.estado == "finalizado"
+          ? disable
+          : {}
+      }
+    >
       <article className="col-md-7 position-relative container-left-detalle">
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -403,7 +416,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           autoComplete="off"
           className="d-flex flex-column"
         >
-          <div className="row" >
+          <div className="row">
             <div className="col-md-6">
               <p className="d-flex align-items-center item-form">
                 <strong className="strong-title">Solicitante:</strong>{" "}
@@ -430,7 +443,13 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
               </p>
             </div>
             <div className="col-md-6 d-flex align-items-center">
-              <p className={edit ? "w-100 d-flex align-items-center item-form" : "w-100 d-flex align-items-center item-form email-view-style"}>
+              <p
+                className={
+                  edit
+                    ? "w-100 d-flex align-items-center item-form"
+                    : "w-100 d-flex align-items-center item-form email-view-style"
+                }
+              >
                 <strong className="strong-title">Email:</strong>{" "}
                 {/* {edit
                   ? (
@@ -590,7 +609,15 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                     </label>
                   </>
                 ) : (
-                    <Badge classes="state-button" text={ticketInfo.prioridad} ticketEstado={ticketInfo.prioridad == 'baja' ? 'finalizado' : 'prioridad_alta'}/>
+                  <Badge
+                    classes="state-button"
+                    text={ticketInfo.prioridad}
+                    ticketEstado={
+                      ticketInfo.prioridad == "baja"
+                        ? "finalizado"
+                        : "prioridad_alta"
+                    }
+                  />
                 )}
               </p>
             </div>
@@ -649,7 +676,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
               {historialMensajes.map((mensaje) => (
                 <p className="row">
                   <span className="col-2 texto-area">{mensaje.area}:</span>
-                  <p className="col-7">{mensaje.info}</p>
+                  <p className="col-7" dangerouslySetInnerHTML={{ __html:mensaje.info}}></p>
                   <span className="col-3 date-historial d-flex justify-content-end">
                     {mensaje.date}
                   </span>
@@ -685,9 +712,9 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                   <option value="">Selecciona un técnico</option>
                   {tecnicos.length > 0 && (
                     <>
-                      {" "}
                       {tecnicos.map((tecnico) => (
                         <option
+                          key={tecnico?.id}
                           value={tecnico?.id}
                           selected={
                             tecnico.id == ticketInfo?.tecnico_asignado_id

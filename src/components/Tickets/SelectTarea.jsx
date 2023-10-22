@@ -1,95 +1,151 @@
-import React, { useEffect, useState } from 'react'
-import Select from 'react-select'
-import Button from '../partials/Button/Button'
-import './SelectTarea.css'
+import React, { useEffect, useRef, useState } from "react";
+import Select from "react-select";
+import Button from "../partials/Button/Button";
+import "./SelectTarea.css";
 
-// const tareasOptions = [
-//   { value: 'Tarea1', id: 1, label: 'Impresora' },
-//   { value: 'Tarea2', id: 2, label: 'Notebook' },
-//   { value: 'Tarea3', id: 3, label: 'Monitor' },
-//   { value: 'Tarea4', id: 4, label: 'SSD' },
-//   { value: 'Tarea5', id: 5, label: 'Otras' },
-//   { value: 'Tarea6', id: 6, label: 'Scanner' }
-// ]
-
-function SelectTarea ({ tareas, ticketTareas, ticketId, user, setHistorialMensajes, historialMensajes }) {
-  const [selectedOptions, setSelectedOptions] = useState([])
-  const [savedTareas, setSavedTareas] = useState([])
-  const [tareaSelecionado, setTareaSeleccionado] = useState(null)
-  const [showModal, setShowModal] = useState(false)
-  const [tareaFinalizada, setTareaFinalizada] = useState(false)
-  const [showSelect, setShowSelect] = useState(false)
+function SelectTarea({
+  tareas,
+  ticketTareas,
+  ticketId,
+  user,
+  setHistorialMensajes,
+  historialMensajes,
+}) {
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [savedTareas, setSavedTareas] = useState([]);
+  const [tareaSelecionado, setTareaSeleccionado] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [tareaFinalizada, setTareaFinalizada] = useState(false);
+  const [showSelect, setShowSelect] = useState(false);
+  const textarea = useRef()
 
   useEffect(() => {
-    setSavedTareas(ticketTareas)
-  }, [ticketTareas])
+    console.log(ticketTareas);
+    setSavedTareas(ticketTareas);
+  }, [ticketTareas]);
 
   const handleSelectChange = (selected) => {
-    setSelectedOptions(selected)
-  }
+    setSelectedOptions(selected);
+  };
 
   const handleSaveSelection = () => {
     if (selectedOptions.length > 0) {
       selectedOptions.forEach((option) => {
-        saveTarea(option)
-      })
-      setSavedTareas([...savedTareas, ...selectedOptions])
-      setSelectedOptions([])
-      setShowSelect(false) // Ocultar el select al guardar
+        saveTarea(option);
+      });
+      setSavedTareas([...savedTareas, ...selectedOptions]);
+      setSelectedOptions([]);
+      setShowSelect(false); // Ocultar el select al guardar
     }
-  }
+  };
 
   const saveTarea = async (option) => {
     setHistorialMensajes([
       ...historialMensajes,
       {
-        area: user.sector[0],
+        area: user.sector.toUpperCase(),
         info: `Se agrego la tarea ${option.value} al ticket`,
-        date: 'Hace unos minutos...'
-      }
-    ])
+        date: "Hace unos minutos...",
+      },
+    ]);
     const response = await fetch(
       `http://localhost:8000/api/tickets/${ticketId}/tareas/?tarea=${option.value}`,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'x-usuario': user.id
-        }
+          "Content-Type": "application/json",
+          "x-usuario": user.id,
+        },
       }
-    )
-    const result = await response.json()
-    console.log(result)
-  }
+    );
+    const result = await response.json();
+    console.log(result);
+  };
 
   const openModal = (task) => {
-    setTareaSeleccionado(task)
-    setShowModal(true)
-  }
+    if (task.estado !== 'FINALIZADA') {
+      setTareaSeleccionado(task);
+      setShowModal(true);
+    }
+  };
 
   const closeModal = () => {
-    setTareaSeleccionado(null)
-    setShowModal(false)
-    setTareaFinalizada(false)
-  }
+    setTareaSeleccionado(null);
+    setShowModal(false);
+    setTareaFinalizada(false);
+  };
 
   const handleFinishTask = () => {
-    setTareaFinalizada(true)
-  }
+    setTareaFinalizada(true);
+  };
 
-  const handleTaskCompletion = () => {
-    closeModal()
-  }
-
-  const handleEliminarTarea = () => {
-    if (tareaSelecionado) {
-      const updatedTareas = savedTareas.filter(
-        (task) => task.id !== tareaSelecionado.id
-      )
-      setSavedTareas(updatedTareas)
-      closeModal()
+  const handleTaskCompletion = async () => {
+    let response = await finalizarTarea(tareaSelecionado);    
+    if ('id' in response) {
+      setHistorialMensajes([
+        ...historialMensajes,
+        {
+          area: user.sector.toUpperCase(),
+          info: `El usuario ${user.nombre} finalizo la tarea ${tareaSelecionado.value} <br>
+                Detalle de la tarea: ${textarea.current.value}`,
+          date: "Hace unos minutos...",
+        },
+      ]);
+      let savedTareasCopy = savedTareas.map(tarea => (tarea.id == tareaSelecionado.id ? {...tarea, estado: 'FINALIZADA'} : tarea))
+      setSavedTareas(savedTareasCopy);
     }
-  }
+    closeModal();
+  };
+
+  const finalizarTarea = async (tarea) => {
+    let response = await fetch(
+      `http://localhost:8000/api/tickets/${ticketId}/tareas/${tarea.id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "x-usuario": user.id,
+        },
+      }
+    );
+    const result = await response.json();
+    return result
+  };
+
+  const handleEliminarTarea = async () => {
+    if (tareaSelecionado) {
+      let result = await eliminarTarea(tareaSelecionado)
+      if(result == '200') {
+        setHistorialMensajes([
+          ...historialMensajes,
+          {
+            area: user.sector.toUpperCase(),
+            info: `El usuario ${user.nombre} elimino la tarea ${tareaSelecionado.value}`,
+            date: "Hace unos minutos...",
+          },
+        ]);
+        const updatedTareas = savedTareas.filter(
+          (task) => task.id !== tareaSelecionado.id
+        );
+        setSavedTareas(updatedTareas);
+      }
+      closeModal();
+    }
+  };
+
+  const eliminarTarea = async (tarea) => {
+    let response = await fetch(
+      `http://localhost:8000/api/tickets/${ticketId}/tareas/${tarea.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "x-usuario": user.id,
+        },
+      }
+    );
+    return response.status;
+  };
 
   const renderSavedTareas = () => (
     <article className="container-tareas">
@@ -97,14 +153,15 @@ function SelectTarea ({ tareas, ticketTareas, ticketId, user, setHistorialMensaj
       <div className="d-flex align-items-center">
         <div
           className="border border-1 flex-grow-1 list-tareas"
-          style={{ minHeight: '35px' }}
+          style={{ minHeight: "35px" }}
         >
           {savedTareas.map((option) => (
             <button
-              className={`btn-tarea ${tareaSelecionado && tareaSelecionado.id === option.id
-                  ? 'btn-tarea-focus'
-                  : ''
-                }`}
+              className={`btn-tarea ${
+                tareaSelecionado && tareaSelecionado.id === option.id
+                  ? "btn-tarea-focus"
+                  : ""
+              } ${option.estado == "FINALIZADA" ? "btn-tarea-finalizada" : ""}`}
               key={option.id}
               onClick={() => openModal(option)}
             >
@@ -121,15 +178,14 @@ function SelectTarea ({ tareas, ticketTareas, ticketId, user, setHistorialMensaj
         )}
       </div>
     </article>
-  )
+  );
 
   const renderModalContent = () => (
     <div className="modal-content">
-      {/* <h2>{tareaSelecionado ? tareaSelecionado.label : ''}</h2> */}
       {tareaFinalizada ? (
         <>
           <label>Detalle de finalización:</label>
-          <textarea className="detalle-fin-tarea" name="detalleFinTarea" />
+          <textarea className="detalle-fin-tarea" name="detalleFinTarea" ref={textarea}/>
           <div className="d-flex justify-content-end mt-2">
             <Button
               onClick={closeModal}
@@ -146,26 +202,26 @@ function SelectTarea ({ tareas, ticketTareas, ticketId, user, setHistorialMensaj
       ) : (
         <>
           <div className="d-flex justify-content-end">
-              <Button
-                onClick={handleFinishTask}
-                classBoton="mx-1 btn-modal finish-tarea"
-                texto="Finalizar Tarea"
-              />
-              <Button
-                onClick={closeModal}
-                classBoton="mx-1 btn-modal cancel-tarea"
-                texto="Cancelar"
-              />
-              <Button
-                onClick={handleEliminarTarea}
-                classBoton="mx-1 btn-modal delete-terea"
-                texto="Eliminar"
-              />
+            <Button
+              onClick={handleFinishTask}
+              classBoton="mx-1 btn-modal finish-tarea"
+              texto="Finalizar Tarea"
+            />
+            <Button
+              onClick={closeModal}
+              classBoton="mx-1 btn-modal cancel-tarea"
+              texto="Cancelar"
+            />
+            <Button
+              onClick={handleEliminarTarea}
+              classBoton="mx-1 btn-modal delete-terea"
+              texto="Eliminar"
+            />
           </div>
         </>
       )}
     </div>
-  )
+  );
 
   return (
     <section>
@@ -193,7 +249,7 @@ function SelectTarea ({ tareas, ticketTareas, ticketId, user, setHistorialMensaj
       )}
       {showModal && <div>{renderModalContent()}</div>}
     </section>
-  )
+  );
 }
 
-export default SelectTarea
+export default SelectTarea;
