@@ -1,7 +1,7 @@
 import useAuth from '@servicios/UseAuth'
 import Tablero from '@components/Tablero/Tablero'
 // import UserDetail from '../../components/partials/Users/UserDetail'
-import UserDetail2 from '../../components/partials/Users/userDetail2'
+import UserDetail2 from '../../components/partials/Users/UserDetail2'
 import { useLocation } from 'react-router-dom'
 
 function Profile () {

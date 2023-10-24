@@ -1,15 +1,15 @@
-import BotonProfile from "../../partials/Users/BotonProfile";
-import Button from "../../partials/Button/Button";
-import "./Header.css";
-import useAuth from "@servicios/UseAuth";
-import { useNavigate } from "react-router-dom";
-import { perfil } from "@constantes/constUsers";
+import BotonProfile from '../../partials/Users/BotonProfile'
+import Button from '../../partials/Button/Button'
+import './Header.css'
+import useAuth from '@servicios/UseAuth'
+import { useNavigate } from 'react-router-dom'
+import { perfil } from '@constantes/constUsers'
 
 const HeaderLogged = (props) => {
   const miSvg = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns: xlink="http://www.w3.org/1999/xlink"
       width="34.18"
       height="34.18"
       viewBox="0 0 34.18 34.18"
@@ -35,22 +35,22 @@ const HeaderLogged = (props) => {
         />
       </g>
     </svg>
-  );
+  )
 
-  const { seccionTicket, handleSeccion, user } = useAuth();
-  const { TECNICO } = perfil;
-  const navigate = useNavigate();
+  const { seccionTicket, handleSeccion, user } = useAuth()
+  const { TECNICO } = perfil
+  const navigate = useNavigate()
   const redirectTickets = () => {
-    handleSeccion();
-    navigate("/tickets");
-  };
+    handleSeccion()
+    navigate('/tickets')
+  }
   const redirectTramites = () => {
-    handleSeccion();
-    navigate("/tramites");
-  };
+    handleSeccion()
+    navigate('/tramites')
+  }
   const classColorHeaderBackground = seccionTicket
-    ? "backgroundTicket"
-    : "backgroundTramite";
+    ? 'backgroundTicket'
+    : 'backgroundTramite'
   return (
     <header className={`header ${classColorHeaderBackground}`}>
       <nav className="navbar-header" role="navigation">
@@ -61,7 +61,7 @@ const HeaderLogged = (props) => {
             data-bs-placement="right"
             data-bs-original-title="Icon-only"
             onClick={() => {
-              props.setShowNav(true);
+              props.setShowNav(true)
             }}
           >
             <img
@@ -91,30 +91,32 @@ const HeaderLogged = (props) => {
           </div>
         </div>
         <div className="d-flex justify-content-end w-25 pe-3 fw-bold text-white">
-          {!seccionTicket ? "Ir a Tickets" : "Ir a Tramites"}
+          {!seccionTicket ? 'Ir a Tickets' : 'Ir a Tramites'}
         </div>
         <div className="header-buttons">
           {user.perfil !== TECNICO &&
-            (seccionTicket ? (
-              <Button
-                type="button"
-                texto="Tramites"
-                classBoton="switch-tramites"
-                onClick={redirectTramites}
-              />
-            ) : (
-              <Button
-                type="button"
-                texto="Tickets"
-                classBoton="switch-tickets"
-                onClick={redirectTickets}
-              />
-            ))}
+            (seccionTicket
+              ? (
+                <Button
+                  type="button"
+                  texto="Tramites"
+                  classBoton="switch-tramites"
+                  onClick={redirectTramites}
+                />
+                )
+              : (
+                <Button
+                  type="button"
+                  texto="Tickets"
+                  classBoton="switch-tickets"
+                  onClick={redirectTickets}
+                />
+                ))}
           <BotonProfile />
         </div>
       </nav>
     </header>
-  );
-};
+  )
+}
 
-export default HeaderLogged;
+export default HeaderLogged
