@@ -73,8 +73,6 @@ const CreateUserForm = () => {
     try {
       const formData = { ...data }
       const formDataAreaId = idSector(formData.area_id)
-      console.log(formDataAreaId)
-      console.log(formData)
       const body = {
         nombre: formData.nombre,
         apellido: formData.apellido,
