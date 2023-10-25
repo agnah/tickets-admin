@@ -30,14 +30,11 @@ function Usuarios () {
   useEffect(() => {
     FetchGeneral(url)
       .then((datos) => {
-        // console.log('datos', datos)
         const datosPerfil = (user.perfil === SUPERADMIN)
           ? datos
           : datos.filter(usuarios => areaMapping[usuarios?.area_id
           ] === user.sector)
-          // console.log('datosPerfil', datosPerfil)
         setDatos(datosPerfil)
-        // setDatos(datos)
         setLoading(false)
       })
       .catch((error) => {
