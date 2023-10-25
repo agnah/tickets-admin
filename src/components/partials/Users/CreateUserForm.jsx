@@ -3,15 +3,14 @@ import InputForm from '@components/Form/Input/InputForm'
 import Select from '@components/Form/Input/select2'
 import Button from '../Button/Button'
 import useAuth from '@servicios/UseAuth'
-import { useState } from 'react'
 import { areas } from '../../../constantes/constAreas'
 import { rolUsuario } from '../../../constantes/constUsers'
+import { apis } from '../../../constantes/constApis'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
 const CreateUserForm = () => {
   const { user } = useAuth()
-  const [selectedAreaIndex, setSelectedAreaIndex] = useState(null)
   const {
     register,
     handleSubmit,
@@ -23,7 +22,7 @@ const CreateUserForm = () => {
 
   let { optionListArea, optionListPerfil, optionListRol } = []
   const optionListSede = ['nueve_de_julio', 'anexo1', 'anexo2', 'anexo3']
-  const rolSelect = user.rolUsuario === ADMIN || user.rolUsuario === DIOS ? optionListRol = ['admin', 'editor', 'Lector'] : optionListRol = ['editor', 'Lector']
+  const rolSelect = user.rolUsuario === ADMIN || user.rolUsuario === DIOS ? optionListRol = ['admin', 'editor', 'lector'] : optionListRol = ['editor', 'lector']
   switch (user.sector) {
     case COMPUTOS:
       optionListArea = ['computos']
@@ -53,58 +52,58 @@ const CreateUserForm = () => {
     default:
       optionListArea = ['computos', 'telefonia', 'soportes', 'sistemas', 'gde']
       optionListPerfil = ['superadmin', 'administrador', 'tecnico', 'administrativo']
-      optionListRol = ['admin', 'editor', 'Lector']
+      optionListRol = ['admin', 'editor', 'lector']
       break
   }
 
-  // const handleAreaChange = (selectedIndex) => {
-  //   console.log('Selected Area Index:', selectedIndex)
-  //   setSelectedAreaIndex(selectedIndex)
-  // }
-  const handleAreaChange = (selectedIndex) => {
-    setSelectedAreaIndex(selectedIndex)
+  const areaMapping = {
+    1: 'computos',
+    2: 'telefonia',
+    3: 'soporte',
+    4: 'sistemas',
+    5: 'gde'
   }
 
-  // const onSubmit = (data) => console.log(data)
+  const idSector = (sector) => {
+    const entry = Object.entries(areaMapping).find(([, value]) => value === sector)
+    return entry ? parseInt(entry[0], 10) : null
+  }
+
   const onSubmit = async (data) => {
-    const formData = { ...data }
-    // if (user.sector[0] !== 'GDE') {
-    //   formData.area_id =
-    //     optionListArea.indexOf(user.sector[0].toUpperCase()) + 1
-    // }
-    console.log(formData)
-
-    const body = {
-      nombre: formData.nombre,
-      apellido: formData.apellido,
-      email: formData.email,
-      celular: formData.celular,
-      telefono: formData.telefono,
-      interno: formData.interno,
-      area_id: selectedAreaIndex !== null ? selectedAreaIndex + 1 : '',
-      piso: formData.piso,
-      perfil: formData.perfil,
-      rol: formData.rol,
-      token: user.token
-    }
-
-    const jsonString = JSON.stringify(body)
-    console.log(jsonString)
-
-    const response = await fetch('http://localhost:8000/api/usuario', {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json'
+    try {
+      const formData = { ...data }
+      const formDataAreaId = idSector(formData.area_id)
+      console.log(formDataAreaId)
+      console.log(formData)
+      const body = {
+        nombre: formData.nombre,
+        apellido: formData.apellido,
+        email: formData.email,
+        celular: formData.celular,
+        telefono: formData.telefono,
+        interno: formData.interno,
+        area_id: formDataAreaId,
+        piso: formData.piso,
+        perfil: formData.perfil,
+        rol: formData.rol,
+        token: user.token
       }
-    })
-    const result = await response.json()
-    console.log(result)
-    reset()
-
-    // if (result?.id !== null) {
-    //   setShow(!show) // Asegúrate de definir `show` antes de usarlo
-    // }
+      const response = await fetch(apis.API_CREAR_USUARIO, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      if (!response.ok) {
+        throw new Error('Error al crear el usuarior')
+      }
+      await response.json()
+      console.log('agregado con exito')
+      reset()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -205,8 +204,6 @@ const CreateUserForm = () => {
           errors={errors}
           value={user.sector}
           classCol="col-md-4 col-lg-4"
-          valueType="index"
-          onChangeInput={handleAreaChange}
           options={{
             required: 'Campo obligatorio'
           }} /><Select
@@ -217,7 +214,6 @@ const CreateUserForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4"
-          valueType="value"
           options={{
             required: 'Campo obligatorio'
           }} /><Select
@@ -238,7 +234,6 @@ const CreateUserForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4"
-          // valueType="value"
           options={{
             required: 'Campo obligatorio'
           }} /><Select
@@ -249,7 +244,6 @@ const CreateUserForm = () => {
           register={register}
           errors={errors}
           classCol="col-md-4 col-lg-4"
-          valueType="value"
           options={{
             required: 'Campo obligatorio'
           }} />

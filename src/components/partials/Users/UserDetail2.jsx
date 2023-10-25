@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import Input from '../../Form/Input/InputForm'
-import Select from '../../Form/Input/Select'
+import Select from '../../Form/Input/select2'
 import { useForm } from 'react-hook-form'
 import { areas } from '../../../constantes/constAreas'
 import { rolUsuario } from '../../../constantes/constUsers'
+import { apis } from '../../../constantes/constApis'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
@@ -37,7 +38,7 @@ const areaMapping = {
 const UserDetail2 = ({ user, datos }) => {
   console.log(datos)
   const [edit, setEdit] = useState(false)
-  const rolSelect = user.rolUsuario === ADMIN || user.rolUsuario === DIOS ? optionListRol = ['admin', 'editor', 'Lector'] : optionListRol = ['editor', 'Lector']
+  const rolSelect = user.rolUsuario === ADMIN || user.rolUsuario === DIOS ? optionListRol = ['admin', 'editor', 'lector'] : optionListRol = ['editor', 'lector']
   switch (user.sector) {
     case COMPUTOS:
       optionListArea = ['computos']
@@ -67,7 +68,7 @@ const UserDetail2 = ({ user, datos }) => {
     default:
       optionListArea = ['computos', 'telefonia', 'soportes', 'sistemas', 'gde']
       optionListPerfil = ['superadmin', 'administrador', 'tecnico', 'administrativo']
-      optionListRol = ['admin', 'editor', 'Lector']
+      optionListRol = ['admin', 'editor', 'lector']
       break
   }
   const [userInfo, setUserInfo] = useState({
@@ -92,12 +93,13 @@ const UserDetail2 = ({ user, datos }) => {
 
   const onChangeInput = (e) => {
     const { value, name } = e.target
+    console.log(`Input changed: name=${name}, value=${value}`)
     setUserInfo({ ...userInfo, [name]: value })
   }
 
   const sendPatchRequest = async (formData) => {
     try {
-      const api = `http://localhost:8000/api/usuario/id/${datos?.id}`
+      const api = `${apis.API_USUARIO}/${datos?.id}`
       console.log('datos', datos.id)
       const areaId = formData.sector !== null ? parseInt(formData.sector) : null
       const body = {
@@ -364,8 +366,8 @@ const UserDetail2 = ({ user, datos }) => {
                                         errors={errors}
                                         classCol="col-md-6 col-lg-6 d-flex align-items-center gap-2"
                                         options={{ required: 'Campo obligatorio' }}
-                                        selectedOption={userInfo?.sector}
-                                    // onChangeInput={onChangeInput}
+                                        value={userInfo?.sector}
+                                    onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -380,8 +382,8 @@ const UserDetail2 = ({ user, datos }) => {
                                         errors={errors}
                                         classCol="col-md-6 col-lg-6 d-flex align-items-center gap-2"
                                         options={{ required: 'Campo obligatorio' }}
-                                        selectedOption={userInfo?.sede}
-                                    // onChangeInput={onChangeInput}
+                                        value={userInfo?.sede}
+                                    onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -396,8 +398,8 @@ const UserDetail2 = ({ user, datos }) => {
                                         errors={errors}
                                         classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
                                         options={{}}
-                                        selectedOption={userInfo?.piso}
-                                    // onChangeInput={onChangeInput}
+                                        value={userInfo?.piso}
+                                    onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -416,8 +418,8 @@ const UserDetail2 = ({ user, datos }) => {
                                         errors={errors}
                                         classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
                                         options={{ required: 'Campo obligatorio' }}
-                                        selectedOption={userInfo?.perfil}
-                                    // onChangeInput={onChangeInput}
+                                        value={userInfo?.perfil}
+                                    onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -431,9 +433,9 @@ const UserDetail2 = ({ user, datos }) => {
                                         register={register}
                                         errors={errors}
                                         classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
-                                        selectedOption={userInfo?.rolUsuario}
+                                        value={userInfo?.rolUsuario}
                                         options={{ required: 'Campo obligatorio' }}
-                                    // onChangeInput={onChangeInput}
+                                    onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
