@@ -30,14 +30,11 @@ function Usuarios () {
   useEffect(() => {
     FetchGeneral(url)
       .then((datos) => {
-        // console.log('datos', datos)
         const datosPerfil = (user.perfil === SUPERADMIN)
           ? datos
           : datos.filter(usuarios => areaMapping[usuarios?.area_id
           ] === user.sector)
-          // console.log('datosPerfil', datosPerfil)
         setDatos(datosPerfil)
-        // setDatos(datos)
         setLoading(false)
       })
       .catch((error) => {
@@ -55,8 +52,8 @@ function Usuarios () {
       )}
       {loading
         ? (
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">Cargando...</span>
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Cargando...</span>
           </div>
           )
         : (

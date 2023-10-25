@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import Input from '../../Form/Input/InputForm'
-import Select from '../../Form/Input/Select'
+import Select from '../../Form/Input/select2'
 import { useForm } from 'react-hook-form'
 import { areas } from '../../../constantes/constAreas'
 import { rolUsuario } from '../../../constantes/constUsers'
+import { apis } from '../../../constantes/constApis'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
@@ -11,20 +12,6 @@ const { COMPUTOS, TELEFONIA, SOPORTES, SISTEMAS, GDE } = areas
 const { ADMIN, DIOS } = rolUsuario
 let { optionListArea, optionListPerfil, optionListRol } = []
 const optionListSede = ['nueve_de_julio', 'anexo1', 'anexo2', 'anexo3']
-
-const rolMapping = {
-  1: 'dios',
-  2: 'admin',
-  3: 'editor',
-  4: 'lector'
-}
-
-const perfilMapping = {
-  1: 'superadmin',
-  2: 'administrador',
-  3: 'tecnico',
-  4: 'administrativo'
-}
 
 const areaMapping = {
   1: 'computos',
@@ -35,28 +22,29 @@ const areaMapping = {
 }
 
 const UserDetail2 = ({ user, datos }) => {
-  console.log(datos)
+//   console.log(datos)
   const [edit, setEdit] = useState(false)
-  const rolSelect = user.rolUsuario === ADMIN || user.rolUsuario === DIOS ? optionListRol = ['admin', 'editor', 'Lector'] : optionListRol = ['editor', 'Lector']
+  const rolSelect = user.rolUsuario === ADMIN || user.rolUsuario === DIOS ? optionListRol = ['admin', 'editor', 'lector'] : optionListRol = ['editor', 'lector']
+  const perfilSelect = user.rolUsuario === ADMIN || user.rolUsuario === DIOS ? optionListPerfil = ['administrador', 'tecnico'] : optionListPerfil = ['tecnico']
   switch (user.sector) {
     case COMPUTOS:
       optionListArea = ['computos']
-      optionListPerfil = ['tecnico']
+      optionListPerfil = perfilSelect
       optionListRol = rolSelect
       break
     case TELEFONIA:
       optionListArea = ['telefonia']
-      optionListPerfil = ['tecnico']
+      optionListPerfil = perfilSelect
       optionListRol = rolSelect
       break
     case SOPORTES:
       optionListArea = ['soportes']
-      optionListPerfil = ['tecnico']
+      optionListPerfil = perfilSelect
       optionListRol = rolSelect
       break
     case SISTEMAS:
       optionListArea = ['sistemas']
-      optionListPerfil = ['tecnico']
+      optionListPerfil = perfilSelect
       optionListRol = rolSelect
       break
     case GDE:
@@ -67,7 +55,7 @@ const UserDetail2 = ({ user, datos }) => {
     default:
       optionListArea = ['computos', 'telefonia', 'soportes', 'sistemas', 'gde']
       optionListPerfil = ['superadmin', 'administrador', 'tecnico', 'administrativo']
-      optionListRol = ['admin', 'editor', 'Lector']
+      optionListRol = ['admin', 'editor', 'lector']
       break
   }
   const [userInfo, setUserInfo] = useState({
@@ -94,12 +82,17 @@ const UserDetail2 = ({ user, datos }) => {
     const { value, name } = e.target
     setUserInfo({ ...userInfo, [name]: value })
   }
+  const idSector = (sector) => {
+    const entry = Object.entries(areaMapping).find(([, value]) => value === sector)
+    return entry ? parseInt(entry[0], 10) : null
+  }
 
   const sendPatchRequest = async (formData) => {
     try {
-      const api = `http://localhost:8000/api/usuario/id/${datos?.id}`
-      console.log('datos', datos.id)
-      const areaId = formData.sector !== null ? parseInt(formData.sector) : null
+      const api = `${apis.API_PATCH_USUARIO}${datos?.id}`
+      console.log('api:', api)
+      const formDataAreaId = idSector(formData.sector)
+      console.log('area id:', formData.sector, formDataAreaId)
       const body = {
         nombre: formData.nombre,
         apellido: formData.apellido,
@@ -107,7 +100,7 @@ const UserDetail2 = ({ user, datos }) => {
         celular: formData.celular,
         telefono: formData.telefono,
         interno: formData.interno,
-        area_id: areaId,
+        area_id: formDataAreaId,
         piso: formData.piso,
         perfil: formData.perfil,
         rol: formData.rolUsuario
@@ -135,8 +128,6 @@ const UserDetail2 = ({ user, datos }) => {
   }
 
   const onSubmit = (data) => {
-    data.perfil = perfilMapping[data.perfil]
-    data.rolUsuario = rolMapping[data.rolUsuario]
     const formData = { ...data }
     console.log('envio', formData)
     setUserInfo({ ...userInfo, ...data })
@@ -153,7 +144,7 @@ const UserDetail2 = ({ user, datos }) => {
       celular: datos?.celular || '',
       interno: datos?.interno || '',
       piso: datos?.piso || '',
-      sector: datos?.area_id,
+      sector: datos?.area_id || '',
       sede: datos?.sede || '',
       perfil: datos?.perfil || '',
       rolUsuario: datos?.rol || ''
@@ -364,8 +355,8 @@ const UserDetail2 = ({ user, datos }) => {
                                         errors={errors}
                                         classCol="col-md-6 col-lg-6 d-flex align-items-center gap-2"
                                         options={{ required: 'Campo obligatorio' }}
-                                        selectedOption={userInfo?.sector}
-                                    // onChangeInput={onChangeInput}
+                                        value={userInfo?.sector}
+                                        onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -380,8 +371,8 @@ const UserDetail2 = ({ user, datos }) => {
                                         errors={errors}
                                         classCol="col-md-6 col-lg-6 d-flex align-items-center gap-2"
                                         options={{ required: 'Campo obligatorio' }}
-                                        selectedOption={userInfo?.sede}
-                                    // onChangeInput={onChangeInput}
+                                        value={userInfo?.sede}
+                                        onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -396,8 +387,8 @@ const UserDetail2 = ({ user, datos }) => {
                                         errors={errors}
                                         classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
                                         options={{}}
-                                        selectedOption={userInfo?.piso}
-                                    // onChangeInput={onChangeInput}
+                                        value={userInfo?.piso}
+                                        onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -416,8 +407,8 @@ const UserDetail2 = ({ user, datos }) => {
                                         errors={errors}
                                         classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
                                         options={{ required: 'Campo obligatorio' }}
-                                        selectedOption={userInfo?.perfil}
-                                    // onChangeInput={onChangeInput}
+                                        value={userInfo?.perfil}
+                                        onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
@@ -431,9 +422,9 @@ const UserDetail2 = ({ user, datos }) => {
                                         register={register}
                                         errors={errors}
                                         classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
-                                        selectedOption={userInfo?.rolUsuario}
+                                        value={userInfo?.rolUsuario}
                                         options={{ required: 'Campo obligatorio' }}
-                                    // onChangeInput={onChangeInput}
+                                        onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>

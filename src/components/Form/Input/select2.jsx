@@ -9,7 +9,6 @@ const Select = (props) => {
     errors,
     optionList,
     classCol,
-    valueType,
     onChangeInput,
     ...attributes
   } = props
@@ -17,17 +16,6 @@ const Select = (props) => {
   const isError = errors[name]?.message
   const placeholderText = isError ? errors[name]?.message : placeholder
   const classes = isError ? `${classCol} has-error` : `${classCol}`
-
-  const handleChange = (e) => {
-    const selectedValue = e.target.value
-
-    if (valueType === 'index') {
-      const selectedIndex = e.target.selectedIndex
-      onChangeInput(selectedIndex) // Llama a la función con el índice
-    } else {
-      onChangeInput(selectedValue) // Llama a la función con el valor
-    }
-  }
 
   return (
     <div className={`select-container d-flex flex-column ${classes}`}>
@@ -41,8 +29,8 @@ const Select = (props) => {
           name={name}
           {...attributes}
           {...register(name, attributes.options)}
+          onChange={onChangeInput}
           className={`detalle-input w-100 ${isError ? 'help-block error error-style w-100' : ''}`}
-          onChange={handleChange}
         >
           <option value="">{placeholderText}</option>
           {optionList.map((option, index) => (
@@ -62,5 +50,4 @@ const Select = (props) => {
     </div>
   )
 }
-
 export default Select

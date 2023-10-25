@@ -17,6 +17,7 @@ function NavDashboard () {
   const CreateUser = lazy(() => import('@pages/Users/CreateUser'))
   const DetalleTicket = lazy(() => import('@pages/Tickets/DetalleTicket'))
   const DetalleUsuario = lazy(() => import('@pages/Users/DetalleUsuario'))
+  const Profile = lazy(() => import('@pages/Users/Profile'))
   const Inicio = lazy(() => import('@pages/Inicio/Inicio'))
   const Tramites = lazy(() => import('@pages/Tramites/Tramites'))
   const TramiteCreate = lazy(() => import('@pages/Tramites/TramiteCreate'))
@@ -44,6 +45,7 @@ function NavDashboard () {
             <Route path="/404" element={<div>404</div>} />
             <Route path="/inicio" element={<Inicio />} />
             <Route path="/usuarios/:id" element={<DetalleUsuario />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/estadisticas" element={<h1>estadisticas</h1>} />
             <Route
               element={

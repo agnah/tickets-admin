@@ -48,7 +48,8 @@ function BotonProfile () {
   }
 
   const handlePerfil = () => {
-    navigate(`/usuarios/${user.id}`)
+    // navigate(`/usuarios/id/${user.id}`)
+    navigate('/profile')
   }
 
   return (

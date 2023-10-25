@@ -5,10 +5,10 @@ import './check.css'
 
 function CheckEstado ({ onChange, seleccionados }) {
   const { handleFiltroUserChange } = useContext(FiltrosContext)
-  const { PENDIENTE, EN_CURSO, ANULADO, FINALIZADO } = estadoTicket
+  const { PENDIENTE, EN_CURSO, ANULADO, FINALIZADO, DERIVADO } = estadoTicket
+
   const handleMarketingChange = (e) => {
     const value = e.target.value
-
     if (e.target.checked) {
       onChange(prevSeleccionados => {
         const nuevosSeleccionados = [...prevSeleccionados, value]
@@ -59,10 +59,10 @@ function CheckEstado ({ onChange, seleccionados }) {
           checked={seleccionados.includes(PENDIENTE)} />
         Pendiente
       </label>
-      {/* <label>
-        <input type="checkbox" name="estado" value={ASIGNADO} onChange={onChangeValue} checked={seleccionados.includes(ASIGNADO)} />
-        Asignado
-      </label> */}
+      <label>
+        <input type="checkbox" name="estado" value={DERIVADO} onChange={onChangeValue} checked={seleccionados.includes(DERIVADO)} />
+        Derivado
+      </label>
       <label>
         <input type="checkbox" name="estado" value={EN_CURSO} onChange={onChangeValue} checked={seleccionados.includes(EN_CURSO)} />
         En Curso
