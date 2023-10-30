@@ -271,7 +271,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           {
             sector: user.sector.toUpperCase(),
             mensaje: `Se asigno al técnico ${tecnico.nombre}`,
-            fecha_modificacion: `Hace unos minutos...`,
+            fecha_creacion: `Hace unos minutos...`,
           },
         ]);
         updateTicket(ticket_update_info);
@@ -291,7 +291,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
               mensaje: `El usuario ${user?.nombre} derivo el ticket a ${
                 optionListSelect[e.target.value - 1]
               }`,
-              fecha_modificacion: `Hace unos minutos...`,
+              fecha_creacion: `Hace unos minutos...`,
             },
           ]);
           derivarTicket(e.target.value);
@@ -318,7 +318,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       {
         sector: user.sector.toUpperCase(),
         mensaje: e.target[0].value,
-        fecha_modificacion: `Hace unos minutos...`,
+        fecha_creacion: `Hace unos minutos...`,
       },
     ]);
   };
@@ -369,7 +369,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         {
           sector: user.sector.toUpperCase(),
           mensaje: `El usuario ${user?.nombre} modifico la información del solicitante`,
-          fecha_modificacion: `Hace unos minutos...`,
+          fecha_creacion: `Hace unos minutos...`,
         },
       ]);
     }
@@ -713,7 +713,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                     dangerouslySetInnerHTML={{ __html: mensaje.mensaje }}
                   ></p>
                   <span className="col-3 date-historial d-flex justify-content-end">
-                    {mensaje.fecha_modificacion}
+                    {mensaje.fecha_creacion}
                   </span>
                 </p>
               ))}

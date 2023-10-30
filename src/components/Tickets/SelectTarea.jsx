@@ -45,7 +45,7 @@ function SelectTarea({
       {
         sector: user.sector.toUpperCase(),
         mensaje: `Se agrego la tarea ${option.value} al ticket`,
-        fecha_modificacion: "Hace unos minutos...",
+        fecha_creacion: "Hace unos minutos...",
       },
     ]);
     const response = await fetch(
@@ -88,7 +88,7 @@ function SelectTarea({
           sector: user.sector.toUpperCase(),
           mensaje: `El usuario ${user.nombre} finalizo la tarea ${tareaSelecionado.value} <br>
                 Detalle de la tarea: ${textarea.current.value}`,
-          fecha_modificacion: "Hace unos minutos...",
+          fecha_creacion: "Hace unos minutos...",
         },
       ]);
       let savedTareasCopy = savedTareas.map(tarea => (tarea.id == tareaSelecionado.id ? {...tarea, estado: 'FINALIZADA'} : tarea))
@@ -121,7 +121,7 @@ function SelectTarea({
           {
             sector: user.sector.toUpperCase(),
             mensaje: `El usuario ${user.nombre} elimino la tarea ${tareaSelecionado.value}`,
-            fecha_modificacion: "Hace unos minutos...",
+            fecha_creacion: "Hace unos minutos...",
           },
         ]);
         const updatedTareas = savedTareas.filter(
