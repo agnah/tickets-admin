@@ -129,14 +129,21 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   const [ticketTareas, setTicketTareas] = useState([]);
   const [edit, setEdit] = useState(false);
   // const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email);
-  const [historialMensajes, setHistorialMensajes] = useState(historial);
+  const [historialMensajes, setHistorialMensajes] = useState([]);
   const [tecnicos, setTecnicos] = useState([]);
   const [tareas, setTareas] = useState([]);
 
   useEffect(() => {
     getTecnicos(ticketInfo.area_asignada_id);
     getTareasPorArea(ticketInfo.area_asignada_id);
+    getHistorial(ticketInfo.id);
   }, []);
+
+  let disable = {
+    opacity: "0.7",
+    cursor: "not-allowed",
+    pointerEvents: "none",
+  };
 
   const getTecnicos = async (id_area) => {
     let response = await fetch(`http://localhost:8000/api/usuario/${id_area}`, {
@@ -172,7 +179,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       tareas_por_area.forEach((tarea_por_area) => {
         if (ticketTareasId.includes(tarea_por_area.id)) {
           let tarea_estado = ticket.tareas.filter(
-            (tarea) => tarea.tarea_id == tarea_por_area.id        
+            (tarea) => tarea.tarea_id == tarea_por_area.id
           );
           tareasTicketsArr.push({
             ...tarea_por_area,
@@ -184,6 +191,16 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     }
     setTareas(tareas_por_area);
   };
+
+  const getHistorial = async (id_ticket) => {
+    let response = await fetch(`http://localhost:8000/api/tickets/${id_ticket}/historial`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let result = await response.json();
+    setHistorialMensajes(result);
+  }
 
   const updateTicket = async (updateTicket) => {
     let data = {
@@ -246,15 +263,15 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         setTicketInfo({ ...ticketInfo, tecnico_asignado_id: e.target.value });
         ticket_update_info = {
           ...ticketInfo,
-          tecnico_asignado_id: e.target.value
+          tecnico_asignado_id: e.target.value,
         };
         let tecnico = tecnicos.find((tecnico) => (tecnico.id = e.target.value));
         setHistorialMensajes([
           ...historialMensajes,
           {
-            area: user.sector.toUpperCase(),
-            info: `Se asigno al técnico ${tecnico.nombre}`,
-            date: `Hace unos minutos...`,
+            sector: user.sector.toUpperCase(),
+            mensaje: `Se asigno al técnico ${tecnico.nombre}`,
+            fecha_modificacion: `Hace unos minutos...`,
           },
         ]);
         updateTicket(ticket_update_info);
@@ -270,11 +287,11 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           setHistorialMensajes([
             ...historialMensajes,
             {
-              area: user.sector[0],
-              info: `El usuario ${user?.nombre} derivo el ticket a ${
+              sector: user.sector[0],
+              mensaje: `El usuario ${user?.nombre} derivo el ticket a ${
                 optionListSelect[e.target.value - 1]
               }`,
-              date: `Hace unos minutos...`,
+              fecha_modificacion: `Hace unos minutos...`,
             },
           ]);
           derivarTicket(e.target.value);
@@ -287,12 +304,21 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
 
   const handleSubmitMessage = (e) => {
     e.preventDefault();
+    let data = {
+      ticket_id: ticketInfo.id,
+      registro_anterior_id: null,
+      area_anterior_id: optionListSelect.indexOf(user.sector.toUpperCase()) + 1,
+      tecnico_anterior_id: ticketInfo.tecnico_asignado_id,
+      notas: e.target[0].value,
+      creado_por_id: user.id,
+    };
+    saveHistorial(data);
     setHistorialMensajes([
       ...historialMensajes,
       {
-        area: user.sector.toUpperCase(),
-        info: e.target[0].value,
-        date: `Hace unos minutos...`,
+        sector: user.sector.toUpperCase(),
+        mensaje: e.target[0].value,
+        fecha_modificacion: `Hace unos minutos...`,
       },
     ]);
   };
@@ -341,9 +367,9 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       setHistorialMensajes([
         ...historialMensajes,
         {
-          area: user.sector.toUpperCase(),
-          info: `El usuario ${user?.nombre} modifico la información del solicitante`,
-          date: `Hace unos minutos...`,
+          sector: user.sector.toUpperCase(),
+          mensaje: `El usuario ${user?.nombre} modifico la información del solicitante`,
+          fecha_modificacion: `Hace unos minutos...`,
         },
       ]);
     }
@@ -394,10 +420,16 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     }
   };
 
-  let disable = {
-    opacity: "0.7",
-    cursor: "not-allowed",
-    pointerEvents: "none",
+  const saveHistorial = async (data) => {
+    let response = await fetch(`http://localhost:8000/api/tickets/${data.ticket_id}/historial`,{
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    })
+    let result = await response.json();
+    console.log(result);
   };
 
   return (
@@ -675,10 +707,13 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
             >
               {historialMensajes.map((mensaje) => (
                 <p className="row">
-                  <span className="col-2 texto-area">{mensaje.area}:</span>
-                  <p className="col-7" dangerouslySetInnerHTML={{ __html:mensaje.info}}></p>
+                  <span className="col-2 texto-area">{mensaje.sector.toUpperCase()}:</span>
+                  <p
+                    className="col-7"
+                    dangerouslySetInnerHTML={{ __html: mensaje.mensaje }}
+                  ></p>
                   <span className="col-3 date-historial d-flex justify-content-end">
-                    {mensaje.date}
+                    {mensaje.fecha_modificacion}
                   </span>
                 </p>
               ))}

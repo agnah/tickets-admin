@@ -43,9 +43,9 @@ function SelectTarea({
     setHistorialMensajes([
       ...historialMensajes,
       {
-        area: user.sector.toUpperCase(),
-        info: `Se agrego la tarea ${option.value} al ticket`,
-        date: "Hace unos minutos...",
+        sector: user.sector.toUpperCase(),
+        mensaje: `Se agrego la tarea ${option.value} al ticket`,
+        fecha_modificacion: "Hace unos minutos...",
       },
     ]);
     const response = await fetch(
@@ -85,10 +85,10 @@ function SelectTarea({
       setHistorialMensajes([
         ...historialMensajes,
         {
-          area: user.sector.toUpperCase(),
-          info: `El usuario ${user.nombre} finalizo la tarea ${tareaSelecionado.value} <br>
+          sector: user.sector.toUpperCase(),
+          mensaje: `El usuario ${user.nombre} finalizo la tarea ${tareaSelecionado.value} <br>
                 Detalle de la tarea: ${textarea.current.value}`,
-          date: "Hace unos minutos...",
+          fecha_modificacion: "Hace unos minutos...",
         },
       ]);
       let savedTareasCopy = savedTareas.map(tarea => (tarea.id == tareaSelecionado.id ? {...tarea, estado: 'FINALIZADA'} : tarea))
@@ -119,9 +119,9 @@ function SelectTarea({
         setHistorialMensajes([
           ...historialMensajes,
           {
-            area: user.sector.toUpperCase(),
-            info: `El usuario ${user.nombre} elimino la tarea ${tareaSelecionado.value}`,
-            date: "Hace unos minutos...",
+            sector: user.sector.toUpperCase(),
+            mensaje: `El usuario ${user.nombre} elimino la tarea ${tareaSelecionado.value}`,
+            fecha_modificacion: "Hace unos minutos...",
           },
         ]);
         const updatedTareas = savedTareas.filter(
