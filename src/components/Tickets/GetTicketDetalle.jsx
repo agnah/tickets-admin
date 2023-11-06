@@ -397,6 +397,14 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     setTicketInfo({ ...ticketInfo, [name]: value });
   };
 
+  const handleRadioChange = (e) => {
+    if (e.target.value == "baja") {
+      setTicketInfo({ ...ticketInfo, prioridad: "alta" });
+    } else {
+      setTicketInfo({ ...ticketInfo, prioridad: "baja" });
+    }
+  };
+
   const handleAnular = async (e) => {
     let respuesta = confirm("Esta seguro que desea anular el ticket?");
     if (respuesta) {
@@ -650,6 +658,9 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                       id="flexCheckDefault"
                       name="prioridad_ticket"
                       {...register("prioridad")}
+                      checked={ticketInfo.prioridad == "baja" ? "" : "checked"}
+                      value={ticketInfo.prioridad}
+                      onChange={handleRadioChange}
                     />
                     <label
                       className="form-check-label"
