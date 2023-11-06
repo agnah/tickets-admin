@@ -282,12 +282,12 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         };
         let tecnico = tecnicos.find((tecnico) => (tecnico.id = e.target.value));
         setHistorialMensajes([
-          ...historialMensajes,
           {
             sector: user.sector.toUpperCase(),
             mensaje: `Se asigno al técnico ${tecnico.nombre}`,
             fecha_creacion: `Hace unos minutos...`,
           },
+          ...historialMensajes,
         ]);
         updateTicket(ticket_update_info);
       } else {
@@ -300,7 +300,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         if (e.target.value != "") {
           setTicketInfo({ ...ticketInfo, area_asignada: e.target.value });
           setHistorialMensajes([
-            ...historialMensajes,
             {
               sector: user.sector[0],
               mensaje: `El usuario ${user?.nombre} derivo el ticket a ${
@@ -308,6 +307,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
               }`,
               fecha_creacion: `Hace unos minutos...`,
             },
+            ...historialMensajes,
           ]);
           derivarTicket(e.target.value);
         }
@@ -329,12 +329,12 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     };
     saveHistorial(data);
     setHistorialMensajes([
-      ...historialMensajes,
       {
         sector: user.sector.toUpperCase(),
         mensaje: e.target[0].value,
         fecha_creacion: `Hace unos minutos...`,
       },
+      ...historialMensajes,
     ]);
   };
 
@@ -380,12 +380,12 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       });
       setEdit(!edit);
       setHistorialMensajes([
-        ...historialMensajes,
         {
           sector: user.sector.toUpperCase(),
           mensaje: `El usuario ${user?.nombre} modifico la información del solicitante`,
           fecha_creacion: `Hace unos minutos...`,
         },
+        ...historialMensajes,
       ]);
     }
   };

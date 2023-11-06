@@ -46,12 +46,12 @@ function SelectTarea({
 
   const saveTarea = async (option) => {
     setHistorialMensajes([
-      ...historialMensajes,
       {
         sector: user.sector.toUpperCase(),
         mensaje: `Se agrego la tarea ${option.value} al ticket`,
         fecha_creacion: "Hace unos minutos...",
       },
+      ...historialMensajes,
     ]);
     const response = await fetch(
       `http://localhost:8000/api/tickets/${ticketId}/tareas/?tarea=${option.value}`,
@@ -88,13 +88,13 @@ function SelectTarea({
     let response = await finalizarTarea(tareaSelecionado);    
     if ('id' in response) {
       setHistorialMensajes([
-        ...historialMensajes,
         {
           sector: user.sector.toUpperCase(),
           mensaje: `El usuario ${user.nombre} finalizo la tarea ${tareaSelecionado.value} <br>
                 Detalle de la tarea: ${textarea.current.value}`,
           fecha_creacion: "Hace unos minutos...",
         },
+        ...historialMensajes,
       ]);
       let savedTareasCopy = savedTareas.map(tarea => (tarea.id == tareaSelecionado.id ? {...tarea, estado: 'FINALIZADA'} : tarea))
       setSavedTareas(savedTareasCopy);
@@ -125,12 +125,12 @@ function SelectTarea({
       console.log(data);
       if(result.status == '200') {
         setHistorialMensajes([
-          ...historialMensajes,
           {
             sector: user.sector.toUpperCase(),
             mensaje: `El usuario ${user.nombre} elimino la tarea ${tareaSelecionado.value}`,
             fecha_creacion: "Hace unos minutos...",
           },
+          ...historialMensajes,
         ]);
         const updatedTareas = savedTareas.filter(
           (task) => task.id !== tareaSelecionado.id
