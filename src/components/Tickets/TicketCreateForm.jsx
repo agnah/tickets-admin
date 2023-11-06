@@ -31,10 +31,10 @@ const sedes = ['NUEVE_DE_JULIO', 'ANEXO1', 'ANEXO2', 'ANEXO3']
 const datalistSolicitante = solicitantes.map((s) => s.email)
 
 const TicketCreateForm = ({ prioridad }) => {
-  const [show, setShow] = useState(false);
-  const [message, setMessage] = useState("");
-  const { user } = useAuth();
-  const dragAndDropRef = useRef(null);
+  const [show, setShow] = useState(false)
+  const [message, setMessage] = useState('')
+  const { user } = useAuth()
+  const dragAndDropRef = useRef(null)
   const {
     register,
     handleSubmit,
@@ -75,15 +75,15 @@ const TicketCreateForm = ({ prioridad }) => {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    let result = await response.json();
-    reset();
-    reset({ area_asignada: user.sector.toUpperCase() });
+        'Content-Type': 'application/json'
+      }
+    })
+    const result = await response.json()
+    reset()
+    reset({ area_asignada: user.sector.toUpperCase() })
     if (result?.id !== null) {
-      setMessage(`El ticket se genero correctamente. Referencia: ${result?.identificador}`);
-      setShow(!show);
+      setMessage(`El ticket se genero correctamente. Referencia: ${result?.identificador}`)
+      setShow(!show)
     }
   }
 
