@@ -128,16 +128,26 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
 
   const [ticketTareas, setTicketTareas] = useState([]);
   const [edit, setEdit] = useState(false);
-  // const [solicitanteEmail, setSolicitanteEmail] = useState(ticketInfo.email);
   const [historialMensajes, setHistorialMensajes] = useState([]);
   const [tecnicos, setTecnicos] = useState([]);
   const [tareas, setTareas] = useState([]);
+  const [showButtons, setShowButtons] = useState(false)
 
   useEffect(() => {
     getTecnicos(ticketInfo.area_asignada_id);
     getTareasPorArea(ticketInfo.area_asignada_id);
     getHistorial(ticketInfo.id);
   }, []);
+
+  useEffect(()=>{
+    let tareas_restantes = ticketTareas.filter(tarea=>tarea.estado !== 'FINALIZADA')
+    console.log('TAREAS RESTANTES =>',tareas_restantes.length);
+    if (tareas_restantes.length > 0) {
+      setShowButtons(false)
+    }else{ 
+      setShowButtons(true)
+    }
+  },[ticketTareas])
 
   let disable = {
     opacity: "0.7",
@@ -171,7 +181,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       label: tarea.tarea,
     }));
     if (ticket.tareas.length > 0) {
-      console.log(ticket.tareas);
       let ticketTareasId = ticket.tareas
         // .filter((tarea) => tarea.estado == "ACTIVA")
         .map((tarea) => tarea.tarea_id);
@@ -184,6 +193,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           tareasTicketsArr.push({
             ...tarea_por_area,
             estado: tarea_estado[0].estado,
+            id_relacion: tarea_estado[0].id
           });
         }
       });
@@ -193,14 +203,19 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   };
 
   const getHistorial = async (id_ticket) => {
-    let response = await fetch(`http://localhost:8000/api/tickets/${id_ticket}/historial`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let response = await fetch(
+      `http://localhost:8000/api/tickets/${id_ticket}/historial`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     let result = await response.json();
-    setHistorialMensajes(result);
-  }
+    result?.detail?.error
+      ? setHistorialMensajes([])
+      : setHistorialMensajes(result);
+  };
 
   const updateTicket = async (updateTicket) => {
     let data = {
@@ -421,13 +436,16 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   };
 
   const saveHistorial = async (data) => {
-    let response = await fetch(`http://localhost:8000/api/tickets/${data.ticket_id}/historial`,{
-      method:"POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data)
-    })
+    let response = await fetch(
+      `http://localhost:8000/api/tickets/${data.ticket_id}/historial`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
     let result = await response.json();
     console.log(result);
   };
@@ -705,18 +723,21 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
               style={{ height: "200px", overflowY: "scroll" }}
               className="p-3"
             >
-              {historialMensajes.map((mensaje) => (
-                <p className="row">
-                  <span className="col-2 texto-area">{mensaje.sector.toUpperCase()}:</span>
-                  <p
-                    className="col-7"
-                    dangerouslySetInnerHTML={{ __html: mensaje.mensaje }}
-                  ></p>
-                  <span className="col-3 date-historial d-flex justify-content-end">
-                    {mensaje.fecha_creacion}
-                  </span>
-                </p>
-              ))}
+              {historialMensajes.length > 0 &&
+                historialMensajes.map((mensaje) => (
+                  <p className="row">
+                    <span className="col-2 texto-area">
+                      {mensaje.sector.toUpperCase()}:
+                    </span>
+                    <p
+                      className="col-7"
+                      dangerouslySetInnerHTML={{ __html: mensaje.mensaje }}
+                    ></p>
+                    <span className="col-3 date-historial d-flex justify-content-end">
+                      {mensaje.fecha_creacion}
+                    </span>
+                  </p>
+                ))}
             </div>
             <div className="w-100 p-2 input-box">
               <form onSubmit={handleSubmitMessage} className="d-flex gap-2">
@@ -766,7 +787,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
               </div>
             </div>
           </article>
-          <article className="col-lg-12 tecnico-asignado">
+          <article className="col-lg-12 tecnico-asignado" style={showButtons ? {} : disable}>
             <div className="mb-2">
               <label className="ms-2">Acciones:</label>
               <div className="col-md-12 col-lg-12 d-flex m-2 select-derivar">
@@ -808,12 +829,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                 </button>
               </div>
             </div>
-            {/* <div>
-              <p className="mb-1 ms-2 subtitle-derivar">
-                Tiempo de espera: {""}
-              </p>
-              <p className="mb-0 ms-2 subtitle-derivar">Última acción: {""}</p>
-            </div> */}
           </article>
         </section>
 
@@ -827,6 +842,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                 user={user}
                 setHistorialMensajes={setHistorialMensajes}
                 historialMensajes={historialMensajes}
+                setTicketTareas={setTicketTareas}
               />
             </div>
           </article>

@@ -10,6 +10,7 @@ function SelectTarea({
   user,
   setHistorialMensajes,
   historialMensajes,
+  setTicketTareas
 }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [savedTareas, setSavedTareas] = useState([]);
@@ -20,7 +21,7 @@ function SelectTarea({
   const textarea = useRef()
 
   useEffect(() => {
-    console.log(ticketTareas);
+    console.log('TICKETS TAREA => ',ticketTareas);
     setSavedTareas(ticketTareas);
   }, [ticketTareas]);
 
@@ -30,12 +31,16 @@ function SelectTarea({
 
   const handleSaveSelection = () => {
     if (selectedOptions.length > 0) {
-      selectedOptions.forEach((option) => {
-        saveTarea(option);
+      let response
+      selectedOptions.forEach(async (option) => {
+        response = await saveTarea(option);
+        option.id_relacion = response.id
+        option.estado = response.estado
       });
       setSavedTareas([...savedTareas, ...selectedOptions]);
       setSelectedOptions([]);
       setShowSelect(false); // Ocultar el select al guardar
+      setTicketTareas([...savedTareas, ...selectedOptions])
     }
   };
 
@@ -59,7 +64,7 @@ function SelectTarea({
       }
     );
     const result = await response.json();
-    console.log(result);
+    return result;
   };
 
   const openModal = (task) => {
@@ -93,6 +98,7 @@ function SelectTarea({
       ]);
       let savedTareasCopy = savedTareas.map(tarea => (tarea.id == tareaSelecionado.id ? {...tarea, estado: 'FINALIZADA'} : tarea))
       setSavedTareas(savedTareasCopy);
+      setTicketTareas(savedTareasCopy)
     }
     closeModal();
   };
@@ -115,7 +121,9 @@ function SelectTarea({
   const handleEliminarTarea = async () => {
     if (tareaSelecionado) {
       let result = await eliminarTarea(tareaSelecionado)
-      if(result == '200') {
+      let data = await result.json()
+      console.log(data);
+      if(result.status == '200') {
         setHistorialMensajes([
           ...historialMensajes,
           {
@@ -128,6 +136,7 @@ function SelectTarea({
           (task) => task.id !== tareaSelecionado.id
         );
         setSavedTareas(updatedTareas);
+        setTicketTareas(updatedTareas)
       }
       closeModal();
     }
@@ -144,7 +153,7 @@ function SelectTarea({
         },
       }
     );
-    return response.status;
+    return response;
   };
 
   const renderSavedTareas = () => (
