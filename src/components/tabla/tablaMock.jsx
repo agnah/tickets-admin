@@ -23,7 +23,7 @@ function Tabla () {
   const [filtroAvanzadoVisible, setFiltroAvanzadoVisible] = useState(false)
   const [filtroAvanzadoActivo, setFiltroAvanzadoActivo] = useState(false)
   const [url, setUrl] = useState(apis.API_TICKETS)
-  const { PENDIENTE } = estadoTicket
+  const { PENDIENTE, DERIVADO } = estadoTicket
   const { user } = useAuth()
   const { ADMINISTRATIVO, SUPERADMIN } = perfil
   const navigate = useNavigate()
@@ -70,12 +70,29 @@ function Tabla () {
   const onSubmit = (formData) => {
     console.log('formdata', formData)
     if (filtroAvanzadoActivo) {
-      // Aquí deberías construir la URL del filtro avanzado en función de los datos del formulario
-      const filtroAvanzado = 'http://localhost:8000/api/tickets/?field=estado&value=pendiente'
-      setUrl(filtroAvanzado)
+      const url = construirURL(formData)
+      setUrl(url)
+      console.log(url)
     } else {
       setUrl(apis.API_TICKETS)
     }
+  }
+
+  function construirURL (formData) {
+    const baseUrl = apis.API_TICKETS_FILTRO_AVANZADO
+    const filtros = []
+    for (const key in formData) {
+      if (formData[key] !== '') {
+        // Si es un campo de fecha, agrega " 00:00:00" al final
+        if (key === 'start_date' || key === 'end_date') {
+          filtros.push(`${key}=${encodeURIComponent(formData[key] + ' 00:00:00')}`)
+        } else {
+          filtros.push(`${key}=${encodeURIComponent(formData[key])}`)
+        }
+      }
+    }
+
+    return baseUrl + filtros.join('&')
   }
 
   useEffect(() => {
@@ -195,7 +212,7 @@ function Tabla () {
   ]
 
   if (isError) {
-    return <p>Algo fallo: {error.message}</p>
+    return <p>Algo fallo: Por favor reloguear. {error.message}</p>
   }
   if (isLoading) {
     return <SkeletonTabla />
@@ -244,7 +261,7 @@ function Tabla () {
             {/* {user.perfil !== TECNICO
               ? ( */}
             <div>
-              {!seleccionados.includes(PENDIENTE) || seleccionados.length > 1
+              {(!seleccionados.includes(PENDIENTE) && !seleccionados.includes(DERIVADO)) || seleccionados.some(opcion => opcion !== PENDIENTE && opcion !== DERIVADO)
                 ? (
                   <select
                     name='filtroUser'
@@ -319,10 +336,10 @@ function Tabla () {
           <div className="filtro-avanzado-form">
             <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
               <InputForm
-                label="ID ticket"
+                label="Identificador"
                 type="text"
-                name="idTicket"
-                placeholder="Ingrese id de ticket"
+                name="identificador"
+                placeholder="Ingrese identificador de ticket"
                 register={register}
                 errors={errors}
                 classCol="col-md-4 col-lg-4 form-group item-form"
@@ -334,7 +351,7 @@ function Tabla () {
               <InputForm
                 label="Fecha desde"
                 type="date"
-                name="fechaInicio"
+                name="start_date"
                 // placeholder="Desde"
                 register={register}
                 errors={errors}
@@ -346,7 +363,7 @@ function Tabla () {
               <InputForm
                 label="Hasta"
                 type="date"
-                name="fechaHasta"
+                name="end_date"
                 // placeholder="hasta"
                 register={register}
                 errors={errors}
@@ -360,7 +377,7 @@ function Tabla () {
               <InputForm
                 label="Area solicitante"
                 type="text"
-                name="areaSolicitante"
+                name="area_solicitante"
                 placeholder="Ingrese area solicitante"
                 register={register}
                 errors={errors}
@@ -372,7 +389,7 @@ function Tabla () {
               <InputForm
                 label="E-mail"
                 type="email"
-                name="email"
+                name="email_solicitante"
                 placeholder="Ingrese e-mail"
                 register={register}
                 errors={errors}
@@ -384,7 +401,7 @@ function Tabla () {
               <InputForm
                 label="Solicitante"
                 type="text"
-                name="solicitante"
+                name="nombre_solicitante"
                 placeholder="Ingrese solicitante"
                 register={register}
                 errors={errors}
@@ -394,10 +411,10 @@ function Tabla () {
                 }}
               />
               <InputForm
-                label="Motivo"
+                label="Descripción"
                 type="text"
-                name="motivo"
-                placeholder="Ingrese motivo"
+                name="descripcion"
+                placeholder="Ingrese parte de la descripción"
                 register={register}
                 errors={errors}
                 classCol="col-md-4 col-lg-4 form-group item-form"
