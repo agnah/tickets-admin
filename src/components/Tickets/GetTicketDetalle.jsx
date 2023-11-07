@@ -231,7 +231,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       tecnico_asignado_id: null,
       descripcion: updateTicket.descripcion,
       tecnico_asignado_id: updateTicket.tecnico_asignado_id,
-      // archivos: ticketInfo.solicitante
+      estado: updateTicket.estado
     };
 
     let response = await fetch(
@@ -277,10 +277,11 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         `Esta seguro que desea asignar al tecnico ${nombre_tecnico}?`
       );
       if (respuesta) {
-        setTicketInfo({ ...ticketInfo, tecnico_asignado_id: e.target.value });
+        setTicketInfo({ ...ticketInfo, tecnico_asignado_id: e.target.value, estado: 'en_curso' });
         ticket_update_info = {
           ...ticketInfo,
           tecnico_asignado_id: e.target.value,
+          estado: 'en_curso'
         };
         let tecnico = tecnicos.find((tecnico) => (tecnico.id = e.target.value));
         setHistorialMensajes([
