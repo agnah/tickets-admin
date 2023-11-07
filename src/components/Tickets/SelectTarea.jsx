@@ -253,6 +253,11 @@ function SelectTarea({
               classBoton="mx-1 btn-modal finish-tarea"
               texto="Guardar Tareas"
             />
+            <Button
+              onClick={() => setShowSelect(false)}
+              classBoton="mx-1 btn-modal cancel-tarea"
+              texto="Cancelar"
+            />
           </div>
         </>
       )}
