@@ -218,6 +218,14 @@
 .form-control{
     font-size: 14px;
     font-weight: 600;
+    background-color: var(--color-tickets);
+    color: white;
+}
+
+.form-control:focus, .form-control:focus-visible {
+    outline: none;
+    border: none;
+    box-shadow: none;
 }
 
 .form-control:focus, .form-control:focus-visible {
@@ -249,16 +257,11 @@
     background-color: var(--color-destacado);
     border: 1px solid var(--color-destacado);
     color: #fff;
-    font-weight: 700;
+    font-weight: 600;
+    font-weight: 600;
     border-radius: 19px;
     text-align: center;
     cursor: pointer;
-}
-
-.subtitle-derivar {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--gris-medio);
 }
 
 .date-historial {

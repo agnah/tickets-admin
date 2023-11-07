@@ -6,6 +6,7 @@ import useAuth from '@servicios/UseAuth'
 import { areas } from '../../../constantes/constAreas'
 import { rolUsuario } from '../../../constantes/constUsers'
 import { apis } from '../../../constantes/constApis'
+import './CreateUserForm.css'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
@@ -237,7 +238,7 @@ const CreateUserForm = () => {
           optionList={optionListPerfil}
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4 item-form"
+          classCol="col-md-4 col-lg-4 item-form mt-2"
           options={{
             required: 'Campo obligatorio'
           }}
@@ -249,7 +250,7 @@ const CreateUserForm = () => {
           optionList={optionListRol}
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4 item-form"
+          classCol="col-md-4 col-lg-4 item-form mt-2"
           options={{
             required: 'Campo obligatorio'
           }}
