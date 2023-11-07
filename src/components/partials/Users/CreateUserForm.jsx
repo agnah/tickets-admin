@@ -114,7 +114,7 @@ const CreateUserForm = () => {
           placeholder="Ingrese su nombre..."
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4 form-group item-form"
+          classCol="col-md-4 col-lg-4 form-group item-form mb-2"
           options={{
             // required: 'Campo obligatorio'
           }}
@@ -126,7 +126,7 @@ const CreateUserForm = () => {
           placeholder="Ingrese su apellido..."
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4 form-group item-form"
+          classCol="col-md-4 col-lg-4 form-group item-form mb-2"
           options={{
             // required: 'Campo obligatorio'
           }}
@@ -136,7 +136,7 @@ const CreateUserForm = () => {
           type="email"
           name="email"
           placeholder="Ingrese su correo..."
-          classCol="col-md-4 col-lg-4 form-group item-form"
+          classCol="col-md-4 col-lg-4 form-group item-form mb-2"
           register={register}
           errors={errors}
           inputMode="email"
@@ -155,7 +155,7 @@ const CreateUserForm = () => {
           placeholder=""
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4 form-group item-form"
+          classCol="col-md-4 col-lg-4 form-group item-form mb-2"
           inputMode="tel"
           options={{
             pattern: {
@@ -170,7 +170,7 @@ const CreateUserForm = () => {
           placeholder=""
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4 form-group item-form"
+          classCol="col-md-4 col-lg-4 form-group item-form mb-2"
           inputMode="tel"
           options={{
             pattern: {
@@ -186,7 +186,7 @@ const CreateUserForm = () => {
           register={register}
           errors={errors}
           inputMode="numeric"
-          classCol="col-md-4 col-lg-4 form-group item-form"
+          classCol="col-md-4 col-lg-4 form-group item-form mb-2"
           options={{
             pattern: {
               message: 'Solo numeros'
@@ -201,56 +201,65 @@ const CreateUserForm = () => {
           register={register}
           errors={errors}
           value={user.sector}
-          classCol="col-md-4 col-lg-4"
+          classCol="col-md-4 col-lg-4 item-form"
           options={{
             required: 'Campo obligatorio'
-          }} /><Select
+          }}
+        />
+        <Select
           label="Sede"
           name="sede"
           placeholder="Seleccione Sede"
           optionList={optionListSede}
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4"
+          classCol="col-md-4 col-lg-4 item-form"
           options={{
             required: 'Campo obligatorio'
-          }} /><Select
+          }}
+        />
+        <Select
           label="Piso"
           name="piso"
           placeholder="Piso"
           optionList={['PB', 1, 2, 3, 4, 5, 6, 7, 8, 9]}
           register={register}
           errors={errors}
-          classCol="col-md-1 col-lg-1"
+          classCol="col-md-2 col-lg-2 item-form"
           options={{
             // required: 'Campo obligatorio'
-          }} /><Select
+          }}
+        />
+        <Select
           label="Perfil"
           name="perfil"
           placeholder="Seleccione Perfil"
           optionList={optionListPerfil}
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4"
+          classCol="col-md-4 col-lg-4 item-form"
           options={{
             required: 'Campo obligatorio'
-          }} /><Select
+          }}
+        />
+        <Select
           label="Rol"
           name="rol"
           placeholder="Seleccione Rol"
           optionList={optionListRol}
           register={register}
           errors={errors}
-          classCol="col-md-4 col-lg-4"
+          classCol="col-md-4 col-lg-4 item-form"
           options={{
             required: 'Campo obligatorio'
-          }} />
+          }}
+        />
       </div>
       <div className="row">
-        <div className="col-sm-3">
+        <div className="col-12 d-flex justify-content-end">
           <Button
             type="submit"
-            classBoton="mx-1 btn btn-success"
+            classBoton="btn-aceptar"
             texto="Guardar"
           />
         </div>

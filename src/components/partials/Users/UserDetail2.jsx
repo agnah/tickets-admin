@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { areas } from '../../../constantes/constAreas'
 import { rolUsuario } from '../../../constantes/constUsers'
 import { apis } from '../../../constantes/constApis'
+import './UserDetail.css'
 
 const REGEX_EMAIL = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 
@@ -156,12 +157,13 @@ const UserDetail2 = ({ user, datos }) => {
   }
 
   return (
-        <section className="position-relative pt-5">
+        <section className="user-details-container">
             {!edit && (
-                <i
-                    className="fa fa-edit position-absolute top-0 end-0"
+                <img
+                    src="/public/img/pen-to-square-solid.svg" alt="editar"
+                    className="fa-edit-details"
                     onClick={handleEdit}
-                ></i>
+                ></img>
             )}
             {!edit
               ? (
@@ -179,14 +181,14 @@ const UserDetail2 = ({ user, datos }) => {
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-12">
                                 <p>
-                                    <strong>Email:</strong> {userInfo?.email}
+                                    <strong>Celular:</strong> {userInfo?.celular}
                                 </p>
                             </div>
                         </article>
                         <article className="row">
                             <div className="col-lg-4 col-md-4 col-sm-12">
                                 <p>
-                                    <strong>Celular:</strong> {userInfo?.celular}
+                                    <strong>Email:</strong> {userInfo?.email}
                                 </p>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-12">
@@ -237,13 +239,13 @@ const UserDetail2 = ({ user, datos }) => {
                             <div className="col-lg-4 col-md-4 col-sm-12">
                                 <p>
                                     <Input
-                                        label="Nombre"
+                                        label="Nombre:"
                                         type="text"
                                         name="nombre"
                                         placeholder=""
                                         register={register}
                                         errors={errors}
-                                        classCol="col-md-8 col-lg-8 d-flex form-group item-form align-items-center gap-2"
+                                        classCol="d-flex form-group item-form align-items-center gap-2"
                                         options={{
                                           required: 'Campo obligatorio'
                                         }}
@@ -255,13 +257,13 @@ const UserDetail2 = ({ user, datos }) => {
                             <div className="col-lg-4 col-md-4 col-sm-12">
                                 <p>
                                     <Input
-                                        label="Apellido"
+                                        label="Apellido:"
                                         type="text"
                                         name="apellido"
                                         placeholder=""
                                         register={register}
                                         errors={errors}
-                                        classCol="col-md-8 col-lg-8 d-flex form-group item-form align-items-center gap-2"
+                                        classCol="d-flex form-group item-form align-items-center gap-2"
                                         options={{
                                           required: 'Campo obligatorio'
                                         }}
@@ -273,13 +275,31 @@ const UserDetail2 = ({ user, datos }) => {
                             <div className="col-lg-4 col-md-4 col-sm-12">
                                 <p>
                                     <Input
-                                        label="Email"
+                                        label="Celular:"
+                                        type="text"
+                                        name="celular"
+                                        placeholder=""
+                                        register={register}
+                                        errors={errors}
+                                        classCol="d-flex form-group item-form align-items-center gap-2"
+                                        options={{}}
+                                        value={userInfo?.celular}
+                                        onChangeInput={onChangeInput}
+                                    />
+                                </p>
+                            </div>
+                        </article>
+                        <article className="row">
+                        <div className="col-lg-4 col-md-4 col-sm-12">
+                                <p>
+                                    <Input
+                                        label="Email:"
                                         type="email"
                                         name="email"
                                         placeholder=""
                                         register={register}
                                         errors={errors}
-                                        classCol="col-md-8 col-lg-8 d-flex form-group item-form align-items-center gap-2"
+                                        classCol="d-flex form-group item-form align-items-center gap-2"
                                         options={{
                                           required: 'Campo obligatorio',
                                           pattern: {
@@ -292,34 +312,16 @@ const UserDetail2 = ({ user, datos }) => {
                                     />
                                 </p>
                             </div>
-                        </article>
-                        <article className="row">
                             <div className="col-lg-4 col-md-4 col-sm-12">
                                 <p>
                                     <Input
-                                        label="Celular"
-                                        type="text"
-                                        name="celular"
-                                        placeholder=""
-                                        register={register}
-                                        errors={errors}
-                                        classCol="col-md-8 col-lg-8 d-flex form-group item-form align-items-center gap-2"
-                                        options={{}}
-                                        value={userInfo?.celular}
-                                        onChangeInput={onChangeInput}
-                                    />
-                                </p>
-                            </div>
-                            <div className="col-lg-4 col-md-4 col-sm-12">
-                                <p>
-                                    <Input
-                                        label="Telefono"
+                                        label="Telefono:"
                                         type="text"
                                         name="telefono"
                                         placeholder=""
                                         register={register}
                                         errors={errors}
-                                        classCol="col-md-8 col-lg-8 d-flex form-group item-form align-items-center gap-2"
+                                        classCol="d-flex form-group item-form align-items-center gap-2"
                                         options={{}}
                                         value={userInfo?.telefono}
                                         onChangeInput={onChangeInput}
@@ -329,13 +331,13 @@ const UserDetail2 = ({ user, datos }) => {
                             <div className="col-lg-4 col-md-4 col-sm-12">
                                 <p>
                                     <Input
-                                        label="Interno"
+                                        label="Interno:"
                                         type="text"
                                         name="interno"
                                         placeholder=""
                                         register={register}
                                         errors={errors}
-                                        classCol="col-md-8 col-lg-8 d-flex form-group item-form align-items-center gap-2"
+                                        classCol="d-flex form-group item-form align-items-center gap-2"
                                         options={{ required: 'Campo obligatorio' }}
                                         value={userInfo?.interno}
                                         onChangeInput={onChangeInput}
@@ -345,15 +347,15 @@ const UserDetail2 = ({ user, datos }) => {
                         </article>
                         <article className="row">
                             <div className="col-lg-4 col-md-4 col-sm-12">
-                                <p>
+                                <p className="d-flex">
+                                    <label htmlFor="" className="user-detail-label d-flex align-items-center">Área:</label>
                                     <Select
-                                        label="Area"
                                         name="sector"
                                         placeholder="Selecciona un área"
                                         optionList={optionListArea}
                                         register={register}
                                         errors={errors}
-                                        classCol="col-md-6 col-lg-6 d-flex align-items-center gap-2"
+                                        classCol="w-100 d-flex align-items-center gap-2 details-select"
                                         options={{ required: 'Campo obligatorio' }}
                                         value={userInfo?.sector}
                                         onChangeInput={onChangeInput}
@@ -361,15 +363,15 @@ const UserDetail2 = ({ user, datos }) => {
                                 </p>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-12">
-                                <p>
+                                <p className="d-flex">
+                                    <label htmlFor="" className="user-detail-label d-flex align-items-center">Sede:</label>
                                     <Select
-                                        label="Sede"
                                         name="sede"
                                         placeholder="Selecciona la sede"
                                         optionList={optionListSede}
                                         register={register}
                                         errors={errors}
-                                        classCol="col-md-6 col-lg-6 d-flex align-items-center gap-2"
+                                        classCol="w-100 d-flex align-items-center gap-2 details-select"
                                         options={{ required: 'Campo obligatorio' }}
                                         value={userInfo?.sede}
                                         onChangeInput={onChangeInput}
@@ -377,15 +379,15 @@ const UserDetail2 = ({ user, datos }) => {
                                 </p>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-12">
-                                <p>
+                                <p className="d-flex">
+                                    <label htmlFor="" className="user-detail-label d-flex align-items-center">Piso:</label>
                                     <Select
-                                        label="Piso"
                                         name="piso"
                                         placeholder="Seleccione el piso"
                                         optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
                                         register={register}
                                         errors={errors}
-                                        classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
+                                        classCol="w-100 d-flex align-items-center gap-2 details-select"
                                         options={{}}
                                         value={userInfo?.piso}
                                         onChangeInput={onChangeInput}
@@ -395,9 +397,9 @@ const UserDetail2 = ({ user, datos }) => {
                         </article>
                         <article className="row">
                             <div className="col-lg-4 col-md-4 col-sm-12">
-                                <p>
+                                <p className="d-flex">
+                                    <label htmlFor="" className="user-detail-label d-flex align-items-center">Perfil:</label>
                                     <Select
-                                        label="Perfil"
                                         name="perfil"
                                         placeholder="Seleccione el perfil"
                                         optionList={
@@ -405,7 +407,7 @@ const UserDetail2 = ({ user, datos }) => {
                                         }
                                         register={register}
                                         errors={errors}
-                                        classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
+                                        classCol="w-100 d-flex align-items-center gap-2 details-select"
                                         options={{ required: 'Campo obligatorio' }}
                                         value={userInfo?.perfil}
                                         onChangeInput={onChangeInput}
@@ -413,24 +415,24 @@ const UserDetail2 = ({ user, datos }) => {
                                 </p>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-12">
-                                <p>
+                                <p className="d-flex">
+                                    <label htmlFor="" className="user-detail-label d-flex align-items-center">Rol:</label>
                                     <Select
-                                        label="Rol"
                                         name="rolUsuario"
                                         placeholder="Seleccione el rol"
                                         optionList={optionListRol}
                                         register={register}
                                         errors={errors}
-                                        classCol="col-md-12 col-lg-12 d-flex align-items-center gap-2"
+                                        classCol="w-100 d-flex align-items-center gap-2 details-select"
                                         value={userInfo?.rolUsuario}
                                         options={{ required: 'Campo obligatorio' }}
                                         onChangeInput={onChangeInput}
                                     />
                                 </p>
                             </div>
-                            <div>
-                                <button onClick={handleCancelEdit}>Cancelar</button>
-                                <button type="submit">Guardar</button>
+                            <div className="d-flex justify-content-end">
+                                <button className="btn-cancelar" onClick={handleCancelEdit}>Cancelar</button>
+                                <button className="btn-aceptar" type="submit">Guardar</button>
                             </div>
                         </article>
                     </form>

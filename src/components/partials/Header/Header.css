@@ -5,10 +5,21 @@
 
 .backgroundTicket {
     background: var(--color-tickets);
-    padding: 1.3rem 2.3rem;
+    padding: 1.3rem 2.3rem 1.3rem 0;
 }
 
 .backgroundTramite {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--celeste);
+    padding: 1.3rem 2.3rem 1.3rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.backgroundTramite-out {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -21,14 +32,6 @@
 
 .navbar {
     width: 100%;
-}
-
-.box-header img {
-    margin-right: 2rem;
-}
-
-.navbar-header img {
-    margin-right: 2rem;
 }
 
 .container-header {
@@ -63,12 +66,13 @@
 
 .menu-nav-h {
     display: flex;
-    margin: 0 3rem 0 0;
+    margin: 0 2.55rem ;
     justify-content: center;
     align-items: center;
     text-decoration: none;
     cursor: pointer;
 }
+
 .header-buttons {
     display: flex;
     justify-content: space-between;
@@ -151,17 +155,6 @@
 
 @media (max-width: 1366px) { 
     
-    .backgroundTramite {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: var(--celeste);
-        padding: 1.3rem 2.3rem;
-        position: relative;
-        z-index: 1;
-    }
-    
     .navbar {
         width: 100%;
     }
@@ -171,7 +164,8 @@
     }
     
     .navbar-header img {
-        margin-right: 2rem;
+        scale: 0.9;
+        margin: 0;
     }
     
     .container-header {
@@ -206,12 +200,13 @@
     
     .menu-nav-h {
         display: flex;
-        margin: 0 3rem 0 0;
+        margin: 0 2.1rem ;
         justify-content: center;
         align-items: center;
         text-decoration: none;
         cursor: pointer;
     }
+
     .header-buttons {
         display: flex;
         justify-content: space-between;

@@ -6,11 +6,9 @@
     text-decoration: none;
     padding: .55rem 1.3rem ;
     border-radius: 20px;
-    margin-bottom: 1rem;
     margin-left: auto;
 }
-.btn-crear-ticket .fa-plus {
-    margin-right: .8rem;
-    width: .9em;
-    height: .9rem;
+
+.btn-crear-usuario {
+    margin-bottom: 1rem;
 }

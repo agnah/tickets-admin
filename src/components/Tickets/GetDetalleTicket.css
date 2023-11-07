@@ -62,9 +62,10 @@
 }
 
 #btn-aceptar {
+    min-width: 100px;
     border-radius: 19px;
     border: none;
-    padding: .5rem 1.5rem;
+    padding: .5rem;
     font-size: 14px;
     font-weight: 600;
     margin: .25rem ;
@@ -78,9 +79,10 @@
 }
 
 #btn-cancelar {
+    min-width: 100px;
     border-radius: 19px;
     border: none;
-    padding: .5rem 1.5rem;
+    padding: .5rem;
     font-size: 14px;
     font-weight: 600;
     margin: .25rem ;
@@ -91,6 +93,10 @@
 #btn-cancelar:hover {
     filter: saturate(1.1);
     filter: brightness(1.1);
+}
+
+.btn-accion {
+    margin-left: .5rem;
 }
 
 .container-left-detalle {
@@ -111,6 +117,41 @@
     margin: .2rem 1rem .2rem 0;
 }
 
+
+.check-prioridad-form {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: .5rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 15px;
+    height: 15px;
+    background-color: #fff;
+    border: 1px solid var(--gris-medio);
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.check-prioridad-form:checked {
+    background-color: var(--celeste);
+    border-color: var(--celeste);
+}
+
+.check-prioridad-form:checked::before {
+    content: url('../../../public/img/check-solid.svg');
+    font-family: "Font Awesome 5 Free";
+    font-size: 7px;
+    position: absolute;
+    top: auto;
+    left: auto;
+    width: 8px;
+    height: 8px;
+}
+
 .pen-edit {
     width: 1.5rem;
     height: 1.5rem;
@@ -129,15 +170,19 @@
     color: var(--gris-medio);
 }
 
+.tecnico-asignado label {
+    margin-right: .5rem;
+    font-size: 16px;
+}
+
 .select-tecnico label {
     margin-right: .5rem;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .select-tecnico select {
     border-radius: 19px;
     border: 1px solid var(--celeste);
-    padding: .3rem .4rem;
     font-size: 14px;
     margin: .25rem .5rem;
     color: var(--celeste);
@@ -161,11 +206,24 @@
 }
 
 .box-derivar {
-    margin-top: .25rem;
-    background: #DCEFF5 0% 0% no-repeat padding-box;
     border-radius: 19px;
-    padding: 1rem;
+    border: none;
+    padding: .5rem 1.5rem;
+    font-size: 14px;
     font-weight: 600;
+    margin: .25rem ;
+    color: white;
+}
+
+.form-control{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-control:focus, .form-control:focus-visible {
+    outline: none;
+    border: none;
+    box-shadow: none;
 }
 
 .detalle-input {
@@ -274,7 +332,7 @@
     }
     
     .item-form {
-        font-size: 12px;
+        font-size: 13px;
         margin: .1rem 1rem .1rem 0;
     }
     
@@ -313,5 +371,17 @@
         overflow: hidden;
         white-space: nowrap;
         position: relative;
+    }
+
+    .acciones-container {
+        flex-direction: column;
+    }
+
+    .btn-accion {
+        margin-left: 0;
+    }
+
+    .state-button {
+        scale: 0.95;
     }
 }

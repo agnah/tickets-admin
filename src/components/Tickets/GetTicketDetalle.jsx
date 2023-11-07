@@ -608,7 +608,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
               </p>
             </div>
             <div className="col-md-6">
-              <p className="d-flex align-items-center item-form">
+              <p className="d-flex align-items-center">
                 <strong className="strong-title">Piso:</strong>{" "}
                 {edit ? (
                   <SelectInput
@@ -705,7 +705,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                     value={ticketInfo.descripcion}
                   />
                 ) : (
-                  <div style={{ height: "100px", overflowY: "scroll" }}>
+                  <div style={{ height: "50px", overflowY: "scroll" }}>
                     {ticketInfo.descripcion}
                   </div>
                 )}
@@ -734,7 +734,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           <p className="strong-title my-2">Historial</p>
           <div className="historial-box">
             <div
-              style={{ height: "200px", overflowY: "scroll" }}
+              style={{ height: "150px", overflowY: "scroll" }}
               className="p-3"
             >
               {historialMensajes.length > 0 &&
@@ -802,45 +802,47 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
             </div>
           </article>
           <article className="col-lg-12 tecnico-asignado" style={showButtons ? {} : disable}>
-            <div className="mb-2">
-              <label className="ms-2">Acciones:</label>
-              <div className="col-md-12 col-lg-12 d-flex m-2 select-derivar">
-                <div
-                  className="form-group item-form"
-                  style={{ minWidth: "150px" }}
-                >
-                  <select
-                    name="derivar"
-                    id="derivar"
-                    className="form-control"
-                    onChange={handleSelectChange}
+            <div className="mb-2 d-flex align-items-center">
+              <label className="ms-2 m-3">Acciones:</label>
+              <div className="acciones-container d-flex">
+                <div className="d-flex select-derivar justify-content-center">
+                  <div
+                    className="form-group d-flex align-items-center"
+                    style={{ minWidth: "100px" }}
                   >
-                    <option value="">Derivar</option>
-                    {optionListSelect.map((area, index) => (
-                      <option value={index + 1}>{area}</option>
-                    ))}
-                  </select>
+                    <select
+                      name="derivar"
+                      id="derivar"
+                      className="form-control"
+                      onChange={handleSelectChange}
+                    >
+                      <option value="">Derivar</option>
+                      {optionListSelect.map((area, index) => (
+                        <option value={index + 1}>{area}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <button
-                  id="btn-cancelar"
-                  onClick={handleAnular}
-                  className="m-2 "
-                  style={{ minWidth: "150px" }}
-                >
-                  Anular
-                </button>
-              </div>
-              <div>
-                <button
-                  id="btn-aceptar"
-                  onClick={handleFinalizar}
-                  className="m-2 "
-                  style={{ minWidth: "150px" }}
-                >
-                  Finalizar
-                </button>
+                <div className="btn-accion">
+                  <button
+                    id="btn-cancelar"
+                    onClick={handleAnular}
+                    className=""
+                    style={{ minWidth: "100px" }}
+                  >
+                    Anular
+                  </button>
+                </div>
+                <div className="btn-accion">
+                  <button
+                    id="btn-aceptar"
+                    onClick={handleFinalizar}
+                    className=""
+                    style={{ minWidth: "100px" }}
+                  >
+                    Finalizar
+                  </button>
+                </div>
               </div>
             </div>
           </article>

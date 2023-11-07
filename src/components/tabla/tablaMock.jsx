@@ -255,7 +255,7 @@ function Tabla () {
               type="button"
               onClick={() => setFiltroAvanzadoVisible(!filtroAvanzadoVisible)}
               texto="Filtro Avanzado"
-              classBoton="btn btn-tickets" />
+              classBoton="btn-filtro" />
           </div>
           <div className="right-elements">
             {/* {user.perfil !== TECNICO
@@ -281,7 +281,7 @@ function Tabla () {
                     <option value=''>Todos</option>
                   </select>
                   )}
-              <img src="public/img/caret-down-solid.svg" className="fa-solid fa-caret-down"></img>
+              <img src="public/img/caret-down-solid.svg" className="fa-solid fa-caret-down-tickets"></img>
             </div>
             {/* )
               : null} */}
@@ -303,7 +303,7 @@ function Tabla () {
                             </option>
                           ))}
                         </select>
-                        <img src='public/img/caret-down-solid.svg' className='fa-solid fa-caret-down' alt='Caret Down' />
+                        <img src='public/img/caret-down-solid.svg' className='fa-solid fa-caret-down-tickets' alt='Caret Down' />
                       </div>
                       )
                     : (
@@ -335,95 +335,114 @@ function Tabla () {
         {filtroAvanzadoVisible && (
           <div className="filtro-avanzado-form">
             <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
-              <InputForm
-                label="Identificador"
-                type="text"
-                name="identificador"
-                placeholder="Ingrese identificador de ticket"
-                register={register}
-                errors={errors}
-                classCol="col-md-4 col-lg-4 form-group item-form"
-                options={{
-                  // required: 'Campo obligatorio'
-                }}
-              />
-              <label for="rangoFechas">Rango de fechas:</label>
-              <InputForm
-                label="Fecha desde"
-                type="date"
-                name="start_date"
-                // placeholder="Desde"
-                register={register}
-                errors={errors}
-                classCol="col-md-4 col-lg-4 form-group item-form"
-                options={{
-                  validate: (value) => validateFecha(value, hasta)
-                }}
-              />
-              <InputForm
-                label="Hasta"
-                type="date"
-                name="end_date"
-                // placeholder="hasta"
-                register={register}
-                errors={errors}
-                classCol="col-md-4 col-lg-4 form-group item-form"
-                options={{
-                  validate: (value) => validateFecha(desde, value)
-                }}
-              />
-              {errors.fechaHasta && <p>{errors.fechaHasta.message}</p>}
-
-              <InputForm
-                label="Area solicitante"
-                type="text"
-                name="area_solicitante"
-                placeholder="Ingrese area solicitante"
-                register={register}
-                errors={errors}
-                classCol="col-md-4 col-lg-4 form-group item-form"
-                options={{
-                  // required: 'Campo obligatorio'
-                }}
-              />
-              <InputForm
-                label="E-mail"
-                type="email"
-                name="email_solicitante"
-                placeholder="Ingrese e-mail"
-                register={register}
-                errors={errors}
-                classCol="col-md-4 col-lg-4 form-group item-form"
-                options={{
-                  // required: 'Campo obligatorio'
-                }}
-              />
-              <InputForm
-                label="Solicitante"
-                type="text"
-                name="nombre_solicitante"
-                placeholder="Ingrese solicitante"
-                register={register}
-                errors={errors}
-                classCol="col-md-4 col-lg-4 form-group item-form"
-                options={{
-                  // required: 'Campo obligatorio'
-                }}
-              />
-              <InputForm
-                label="Descripción"
-                type="text"
-                name="descripcion"
-                placeholder="Ingrese parte de la descripción"
-                register={register}
-                errors={errors}
-                classCol="col-md-4 col-lg-4 form-group item-form"
-                options={{
-                  // required: 'Campo obligatorio'
-                }}
-              />
-              <Button type="submit" onClick={handleFiltrarAvanzado} texto="Aplicar Filtro" classBoton="btn btn-tickets" />
-              <Button type="button" onClick={handleEliminarFiltrarAvanzado} texto="Eliminar Filtro" classBoton="btn btn-tickets" />
+              <div className="col-md-6 col-lg-6 d-flex align-items-center mt-2">
+                <label for="rangoFechas" className="filtro-label">Identificador:</label>
+                <InputForm
+                  type="text"
+                  name="identificador"
+                  placeholder="Ingrese identificador de ticket"
+                  register={register}
+                  errors={errors}
+                  classCol="col-md-8 col-lg-8 form-group item-form"
+                  options={{
+                    // required: 'Campo obligatorio'
+                  }}
+                />
+              </div>
+              <div className="col-md-6 col-lg-6 d-flex align-items-center">
+                <label for="rangoFechas" className="filtro-label">Rango de fechas:</label>
+                <div className="d-flex col-md-8 col-lg-8">
+                  <div className="date-desde">
+                    <label for="rangoFechas" className="date-label">Desde:</label>
+                    <InputForm
+                      type="date"
+                      name="start_date"
+                      // placeholder="Desde"
+                      register={register}
+                      errors={errors}
+                      classCol="form-group item-form"
+                      options={{
+                        validate: (value) => validateFecha(value, hasta)
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <label for="rangoFechas" className="date-label">Hasta:</label>
+                    <InputForm
+                      type="date"
+                      name="end_date"
+                      // placeholder="hasta"
+                      register={register}
+                      errors={errors}
+                      classCol="form-group item-form mx-0"
+                      options={{
+                        validate: (value) => validateFecha(desde, value)
+                      }}
+                    />
+                    {errors.fechaHasta && <p>{errors.fechaHasta.message}</p>}
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-6 d-flex align-items-center mt-2">
+                <label for="rangoFechas" className="filtro-label">Area solicitante:</label>
+                <InputForm
+                  type="text"
+                  name="area_solicitante"
+                  placeholder="Ingrese area solicitante"
+                  register={register}
+                  errors={errors}
+                  classCol="col-md-8 col-lg-8 form-group item-form"
+                  options={{
+                    // required: 'Campo obligatorio'
+                  }}
+                />
+              </div>
+              <div className="col-md-6 col-lg-6 d-flex align-items-center mt-2">
+                <label for="rangoFechas" className="filtro-label">E-mail:</label>
+                <InputForm
+                  type="email"
+                  name="email_solicitante"
+                  placeholder="Ingrese e-mail"
+                  register={register}
+                  errors={errors}
+                  classCol="col-md-8 col-lg-8 form-group item-form"
+                  options={{
+                    // required: 'Campo obligatorio'
+                  }}
+                />
+              </div>
+              <div className="col-md-6 col-lg-6 d-flex align-items-center mt-2">
+                <label for="rangoFechas" className="filtro-label">Solicitante:</label>
+                <InputForm
+                  type="text"
+                  name="nombre_solicitante"
+                  placeholder="Ingrese solicitante"
+                  register={register}
+                  errors={errors}
+                  classCol="col-md-8 col-lg-8 form-group item-form"
+                  options={{
+                    // required: 'Campo obligatorio'
+                  }}
+                />
+              </div>
+              <div className="col-md-6 col-lg-6 d-flex align-items-center mt-2">
+                <label for="rangoFechas" className="filtro-label">Descripción:</label>
+                <InputForm
+                  type="text"
+                  name="descripcion"
+                  placeholder="Ingrese parte de la descripción"
+                  register={register}
+                  errors={errors}
+                  classCol="col-md-8 col-lg-8 form-group item-form justi"
+                  options={{
+                    // required: 'Campo obligatorio'
+                  }}
+                />
+              </div>
+              <div className="col-md-6 col-lg-6 d-flex mt-4">
+              <Button type="submit" onClick={handleFiltrarAvanzado} texto="Aplicar Filtro" classBoton="btn-aceptar" />
+              <Button type="button" onClick={handleEliminarFiltrarAvanzado} texto="Eliminar Filtro" classBoton="btn-cancelar" />
+              </div>
             </form>
           </div>
         )}

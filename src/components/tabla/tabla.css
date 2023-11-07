@@ -6,7 +6,7 @@
     background: var(--color-tickets);
     color: #fff;
     text-decoration: none;
-    padding: .55rem 1.3rem;
+    padding: .4rem 1.3rem;
     border-radius: 20px;
 }
 
@@ -34,7 +34,7 @@
     border-left: 0;
     border-radius: 0 15px 15px 0;
     padding: .4vw 1vw;
-    margin-right: 2rem;
+    margin-right: 1rem;
     color: var(--gris-medio);
     font-size: 1rem;
     width: 18vw;
@@ -76,12 +76,11 @@ select {
     color: var(--gris-medio);
     background: none;
     border-radius: 20px;
-    padding: .4vw 2.5rem .4vw 1vw;
+    padding: .4vw 1.5rem ;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     border: 1px solid var(--gris-medio);
-    margin-right: 1rem;
     position: relative;
     z-index: 2;
 }
@@ -102,12 +101,12 @@ select:disabled {
     border-bottom: none !important;
 }
 
-.fa-caret-down {
+.fa-caret-down-tickets {
     width: .7em;
     height: .7rem;
     color: var(--gris-medio);
     position: relative;
-    right: 2.5vw;
+    right: 2vw;
     bottom: .1rem;
 }
 
@@ -214,11 +213,70 @@ option {
     border: none !important;
 }
 
+.btn-filtro {
+    display: flex;
+    align-items: center;
+    background: var(--color-tickets);
+    color: #fff;
+    text-decoration: none;
+    padding: .4rem 1.3rem;
+    border-radius: 20px;
+    border: none;
+}
+
+.filtro-label {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-tickets);
+    margin-right: 1rem;
+}
+
+.date-label {
+    font-weight: 500;
+    font-size: .8rem;
+    color: var(--gris-oscuro);
+    position: relative;
+    top: .4rem;
+}
+
+.btn-aceptar {
+    min-width: 100px;
+    border-radius: 19px;
+    border: none;
+    padding: .5rem 1.3rem;
+    font-size: 14px;
+    font-weight: 600;
+    margin: .25rem ;
+    background-color: var(--color-tickets);
+    color: white;
+}
+
+.btn-cancelar {
+    min-width: 100px;
+    border-radius: 19px;
+    border: none;
+    padding: .5rem 1.3rem;
+    font-size: 14px;
+    font-weight: 600;
+    margin: .25rem ;
+    background-color: var(--color-danger);
+    color: white;
+}
+
+.btn-aceptar:hover, .btn-cancelar:hover {
+    filter: saturate(1.1);
+    filter: brightness(1.1);
+}
+
+.date-desde{
+    margin-right: 1rem;
+}
+
 @media (max-width: 1366px) {
-    .fa-caret-down {
+    .fa-caret-down-tickets {
         width: .7em;
         height: .7rem;
-        right: 3.2vw;
+        right: 2.3vw;
         bottom: .1rem;
     }
 }

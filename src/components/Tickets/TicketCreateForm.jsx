@@ -119,7 +119,7 @@ const TicketCreateForm = ({ prioridad }) => {
             placeholder=""
             register={register}
             errors={errors}
-            classCol="col-md-3 form-group item-form"
+            classCol="col-4 form-group"
             options={{
               required: 'Campo obligatorio'
             }}
@@ -132,7 +132,7 @@ const TicketCreateForm = ({ prioridad }) => {
             optionList={datalistSolicitante}
             register={register}
             errors={errors}
-            classCol="col-md-4 col-lg-4 align-items-start datalist-input"
+            classCol="col-4 align-items-start "
             options={{
               required: 'Campo obligatorio',
               pattern: {
@@ -148,7 +148,7 @@ const TicketCreateForm = ({ prioridad }) => {
             placeholder=""
             register={register}
             errors={errors}
-            classCol="col-md-2 col-lg-2 form-group item-form"
+            classCol="col-2 form-group"
             inputMode="tel"
             options={{
               required: 'Campo obligatorio'
@@ -161,7 +161,7 @@ const TicketCreateForm = ({ prioridad }) => {
             placeholder=""
             register={register}
             errors={''}
-            classCol="col-2 form-group item-form"
+            classCol="col-2 form-group"
           />
         </div>
         <div className="col-12 d-flex justify-content-between">
@@ -172,7 +172,7 @@ const TicketCreateForm = ({ prioridad }) => {
             optionList={sedes}
             register={register}
             errors={errors}
-            classCol="col-md-4 align-items-start"
+            classCol="col-3 align-items-start mt-2"
             options={{
               required: 'Campo obligatorio'
             }}
@@ -184,7 +184,7 @@ const TicketCreateForm = ({ prioridad }) => {
             optionList={optionListAreaSolicitante}
             register={register}
             errors={errors}
-            classCol="col-md-4 align-items-start"
+            classCol="col-4 align-items-start mt-2"
             options={{
               required: 'Campo obligatorio'
             }}
@@ -196,7 +196,7 @@ const TicketCreateForm = ({ prioridad }) => {
             optionList={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
             register={register}
             errors={errors}
-            classCol="col-1 align-items-start"
+            classCol="col-2 align-items-start mt-2"
             options={{
               required: 'Campo obligatorio'
             }}
@@ -208,7 +208,7 @@ const TicketCreateForm = ({ prioridad }) => {
             placeholder=""
             register={register}
             errors={''}
-            classCol="col-3 form-group item-form"
+            classCol="col-3 form-group mt-2"
           />
         </div>
 
@@ -220,7 +220,7 @@ const TicketCreateForm = ({ prioridad }) => {
             rows="20"
             register={register}
             errors={errors}
-            classCol="col-6 form-group item-form"
+            classCol="col-6 form-group"
             options={{
               required: 'Campo obligatorio'
             }}
@@ -235,7 +235,7 @@ const TicketCreateForm = ({ prioridad }) => {
                 optionList={optionListSelect}
                 register={register}
                 errors={errors}
-                classCol="align-items-start col-md-4 col-lg-4 form-group item-form"
+                classCol="align-items-start col-3 form-group"
                 options={{
                   required: 'Campo obligatorio'
                 }}
@@ -248,13 +248,13 @@ const TicketCreateForm = ({ prioridad }) => {
                 optionList={optionListSelect}
                 register={register}
                 errors={''}
-                classCol="align-items-start col-md-4 col-lg-4 form-group item-form"
+                classCol="align-items-start col-3 form-group"
                 selectedOption={user.sector.toUpperCase()}
                 onChangeInput={''}
                 isDisable={true}
               />
             )}
-          <div className="form-create-prioridad col-1">
+          <div className="form-create-prioridad col-2 mt-2">
             <input
               className="check-prioridad-form"
               type="checkbox"

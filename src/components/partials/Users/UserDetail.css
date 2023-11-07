@@ -1,0 +1,76 @@
+.user-details-container {
+    position: relative;
+}
+
+.fa-edit-details {
+    width:1.5rem;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+}
+
+.detalle-input {
+    color: var(--gris-medio);
+    border: 1px solid var(--hr-color);
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: .25rem 2.5rem .25rem .8rem;
+}
+
+.detalle-input:focus-visible {
+    outline: none;
+    border-color: var(--celeste);
+    box-shadow: 0 0 0 0.1rem rgba(94, 178, 203, 0.25);
+}
+
+.label-container {
+    font-weight: 600;
+}
+
+.user-detail-label {
+    font-weight: 600;
+    margin-right: 1rem;
+}
+
+.btn-aceptar {
+    min-width: 100px;
+    border-radius: 19px;
+    border: none;
+    padding: .5rem 1.3rem;
+    font-size: 14px;
+    font-weight: 600;
+    margin: .25rem ;
+    background-color: var(--color-tickets);
+    color: white;
+}
+
+.btn-cancelar {
+    min-width: 100px;
+    border-radius: 19px;
+    border: none;
+    padding: .5rem 1.3rem;
+    font-size: 14px;
+    font-weight: 600;
+    margin: .25rem ;
+    background-color: var(--color-danger);
+    color: white;
+}
+
+.btn-aceptar:hover, .btn-cancelar:hover {
+    filter: saturate(1.1);
+    filter: brightness(1.1);
+}
+
+.details-select label{
+    display: none;
+}
+
+.fa-caret-down {
+    width: .7em;
+    height: .7rem;
+    color: var(--gris-medio);
+    position: relative;
+    right: 2vw;
+    bottom: .1rem;
+}

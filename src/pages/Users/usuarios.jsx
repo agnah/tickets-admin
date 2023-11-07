@@ -43,12 +43,14 @@ function Usuarios () {
   }, [])
 
   return (
-    <Tablero title="Usuarios" classTitle="text-center">
+    <Tablero title="Usuarios" classTitle="text-center" page="/">
       {user.rolUsuario !== LECTOR && (
-        <Link to='/usuarios/create' className='btn-crear-ticket'>
-          <img src="public/img/plus-solid.svg" className="fa-solid fa-plus"></img>
-          Nuevo Usuario
-        </Link>
+        <div className="d-flex justify-content-start">
+          <Link to='/usuarios/create' className='btn-crear-ticket btn-crear-usuario'>
+            <img src="public/img/plus-solid.svg" className="fa-solid fa-plus"></img>
+            Nuevo Usuario
+          </Link>
+        </div>
       )}
       {loading
         ? (

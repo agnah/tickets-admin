@@ -56,7 +56,7 @@ const HeaderLogged = (props) => {
       <nav className="navbar-header" role="navigation">
         {!props.showNav && (
           <a
-            className="menu-nav-h"
+            className="menu-nav-h d-flex justify-content-center"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
             data-bs-original-title="Icon-only"
@@ -72,7 +72,7 @@ const HeaderLogged = (props) => {
             <span className="visually-hidden">Icon-only</span>
           </a>
         )}
-        <div className="container-header">
+        <div className="container-header mx-4">
           <div>
             <div className="navbar-header">
               <a
@@ -85,7 +85,7 @@ const HeaderLogged = (props) => {
                   height={55}
                 />
 
-                <img alt="CAI" src="/img/CAI.svg" height={40} />
+                <img alt="CAI" src="/img/CAI.svg" height={40} className="mx-3"/>
               </a>
             </div>
           </div>

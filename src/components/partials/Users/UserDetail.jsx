@@ -387,8 +387,8 @@ const UserDetail = ({ user, datos }) => {
               </p>
             </div>
             <div>
-              <button onClick={handleCancelEdit}>Cancelar</button>
-              <button type="submit">Guardar</button>
+              <button className="btn-cancelar" onClick={handleCancelEdit}>Cancelar</button>
+              <button className="btn-aceptar" type="submit">Guardar</button>
             </div>
           </article>
         </form>

@@ -12,7 +12,7 @@ const Tablero = ({ children, title, classTitle = '', page = '', showPrioridad = 
   }
   return (
     <article className="tablero mx-0">
-      <div className={classTitle}>
+      <div className={`d-flex align-items-center justify-content-between ${classTitle}`}>
         <div className='d-flex'>
           <h5 className={classTitle}>{title}</h5>
           { props?.state && <Badge classes="state-button" text={props.state} ticketEstado={props.state}/> }

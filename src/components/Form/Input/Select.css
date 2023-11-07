@@ -13,7 +13,7 @@
     height: .7rem;
     color: var(--gris-medio);
     position: relative;
-    right: 2.5vw;
+    right: 2vw;
     bottom: .1rem;
 }
 
@@ -21,7 +21,7 @@
     .fa-caret-down {
         width: .7em;
         height: .7rem;
-        right: 3.2vw;
+        right: 1.5vw;
         bottom: .1rem;
     }
 }

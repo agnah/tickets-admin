@@ -128,7 +128,7 @@
     }
 
     .menu-bars {
-        width: 1.5rem;
+        scale: .9;
     }
     
     .circle-item-tramite{
