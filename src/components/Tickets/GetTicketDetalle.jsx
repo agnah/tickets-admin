@@ -465,11 +465,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   return (
     <section
       className="row"
-      style={
-        ticketInfo.estado == "anulado" || ticketInfo.estado == "finalizado"
-          ? disable
-          : {}
-      }
     >
       <article className="col-md-7 position-relative container-left-detalle">
         <form
@@ -477,6 +472,11 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           noValidate
           autoComplete="off"
           className="d-flex flex-column"
+          style={
+            ticketInfo.estado == "anulado" || ticketInfo.estado == "finalizado"
+              ? disable
+              : {}
+          }
         >
           <div className="row">
             <div className="col-md-6">
@@ -755,7 +755,11 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                 ))}
             </div>
             <div className="w-100 p-2 input-box">
-              <form onSubmit={handleSubmitMessage} className="d-flex gap-2">
+              <form onSubmit={handleSubmitMessage} className="d-flex gap-2" style={
+            ticketInfo.estado == "anulado" || ticketInfo.estado == "finalizado"
+              ? disable
+              : {}
+          }>
                 <input
                   type="text"
                   name="info"
@@ -768,9 +772,13 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           </div>
         </div>
       </article>
-      <article className="col-md-5">
+      <article className="col-md-5" style={
+            ticketInfo.estado == "anulado" || ticketInfo.estado == "finalizado"
+              ? disable
+              : {}
+          }>
         <section className="row px-2">
-          <article className="col-lg-12 tecnico-asignado">
+          <article className="col-lg-12 tecnico-asignado" style={user.sector !== "gde" ? {} : disable }>
             <div className="d-flex align-items-center ms-2 select-tecnico">
               <label htmlFor="tecnico_asignado">Asignar Técnico:</label>
               <div className="form-group item-form">
@@ -805,7 +813,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           <article className="col-lg-12 tecnico-asignado" style={showButtons ? {} : disable}>
             <div className="mb-2">
               <label className="ms-2">Acciones:</label>
-              <div className="col-md-12 col-lg-12 d-flex m-2 select-derivar">
+              <div className="col-md-12 col-lg-12 d-flex m-2 select-derivar" style={user.sector !== "gde" ? {} : disable }>
                 <div
                   className="form-group item-form"
                   style={{ minWidth: "150px" }}
@@ -847,7 +855,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           </article>
         </section>
 
-        <section style={ticketInfo.tecnico_asignado_id === null ? disable : {}}>
+        <section style={ticketInfo.tecnico_asignado_id === null ||  user.sector == "gde" ? disable : {}}>
           <article>
             <div>
               <SelectTarea

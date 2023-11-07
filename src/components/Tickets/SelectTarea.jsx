@@ -28,7 +28,6 @@ function SelectTarea({
   const handleSelectChange = (selected) => {
     console.log('TICKETS TAREA => ',ticketTareas);
     let exists = ticketTareas.filter(tarea => tarea.id == selected[0]?.id)
-    
     if (exists.length > 0) {
        alert('La tarea ya fue seleccionada.')
     } else {
