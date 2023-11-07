@@ -26,7 +26,14 @@ function SelectTarea({
   }, [ticketTareas]);
 
   const handleSelectChange = (selected) => {
-    setSelectedOptions(selected);
+    console.log('TICKETS TAREA => ',ticketTareas);
+    let exists = ticketTareas.filter(tarea => tarea.id == selected[0]?.id)
+    
+    if (exists.length > 0) {
+       alert('La tarea ya fue seleccionada.')
+    } else {
+      setSelectedOptions(selected);
+    }
   };
 
   const handleSaveSelection = () => {
