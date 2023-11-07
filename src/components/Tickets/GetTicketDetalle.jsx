@@ -231,7 +231,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       tecnico_asignado_id: null,
       descripcion: updateTicket.descripcion,
       tecnico_asignado_id: updateTicket.tecnico_asignado_id,
-      // archivos: ticketInfo.solicitante
+      estado: updateTicket.estado
     };
 
     let response = await fetch(
@@ -277,10 +277,11 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         `Esta seguro que desea asignar al tecnico ${nombre_tecnico}?`
       );
       if (respuesta) {
-        setTicketInfo({ ...ticketInfo, tecnico_asignado_id: e.target.value });
+        setTicketInfo({ ...ticketInfo, tecnico_asignado_id: e.target.value, estado: 'en_curso' });
         ticket_update_info = {
           ...ticketInfo,
           tecnico_asignado_id: e.target.value,
+          estado: 'en_curso'
         };
         let tecnico = tecnicos.find((tecnico) => (tecnico.id = e.target.value));
         setHistorialMensajes([
@@ -464,11 +465,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   return (
     <section
       className="row"
-      style={
-        ticketInfo.estado == "anulado" || ticketInfo.estado == "finalizado"
-          ? disable
-          : {}
-      }
     >
       <article className="col-md-7 position-relative container-left-detalle">
         <form
@@ -476,6 +472,11 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           noValidate
           autoComplete="off"
           className="d-flex flex-column"
+          style={
+            ticketInfo.estado == "anulado" || ticketInfo.estado == "finalizado"
+              ? disable
+              : {}
+          }
         >
           <div className="row">
             <div className="col-md-6">
@@ -754,7 +755,11 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                 ))}
             </div>
             <div className="w-100 p-2 input-box">
-              <form onSubmit={handleSubmitMessage} className="d-flex gap-2">
+              <form onSubmit={handleSubmitMessage} className="d-flex gap-2" style={
+            ticketInfo.estado == "anulado" || ticketInfo.estado == "finalizado"
+              ? disable
+              : {}
+          }>
                 <input
                   type="text"
                   name="info"
@@ -767,9 +772,13 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           </div>
         </div>
       </article>
-      <article className="col-md-5">
+      <article className="col-md-5" style={
+            ticketInfo.estado == "anulado" || ticketInfo.estado == "finalizado"
+              ? disable
+              : {}
+          }>
         <section className="row px-2">
-          <article className="col-lg-12 tecnico-asignado">
+          <article className="col-lg-12 tecnico-asignado" style={user.sector !== "gde" ? {} : disable }>
             <div className="d-flex align-items-center ms-2 select-tecnico">
               <label htmlFor="tecnico_asignado">Asignar Técnico:</label>
               <div className="form-group item-form">
@@ -805,7 +814,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
             <div className="mb-2 d-flex align-items-center">
               <label className="ms-2 m-3">Acciones:</label>
               <div className="acciones-container d-flex">
-                <div className="d-flex select-derivar justify-content-center">
+                <div className="d-flex select-derivar justify-content-center" style={user.sector !== "gde" ? {} : disable }>
                   <div
                     className="form-group d-flex align-items-center"
                     style={{ minWidth: "100px" }}
@@ -848,7 +857,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           </article>
         </section>
 
-        <section style={ticketInfo.tecnico_asignado_id === null ? disable : {}}>
+        <section style={ticketInfo.tecnico_asignado_id === null ||  user.sector == "gde" ? disable : {}}>
           <article>
             <div>
               <SelectTarea
