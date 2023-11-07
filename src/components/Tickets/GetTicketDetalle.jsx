@@ -156,6 +156,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   };
 
   const getTecnicos = async (id_area) => {
+    setTecnicos([]);
     let response = await fetch(`http://localhost:8000/api/usuario/${id_area}`, {
       headers: {
         "Content-Type": "application/json",
@@ -163,6 +164,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     });
     let tecnicos_por_area = await response.json();
     setTecnicos(tecnicos_por_area);
+    console.log(tecnicos_por_area);
   };
 
   const getTareasPorArea = async (id_area) => {
@@ -290,6 +292,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           ...historialMensajes,
         ]);
         updateTicket(ticket_update_info);
+        getTecnicos(ticketInfo.area_asignada_id);
       } else {
         e.target.value = ticketInfo.tecnico_asignado_id || "";
       }
