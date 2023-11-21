@@ -8,7 +8,7 @@ import solicitantes from '../../../public/assets/solicitantes.json'
 import TextArea from '@components/Form/Input/TextArea'
 import { useNavigate } from 'react-router'
 import useAuth from '@servicios/UseAuth'
-import DragAndDrop from '../Form/dragAndDrop'
+// import DragAndDrop from '../Form/dragAndDrop'
 import SelectWithOption from '../Form/Input/SelectWithOption'
 import './TicketCreateForm.css'
 
@@ -34,7 +34,7 @@ const TicketCreateForm = ({ prioridad }) => {
   const [show, setShow] = useState(false)
   const [message, setMessage] = useState('')
   const { user } = useAuth()
-  const dragAndDropRef = useRef(null)
+  // const dragAndDropRef = useRef(null)
   const {
     register,
     handleSubmit,
@@ -229,9 +229,9 @@ const TicketCreateForm = ({ prioridad }) => {
           {user.sector.includes('gde')
             ? (
               <Select
-                label="Área Asignada"
+                label="Sector Asignado"
                 name="area_asignada"
-                placeholder="Selecciona un área"
+                placeholder="Selecciona un sector"
                 optionList={optionListSelect}
                 register={register}
                 errors={errors}
@@ -240,7 +240,7 @@ const TicketCreateForm = ({ prioridad }) => {
                   required: 'Campo obligatorio'
                 }}
               />
-            )
+              )
             : (
               <SelectWithOption
                 label="Sector"
@@ -253,7 +253,7 @@ const TicketCreateForm = ({ prioridad }) => {
                 onChangeInput={''}
                 isDisable={true}
               />
-            )}
+              )}
           <div className="form-create-prioridad col-2 mt-2">
             <input
               className="check-prioridad-form"
