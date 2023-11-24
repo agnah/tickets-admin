@@ -53,7 +53,8 @@ function NavDashboard () {
                   isAllowed={
                     user.perfil === TECNICO ||
                     user.perfil === ADMINISTRADOR ||
-                    user.perfil === ADMINISTRATIVO
+                    user.perfil === ADMINISTRATIVO ||
+                    user.perfil === SUPERADMIN
                   }
                 />
               }>

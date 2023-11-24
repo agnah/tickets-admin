@@ -1,5 +1,5 @@
 export const perfil = {
-  SUPERADMIN: 'superadmin',
+  SUPERADMIN: 'superAdmin',
   ADMINISTRADOR: 'administrador', // jefe de area
   TECNICO: 'tecnico',
   ADMINISTRATIVO: 'administrativo' // mesa de entrada

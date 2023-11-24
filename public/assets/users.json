@@ -54,13 +54,9 @@
         "apellido": "SuperAdmin",
         "email": "superAdmin",
         "password": "Prueba@123",
-        "perfil": [
-            "superAdmin"
-        ],
-        "sector": [
-            "ged"
-        ],
-        "rolUsuario": "admin",
+        "perfil": "superAdmin",
+        "sector": "ged",
+        "rolUsuario": "dios",
         "estadoUsuario": "activo"
     },
     {

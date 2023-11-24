@@ -64,8 +64,8 @@ function Tabla () {
     }
     return true
   }
-  const desde = watch('fechaInicio')
-  const hasta = watch('fechaHasta')
+  const desde = watch('fechaInicio') || ''
+  const hasta = watch('fechaHasta') || ''
 
   const onSubmit = (formData) => {
     console.log('formdata', formData)
@@ -440,8 +440,8 @@ function Tabla () {
                 />
               </div>
               <div className="col-md-6 col-lg-6 d-flex mt-4">
-              <Button type="submit" onClick={handleFiltrarAvanzado} texto="Aplicar Filtro" classBoton="btn-aceptar" />
-              <Button type="button" onClick={handleEliminarFiltrarAvanzado} texto="Eliminar Filtro" classBoton="btn-cancelar" />
+                <Button type="submit" onClick={handleFiltrarAvanzado} texto="Aplicar Filtro" classBoton="btn-aceptar" />
+                <Button type="button" onClick={handleEliminarFiltrarAvanzado} texto="Eliminar Filtro" classBoton="btn-cancelar" />
               </div>
             </form>
           </div>
