@@ -49,17 +49,14 @@
     },
     {
         "id": 6,
-        "nombre": "Terry Rodriguez",
-        "apellido": "cid",
-        "email": "cidResponsableAdmin",
+        "token": "ghi-567",
+        "nombre": "Terry",
+        "apellido": "SuperAdmin",
+        "email": "superAdmin",
         "password": "Prueba@123",
-        "perfil": [
-            "responsable"
-        ],
-        "sector": [
-            "cid"
-        ],
-        "rolUsuario": "admin",
+        "perfil": "superAdmin",
+        "sector": "ged",
+        "rolUsuario": "dios",
         "estadoUsuario": "activo"
     },
     {

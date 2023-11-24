@@ -30,10 +30,10 @@ function Usuarios () {
   useEffect(() => {
     FetchGeneral(url)
       .then((datos) => {
-        const datosPerfil = (user.perfil === SUPERADMIN)
-          ? datos
-          : datos.filter(usuarios => areaMapping[usuarios?.area_id
-          ] === user.sector)
+        let datosPerfil = datos
+        if (user.perfil !== SUPERADMIN) {
+          datosPerfil = datos.filter((usuario) => areaMapping[usuario?.area_id] === user.sector)
+        }
         setDatos(datosPerfil)
         setLoading(false)
       })

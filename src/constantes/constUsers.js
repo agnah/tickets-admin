@@ -1,8 +1,8 @@
 export const perfil = {
-  SUPERADMIN: 'superadmin',
-  ADMINISTRADOR: 'administrador',
+  SUPERADMIN: 'superAdmin',
+  ADMINISTRADOR: 'administrador', // jefe de area
   TECNICO: 'tecnico',
-  ADMINISTRATIVO: 'administrativo'
+  ADMINISTRATIVO: 'administrativo' // mesa de entrada
 }
 
 export const rolUsuario = {

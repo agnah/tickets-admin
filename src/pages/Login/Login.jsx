@@ -17,6 +17,7 @@ const Login = () => {
                   <span className="d-block mb-2">computosAdministrador</span>
                   <span className="d-block mb-2">computosTecnicoEditor</span>
                   <span className="d-block mb-2">computosTecnicoLector</span>
+                  <span className="d-block mb-2">superAdmin</span>
                 </div>
                 <div className="col-md-6">
                 </div>
