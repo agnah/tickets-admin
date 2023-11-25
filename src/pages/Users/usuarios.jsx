@@ -43,7 +43,7 @@ function Usuarios () {
   }, [])
 
   return (
-    <Tablero title="Usuarios" classTitle="text-center" page="/">
+    <Tablero title="Usuarios" classTitle="text-center" page="Inicio / Usuarios">
       {user.rolUsuario !== LECTOR && (
         <div className="d-flex justify-content-start">
           <Link to='/usuarios/create' className='btn-crear-ticket btn-crear-usuario'>
