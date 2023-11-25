@@ -70,7 +70,7 @@ const TicketCreateForm = ({ prioridad }) => {
       descripcion: formData.motivo
       // archivos: images,
     }
-    console.log(body)
+    
     const response = await fetch('http://localhost:8000/api/tickets', {
       method: 'POST',
       body: JSON.stringify(body),
