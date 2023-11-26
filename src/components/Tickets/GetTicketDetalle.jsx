@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import Button from '../partials/Button/Button'
 // import Select from 'react-select'
 // import ButtonEdit from '../partials/Button/ButtonEdit'
@@ -93,13 +93,22 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
   const [historialMensajes, setHistorialMensajes] = useState([]);
   const [tecnicos, setTecnicos] = useState([]);
   const [tareas, setTareas] = useState([]);
+  const historialRef = useRef()
   // const [showButtons, setShowButtons] = useState(false);
 
   useEffect(() => {
     getTecnicos(ticketInfo.area_asignada_id);
     getTareasPorArea(ticketInfo.area_asignada_id);
     getHistorial(ticketInfo.id);
+    historialRef.current.scrollTop = historialRef.current.scrollHeight;
   }, []);
+
+  useEffect(() => {  
+    if (historialRef.current) {
+      historialRef.current.scrollTop = historialRef.current.scrollHeight;
+    }
+  },[historialRef]
+  )
 
   useEffect(() => {
     let tareas_restantes = ticketTareas.filter(
@@ -128,7 +137,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     });
     let tecnicos_por_area = await response.json();
     setTecnicos(tecnicos_por_area);
-    console.log(tecnicos_por_area);
   };
 
   const getTareasPorArea = async (id_area) => {
@@ -181,6 +189,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     result?.detail?.error
       ? setHistorialMensajes([])
       : setHistorialMensajes(result);
+    
   };
 
   const updateTicket = async (updateTicket) => {
@@ -427,6 +436,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     );
     let result = await response.json();
     setHistorialMensajes(result)
+    historialRef.current.scrollTop = historialRef.current.scrollHeight;
   };
 
   return (
@@ -710,6 +720,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
             <p className="strong-title my-2">Historial</p>
             <div className="historial-box">
               <div
+                ref={historialRef}
                 style={{ height: "150px", overflowY: "scroll" }}
                 className="p-3"
               >
