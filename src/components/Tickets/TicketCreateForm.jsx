@@ -52,7 +52,6 @@ const TicketCreateForm = ({ prioridad }) => {
       formData.area_asignada =
         optionListSelect.indexOf(user.sector.toUpperCase()) + 1
     }
-    console.log(formData)
     // let images = dragAndDropData.map((image) => image.name).join(";");
     const body = {
       email_solicitante: formData.email,
@@ -67,15 +66,18 @@ const TicketCreateForm = ({ prioridad }) => {
       area_asignada_id: Number(formData.area_asignada),
       prioridad: formData.prioridad ? 'alta' : 'baja',
       estado: 'pendiente',
-      descripcion: formData.motivo
+      descripcion: formData.motivo,
+      nro_gde: formData.gde
       // archivos: images,
     }
-    
+    console.log(JSON.stringify(body));
     const response = await fetch('http://localhost:8000/api/tickets', {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "X-Tipo": 'TICKET',
+        "X-Usuario": 1
       }
     })
     const result = await response.json()

@@ -14,7 +14,6 @@ import "./GetDetalleTicket.css";
 import { useNavigate } from "react-router-dom";
 import Badge from "../partials/Button/Badge";
 
-const datalistSolicitante = solicitantes.map((s) => s.nombre);
 const optionListSelect = [
   "COMPUTOS",
   "TELEFONIA",
@@ -27,44 +26,6 @@ const optionListAreaSolicitante = [
   "RRHH",
   "CONTABILIDAD",
   "LEGALES",
-];
-const sedes = ["NUEVE_DE_JULIO", "ANEXO1", "ANEXO2", "ANEXO3"];
-const historial = [
-  {
-    area: "CSTIMI",
-    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
-    date: "04 Ago. 2023, 17:30 hs",
-  },
-  {
-    area: "GDE",
-    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
-    date: "04 Ago. 2023, 17:30 hs",
-  },
-  {
-    area: "CSTIMI",
-    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
-    date: "04 Ago. 2023, 17:30 hs",
-  },
-  {
-    area: "Computos",
-    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
-    date: "04 Ago. 2023, 17:30 hs",
-  },
-  {
-    area: "Computos",
-    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
-    date: "04 Ago. 2023, 17:30 hs",
-  },
-  {
-    area: "CSTIMI",
-    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
-    date: "04 Ago. 2023, 17:30 hs",
-  },
-  {
-    area: "GDE",
-    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui sit non voluptate consequuntur eum corrupti voluptates adipisci eos maiores ut?",
-    date: "04 Ago. 2023, 17:30 hs",
-  },
 ];
 
 function formatearFecha(fecha) {
@@ -119,11 +80,11 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
     piso_solicitante: ticket.piso_solicitante,
     referencia: ticket.referencia,
     prioridad: ticket.prioridad,
-    // pre_tarea: ticket.pre_tarea,
     descripcion: ticket.descripcion,
     tecnico_asignado_id: ticket.tecnico_asignado_id,
     area_asignada_id: ticket.area_asignada_id,
     estado: ticket.estado,
+    nro_gde: ticket.nro_gde,
   });
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
@@ -235,6 +196,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       descripcion: updateTicket.descripcion,
       tecnico_asignado_id: updateTicket.tecnico_asignado_id,
       estado: updateTicket.estado,
+      nro_gde: updateTicket.nro_gde,
     };
 
     let response = await fetch(
@@ -368,6 +330,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       tecnico_asignado_id: ticket.tecnico_asignado_id,
       area_asignada_id: ticket.area_asignada_id,
       estado: ticket.estado,
+      nro_gde: ticket.nro_gde,
     });
     // setSolicitanteEmail(ticket.email);
   };
@@ -453,7 +416,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       }
     );
     let result = await response.json();
-    console.log(result);
   };
 
   return (
@@ -584,7 +546,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                 </p>
               </div>
               <div className="col-md-6">
-                <p className="d-flex align-items-center">
+                <p className="d-flex align-items-center item-form">
                   <strong className="strong-title">Piso:</strong>{" "}
                   {edit ? (
                     <SelectInput
@@ -623,6 +585,31 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                     />
                   ) : (
                     ticketInfo.referencia
+                  )}
+                </p>
+              </div>
+              <div className="col-md-6">
+                <p className="d-flex align-items-center item-form">
+                  <strong className="strong-title">N° GDE:</strong>{" "}
+                  {edit ? (
+                    <>
+                      <InputForm
+                        label=""
+                        type="text"
+                        name="nro_gde"
+                        placeholder=""
+                        register={register}
+                        errors={errors}
+                        classCol="form-group item-form"
+                        options={{
+                          required: "Campo obligatorio",
+                        }}
+                        onChangeInput={onChangeInput}
+                        value={ticketInfo.nro_gde}
+                      />
+                    </>
+                  ) : (
+                    ticketInfo.nro_gde
                   )}
                 </p>
               </div>
@@ -849,11 +836,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
           </section>
 
           <section
-            style={
-              ticketInfo.tecnico_asignado_id === null || user.sector == "gde"
-                ? disable
-                : {}
-            }
+            style={ticketInfo.tecnico_asignado_id === null ? disable : {}}
           >
             <article>
               <div>

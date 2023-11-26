@@ -90,24 +90,24 @@ function SelectTarea({
     setTareaFinalizada(true);
   };
 
-  const handleTaskCompletion = async () => {
-    let response = await finalizarTarea(tareaSelecionado);    
-    if ('id' in response) {
-      setHistorialMensajes([
-        ...historialMensajes,
-        {
-          sector: user.sector.toUpperCase(),
-          mensaje: `El usuario ${user.nombre} finalizo la tarea ${tareaSelecionado.value} <br>
-                Detalle de la tarea: ${textarea.current.value}`,
-          fecha_creacion: "Hace unos minutos...",
-        },
-      ]);
-      let savedTareasCopy = savedTareas.map(tarea => (tarea.id == tareaSelecionado.id ? {...tarea, estado: 'FINALIZADA'} : tarea))
-      setSavedTareas(savedTareasCopy);
-      setTicketTareas(savedTareasCopy)
-    }
-    closeModal();
-  };
+  // const handleTaskCompletion = async () => {
+  //   let response = await finalizarTarea(tareaSelecionado);    
+  //   if ('id' in response) {
+  //     setHistorialMensajes([
+  //       ...historialMensajes,
+  //       {
+  //         sector: user.sector.toUpperCase(),
+  //         mensaje: `El usuario ${user.nombre} finalizo la tarea ${tareaSelecionado.value} <br>
+  //               Detalle de la tarea: ${textarea.current.value}`,
+  //         fecha_creacion: "Hace unos minutos...",
+  //       },
+  //     ]);
+  //     let savedTareasCopy = savedTareas.map(tarea => (tarea.id == tareaSelecionado.id ? {...tarea, estado: 'FINALIZADA'} : tarea))
+  //     setSavedTareas(savedTareasCopy);
+  //     setTicketTareas(savedTareasCopy)
+  //   }
+  //   closeModal();
+  // };
 
   const finalizarTarea = async (tarea) => {
     let response = await fetch(
@@ -217,11 +217,11 @@ function SelectTarea({
       ) : (
         <>
           <div className="d-flex justify-content-end">
-            <Button
+            {/* <Button
               onClick={handleFinishTask}
               classBoton="mx-1 btn-modal finish-tarea"
               texto="Finalizar Tarea"
-            />
+            /> */}
             <Button
               onClick={closeModal}
               classBoton="mx-1 btn-modal cancel-tarea"
