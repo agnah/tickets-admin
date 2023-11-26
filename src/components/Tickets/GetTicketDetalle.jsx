@@ -250,14 +250,14 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
         estado: "en_curso",
       };
       let tecnico = tecnicos.find((tecnico) => (tecnico.id = e.target.value));
-      setHistorialMensajes([
-        ...historialMensajes,
-        {
-          sector: user.sector.toUpperCase(),
-          mensaje: `Se asigno al técnico ${tecnico.nombre}`,
-          fecha_creacion: `Hace unos minutos...`,
-        },
-      ]);
+      saveHistorial({
+        ticket_id: ticketInfo.id,
+        registro_anterior_id: null,
+        area_anterior_id: optionListSelect.indexOf(user.sector.toUpperCase()) + 1,
+        tecnico_anterior_id: ticketInfo.tecnico_asignado_id,
+        notas: `Se asigno al técnico ${tecnico.nombre}`,
+        creado_por_id: user.id,
+      })
       updateTicket(ticket_update_info);
       getTecnicos(ticketInfo.area_asignada_id);
       setMessage(`Se asigno el tecnico ${nombre_tecnico} correctamente`);
@@ -268,16 +268,26 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       // if (respuesta) {
       if (e.target.value != "") {
         setTicketInfo({ ...ticketInfo, area_asignada: e.target.value });
-        setHistorialMensajes([
-          ...historialMensajes,
-          {
-            sector: user.sector[0],
-            mensaje: `El usuario ${user?.nombre} derivo el ticket a ${
-              optionListSelect[e.target.value - 1]
-            }`,
-            fecha_creacion: `Hace unos minutos...`,
-          },
-        ]);
+        saveHistorial({
+          ticket_id: ticketInfo.id,
+          registro_anterior_id: null,
+          area_anterior_id: optionListSelect.indexOf(user.sector.toUpperCase()) + 1,
+          tecnico_anterior_id: ticketInfo.tecnico_asignado_id,
+          notas: `El usuario ${user?.nombre} derivo el ticket a ${
+            optionListSelect[e.target.value - 1]
+          }`,
+          creado_por_id: user.id,
+        })
+        // setHistorialMensajes([
+        //   ...historialMensajes,
+        //   {
+        //     sector: user.sector[0],
+        //     mensaje: `El usuario ${user?.nombre} derivo el ticket a ${
+        //       optionListSelect[e.target.value - 1]
+        //     }`,
+        //     fecha_creacion: `Hace unos minutos...`,
+        //   },
+        // ]);
         derivarTicket(e.target.value);
       }
       // } else {
@@ -297,14 +307,6 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       creado_por_id: user.id,
     };
     saveHistorial(data);
-    setHistorialMensajes([
-      ...historialMensajes,
-      {
-        sector: user.sector.toUpperCase(),
-        mensaje: e.target[0].value,
-        fecha_creacion: `Hace unos minutos...`,
-      },
-    ]);
   };
 
   const handleEdit = () => {
@@ -345,14 +347,22 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       prioridad: data.prioridad ? "alta" : "baja",
     });
     setEdit(!edit);
-    setHistorialMensajes([
-      ...historialMensajes,
-      {
-        sector: user.sector.toUpperCase(),
-        mensaje: `El usuario ${user?.nombre} modifico la información del solicitante`,
-        fecha_creacion: `Hace unos minutos...`,
-      },
-    ]);
+    saveHistorial({
+      ticket_id: ticketInfo.id,
+      registro_anterior_id: null,
+      area_anterior_id: optionListSelect.indexOf(user.sector.toUpperCase()) + 1,
+      tecnico_anterior_id: ticketInfo.tecnico_asignado_id,
+      notas: `El usuario ${user?.nombre} modifico la información del solicitante`,
+      creado_por_id: user.id,
+    })
+    // setHistorialMensajes([
+    //   ...historialMensajes,
+    //   {
+    //     sector: user.sector.toUpperCase(),
+    //     mensaje: `El usuario ${user?.nombre} modifico la información del solicitante`,
+    //     fecha_creacion: `Hace unos minutos...`,
+    //   },
+    // ]);
     setMessage("Se actualizo la información del solicitante correctamente");
     setShow(true);
   };
@@ -416,6 +426,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
       }
     );
     let result = await response.json();
+    setHistorialMensajes(result)
   };
 
   return (
@@ -844,10 +855,12 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                   tareas={tareas}
                   ticketTareas={ticketTareas}
                   ticketId={ticket.id}
+                  ticketInfo={ticketInfo}
                   user={user}
-                  setHistorialMensajes={setHistorialMensajes}
-                  historialMensajes={historialMensajes}
+                  saveHistorial={saveHistorial}
+                  // historialMensajes={historialMensajes}
                   setTicketTareas={setTicketTareas}
+                  optionListSelect={optionListSelect}
                 />
               </div>
             </article>

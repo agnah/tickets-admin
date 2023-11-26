@@ -8,9 +8,10 @@ function SelectTarea({
   ticketTareas,
   ticketId,
   user,
-  setHistorialMensajes,
-  historialMensajes,
-  setTicketTareas
+  saveHistorial,
+  setTicketTareas,
+  ticketInfo,
+  optionListSelect
 }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [savedTareas, setSavedTareas] = useState([]);
@@ -51,14 +52,14 @@ function SelectTarea({
   };
 
   const saveTarea = async (option) => {
-    setHistorialMensajes([
-      ...historialMensajes,
-      {
-        sector: user.sector.toUpperCase(),
-        mensaje: `Se agrego la tarea ${option.value} al ticket`,
-        fecha_creacion: "Hace unos minutos...",
-      },
-    ]);
+    saveHistorial({
+      ticket_id: ticketInfo.id,
+      registro_anterior_id: null,
+      area_anterior_id: optionListSelect.indexOf(user.sector.toUpperCase()) + 1,
+      tecnico_anterior_id: ticketInfo.tecnico_asignado_id,
+      notas: `Se agrego la tarea ${option.value} al ticket`,
+      creado_por_id: user.id,
+    })
     const response = await fetch(
       `http://localhost:8000/api/tickets/${ticketId}/tareas/?tarea=${option.value}`,
       {
@@ -83,12 +84,12 @@ function SelectTarea({
   const closeModal = () => {
     setTareaSeleccionado(null);
     setShowModal(false);
-    setTareaFinalizada(false);
+    // setTareaFinalizada(false);
   };
 
-  const handleFinishTask = () => {
-    setTareaFinalizada(true);
-  };
+  // const handleFinishTask = () => {
+  //   setTareaFinalizada(true);
+  // };
 
   // const handleTaskCompletion = async () => {
   //   let response = await finalizarTarea(tareaSelecionado);    
@@ -109,35 +110,36 @@ function SelectTarea({
   //   closeModal();
   // };
 
-  const finalizarTarea = async (tarea) => {
-    let response = await fetch(
-      `http://localhost:8000/api/tickets/${ticketId}/tareas/${tarea.id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "x-usuario": user.id,
-        },
-      }
-    );
-    const result = await response.json();
-    return result
-  };
+  // const finalizarTarea = async (tarea) => {
+  //   let response = await fetch(
+  //     `http://localhost:8000/api/tickets/${ticketId}/tareas/${tarea.id}`,
+  //     {
+  //       method: "PATCH",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "x-usuario": user.id,
+  //       },
+  //     }
+  //   );
+  //   const result = await response.json();
+  //   return result
+  // };
 
   const handleEliminarTarea = async () => {
+    console.log(tareaSelecionado);
     if (tareaSelecionado) {
       let result = await eliminarTarea(tareaSelecionado)
       let data = await result.json()
       console.log(data);
       if(result.status == '200') {
-        setHistorialMensajes([
-          ...historialMensajes,
-          {
-            sector: user.sector.toUpperCase(),
-            mensaje: `El usuario ${user.nombre} elimino la tarea ${tareaSelecionado.value}`,
-            fecha_creacion: "Hace unos minutos...",
-          },
-        ]);
+        saveHistorial({
+          ticket_id: ticketInfo.id,
+          registro_anterior_id: null,
+          area_anterior_id: optionListSelect.indexOf(user.sector.toUpperCase()) + 1,
+          tecnico_anterior_id: ticketInfo.tecnico_asignado_id,
+          notas: `El usuario ${user.nombre} elimino la tarea ${tareaSelecionado.value}`,
+          creado_por_id: user.id,
+        })
         const updatedTareas = savedTareas.filter(
           (task) => task.id !== tareaSelecionado.id
         );
@@ -155,7 +157,7 @@ function SelectTarea({
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "x-usuario": user.id,
+          "X-Usuario": user.id,
         },
       }
     );
@@ -197,7 +199,7 @@ function SelectTarea({
 
   const renderModalContent = () => (
     <div className="modal-content">
-      {tareaFinalizada ? (
+      {/* {tareaFinalizada ? (
         <>
           <label>Detalle de finalización:</label>
           <textarea className="detalle-fin-tarea" name="detalleFinTarea" ref={textarea}/>
@@ -214,7 +216,7 @@ function SelectTarea({
             />
           </div>
         </>
-      ) : (
+      ) : ( */}
         <>
           <div className="d-flex justify-content-end">
             {/* <Button
@@ -234,7 +236,7 @@ function SelectTarea({
             />
           </div>
         </>
-      )}
+      {/* )} */}
     </div>
   );
 
