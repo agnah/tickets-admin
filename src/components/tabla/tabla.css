@@ -47,7 +47,7 @@
     border-left: 0;
 }
 
-.input-search:focus-visible + .div-icon-search {
+.input-search:focus-visible+.div-icon-search {
     border: 1px solid var(--color-tickets);
 }
 
@@ -76,7 +76,7 @@ select {
     color: var(--gris-medio);
     background: none;
     border-radius: 20px;
-    padding: .4vw 1.5rem ;
+    padding: .4vw 1.5rem;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -89,7 +89,7 @@ select:focus {
     outline: none;
 }
 
-select:disabled + .fa-caret-down {
+select:disabled+.fa-caret-down {
     display: none;
 }
 
@@ -142,8 +142,8 @@ select:disabled {
     right: 0;
     transform: translateY(-50%);
     width: 1px;
-    height: 60%; 
-    background-color: #fff; 
+    height: 60%;
+    background-color: #fff;
 }
 
 .rdt_TableCol:last-child::after {
@@ -200,7 +200,7 @@ select:disabled {
     margin-right: .2rem;
 }
 
-div > select + svg {
+div>select+svg {
     top: auto;
 }
 
@@ -224,13 +224,6 @@ option {
     border: none;
 }
 
-.filtro-label {
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--color-tickets);
-    margin-right: 1rem;
-}
-
 .date-label {
     font-weight: 500;
     font-size: .8rem;
@@ -246,7 +239,7 @@ option {
     padding: .5rem 1.3rem;
     font-size: 14px;
     font-weight: 600;
-    margin: .25rem ;
+    margin: .25rem;
     background-color: var(--color-tickets);
     color: white;
 }
@@ -258,17 +251,18 @@ option {
     padding: .5rem 1.3rem;
     font-size: 14px;
     font-weight: 600;
-    margin: .25rem ;
+    margin: .25rem;
     background-color: var(--color-danger);
     color: white;
 }
 
-.btn-aceptar:hover, .btn-cancelar:hover {
+.btn-aceptar:hover,
+.btn-cancelar:hover {
     filter: saturate(1.1);
     filter: brightness(1.1);
 }
 
-.date-desde{
+.date-desde {
     margin-right: 1rem;
 }
 
@@ -279,4 +273,101 @@ option {
         right: 2.3vw;
         bottom: .1rem;
     }
+}
+
+.rotate-90 {
+    rotate: 90deg;
+    color: #555;
+    cursor: pointer;
+}
+
+.date-format-input {
+    display: relative;
+}
+
+.date-format-input input {
+    border: none !important;
+    color: var(--color-tickets);
+    padding: 0;
+}
+
+.label-dragAndDrop {
+    width: 66.2%;
+    margin-top: .5rem;
+}
+
+.label-dragAndDrop p {
+    margin-bottom: 0;
+}
+
+.detalle-input {
+    color: var(--gris-medio);
+    border-radius: 10px;
+    border: 1px solid var(--hr-color);
+    padding: .25rem .8rem;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.detalle-input:focus,
+.detalle-input:focus-visible {
+    outline: none;
+    border-color: var(--celeste);
+    box-shadow: 0 0 0 0.1rem rgba(94, 178, 203, 0.25);
+}
+
+.label-container {
+    margin-bottom: .3rem;
+}
+
+.select-container {
+    margin-bottom: 1rem;
+}
+
+/* .input-conatiner {
+    margin-bottom: 1rem;
+} */
+
+/* .datalist-input {
+    margin-right: 1rem;
+} */
+
+
+
+.text-area {
+    width: 100%;
+}
+
+
+.filtro-label {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-tickets);
+    margin-right: 1rem;
+}
+
+.filtro-label-rango .label-container .label-form {
+    font-weight: 500;
+    color: #777 !important;
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.filtro-label-rango .label-container {
+    margin-bottom: 0;
+}
+.detalle-input {
+    position: relative;
+}
+.detalle-input[type="date"]::-webkit-calendar-picker-indicator  {
+    min-width: 100% !important;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    /* left: 0; */
+    color: transparent;
+    background: 0 0;
+    margin: 0;
+    opacity: 0;
+    pointer-events: auto;
 }
