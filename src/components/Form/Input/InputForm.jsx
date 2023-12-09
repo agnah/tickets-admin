@@ -7,7 +7,7 @@ const Input = (props) => {
     ? `${classCol} has-error error-border`
     : `${classCol}`
 
-  const placeholderText = isError ? errors[name]?.message : attributes?.onChangeInput
+  const placeholderText = isError ? errors[name]?.message : attributes?.placeholder
 
   return (
     <div className={`input-conatiner ${classes}`}>

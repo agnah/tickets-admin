@@ -23,7 +23,7 @@
 
 .tablero hr {
     margin: 1rem 0 1rem;
-    height: 1px;
+    height: 2px;
     border: none;
     background: var(--hr-color);
 }

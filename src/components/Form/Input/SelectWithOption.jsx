@@ -21,8 +21,8 @@ const SelectWithOption = (props) => {
 
   return (
     <div className={classes}>
-      <label htmlFor={name}>{label}</label>
-      <div className="form-group item-form">
+      <label htmlFor={name} className="label-form">{label}</label>
+      <div className="form-group item-form select-box">
         <select
           name={name}
           {...attributes}

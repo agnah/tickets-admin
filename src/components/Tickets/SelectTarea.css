@@ -2,12 +2,29 @@
     margin-top: .25rem;
 }
 
+.container-tareas p:first-child {
+    font-size: 18px;
+}
+
 .list-tareas {
     border-radius: 9px;
-    padding: .5rem;
+    padding: .6rem;
+    border: 1px solid rgb(120, 120, 120, .6) !important ;
 }
 
 .btn-tareas {
+    border-radius: 50%;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--celeste);
+}
+
+.btn-tareas:hover {
     border-radius: 50%;
     margin-left: 1rem;
     display: flex;

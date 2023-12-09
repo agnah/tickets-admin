@@ -21,9 +21,9 @@
 }
 
 .btn-danger {
-    background-color: #fff;
+    background-color: var(--color-danger);
     border: 2px solid var(--color-danger);
-    color: var(--color-danger);
+    color: #fff;
 }
 
 .btn-success {

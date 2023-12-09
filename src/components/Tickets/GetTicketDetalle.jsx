@@ -487,7 +487,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                         placeholder=""
                         register={register}
                         errors={errors}
-                        classCol="form-group item-form"
+                        classCol="d-flex form-group item-form"
                         options={{
                           required: "Campo obligatorio",
                         }}
@@ -731,7 +731,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                         {mensaje.sector.toUpperCase()}:
                       </span>
                       <p
-                        className="col-7"
+                        className="col-7 historial-text"
                         dangerouslySetInnerHTML={{ __html: mensaje.mensaje }}
                       ></p>
                       <span className="col-3 date-historial d-flex justify-content-end">
@@ -740,7 +740,7 @@ const GetTicketDetalle = ({ ticket, setTicket }) => {
                     </p>
                   ))}
               </div>
-              <div className="w-100 p-2 input-box">
+              <div className="w-100 input-box">
                 <form
                   onSubmit={handleSubmitMessage}
                   className="d-flex gap-2"

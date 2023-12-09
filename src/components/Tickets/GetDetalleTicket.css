@@ -4,18 +4,20 @@
 }
 
 .historial {
-    margin-top: 2rem;
+
     margin-right: 1rem;
 }
 
 .historial-box {
-    border: 1px solid var(--gris-claro);
+    border: 1px solid rgb(120, 120, 120, .6);
     border-radius: 10px;
     font-size: 14px;
+    overflow: hidden;
 }
 
 .historial-box p {
     display: flex;
+    font-size: 15px;
 }
 
 .texto-area {
@@ -23,8 +25,14 @@
     font-weight: 600;
 }
 
+.historial-text {
+    font-weight: 600;
+    color: #777;
+}
+
 .input-box {
-    background-color: var(--bg-gris);
+    background-color: rgb(241,236,236);
+    padding: 1.25rem .8rem;
 }
 
 .input-box input {
@@ -48,6 +56,7 @@
     margin: .25rem;
     background-color: var(--celeste);
     color: white;
+    box-shadow: 3px 3px 5px darkgray;
 }
 
 .input-box button:hover {
@@ -163,21 +172,16 @@
 
 .tecnico-asignado {
     margin-top: .25rem;
-    background: #DCEFF5 0% 0% no-repeat padding-box;
+    background: rgb(241, 236, 236) 0% 0% no-repeat padding-box;
     border-radius: 19px;
     padding: 1rem;
     font-weight: 600;
     color: var(--gris-medio);
 }
 
-.tecnico-asignado label {
+.tecnico-asignado label  {
     margin-right: .5rem;
-    font-size: 16px;
-}
-
-.select-tecnico label {
-    margin-right: .5rem;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .select-tecnico select {
@@ -189,6 +193,7 @@
     font-weight: 600;
     text-align: center;
     cursor: pointer;
+    background-color: #fff;
 }
 
 .select-tecnico select:focus {
@@ -267,6 +272,18 @@
 .date-historial {
     font-size: 12px;
     color: var(--gris-medio);
+}
+
+.container-left-detalle .strong-title {
+    font-size: 20px !important;
+}
+.container-left-detalle .item-form {
+    color: #888;
+    font-size: 18px !important;
+    font-weight: 600;
+}
+.container-left-detalle .item-form .detalle-input{
+    border-color: #888 !important;
 }
 
 .container-left-detalle .label-container {

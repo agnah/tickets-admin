@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
+import useAuth from '@servicios/UseAuth'
 // import { apis } from '@constantes/constApis'
 
 const TicketDetalleService = (id_ticket) => {
+  const { user } = useAuth()
+  console.log(user);
   const [ticket, setTicket] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -14,7 +17,7 @@ const TicketDetalleService = (id_ticket) => {
       {
         headers: {
           'Content-Type': 'application/json',
-          'x-token': 'abc-123'
+          'x-token': user.token
         }
       }
     )

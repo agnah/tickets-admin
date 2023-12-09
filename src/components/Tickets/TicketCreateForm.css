@@ -103,5 +103,9 @@
     font-size: 16px;
     font-weight: 500;
     color: var(--gris-medio);
-    margin-left: 1rem;
+}
+
+.create-form-select-area .detalle-input{
+    border-color: var(--celeste) !important;
+    color:  var(--celeste) !important;
 }
